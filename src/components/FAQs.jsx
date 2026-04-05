@@ -1,0 +1,110 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
+import { Plus, Minus } from 'lucide-react';
+
+const faqs = [
+    {
+        question: "Who Can Book A Personalized Astrology Consultation?",
+        answer: "Anyone seeking clarity in life, career, relationships, business, finances, or personal growth can book a consultation. No prior astrology knowledge is required."
+    },
+    {
+        question: "How Is The Astrology Consultation Conducted?",
+        answer: "Consultations are available in Bengali, Hindi, and English through telephonic sessions, video calls, as well as in-person chamber visits depending on your location and comfort."
+    },
+    {
+        question: "What Details Do I Need To Provide Before The Consultation?",
+        answer: "You need to provide your exact Date of Birth, Time of Birth, and Place of Birth. These precise details are essential to cast an accurate birth chart (Kundali) for detailed predictions."
+    },
+    {
+        question: "How Long Does Each Consultation Session Last?",
+        answer: "Depending on the specific consultation package you choose, a typical session lasts between 40 minutes to 60 minutes, giving enough time to deeply analyze your chart and answer queries."
+    }
+];
+
+export default function FAQs() {
+    const { isDarkMode } = useTheme();
+    const [openIndex, setOpenIndex] = useState(0); // First one open by default
+
+    const toggleFAQ = (index) => {
+        setOpenIndex(openIndex === index ? null : index);
+    };
+
+    return (
+        <section id="faqs" className="py-24 relative overflow-hidden">
+            <div className="container mx-auto px-6 max-w-4xl">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-3xl md:text-5xl font-bold text-center mb-12 font-raleway"
+                    style={{ color: isDarkMode ? '#FFFFFF' : '#111827' }}
+                >
+                    Frequently Asked Questions
+                </motion.h2>
+
+                <div className="flex flex-col gap-4">
+                    {faqs.map((faq, index) => {
+                        const isActive = openIndex === index;
+
+                        return (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className={`border-2 rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${
+                                    isDarkMode
+                                        ? isActive 
+                                            ? 'border-[#D4AF37] bg-[#4B0082]/30 shadow-[#D4AF37]/10' 
+                                            : 'border-[#4B0082] bg-[#121212] hover:border-[#D4AF37]/50'
+                                        : isActive
+                                            ? 'border-[#DC2626] bg-[#FEF9C3] shadow-[#DC2626]/10'
+                                            : 'border-[#FCA5A5] bg-[#FFFFFF] hover:border-[#EF4444]'
+                                }`}
+                            >
+                                <button
+                                    onClick={() => toggleFAQ(index)}
+                                    className="w-full text-left px-6 py-5 md:py-6 flex items-center justify-between gap-4 focus:outline-none"
+                                >
+                                    <span className={`text-base md:text-lg font-bold transition-colors font-raleway ${
+                                        isDarkMode 
+                                            ? isActive ? 'text-[#D4AF37]' : 'text-gray-100 hover:text-white'
+                                            : isActive ? 'text-[#DC2626]' : 'text-gray-800 hover:text-[#DC2626]'
+                                    }`}>
+                                        {faq.question}
+                                    </span>
+                                    <span className={`flex-shrink-0 transition-colors ${
+                                        isDarkMode
+                                            ? isActive ? 'text-[#D4AF37]' : 'text-gray-100'
+                                            : isActive ? 'text-[#DC2626]' : 'text-gray-800'
+                                    }`}>
+                                        {isActive ? <Minus size={24} strokeWidth={3} /> : <Plus size={24} strokeWidth={3} />}
+                                    </span>
+                                </button>
+
+                                <AnimatePresence>
+                                    {isActive && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        >
+                                            <div className={`px-6 pb-6 pt-1 text-sm md:text-base leading-relaxed ${
+                                                isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                                            }`}>
+                                                {faq.answer}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+    );
+}
