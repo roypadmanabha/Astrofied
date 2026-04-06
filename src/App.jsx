@@ -95,13 +95,11 @@ function MainContent() {
               className="w-full md:w-1/2"
             >
               <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
-                <div className="shining-frame">
-                  <img
-                    src={logo}
-                    alt="Astrofied Logo"
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-gold/30 shadow-2xl object-cover"
-                  />
-                </div>
+                <img
+                  src={logo}
+                  alt="Astrofied Logo"
+                  className="w-20 h-20 md:w-24 md:h-24 object-contain filter drop-shadow-xl"
+                />
                 <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
                   Why <span className="text-gold">Astrofied?</span>
                 </h1>

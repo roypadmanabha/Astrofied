@@ -87,13 +87,11 @@ export default function Navbar() {
                     className="flex items-center gap-3 md:gap-4 cursor-pointer"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
-                    <div className="shining-frame">
-                        <img
-                            src={logo}
-                            alt="Astrofied Logo"
-                            className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-gold/30 object-cover"
-                        />
-                    </div>
+                    <img
+                        src={logo}
+                        alt="Astrofied Logo"
+                        className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                    />
                     <span
                         className="text-base md:text-xl font-bold tracking-tighter"
                         style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}

@@ -18,13 +18,11 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 mb-12 md:mb-16">
                     <div className="flex flex-col gap-6">
                         <div className="flex items-center gap-4">
-                            <div className="shining-frame">
-                                <img
-                                    src={logo}
-                                    alt="Astrofied Logo"
-                                    className="w-16 h-16 rounded-full border-2 border-gold/30 object-cover"
-                                />
-                            </div>
+                            <img
+                                src={logo}
+                                alt="Astrofied Logo"
+                                className="w-16 h-16 object-contain"
+                            />
                             <h4
                                 className="text-lg md:text-xl lg:text-2xl font-bold"
                                 style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}

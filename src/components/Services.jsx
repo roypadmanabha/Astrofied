@@ -23,7 +23,7 @@ const services = [
     },
     {
         id: 3,
-        title: 'Matchmaking',
+        title: 'Horoscope Matching',
         desc: 'Vedic Kundali matching for a prosperous married life.',
         price: '₹ 8500',
         duration: '60 Min',
@@ -119,7 +119,7 @@ export default function Services() {
                                 {service.desc}
                             </p>
 
-                            <button 
+                            <button
                                 onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20appointment%20for%20an%20online%20consultation%20with%20Astrofied.%20Please%20guide%20me%20through%20the%20process%20of%20sending%20my%20birth%20details%20and%20completing%20the%20payment.', '_blank')}
                                 className="flex items-center gap-2 text-[#F25A29] font-bold hover:text-[#D14A1F] transition-colors group/btn mt-auto"
                             >
