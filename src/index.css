@@ -194,3 +194,28 @@ body.light {
 .font-mulish, .font-mulish * {
   font-family: 'Mulish', sans-serif !important;
 }
+
+/* --- SECURITY & ANTI-COPY MEASURES (Mobile & Tablet) --- */
+@media (max-width: 1024px) {
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none; /* Disable long-press menus on iOS */
+  }
+
+  /* Prevent image dragging/saving */
+  img {
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+}
+
+/* global print protection */
+@media print {
+  body {
+    display: none !important;
+  }
+}
