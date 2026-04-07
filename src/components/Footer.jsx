@@ -13,7 +13,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer id="footer" className="py-12 md:py-24 glass mt-12 md:mt-24 font-mulish">
+        <footer id="footer" className="py-12 md:py-24 glass mt-4 md:mt-8 font-mulish">
             <div className="container mx-auto px-6">
                 <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap justify-between gap-12 mb-12 md:mb-16">
                     <div className="flex flex-col gap-6">
@@ -21,7 +21,8 @@ export default function Footer() {
                             <img
                                 src={logo}
                                 alt="Astrofied Logo"
-                                className="w-16 h-16 object-contain"
+                                className="w-16 h-16 object-contain select-none pointer-events-none"
+                                draggable={false}
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-6px' }}
                             />
                             <h4

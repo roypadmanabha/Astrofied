@@ -56,7 +56,11 @@ function MainContent() {
   }, []);
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 overflow-x-hidden`}>
+    <div 
+      className={`min-h-screen transition-colors duration-500 overflow-x-hidden ${isDarkMode ? 'dark' : 'light'}`}
+      onContextMenu={(e) => e.preventDefault()}
+      onDragStart={(e) => e.preventDefault()}
+    >
       <div className="cosmic-bg" />
       {/* Progress Bar */}
       <motion.div

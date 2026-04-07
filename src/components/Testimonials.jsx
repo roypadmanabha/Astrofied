@@ -23,7 +23,7 @@ export default function Testimonials() {
     const { isDarkMode } = useTheme();
 
     return (
-        <section className="py-12 md:py-20 overflow-hidden relative" style={{ background: 'transparent' }}>
+        <section className="py-8 md:py-12 overflow-hidden relative" style={{ background: 'transparent' }}>
             <div className="container mx-auto px-6 mb-8 md:mb-12 text-center">
                 <h2 
                     className="text-3xl md:text-4xl lg:text-5xl font-bold font-raleway"
@@ -46,7 +46,12 @@ export default function Testimonials() {
                                 ${isDarkMode ? 'border-gold/30 hover:border-gold text-white' : 'border-[#4B0082]/20 hover:border-[#4B0082] text-black'}
                             `}
                         >
-                            <img src={t.img} alt={t.name} className="w-10 h-10 md:w-12 md:h-12 rounded-2xl object-cover" />
+                            <img 
+                                src={t.img} 
+                                alt={t.name} 
+                                className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover select-none pointer-events-none" 
+                                draggable={false}
+                            />
                             <div className="flex flex-col">
                                 <span className="font-bold text-sm md:text-base font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
                                 <span className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed">{t.text}</span>
