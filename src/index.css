@@ -10,6 +10,17 @@
 
   --font-raleway: "Raleway", sans-serif;
   --font-mulish: "Mulish", sans-serif;
+
+  --animate-marquee: marquee 35s linear infinite;
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
 }
 
 html {
@@ -187,6 +198,10 @@ body.light {
   label,
   div {
     font-family: 'Raleway', sans-serif;
+  }
+
+  a {
+    text-decoration: none !important;
   }
 }
 

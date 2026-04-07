@@ -15,14 +15,14 @@ export default function Footer() {
     return (
         <footer id="footer" className="py-12 md:py-24 glass mt-12 md:mt-24 font-mulish">
             <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 mb-12 md:mb-16">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12 md:mb-16">
                     <div className="flex flex-col gap-6">
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-0">
                             <img
                                 src={logo}
                                 alt="Astrofied Logo"
                                 className="w-16 h-16 object-contain"
-                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
+                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-6px' }}
                             />
                             <h4
                                 className="text-lg md:text-xl lg:text-2xl font-bold"
@@ -57,14 +57,14 @@ export default function Footer() {
                             Contact Details
                         </h4>
                         <div className="flex flex-col gap-4">
-                            <div className="flex items-center gap-3">
+                            <a href="tel:+919612736566" className="flex items-center gap-3 hover:text-gold transition-colors">
                                 <Phone className="w-4 h-4 md:w-5 md:h-5 text-gold" />
                                 <span className="text-xs md:text-sm lg:text-lg">+91 96127 36566</span>
-                            </div>
-                            <div className="flex items-center gap-3">
+                            </a>
+                            <a href="mailto:contact.astrofied@gmail.com" className="flex items-center gap-3 hover:text-gold transition-colors">
                                 <Mail className="w-4 h-4 md:w-5 md:h-5 text-gold" />
                                 <span className="text-xs md:text-sm lg:text-lg">contact.astrofied@gmail.com</span>
-                            </div>
+                            </a>
                         </div>
                     </div>
 
@@ -75,12 +75,30 @@ export default function Footer() {
                         >
                             Address
                         </h4>
-                        <div className="flex items-start gap-3">
-                            <MapPin className="w-4 h-4 md:w-5 md:h-5 text-gold mt-1" />
+                        <a href="https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-gold transition-colors block">
+                            <MapPin className="w-4 h-4 md:w-5 md:h-5 text-gold mt-1 shrink-0" />
                             <address className="not-italic text-xs md:text-sm lg:text-lg">
                                 Dakbanglow Road, near Rajarshi Hall,<br />
                                 Udaipur, Gomati, Tripura - 799120
                             </address>
+                        </a>
+                    </div>
+
+                    {/* Legal Links Column */}
+                    <div className="flex flex-col gap-6">
+                        <h4
+                            className="text-lg md:text-xl lg:text-2xl font-bold"
+                            style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                        >
+                            Legal
+                        </h4>
+                        <div className="flex flex-col gap-4">
+                            <a href="/terms-and-conditions.html" className="text-xs md:text-sm lg:text-lg hover:text-gold transition-colors">
+                                Terms and Conditions
+                            </a>
+                            <a href="/privacy-policy.html" className="text-xs md:text-sm lg:text-lg hover:text-gold transition-colors">
+                                Privacy Policy
+                            </a>
                         </div>
                     </div>
                 </div>
