@@ -84,16 +84,17 @@ export default function Navbar() {
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center gap-3 md:gap-4 cursor-pointer"
+                    className="flex items-center gap-0 cursor-pointer"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
                     <img
                         src={logo}
                         alt="Astrofied Logo"
-                        className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                        className="w-12 h-12 md:w-14 md:h-14 object-contain"
+                        style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-4px' }}
                     />
                     <span
-                        className="text-base md:text-xl font-bold tracking-tighter"
+                        className="text-lg md:text-xl font-bold tracking-tighter"
                         style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                     >
                         Astrofied
@@ -123,9 +124,7 @@ export default function Navbar() {
                 <div className="md:hidden">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className={`flex flex-col justify-center items-center w-8 h-8 gap-1 focus:outline-none transition-all duration-300 rounded-md ${
-                            isDarkMode ? 'glass' : 'bg-[#4B0082]/5 border border-[#4B0082]/10'
-                        }`}
+                        className="flex flex-col justify-center items-center w-8 h-8 gap-1 focus:outline-none transition-all duration-300 bg-transparent border-none"
                     >
                         <motion.span
                             animate={isOpen ? { rotate: 45, y: 5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}

@@ -94,11 +94,12 @@ function MainContent() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="w-full md:w-1/2"
             >
-              <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
+              <div className="flex flex-col sm:flex-row items-center gap-3 mb-8">
                 <img
                   src={logo}
                   alt="Astrofied Logo"
-                  className="w-20 h-20 md:w-24 md:h-24 object-contain filter drop-shadow-xl"
+                  className="w-28 h-28 md:w-24 md:h-24 object-contain"
+                  style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                 />
                 <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
                   Why <span className="text-gold">Astrofied?</span>
