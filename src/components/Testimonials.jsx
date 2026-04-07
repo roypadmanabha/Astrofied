@@ -38,36 +38,36 @@ export default function Testimonials() {
                   We use an animation that translates X from 0 to -100%.
                   To make it infinite and seamless, we duplicate the content.
                 */}
-                <div className="flex animate-marquee whitespace-nowrap group-hover:pause">
+                <div className="flex animate-marquee group-hover:pause active:pause">
                     {testimonials.map((t) => (
                         <div 
                             key={`first-${t.id}`} 
-                            className={`flex items-center gap-4 mx-4 px-6 py-4 rounded-full border border-opacity-20 glass shadow-lg backdrop-blur-md transition-all
+                            className={`flex items-start gap-4 mx-4 px-6 py-4 rounded-2xl border border-opacity-20 glass backdrop-blur-md transition-all min-w-[300px] md:min-w-[400px] whitespace-normal
                                 ${isDarkMode ? 'border-gold/30 hover:border-gold text-white' : 'border-[#4B0082]/20 hover:border-[#4B0082] text-black'}
                             `}
                         >
-                            <img src={t.img} alt={t.name} className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shadow-md" />
+                            <img src={t.img} alt={t.name} className="w-10 h-10 md:w-12 md:h-12 rounded-2xl object-cover" />
                             <div className="flex flex-col">
                                 <span className="font-bold text-sm md:text-base font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
-                                <span className="text-xs md:text-sm font-mulish opacity-80 max-w-[200px] md:max-w-xs truncate">{t.text}</span>
+                                <span className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed">{t.text}</span>
                             </div>
                         </div>
                     ))}
                 </div>
                 
                 {/* Duplicate for seamless loop */}
-                <div className="flex animate-marquee whitespace-nowrap group-hover:pause" aria-hidden="true">
+                <div className="flex animate-marquee group-hover:pause active:pause" aria-hidden="true">
                     {testimonials.map((t) => (
                         <div 
                             key={`second-${t.id}`} 
-                            className={`flex items-center gap-4 mx-4 px-6 py-4 rounded-full border border-opacity-20 glass shadow-lg backdrop-blur-md transition-all
+                            className={`flex items-start gap-4 mx-4 px-6 py-4 rounded-2xl border border-opacity-20 glass backdrop-blur-md transition-all min-w-[300px] md:min-w-[400px] whitespace-normal
                                 ${isDarkMode ? 'border-gold/30 hover:border-gold text-white' : 'border-[#4B0082]/20 hover:border-[#4B0082] text-black'}
                             `}
                         >
-                            <img src={t.img} alt={t.name} className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shadow-md" />
+                            <img src={t.img} alt={t.name} className="w-10 h-10 md:w-12 md:h-12 rounded-2xl object-cover" />
                             <div className="flex flex-col">
                                 <span className="font-bold text-sm md:text-base font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
-                                <span className="text-xs md:text-sm font-mulish opacity-80 max-w-[200px] md:max-w-xs truncate">{t.text}</span>
+                                <span className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed">{t.text}</span>
                             </div>
                         </div>
                     ))}

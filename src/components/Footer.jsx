@@ -15,7 +15,7 @@ export default function Footer() {
     return (
         <footer id="footer" className="py-12 md:py-24 glass mt-12 md:mt-24 font-mulish">
             <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12 md:mb-16">
+                <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap justify-between gap-12 mb-12 md:mb-16">
                     <div className="flex flex-col gap-6">
                         <div className="flex items-center gap-0">
                             <img

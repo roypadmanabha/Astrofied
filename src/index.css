@@ -11,7 +11,7 @@
   --font-raleway: "Raleway", sans-serif;
   --font-mulish: "Mulish", sans-serif;
 
-  --animate-marquee: marquee 35s linear infinite;
+  --animate-marquee: marquee 60s linear infinite;
 
   @keyframes marquee {
     0% {
