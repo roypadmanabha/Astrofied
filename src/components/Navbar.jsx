@@ -8,6 +8,9 @@ const navLinks = [
     { name: 'Services', href: '#services' },
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#footer' },
+    { name: 'Feedback', href: '#feedback' },
+    { name: 'Terms & Conditions', href: '/terms-and-conditions.html' },
+    { name: 'Privacy Policy', href: '/privacy-policy.html' },
 ];
 
 export default function Navbar() {
@@ -40,32 +43,34 @@ export default function Navbar() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, x: '100%' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '100%' }}
-                        transition={{ type: 'tween', duration: 0.3 }}
-                        className={`fixed inset-0 z-[100] flex flex-col items-center pt-32 pb-12 gap-8 md:hidden overflow-y-auto ${
-                            isDarkMode ? 'bg-black' : 'bg-white'
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        className={`fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 md:hidden overflow-y-auto px-6 ${
+                            isDarkMode ? 'bg-black/95 backdrop-blur-xl' : 'bg-white/95 backdrop-blur-xl'
                         }`}
                     >
                         <button
                             onClick={() => setIsOpen(false)}
-                            className={`absolute top-6 right-6 text-3xl p-3 focus:outline-none transition-all ${
-                                isDarkMode ? 'text-gold' : 'text-[#4B0082]'
+                            className={`absolute top-6 right-6 text-2xl p-2 focus:outline-none transition-all rounded-full border border-opacity-20 ${
+                                isDarkMode ? 'text-gold border-gold/30' : 'text-[#4B0082] border-[#4B0082]/30'
                             }`}
                         >
                             ✕
                         </button>
-                        {navLinks.map((link) => (
+                        {navLinks.map((link, index) => (
                             <motion.a
                                 key={link.name}
                                 href={link.href}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.05 }}
                                 onClick={() => setIsOpen(false)}
-                                className={`text-2xl font-bold tracking-wide transition-all block py-3 ${
+                                className={`text-xl font-medium tracking-tight transition-all block py-2 ${
                                     isDarkMode ? 'text-white hover:text-gold' : 'text-[#4B0082] hover:text-[#DC2626]'
                                 }`}
-                                whileTap={{ scale: 0.95 }}
-                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.98 }}
                             >
                                 {link.name}
                             </motion.a>
