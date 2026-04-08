@@ -1,22 +1,23 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
+import amjad from '../assets/testimonials/amjad.jpg';
+import sibani from '../assets/testimonials/sibani.jpg';
+import aritrika from '../assets/testimonials/aritrika.jpg';
+import debadrita from '../assets/testimonials/debadrita.jpg';
+import prasenjit from '../assets/testimonials/prasenjit.jpg';
+
 const testimonials = [
-  { id: 1, name: "Rahul S.", text: "Astrofied completely changed my perspective on my career choices.", img: "https://randomuser.me/api/portraits/men/32.jpg" },
-  { id: 2, name: "Sneha M.", text: "Accurate and insightful! Highly recommend for life guidance.", img: "https://randomuser.me/api/portraits/women/44.jpg" },
-  { id: 3, name: "Vikram R.", text: "The consultation gave me clarity and peace of mind.", img: "https://randomuser.me/api/portraits/men/45.jpg" },
-  { id: 4, name: "Priya D.", text: "Prasanta is genuine and very patient. His remedies actually work.", img: "https://randomuser.me/api/portraits/women/68.jpg" },
-  { id: 5, name: "Aditya P.", text: "Best astrological advice I have received in years.", img: "https://randomuser.me/api/portraits/men/67.jpg" },
-  { id: 6, name: "Neha K.", text: "Astrofied mapped my future accurately. Very thankful!", img: "https://randomuser.me/api/portraits/women/22.jpg" },
-  { id: 7, name: "Rohit V.", text: "Logical predictions, not just random guesses. Impressed.", img: "https://randomuser.me/api/portraits/men/12.jpg" },
-  { id: 8, name: "Ananya S.", text: "The matchmaking insights were deep and very detailed.", img: "https://randomuser.me/api/portraits/women/15.jpg" },
-  { id: 9, name: "Kunal J.", text: "Helped me during a tough business phase. Result-oriented.", img: "https://randomuser.me/api/portraits/men/9.jpg" },
-  { id: 10, name: "Meera B.", text: "Compassionate approach, clear solutions.", img: "https://randomuser.me/api/portraits/women/35.jpg" },
-  { id: 11, name: "Siddharth C.", text: "Guided me through legal troubles precisely.", img: "https://randomuser.me/api/portraits/men/29.jpg" },
-  { id: 12, name: "Ritika M.", text: "Amazing experience! The health guidance was spot on.", img: "https://randomuser.me/api/portraits/women/59.jpg" },
-  { id: 13, name: "Arjun N.", text: "I finally know what path to take. Thanks Astrofied!", img: "https://randomuser.me/api/portraits/men/78.jpg" },
-  { id: 14, name: "Pooja L.", text: "Highly intuitive and professional reading.", img: "https://randomuser.me/api/portraits/women/90.jpg" },
-  { id: 15, name: "Vikas T.", text: "Clear solutions without enforcing fake remedies.", img: "https://randomuser.me/api/portraits/men/55.jpg" },
+  { id: 1, name: "Amjad Hossain", text: "Astrofied completely changed my perspective on my career choices.", img: amjad, pos: "object-top" },
+  { id: 2, name: "Sibani Bhattacharya", text: "Accurate and insightful! Highly recommend for life guidance.", img: sibani, pos: "object-top" },
+  { id: 3, name: "Aritrika Chakraborty", text: "The consultation gave me clarity and peace of mind.", img: aritrika, pos: "object-top" },
+  { id: 4, name: "Debadrita Datta", text: "Prasanta is genuine and very patient. His remedies actually work.", img: debadrita, pos: "object-center" },
+  { id: 5, name: "Prasenjit Chakraborty", text: "Best astrological advice I have received in years.", img: prasenjit, pos: "object-top" },
+  { id: 6, name: "Amjad Hossain", text: "Highly intuitive and professional reading. Guided me through tough times.", img: amjad, pos: "object-top" },
+  { id: 7, name: "Sibani Bhattacharya", text: "Amazing experience! The health guidance was spot on.", img: sibani, pos: "object-top" },
+  { id: 8, name: "Aritrika Chakraborty", text: "I finally know what path to take. Thanks Astrofied!", img: aritrika, pos: "object-top" },
+  { id: 9, name: "Debadrita Datta", text: "Logical predictions, not just random guesses. Impressed.", img: debadrita, pos: "object-center" },
+  { id: 10, name: "Prasenjit Chakraborty", text: "Result-oriented approach without fake remedies.", img: prasenjit, pos: "object-top" },
 ];
 
 export default function Testimonials() {
@@ -49,7 +50,7 @@ export default function Testimonials() {
                             <img 
                                 src={t.img} 
                                 alt={t.name} 
-                                className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover select-none pointer-events-none" 
+                                className={`w-10 h-10 md:w-14 md:h-14 rounded-full object-cover select-none pointer-events-none ${t.pos || 'object-center'}`} 
                                 draggable={false}
                             />
                             <div className="flex flex-col">
@@ -69,7 +70,12 @@ export default function Testimonials() {
                                 ${isDarkMode ? 'border-gold/30 hover:border-gold text-white' : 'border-[#4B0082]/20 hover:border-[#4B0082] text-black'}
                             `}
                         >
-                            <img src={t.img} alt={t.name} className="w-10 h-10 md:w-12 md:h-12 rounded-2xl object-cover" />
+                            <img 
+                                src={t.img} 
+                                alt={t.name} 
+                                className={`w-10 h-10 md:w-14 md:h-14 rounded-full object-cover select-none pointer-events-none ${t.pos || 'object-center'}`} 
+                                draggable={false}
+                            />
                             <div className="flex flex-col">
                                 <span className="font-bold text-sm md:text-base font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
                                 <span className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed">{t.text}</span>
