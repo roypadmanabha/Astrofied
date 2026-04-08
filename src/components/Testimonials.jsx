@@ -1,38 +1,27 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-
-import t1 from '../assets/testimonials/t1.jpg';
-import t2 from '../assets/testimonials/t2.jpg';
-import t3 from '../assets/testimonials/t3.jpg';
-import t4 from '../assets/testimonials/t4.jpg';
-import t5 from '../assets/testimonials/t5.jpg';
-import t6 from '../assets/testimonials/t6.jpg';
-import t7 from '../assets/testimonials/t7.jpg';
-import t8 from '../assets/testimonials/t8.jpg';
-import t9 from '../assets/testimonials/t9.jpg';
-import t10 from '../assets/testimonials/t10.jpg';
-import t11 from '../assets/testimonials/t11.jpg';
-import t12 from '../assets/testimonials/t12.jpg';
-import t13 from '../assets/testimonials/t13.jpg';
-import t14 from '../assets/testimonials/t14.jpg';
-import t15 from '../assets/testimonials/t15.jpg';
+import amjadImg from '../assets/amjad.jpg';
+import sibaniImg from '../assets/sibani.jpg';
+import aritrikaImg from '../assets/aritrika.jpg';
+import debadritaImg from '../assets/debadrita.png';
+import prasenjitImg from '../assets/prasenjit.jpg';
 
 const testimonials = [
-  { id: 1, name: "Amjad Hossain", text: "Astrofied completely changed my perspective on my career choices.", img: t1 },
-  { id: 2, name: "Sibani Bhattacharya", text: "Accurate and insightful! Highly recommend for life guidance.", img: t2 },
-  { id: 3, name: "Aritrika Chakraborty", text: "The consultation gave me clarity and peace of mind.", img: t3 },
-  { id: 4, name: "Debadrita Datta", text: "Prasanta is genuine and very patient. His remedies actually work.", img: t4 },
-  { id: 5, name: "Prasenjit Chakraborty", text: "Best astrological advice I have received in years.", img: t5 },
-  { id: 6, name: "Lipika Das", text: "Astrofied mapped my future accurately. Very thankful!", img: t6 },
-  { id: 7, name: "Rupan Bhattacharjee", text: "Logical predictions, not just random guesses. Impressed.", img: t7 },
-  { id: 8, name: "Purnima Debnath", text: "The matchmaking insights were deep and very detailed.", img: t8 },
-  { id: 9, name: "Pralay Majumder", text: "Helped me during a tough business phase. Result-oriented.", img: t9 },
-  { id: 10, name: "Poulami Chakraborty", text: "Compassionate approach, clear solutions.", img: t10 },
-  { id: 11, name: "Somnath Chakraborty", text: "Guided me through legal troubles precisely.", img: t11 },
-  { id: 12, name: "Madhumita Chakraborty", text: "Amazing experience! The health guidance was spot on.", img: t12 },
-  { id: 13, name: "Poulami Saha", text: "I finally know what path to take. Thanks Astrofied!", img: t13 },
-  { id: 14, name: "Suman Sarkar", text: "Highly intuitive and professional reading.", img: t14 },
-  { id: 15, name: "Riya Chakraborty", text: "Clear solutions without enforcing fake remedies.", img: t15 },
+  { id: 1, name: "Amjad Hossain", text: "Astrofied completely changed my perspective on my career choices.", img: amjadImg },
+  { id: 2, name: "Sibani Bhattacharya", text: "Accurate and insightful! Highly recommend for life guidance.", img: sibaniImg },
+  { id: 3, name: "Aritrika Chakraborty", text: "The consultation gave me clarity and peace of mind.", img: aritrikaImg },
+  { id: 4, name: "Debadrita Datta", text: "Prasanta is genuine and very patient. His remedies actually work.", img: debadritaImg },
+  { id: 5, name: "Prasenjit Chakraborty", text: "Best astrological advice I have received in years.", img: prasenjitImg },
+  { id: 6, name: "Neha K.", text: "Astrofied mapped my future accurately. Very thankful!", img: "https://randomuser.me/api/portraits/women/22.jpg" },
+  { id: 7, name: "Rohit V.", text: "Logical predictions, not just random guesses. Impressed.", img: "https://randomuser.me/api/portraits/men/12.jpg" },
+  { id: 8, name: "Ananya S.", text: "The matchmaking insights were deep and very detailed.", img: "https://randomuser.me/api/portraits/women/15.jpg" },
+  { id: 9, name: "Kunal J.", text: "Helped me during a tough business phase. Result-oriented.", img: "https://randomuser.me/api/portraits/men/9.jpg" },
+  { id: 10, name: "Meera B.", text: "Compassionate approach, clear solutions.", img: "https://randomuser.me/api/portraits/women/35.jpg" },
+  { id: 11, name: "Siddharth C.", text: "Guided me through legal troubles precisely.", img: "https://randomuser.me/api/portraits/men/29.jpg" },
+  { id: 12, name: "Ritika M.", text: "Amazing experience! The health guidance was spot on.", img: "https://randomuser.me/api/portraits/women/59.jpg" },
+  { id: 13, name: "Arjun N.", text: "I finally know what path to take. Thanks Astrofied!", img: "https://randomuser.me/api/portraits/men/78.jpg" },
+  { id: 14, name: "Pooja L.", text: "Highly intuitive and professional reading.", img: "https://randomuser.me/api/portraits/women/90.jpg" },
+  { id: 15, name: "Vikas T.", text: "Clear solutions without enforcing fake remedies.", img: "https://randomuser.me/api/portraits/men/55.jpg" },
 ];
 
 export default function Testimonials() {
