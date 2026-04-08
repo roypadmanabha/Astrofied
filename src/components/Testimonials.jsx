@@ -50,7 +50,8 @@ export default function Testimonials() {
                             <img 
                                 src={t.img} 
                                 alt={t.name} 
-                                className={`w-10 h-10 md:w-14 md:h-14 rounded-full object-cover select-none pointer-events-none ${t.pos || 'object-center'}`} 
+                                className={`w-10 h-10 md:w-14 md:h-14 object-cover select-none pointer-events-none ${t.pos || 'object-center'}`} 
+                                style={{ borderRadius: '100%' }}
                                 draggable={false}
                             />
                             <div className="flex flex-col">
@@ -73,7 +74,8 @@ export default function Testimonials() {
                             <img 
                                 src={t.img} 
                                 alt={t.name} 
-                                className={`w-10 h-10 md:w-14 md:h-14 rounded-full object-cover select-none pointer-events-none ${t.pos || 'object-center'}`} 
+                                className={`w-10 h-10 md:w-14 md:h-14 object-cover select-none pointer-events-none ${t.pos || 'object-center'}`} 
+                                style={{ borderRadius: '100%' }}
                                 draggable={false}
                             />
                             <div className="flex flex-col">
