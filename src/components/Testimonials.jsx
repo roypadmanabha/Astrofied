@@ -1,27 +1,37 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import amjadImg from '../assets/amjad.jpg';
-import sibaniImg from '../assets/sibani.jpg';
-import aritrikaImg from '../assets/aritrika.jpg';
-import debadritaImg from '../assets/debadrita.png';
-import prasenjitImg from '../assets/prasenjit.jpg';
+import amjad from '../assets/testimonials/amjad.jpg';
+import aritrika from '../assets/testimonials/aritrika.jpg';
+import debadrita from '../assets/testimonials/debadrita.jpg';
+import lipika from '../assets/testimonials/lipika.jpg';
+import madhumita from '../assets/testimonials/madhumita.jpg';
+import poulami1 from '../assets/testimonials/poulami1.jpg';
+import poulami2 from '../assets/testimonials/poulami2.jpg';
+import pralay from '../assets/testimonials/pralay.jpg';
+import prasenjit from '../assets/testimonials/prasenjit.jpg';
+import purnima from '../assets/testimonials/purnima.jpg';
+import riya from '../assets/testimonials/riya.jpg';
+import rupan from '../assets/testimonials/rupan.jpg';
+import sibani from '../assets/testimonials/sibani.jpg';
+import somnath from '../assets/testimonials/somnath.jpg';
+import suman from '../assets/testimonials/suman.jpg';
 
 const testimonials = [
-  { id: 1, name: "Amjad Hossain", text: "Astrofied completely changed my perspective on my career choices.", img: amjadImg },
-  { id: 2, name: "Sibani Bhattacharya", text: "Accurate and insightful! Highly recommend for life guidance.", img: sibaniImg },
-  { id: 3, name: "Aritrika Chakraborty", text: "The consultation gave me clarity and peace of mind.", img: aritrikaImg },
-  { id: 4, name: "Debadrita Datta", text: "Prasanta is genuine and very patient. His remedies actually work.", img: debadritaImg },
-  { id: 5, name: "Prasenjit Chakraborty", text: "Best astrological advice I have received in years.", img: prasenjitImg },
-  { id: 6, name: "Neha K.", text: "Astrofied mapped my future accurately. Very thankful!", img: "https://randomuser.me/api/portraits/women/22.jpg" },
-  { id: 7, name: "Rohit V.", text: "Logical predictions, not just random guesses. Impressed.", img: "https://randomuser.me/api/portraits/men/12.jpg" },
-  { id: 8, name: "Ananya S.", text: "The matchmaking insights were deep and very detailed.", img: "https://randomuser.me/api/portraits/women/15.jpg" },
-  { id: 9, name: "Kunal J.", text: "Helped me during a tough business phase. Result-oriented.", img: "https://randomuser.me/api/portraits/men/9.jpg" },
-  { id: 10, name: "Meera B.", text: "Compassionate approach, clear solutions.", img: "https://randomuser.me/api/portraits/women/35.jpg" },
-  { id: 11, name: "Siddharth C.", text: "Guided me through legal troubles precisely.", img: "https://randomuser.me/api/portraits/men/29.jpg" },
-  { id: 12, name: "Ritika M.", text: "Amazing experience! The health guidance was spot on.", img: "https://randomuser.me/api/portraits/women/59.jpg" },
-  { id: 13, name: "Arjun N.", text: "I finally know what path to take. Thanks Astrofied!", img: "https://randomuser.me/api/portraits/men/78.jpg" },
-  { id: 14, name: "Pooja L.", text: "Highly intuitive and professional reading.", img: "https://randomuser.me/api/portraits/women/90.jpg" },
-  { id: 15, name: "Vikas T.", text: "Clear solutions without enforcing fake remedies.", img: "https://randomuser.me/api/portraits/men/55.jpg" },
+  { id: 1, name: "Amjad", img: amjad, text: "The career guidance was incredibly accurate. Astrofied helped me find my true path." },
+  { id: 2, name: "Aritrika", img: aritrika, text: "Excellent insights into my personal relationship issues. Highly recommended!" },
+  { id: 3, name: "Debadrita", img: debadrita, text: "A truly professional experience. The remedies provided were practical and effective." },
+  { id: 4, name: "Lipika", img: lipika, text: "Very deep knowledge of Vedic astrology. My consultation was eye-opening." },
+  { id: 5, name: "Madhumita", img: madhumita, text: "The birth chart analysis was precise and helped me prepare for future challenges." },
+  { id: 6, name: "Poulami", img: poulami1, text: "Warm and supportive guidance. Felt very comfortable discussing my life problems." },
+  { id: 7, name: "Poulami B.", img: poulami2, text: "Exceptional service! The predictions about my business growth were spot on." },
+  { id: 8, name: "Pralay", img: pralay, text: "Astrofied provides clarity when life feels uncertain. A great mentor." },
+  { id: 9, name: "Prasenjit", img: prasenjit, text: "Highly impressed with the accuracy. It's more than just predictions, it's guidance." },
+  { id: 10, name: "Purnima", img: purnima, text: "Helped me understand my strengths and weaknesses through my horoscope." },
+  { id: 11, name: "Riya", img: riya, text: "The best place for authentic astrological consultations. Very satisfied!" },
+  { id: 12, name: "Rupan", img: rupan, text: "Scientific approach to astrology. No superstitions, just pure logic and calculations." },
+  { id: 13, name: "Sibani", img: sibani, text: "Incredible depth of analysis. Every session brings new clarity and peace of mind." },
+  { id: 14, name: "Somnath", img: somnath, text: "Great support for family and health concerns. The suggestions work wonder." },
+  { id: 15, name: "Suman", img: suman, text: "Transformative experience! Astrofied changed my perspective towards traditional wisdom." },
 ];
 
 export default function Testimonials() {
@@ -74,7 +84,12 @@ export default function Testimonials() {
                                 ${isDarkMode ? 'border-gold/30 hover:border-gold text-white' : 'border-[#4B0082]/20 hover:border-[#4B0082] text-black'}
                             `}
                         >
-                            <img src={t.img} alt={t.name} className="w-10 h-10 md:w-12 md:h-12 rounded-2xl object-cover" />
+                            <img 
+                                src={t.img} 
+                                alt={t.name} 
+                                className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover select-none pointer-events-none" 
+                                draggable={false}
+                            />
                             <div className="flex flex-col">
                                 <span className="font-bold text-sm md:text-base font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
                                 <span className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed">{t.text}</span>
