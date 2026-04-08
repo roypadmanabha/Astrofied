@@ -165,9 +165,7 @@ export default function Feedback() {
                                 {status !== 'loading' && <Send className="w-5 h-5" />}
                             </motion.button>
 
-                            <p className="text-[10px] md:text-xs text-center opacity-60 mt-2 leading-tight">
-                                *Note: To activate this form, please check the first submission confirmation email in <b>contact.astrofied@gmail.com</b> and click "Activate". Once activated, all feedbacks will start arriving in your inbox.
-                            </p>
+
                         </form>
                     </div>
                 </motion.div>
