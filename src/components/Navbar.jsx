@@ -4,7 +4,13 @@ import { useTheme } from '../context/ThemeContext';
 
 import logo from '../assets/logo.png';
 
-const navLinks = [
+const desktopNavLinks = [
+    { name: 'Services', href: '#services' },
+    { name: 'About', href: '#about' },
+    { name: 'Contact', href: '#footer' },
+];
+
+const mobileNavLinks = [
     { name: 'Services', href: '#services' },
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#footer' },
@@ -53,13 +59,13 @@ export default function Navbar() {
                     >
                         <button
                             onClick={() => setIsOpen(false)}
-                            className={`absolute top-6 right-6 text-2xl p-2 focus:outline-none transition-all rounded-full border border-opacity-20 ${
-                                isDarkMode ? 'text-gold border-gold/30' : 'text-[#4B0082] border-[#4B0082]/30'
+                            className={`absolute top-6 right-6 text-3xl p-2 focus:outline-none transition-all border-none bg-transparent ${
+                                isDarkMode ? 'text-gold' : 'text-[#4B0082]'
                             }`}
                         >
                             ✕
                         </button>
-                        {navLinks.map((link, index) => (
+                        {mobileNavLinks.map((link, index) => (
                             <motion.a
                                 key={link.name}
                                 href={link.href}
@@ -108,7 +114,7 @@ export default function Navbar() {
 
                 {/* Desktop Links */}
                 <div className="hidden md:flex gap-8">
-                    {navLinks.map((link) => (
+                    {desktopNavLinks.map((link) => (
                         <motion.a
                             key={link.name}
                             href={link.href}

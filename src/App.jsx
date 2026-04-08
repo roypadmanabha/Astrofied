@@ -87,7 +87,7 @@ function MainContent() {
                 alt="Zodiac Wheel"
                 className="w-full h-full object-contain will-change-transform"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               />
               <div className="absolute inset-0 bg-gold/5 rounded-full pointer-events-none" />
             </motion.div>

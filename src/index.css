@@ -255,3 +255,7 @@ img {
     display: none !important;
   }
 }
+
+@utility pause {
+  animation-play-state: paused !important;
+}
