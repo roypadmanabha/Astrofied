@@ -38,11 +38,14 @@ export default function Feedback() {
                     name: formData.name,
                     email: formData.email,
                     message: formData.message,
-                    _subject: "New Astrofied Customer Feedback!"
+                    _subject: "New Astrofied Customer Feedback!",
+                    _captcha: "false"
                 })
             });
 
-            if (response.ok) {
+            const data = await response.json();
+
+            if (response.ok && data.success === "true") {
                 // Save the email to local storage to prevent duplicates
                 sentEmails.push(normalizedEmail);
                 localStorage.setItem('astrofied_feedback_emails', JSON.stringify(sentEmails));
@@ -53,9 +56,11 @@ export default function Feedback() {
                 // Reset success state after 5 seconds
                 setTimeout(() => setStatus('idle'), 5000);
             } else {
+                console.error("FormSubmit Error:", data);
                 setStatus('error');
             }
         } catch (error) {
+            console.error("Submission Error:", error);
             setStatus('error');
         }
     };
@@ -160,9 +165,9 @@ export default function Feedback() {
                                 {status !== 'loading' && <Send className="w-5 h-5" />}
                             </motion.button>
 
-                            {/* <p className="text-xs text-center opacity-60 mt-2">
-                                *Note: To activate logic on first use, you may receive an email to activate this form at sj.astrologyservices@gmail.com
-                            </p> */}
+                            <p className="text-[10px] md:text-xs text-center opacity-60 mt-2 leading-tight">
+                                *Note: To activate this form, please check the first submission confirmation email in <b>contact.astrofied@gmail.com</b> and click "Activate". Once activated, all feedbacks will start arriving in your inbox.
+                            </p>
                         </form>
                     </div>
                 </motion.div>
