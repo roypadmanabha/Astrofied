@@ -88,9 +88,11 @@ export default function Hero() {
                                 <img
                                     src={astrologer}
                                     alt="Astrologer"
-                                    className="w-full h-auto object-contain select-none pointer-events-none"
+                                    className="w-full h-auto object-contain select-none pointer-events-none transition-transform duration-700 hover:scale-[1.02]"
                                     style={{
-                                        filter: isDarkMode ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))' : 'drop-shadow(0 0 20px rgba(75, 0, 130, 0.1))',
+                                        filter: isDarkMode 
+                                            ? 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 30px rgba(212, 175, 55, 0.3))' 
+                                            : 'drop-shadow(0 0 15px rgba(75, 0, 130, 0.2))',
                                         maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)',
                                         WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)'
                                     }}
