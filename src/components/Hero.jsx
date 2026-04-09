@@ -53,7 +53,9 @@ export default function Hero() {
                             className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start"
                         >
                             <a
-                                href="#feedback"
+                                href="https://wa.me/919612736566?text=I%20want%20to%20book%20an%20appointment%20for%20an%20online%20consultation%20with%20Astrofied.%20Please%20guide%20me%20through%20the%20process%20of%20sending%20my%20birth%20details%20and%20completing%20the%20payment."
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className={`px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-xl hover:scale-105 active:scale-95 ${isDarkMode
                                     ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
                                     : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
@@ -62,7 +64,7 @@ export default function Hero() {
                                 Book a Consultation
                             </a>
                             <a
-                                href="#services"
+                                href="#why-astrofied"
                                 className={`px-10 py-4 rounded-xl font-bold text-lg transition-all border glass hover:scale-105 active:scale-95 ${isDarkMode
                                     ? 'border-gold/30 text-gold hover:border-gold shadow-gold/5'
                                     : 'border-[#4B0082]/30 text-[#4B0082] hover:border-[#4B0082] shadow-[#4B0082]/5'
