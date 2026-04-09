@@ -10,6 +10,7 @@ import Feedback from './components/Feedback';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
+import Hero from './components/Hero';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -71,8 +72,10 @@ function MainContent() {
       <Navbar />
       <ThemeToggle3D />
 
-      {/* Hero / Why Astrofied Section */}
-      <section className="min-h-screen pt-32 pb-24 overflow-hidden">
+      <Hero />
+
+      {/* Why Astrofied Section */}
+      <section id="why-astrofied" className="py-24 overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="flex flex-col-reverse md:flex-row items-center gap-16">
             <motion.div
