@@ -91,63 +91,63 @@ export default function Hero() {
                                     className="w-full h-auto object-contain select-none pointer-events-none"
                                     style={{ 
                                         filter: isDarkMode ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))' : 'drop-shadow(0 0 20px rgba(75, 0, 130, 0.1))',
-                                        maskImage: 'linear-gradient(to bottom, black 92%, transparent 100%), linear-gradient(to right, black 92%, transparent 100%)',
-                                        WebkitMaskImage: 'linear-gradient(to bottom, black 92%, transparent 100%), linear-gradient(to right, black 92%, transparent 100%)'
+                                        maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)',
+                                        WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)'
                                     }}
                                     draggable={false}
                                 />
                                 
-                                {/* Bottom Roadmap Label - MASKING THE SHARP EDGE */}
+                                {/* Floating Stats Badges - POSITIONED PRECISELY */}
                                 <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 1.2 }}
-                                    className={`absolute bottom-4 left-1/2 -translate-x-1/2 z-30 px-6 py-3 rounded-full border glass backdrop-blur-2xl whitespace-nowrap shadow-2xl ${
-                                        isDarkMode ? 'border-gold/30 text-gold shadow-gold/20' : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
-                                    }`}
+                                    initial={{ opacity: 0, x: 30 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.5 }}
+                                    className={`absolute right-2 md:right-8 lg:right-12 top-[30%] md:top-[35%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                        }`}
                                 >
-                                    <span className="text-sm md:text-base font-bold tracking-[0.2em] uppercase">your roadmap to the right decisions</span>
+                                    <div className="flex flex-col">
+                                        <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>2 Thousand+</span>
+                                        <span className="text-xs opacity-70">Consultations</span>
+                                    </div>
+                                </motion.div>
+
+                                <motion.div
+                                    initial={{ opacity: 0, x: -30 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.7 }}
+                                    className={`absolute left-0 md:left-4 top-[55%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                        }`}
+                                >
+                                    <div className="flex flex-col">
+                                        <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>7+ Years</span>
+                                        <span className="text-xs opacity-70">of Experience</span>
+                                    </div>
+                                </motion.div>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.9 }}
+                                    className={`absolute right-6 md:right-12 lg:right-20 bottom-[15%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                        }`}
+                                >
+                                    <div className="flex flex-col">
+                                        <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>100%</span>
+                                        <span className="text-xs opacity-70">Satisfaction</span>
+                                    </div>
                                 </motion.div>
                             </motion.div>
 
-                            {/* Floating Stats Badges - POSITIONED CLOSER AND OVERLAPPING */}
+                            {/* Bottom Roadmap Label - POSITIONED JUST BELOW THE IMAGE */}
                             <motion.div
-                                initial={{ opacity: 0, x: 30 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.5 }}
-                                className={`absolute right-4 md:right-10 lg:right-16 top-1/4 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
-                                    }`}
-                            >
-                                <div className="flex flex-col">
-                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>2 Thousand+</span>
-                                    <span className="text-xs opacity-70">Consultations</span>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, x: -30 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.7 }}
-                                className={`absolute left-0 md:left-4 top-1/2 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
-                                    }`}
-                            >
-                                <div className="flex flex-col">
-                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>7+ Years</span>
-                                    <span className="text-xs opacity-70">of Experience</span>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.9 }}
-                                className={`absolute right-12 md:right-20 lg:right-28 bottom-24 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
-                                    }`}
+                                transition={{ delay: 1.2 }}
+                                className={`relative -mt-6 z-30 px-6 py-4 md:px-12 rounded-full border glass backdrop-blur-3xl whitespace-nowrap shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${
+                                    isDarkMode ? 'border-gold/30 text-gold shadow-gold/20' : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
+                                }`}
                             >
-                                <div className="flex flex-col">
-                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>100%</span>
-                                    <span className="text-xs opacity-70">Satisfaction</span>
-                                </div>
+                                <span className="text-sm md:text-lg font-bold tracking-[0.3em] uppercase">your roadmap to the right decisions</span>
                             </motion.div>
                         </div>
                     </div>
