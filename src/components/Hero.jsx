@@ -19,9 +19,8 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
-                            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 glass ${
-                                isDarkMode ? 'border-gold/20 text-gold shadow-gold/10' : 'border-[#4B0082]/20 text-[#4B0082] shadow-[#4B0082]/10'
-                            }`}
+                            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 glass ${isDarkMode ? 'border-gold/20 text-gold shadow-gold/10' : 'border-[#4B0082]/20 text-[#4B0082] shadow-[#4B0082]/10'
+                                }`}
                         >
                             <span className="text-sm font-bold tracking-wider uppercase">✦ Vedic Astrology & Spiritual Guidance</span>
                         </motion.div>
@@ -41,9 +40,8 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className={`text-lg md:text-xl max-w-2xl mb-12 opacity-80 font-mulish leading-relaxed ${
-                                isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                            }`}
+                            className={`text-lg md:text-xl max-w-2xl mb-12 opacity-80 font-mulish leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                                }`}
                         >
                             Refined Vedic insights designed to guide your decisions with clarity, confidence, and purpose through the ancient wisdom of the cosmos.
                         </motion.p>
@@ -56,23 +54,21 @@ export default function Hero() {
                         >
                             <a
                                 href="#feedback"
-                                className={`px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-xl hover:scale-105 active:scale-95 ${
-                                    isDarkMode 
-                                    ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20' 
+                                className={`px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-xl hover:scale-105 active:scale-95 ${isDarkMode
+                                    ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
                                     : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
-                                }`}
+                                    }`}
                             >
                                 Book a Consultation
                             </a>
                             <a
                                 href="#services"
-                                className={`px-10 py-4 rounded-xl font-bold text-lg transition-all border glass hover:scale-105 active:scale-95 ${
-                                    isDarkMode 
-                                    ? 'border-gold/30 text-gold hover:border-gold shadow-gold/5' 
+                                className={`px-10 py-4 rounded-xl font-bold text-lg transition-all border glass hover:scale-105 active:scale-95 ${isDarkMode
+                                    ? 'border-gold/30 text-gold hover:border-gold shadow-gold/5'
                                     : 'border-[#4B0082]/30 text-[#4B0082] hover:border-[#4B0082] shadow-[#4B0082]/5'
-                                }`}
+                                    }`}
                             >
-                                Explore Your Reports
+                                Explore Astrofied
                             </a>
                         </motion.div>
                     </div>
@@ -86,13 +82,12 @@ export default function Hero() {
                             className="relative w-[300px] h-[400px] md:w-[400px] md:h-[500px]"
                         >
                             {/* Main Image with Frame */}
-                            <div className={`relative z-10 w-full h-full rounded-[40px] overflow-hidden border-2 p-3 ${
-                                isDarkMode ? 'border-gold/30 bg-black/40' : 'border-[#4B0082]/20 bg-white/40'
-                            } glass`}>
-                                <img 
-                                    src={astrologer} 
-                                    alt="Astrologer" 
-                                    className="w-full h-full object-cover rounded-[30px] select-none pointer-events-none" 
+                            <div className={`relative z-10 w-full h-full rounded-[40px] overflow-hidden border-2 p-3 ${isDarkMode ? 'border-gold/30 bg-black/40' : 'border-[#4B0082]/20 bg-white/40'
+                                } glass`}>
+                                <img
+                                    src={astrologer}
+                                    alt="Astrologer"
+                                    className="w-full h-full object-cover rounded-[30px] select-none pointer-events-none"
                                     draggable={false}
                                 />
                             </div>
@@ -102,12 +97,11 @@ export default function Hero() {
                                 initial={{ opacity: 0, x: 50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.5 }}
-                                className={`absolute -right-8 top-10 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${
-                                    isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
-                                }`}
+                                className={`absolute -right-8 top-10 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
+                                    }`}
                             >
                                 <div className="flex flex-col">
-                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>2 Lakhs+</span>
+                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>2 Thousand+</span>
                                     <span className="text-xs opacity-70">Consultations Completed</span>
                                 </div>
                             </motion.div>
@@ -116,12 +110,11 @@ export default function Hero() {
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.7 }}
-                                className={`absolute -left-12 bottom-20 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${
-                                    isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
-                                }`}
+                                className={`absolute -left-12 bottom-20 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
+                                    }`}
                             >
                                 <div className="flex flex-col">
-                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>50+ Years</span>
+                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>7+ Years</span>
                                     <span className="text-xs opacity-70">of Legacy</span>
                                 </div>
                             </motion.div>
@@ -130,20 +123,18 @@ export default function Hero() {
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.9 }}
-                                className={`absolute -right-4 bottom-4 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${
-                                    isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
-                                }`}
+                                className={`absolute -right-4 bottom-4 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
+                                    }`}
                             >
                                 <div className="flex flex-col">
-                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>98%</span>
+                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>100%</span>
                                     <span className="text-xs opacity-70">Positive Feedback</span>
                                 </div>
                             </motion.div>
-                            
+
                             {/* Decorative Background Circles */}
-                            <div className={`absolute -top-10 -left-10 w-32 h-32 rounded-full border-2 border-dashed opacity-20 ${
-                                isDarkMode ? 'border-gold' : 'border-[#4B0082]'
-                            } animate-[spin_20s_linear_infinite]`} />
+                            <div className={`absolute -top-10 -left-10 w-32 h-32 rounded-full border-2 border-dashed opacity-20 ${isDarkMode ? 'border-gold' : 'border-[#4B0082]'
+                                } animate-[spin_20s_linear_infinite]`} />
                         </motion.div>
                     </div>
                 </div>
