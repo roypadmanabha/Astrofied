@@ -102,7 +102,7 @@ export default function Hero() {
                                     initial={{ opacity: 0, x: 30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.5 }}
-                                    className={`absolute right-0 md:right-4 lg:right-6 top-[42%] md:top-[145%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                    className={`absolute right-0 md:right-4 lg:right-6 top-[42%] md:top-[45%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                         }`}
                                 >
                                     <div className="flex flex-col">
@@ -128,7 +128,7 @@ export default function Hero() {
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.9 }}
-                                    className={`absolute right-0 md:right-4 lg:right-8 bottom-[18%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                    className={`absolute -right-4 md:-right-12 lg:-right-16 bottom-[18%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                         }`}
                                 >
                                     <div className="flex flex-col">
