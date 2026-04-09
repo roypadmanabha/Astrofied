@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Mail, MapPin, Clock, Calendar, User, Search, X, Smartphone } from 'lucide-react';
 import { getPlanetaryPositions, getKundali } from 'vedic-astro';
+import { DateTime } from 'luxon';
 
 const PLANET_COLORS = {
     "As": "#4CAF50", // Ascendant
@@ -37,16 +38,38 @@ export default function KundliCalculator() {
         const delayDebounceFn = setTimeout(async () => {
             setIsSearching(true);
             try {
-                const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(formData.pob)}&limit=5`);
+                // Fetch with addressdetails to get clean city/state/country names
+                const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(formData.pob)}&addressdetails=1&limit=8`);
                 const data = await res.json();
-                setCitySuggestions(data.map(item => ({ name: item.display_name, lat: item.lat, lon: item.lon })));
-            } catch (err) { console.error(err); } finally { setIsSearching(false); }
+                
+                const refined = data.map(item => {
+                    const addr = item.address;
+                    const city = addr.city || addr.town || addr.village || addr.suburb || addr.hamlet || addr.county;
+                    const state = addr.state || addr.region;
+                    const country = addr.country;
+                    
+                    // Filter out results that don't have basic city/state info
+                    if (!city || !state || !country) return null;
+                    
+                    return {
+                        displayName: `${city}, ${state}, ${country}`,
+                        lat: item.lat,
+                        lon: item.lon
+                    };
+                }).filter(Boolean);
+                
+                setCitySuggestions(refined);
+            } catch (err) { 
+                console.error("Search error:", err); 
+            } finally { 
+                setIsSearching(false); 
+            }
         }, 800);
         return () => clearTimeout(delayDebounceFn);
     }, [formData.pob]);
 
     const handleSelectCity = (city) => {
-        setFormData({ ...formData, pob: city.name, lat: city.lat, lon: city.lon });
+        setFormData({ ...formData, pob: city.displayName, lat: city.lat, lon: city.lon });
         setCitySuggestions([]);
     };
 
@@ -55,21 +78,24 @@ export default function KundliCalculator() {
         setStatus('loading');
 
         try {
-            // 1. Timezone Detection
+            // 1. Precise Timezone Detection (Handling Historical Shifts)
             let utcIso = "";
             try {
                 const tzRes = await fetch(`https://api.bigdatacloud.net/data/timezone-by-location?latitude=${formData.lat}&longitude=${formData.lon}&localityLanguage=en`);
                 const tzData = await tzRes.json();
-                const offsetMinutes = tzData.utcOffsetSeconds / 60;
-                const sign = offsetMinutes >= 0 ? "+" : "-";
-                const hh = String(Math.floor(Math.abs(offsetMinutes) / 60)).padStart(2, '0');
-                const mm = String(Math.abs(offsetMinutes) % 60).padStart(2, '0');
-                utcIso = `${formData.dob}T${formData.tob}:00${sign}${hh}:${mm}`;
-            } catch {
+                
+                // Use Luxon to get the exact offset for that specific date in history
+                const iana = tzData.ianaTimeId || "Asia/Kolkata";
+                const dt = DateTime.fromISO(`${formData.dob}T${formData.tob}`, { zone: iana });
+                utcIso = dt.toUTC().toISO();
+                
+                if (!utcIso) throw new Error("Invalid Date/Time");
+            } catch (tzErr) {
+                console.warn("Timezone API or Luxon failed, falling back to IST (+5:30)");
                 utcIso = `${formData.dob}T${formData.tob}:00+05:30`;
             }
 
-            // 2. Exact Calculation
+            // 2. Exact Calculation using Lahiri Ayanamsa (vedic-astro default)
             const location = { latitude: parseFloat(formData.lat), longitude: parseFloat(formData.lon) };
             const planetPositions = await getPlanetaryPositions({ iso: utcIso }, location);
             const kundali = getKundali(planetPositions);
@@ -131,10 +157,20 @@ export default function KundliCalculator() {
                                 <input required value={formData.pob} className="bg-transparent border-b-2 border-gold/30 py-2 focus:border-gold outline-none" onChange={e => setFormData({...formData, pob: e.target.value})} />
                                 {isSearching && <Search className="absolute right-2 bottom-3 w-4 h-4 animate-spin text-gold" />}
                                 {citySuggestions.length > 0 && (
-                                    <div className={`absolute top-full left-0 right-0 z-50 mt-1 rounded-xl shadow-2xl border ${isDarkMode ? 'bg-[#121212] border-gold/20' : 'bg-white border-gray-100'}`}>
-                                        {citySuggestions.map((c, i) => <div key={i} onClick={() => handleSelectCity(c)} className="p-3 hover:bg-gold hover:text-black cursor-pointer text-xs">{c.name}</div>)}
+                                    <div className={`absolute top-full left-0 right-0 z-50 mt-1 rounded-2xl shadow-2xl border overflow-hidden ${isDarkMode ? 'bg-[#121212] border-gold/20' : 'bg-white border-gray-100'}`}>
+                                        <div className="bg-[#666] text-white px-4 py-2 text-[11px] text-center font-bold tracking-tight opacity-90">Type more letters for precise results</div>
+                                        <div className="max-h-[250px] overflow-y-auto">
+                                            {citySuggestions.map((c, i) => (
+                                                <div key={i} onClick={() => handleSelectCity(c)} className="p-4 hover:bg-gold/10 hover:text-gold cursor-pointer text-sm flex items-center gap-3 border-b border-gray-100 dark:border-zinc-800 last:border-0 transition-colors">
+                                                    <MapPin className="w-4 h-4 text-gray-400" />
+                                                    <span className="font-medium">{c.displayName}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="bg-[#C1FCB1]/30 dark:bg-[#C1FCB1]/10 px-4 py-3 text-sm text-center font-semibold text-gray-500 dark:text-gray-400 cursor-default">Show more places available</div>
                                     </div>
                                 )}
+
                             </div>
                             <div className="flex flex-col gap-2 md:col-span-2">
                                 <label className="text-sm font-bold opacity-70">Gender</label>
