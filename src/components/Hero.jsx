@@ -69,9 +69,9 @@ export default function Hero() {
                     {/* Right Image Segment */}
                     <div className="w-full lg:w-1/2 relative flex justify-center items-center order-2 mt-12 lg:mt-0">
                         {/* Background Rotating Wheel */}
-                        <motion.img 
-                            src={zodiacBg} 
-                            alt="" 
+                        <motion.img
+                            src={zodiacBg}
+                            alt=""
                             className="absolute w-[120%] h-[120%] max-w-none opacity-20 pointer-events-none select-none blur-[2px]"
                             animate={{ rotate: 360 }}
                             transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
@@ -79,7 +79,7 @@ export default function Hero() {
 
                         <div className="relative w-full max-w-[500px] flex flex-col items-center">
                             {/* Main Astrologer Image (Transparent) */}
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 1 }}
@@ -89,20 +89,20 @@ export default function Hero() {
                                     src={astrologer}
                                     alt="Astrologer"
                                     className="w-full h-auto object-contain select-none pointer-events-none"
-                                    style={{ 
+                                    style={{
                                         filter: isDarkMode ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))' : 'drop-shadow(0 0 20px rgba(75, 0, 130, 0.1))',
                                         maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)',
                                         WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)'
                                     }}
                                     draggable={false}
                                 />
-                                
+
                                 {/* Floating Stats Badges - POSITIONED PRECISELY */}
                                 <motion.div
                                     initial={{ opacity: 0, x: 30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.5 }}
-                                    className={`absolute right-2 md:right-8 lg:right-12 top-[30%] md:top-[35%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                    className={`absolute right-0 md:right-4 lg:right-6 top-[42%] md:top-[145%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                         }`}
                                 >
                                     <div className="flex flex-col">
@@ -128,7 +128,7 @@ export default function Hero() {
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.9 }}
-                                    className={`absolute right-6 md:right-12 lg:right-20 bottom-[15%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                    className={`absolute right-0 md:right-4 lg:right-8 bottom-[18%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                         }`}
                                 >
                                     <div className="flex flex-col">
@@ -143,9 +143,8 @@ export default function Hero() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.2 }}
-                                className={`relative -mt-6 z-30 px-6 py-4 md:px-12 rounded-full border glass backdrop-blur-3xl whitespace-nowrap shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${
-                                    isDarkMode ? 'border-gold/30 text-gold shadow-gold/20' : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
-                                }`}
+                                className={`relative -mt-6 z-30 px-6 py-4 md:px-12 rounded-full border glass backdrop-blur-3xl whitespace-nowrap shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${isDarkMode ? 'border-gold/30 text-gold shadow-gold/20' : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
+                                    }`}
                             >
                                 <span className="text-sm md:text-lg font-bold tracking-[0.3em] uppercase">your roadmap to the right decisions</span>
                             </motion.div>
