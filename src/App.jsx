@@ -63,6 +63,10 @@ function MainContent() {
       onDragStart={(e) => e.preventDefault()}
     >
       <div className="cosmic-bg">
+        <div className="star-layer-3" />
+        <div className="shooting-star" />
+        <div className="shooting-star" />
+        <div className="shooting-star" />
         <div className="nebula" />
       </div>
       {/* Progress Bar */}
