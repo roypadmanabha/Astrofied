@@ -62,7 +62,9 @@ function MainContent() {
       onContextMenu={(e) => e.preventDefault()}
       onDragStart={(e) => e.preventDefault()}
     >
-      <div className="cosmic-bg" />
+      <div className="cosmic-bg">
+        <div className="nebula" />
+      </div>
       {/* Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"

@@ -22,7 +22,7 @@ export default function Hero() {
                             className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 glass ${isDarkMode ? 'border-gold/20 text-gold shadow-gold/10' : 'border-[#4B0082]/20 text-[#4B0082] shadow-[#4B0082]/10'
                                 }`}
                         >
-                            <span className="text-sm font-bold tracking-wider uppercase">✦ Vedic Astrology & Spiritual Guidance</span>
+                            <span className="text-sm font-bold tracking-wider uppercase">your  roadmap  to  the  right  decisions</span>
                         </motion.div>
 
                         <motion.h1
