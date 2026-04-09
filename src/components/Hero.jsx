@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import astrologer from '../assets/about-section-image.jpg';
-import heroAstrologer from '../assets/hero-astrologer.png';
 
 export default function Hero() {
     const { isDarkMode } = useTheme();
@@ -84,12 +83,13 @@ export default function Hero() {
                             transition={{ duration: 1 }}
                             className="relative w-[300px] h-[400px] md:w-[400px] md:h-[500px]"
                         >
-                            {/* Main Image - Cutout version */}
-                            <div className="relative z-10 w-full h-full flex items-end justify-center">
+                            {/* Main Image with Frame */}
+                            <div className={`relative z-10 w-full h-full rounded-[40px] overflow-hidden ${isDarkMode ? 'bg-gradient-to-b from-[#1a0b32] to-black' : 'bg-gradient-to-b from-[#fff9e6] to-[#f5f5dc]'
+                                } shadow-2xl`}>
                                 <img
-                                    src={heroAstrologer}
+                                    src={astrologer.replace('.jpg', '.png')}
                                     alt="Astrologer"
-                                    className="w-auto h-full object-contain select-none pointer-events-none drop-shadow-[0_0_80px_rgba(212,175,55,0.2)] md:drop-shadow-[0_0_120px_rgba(212,175,55,0.3)] transition-transform duration-700 hover:scale-[1.02]"
+                                    className="w-full h-full object-contain select-none pointer-events-none mt-4"
                                     draggable={false}
                                 />
                             </div>
@@ -99,7 +99,7 @@ export default function Hero() {
                                 initial={{ opacity: 0, x: 50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.5 }}
-                                className={`absolute -right-8 top-10 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
+                                className={`absolute right-4 top-12 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
                                     }`}
                             >
                                 <div className="flex flex-col">
@@ -112,7 +112,7 @@ export default function Hero() {
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.7 }}
-                                className={`absolute -left-12 bottom-20 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
+                                className={`absolute left-4 bottom-24 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
                                     }`}
                             >
                                 <div className="flex flex-col">
@@ -125,7 +125,7 @@ export default function Hero() {
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.9 }}
-                                className={`absolute -right-4 bottom-4 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
+                                className={`absolute right-6 bottom-6 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
                                     }`}
                             >
                                 <div className="flex flex-col">
