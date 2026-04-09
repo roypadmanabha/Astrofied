@@ -10,6 +10,8 @@ import Feedback from './components/Feedback';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
+import KundliCalculator from './components/KundliCalculator';
+
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -197,7 +199,11 @@ function MainContent() {
       {/* FAQs Section */}
       <FAQs />
 
+      {/* Kundli Calculator Section */}
+      <KundliCalculator />
+
       <Testimonials />
+
       <Footer />
     </div>
   );
