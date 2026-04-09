@@ -91,7 +91,8 @@ export default function Hero() {
                                     className="w-full h-auto object-contain select-none pointer-events-none"
                                     style={{ 
                                         filter: isDarkMode ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))' : 'drop-shadow(0 0 20px rgba(75, 0, 130, 0.1))',
-                                        maskImage: 'linear-gradient(to bottom, black 90%, transparent 100%)'
+                                        maskImage: 'linear-gradient(to bottom, black 92%, transparent 100%), linear-gradient(to right, black 92%, transparent 100%)',
+                                        WebkitMaskImage: 'linear-gradient(to bottom, black 92%, transparent 100%), linear-gradient(to right, black 92%, transparent 100%)'
                                     }}
                                     draggable={false}
                                 />
@@ -109,12 +110,12 @@ export default function Hero() {
                                 </motion.div>
                             </motion.div>
 
-                            {/* Floating Stats Badges - Adjusted for new center label */}
+                            {/* Floating Stats Badges - POSITIONED CLOSER AND OVERLAPPING */}
                             <motion.div
                                 initial={{ opacity: 0, x: 30 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.5 }}
-                                className={`absolute right-0 md:-right-8 top-1/4 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                className={`absolute right-4 md:right-10 lg:right-16 top-1/4 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                     }`}
                             >
                                 <div className="flex flex-col">
@@ -127,7 +128,7 @@ export default function Hero() {
                                 initial={{ opacity: 0, x: -30 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.7 }}
-                                className={`absolute md:-left-8 top-1/2 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                className={`absolute left-0 md:left-4 top-1/2 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                     }`}
                             >
                                 <div className="flex flex-col">
@@ -140,7 +141,7 @@ export default function Hero() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.9 }}
-                                className={`absolute -right-4 bottom-20 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                className={`absolute right-12 md:right-20 lg:right-28 bottom-24 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                     }`}
                             >
                                 <div className="flex flex-col">
