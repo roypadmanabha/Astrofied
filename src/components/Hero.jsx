@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import astrologer from '../assets/about-section-image.jpg';
+import heroAstrologer from '../assets/hero-astrologer.png';
 
 export default function Hero() {
     const { isDarkMode } = useTheme();
@@ -83,13 +84,12 @@ export default function Hero() {
                             transition={{ duration: 1 }}
                             className="relative w-[300px] h-[400px] md:w-[400px] md:h-[500px]"
                         >
-                            {/* Main Image with Frame */}
-                            <div className={`relative z-10 w-full h-full rounded-[40px] overflow-hidden border-2 p-3 ${isDarkMode ? 'border-gold/30 bg-black/40' : 'border-[#4B0082]/20 bg-white/40'
-                                } glass`}>
+                            {/* Main Image - Cutout version */}
+                            <div className="relative z-10 w-full h-full flex items-end justify-center">
                                 <img
-                                    src={astrologer}
+                                    src={heroAstrologer}
                                     alt="Astrologer"
-                                    className="w-full h-full object-cover rounded-[30px] select-none pointer-events-none"
+                                    className="w-auto h-full object-contain select-none pointer-events-none drop-shadow-[0_0_80px_rgba(212,175,55,0.2)] md:drop-shadow-[0_0_120px_rgba(212,175,55,0.3)] transition-transform duration-700 hover:scale-[1.02]"
                                     draggable={false}
                                 />
                             </div>
