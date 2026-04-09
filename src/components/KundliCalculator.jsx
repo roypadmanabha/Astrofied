@@ -1,245 +1,423 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Mail, MapPin, Clock, Calendar, User, Search, X, Smartphone } from 'lucide-react';
 import { getPlanetaryPositions, getKundali } from 'vedic-astro';
 import { DateTime } from 'luxon';
+import { X, Search, Wind, Sun, Moon, MapPin, Calendar, Clock, User, Mail, Phone } from 'lucide-react';
 
 const PLANET_COLORS = {
-    "As": "#4CAF50", // Ascendant
-    "Su": "#FFA500", // Sun
-    "Mo": "#FFFFFF", // Moon
-    "Ma": "#FF0000", // Mars
-    "Me": "#32CD32", // Mercury
-    "Ju": "#FFD700", // Jupiter
-    "Ve": "#FF69B4", // Venus
-    "Sa": "#4B0082", // Saturn
-    "Ra": "#808080", // Rahu
-    "Ke": "#808080", // Ketu
-    "Ur": "#40E0D0", // Uranus
-    "Ne": "#0000FF", // Neptune
-    "Pl": "#8B0000"  // Pluto
+    As: '#FFFFFF',
+    Su: '#FFD700',
+    Mo: '#C0C0C0',
+    Ma: '#FF4500',
+    Me: '#32CD32',
+    Ju: '#FFD700',
+    Ve: '#FF69B4',
+    Sa: '#4B0082',
+    Ra: '#708090',
+    Ke: '#2F4F4F',
+    Ur: '#00CED1',
+    Ne: '#1E90FF',
+    Pl: '#800080'
+};
+
+const ZODIAC_SIGNS = [
+    "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
+    "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"
+];
+
+const NorthIndianChart = ({ kundliData, isDarkMode }) => {
+    if (!kundliData) return null;
+
+    const size = 400;
+    const mid = size / 2;
+
+    // Houses in North Indian Chart are fixed diamonds/triangles.
+    // Index 0 in this array corresponds to House 1 (Top Center Diamond), and so on.
+    const housePaths = [
+        // House 1: Top Center Diamond
+        `M ${mid} ${mid} L ${mid/2} ${mid/2} L ${mid} 0 L ${mid*1.5} ${mid/2} Z`,
+        // House 2: Top Left Triangle
+        `M 0 0 L ${mid} 0 L ${mid/2} ${mid/2} Z`,
+        // House 3: Left Top Triangle
+        `M 0 0 L ${mid/2} ${mid/2} L 0 ${mid} Z`,
+        // House 4: Center Left Diamond
+        `M ${mid} ${mid} L 0 ${mid} L ${mid/2} ${mid/2} L 0 ${mid} Z`, // Placeholder, fixed below
+    ];
+
+    // House paths for North Indian Chart (400x400)
+    const houses = [
+        { id: 1, p: `M ${mid} 0 L ${mid/2} ${mid/2} L ${mid} ${mid} L ${mid*1.5} ${mid/2} Z`, tx: mid, ty: mid*0.65 },
+        { id: 2, p: `M 0 0 L ${mid} 0 L ${mid/2} ${mid/2} Z`, tx: mid*0.45, ty: mid*0.25 },
+        { id: 3, p: `M 0 0 L ${mid/2} ${mid/2} L 0 ${mid} Z`, tx: mid*0.2, ty: mid*0.45 },
+        { id: 4, p: `M 0 ${mid} L ${mid/2} ${mid/2} L ${mid} ${mid} L ${mid/2} ${mid*1.5} Z`, tx: mid*0.35, ty: mid },
+        { id: 5, p: `M 0 ${size} L 0 ${mid} L ${mid/2} ${mid*1.5} Z`, tx: mid*0.2, ty: mid*1.55 },
+        { id: 6, p: `M 0 ${size} L ${mid/2} ${mid*1.5} L ${mid} ${size} Z`, tx: mid*0.45, ty: mid*1.75 },
+        { id: 7, p: `M ${mid} ${size} L ${mid/2} ${mid*1.5} L ${mid} ${mid} L ${mid*1.5} ${mid*1.5} Z`, tx: mid, ty: mid*1.35 },
+        { id: 8, p: `M ${size} ${size} L ${mid} ${size} L ${mid*1.5} ${mid*1.5} Z`, tx: mid*1.55, ty: mid*1.75 },
+        { id: 9, p: `M ${size} ${size} L ${mid*1.5} ${mid*1.5} L ${size} ${mid} Z`, tx: mid*1.8, ty: mid*1.55 },
+        { id: 10, p: `M ${size} ${mid} L ${mid*1.5} ${mid*1.5} L ${mid} ${mid} L ${mid*1.5} ${mid/2} Z`, tx: mid*1.65, ty: mid },
+        { id: 11, p: `M ${size} 0 L ${size} ${mid} L ${mid*1.5} ${mid/2} Z`, tx: mid*1.8, ty: mid*0.45 },
+        { id: 12, p: `M ${size} 0 L ${mid*1.5} ${mid/2} L ${mid} 0 Z`, tx: mid*1.55, ty: mid*0.25 },
+    ];
+
+    const strokeColor = isDarkMode ? 'rgba(212, 175, 55, 0.4)' : 'rgba(75, 0, 130, 0.4)';
+    const textColor = isDarkMode ? '#FFFFFF' : '#000000';
+    const signColor = '#FF0000'; // Red house numbers as per tradition/screenshot
+
+    return (
+        <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`} className="max-w-[500px] mx-auto drop-shadow-2xl">
+            {/* Outline */}
+            <rect x="0" y="0" width={size} height={size} fill="none" stroke={strokeColor} strokeWidth="2" />
+            
+            {/* Houses */}
+            {houses.map((h, i) => {
+                const data = kundliData[i]; // Data for House i+1
+                return (
+                    <g key={h.id}>
+                        <path d={h.p} fill="none" stroke={strokeColor} strokeWidth="1.5" />
+                        
+                        {/* Sign Number */}
+                        <text x={h.tx} y={h.ty + 15} textAnchor="middle" fontSize="16" fontWeight="bold" fill={signColor}>
+                            {data.sign}
+                        </text>
+
+                        {/* Planets */}
+                        {data.planets.map((p, pIdx) => (
+                            <text 
+                                key={p.name} 
+                                x={h.tx} 
+                                y={h.ty - 15 - (pIdx * 18)} 
+                                textAnchor="middle" 
+                                fontSize="12" 
+                                fontWeight="bold" 
+                                fill={PLANET_COLORS[p.name] || textColor}
+                            >
+                                {p.name} {Math.floor(p.degree)}°
+                            </text>
+                        ))}
+                    </g>
+                );
+            })}
+
+            {/* Diagonals for better aesthetics */}
+            <line x1="0" y1="0" x2={size} y2={size} stroke={strokeColor} strokeWidth="1" />
+            <line x1={size} y1="0" x2="0" y2={size} stroke={strokeColor} strokeWidth="1" />
+        </svg>
+    );
 };
 
 export default function KundliCalculator() {
     const { isDarkMode } = useTheme();
     const [formData, setFormData] = useState({
-        name: '', phone: '', email: '', dob: '', tob: '12:00', pob: '', gender: '', lat: '', lon: ''
+        name: '',
+        phone: '',
+        email: '',
+        dob: '',
+        tob: '00:00',
+        gender: '',
+        pob: ''
     });
-
-    const [citySuggestions, setCitySuggestions] = useState([]);
-    const [isSearching, setIsSearching] = useState(false);
-    const [showChart, setShowChart] = useState(false);
-    const [status, setStatus] = useState('idle');
+    const [location, setLocation] = useState(null);
+    const [suggestions, setSuggestions] = useState([]);
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [chartData, setChartData] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const pobRef = useRef(null);
 
     useEffect(() => {
-        if (formData.pob.length < 3) { setCitySuggestions([]); return; }
-        const delayDebounceFn = setTimeout(async () => {
-            setIsSearching(true);
-            try {
-                // Fetch with addressdetails to get clean city/state/country names
-                const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(formData.pob)}&addressdetails=1&limit=8`);
-                const data = await res.json();
-                
-                const refined = data.map(item => {
-                    const addr = item.address;
-                    const city = addr.city || addr.town || addr.village || addr.suburb || addr.hamlet || addr.county;
-                    const state = addr.state || addr.region;
-                    const country = addr.country;
-                    
-                    // Filter out results that don't have basic city/state info
-                    if (!city || !state || !country) return null;
-                    
-                    return {
-                        displayName: `${city}, ${state}, ${country}`,
-                        lat: item.lat,
-                        lon: item.lon
-                    };
-                }).filter(Boolean);
-                
-                setCitySuggestions(refined);
-            } catch (err) { 
-                console.error("Search error:", err); 
-            } finally { 
-                setIsSearching(false); 
+        const handleClickOutside = (event) => {
+            if (pobRef.current && !pobRef.current.contains(event.target)) {
+                setShowSuggestions(false);
             }
-        }, 800);
-        return () => clearTimeout(delayDebounceFn);
-    }, [formData.pob]);
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
-    const handleSelectCity = (city) => {
-        setFormData({ ...formData, pob: city.displayName, lat: city.lat, lon: city.lon });
-        setCitySuggestions([]);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setStatus('loading');
-
+    const fetchSuggestions = async (query) => {
+        if (query.length < 3) {
+            setSuggestions([]);
+            return;
+        }
         try {
-            // 1. Precise Timezone Detection (Handling Historical Shifts)
-            let utcIso = "";
-            try {
-                const tzRes = await fetch(`https://api.bigdatacloud.net/data/timezone-by-location?latitude=${formData.lat}&longitude=${formData.lon}&localityLanguage=en`);
-                const tzData = await tzRes.json();
-                
-                // Use Luxon to get the exact offset for that specific date in history
-                const iana = tzData.ianaTimeId || "Asia/Kolkata";
-                const dt = DateTime.fromISO(`${formData.dob}T${formData.tob}`, { zone: iana });
-                utcIso = dt.toUTC().toISO();
-                
-                if (!utcIso) throw new Error("Invalid Date/Time");
-            } catch (tzErr) {
-                console.warn("Timezone API or Luxon failed, falling back to IST (+5:30)");
-                utcIso = `${formData.dob}T${formData.tob}:00+05:30`;
-            }
-
-            // 2. Exact Calculation using Lahiri Ayanamsa (vedic-astro default)
-            const location = { latitude: parseFloat(formData.lat), longitude: parseFloat(formData.lon) };
-            const planetPositions = await getPlanetaryPositions({ iso: utcIso }, location);
-            const kundali = getKundali(planetPositions);
-
-            // 3. Map to D1 Chart
-            const lagnaSign = kundali.houses[1].sign;
-            const placements = {};
-            for (let h = 1; h <= 12; h++) {
-                placements[h] = kundali.houses[h].planets.map(p => {
-                    const label = Object.keys(PLANET_COLORS).find(k => p.name.includes(k)) || p.name;
-                    return `${label} ${Math.floor(p.position)}°`;
-                });
-                if (h === 1) placements[h].unshift("As");
-            }
-
-            setChartData({ lagna: lagnaSign, placements });
-
-            // 4. Submit to Email
-            await fetch("https://formsubmit.co/ajax/sj.astrologyservices@gmail.com", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    "Subject": "New PRECISE Kundli Request",
-                    ...formData,
-                    "Lagna": lagnaSign,
-                    "_template": "table"
-                })
-            });
-
-            setStatus('success');
-            setShowChart(true);
+            const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=5`);
+            const data = await res.json();
+            setSuggestions(data.features || []);
+            setShowSuggestions(true);
         } catch (err) {
-            console.error(err);
-            setStatus('error');
-            alert("Calculation failed. Please verify birth details.");
+            console.error("Location search failed:", err);
         }
     };
 
+    const handleSelectLocation = (feature) => {
+        const [lon, lat] = feature.geometry.coordinates;
+        const name = [
+            feature.properties.name,
+            feature.properties.city,
+            feature.properties.state,
+            feature.properties.country
+        ].filter(Boolean).join(", ");
+        
+        setFormData({ ...formData, pob: name });
+        setLocation({ lat, lon, name });
+        setShowSuggestions(false);
+    };
+
+    const calculateKundli = async (e) => {
+        e.preventDefault();
+        if (!location) {
+            alert("Please select a birth place from the suggestions.");
+            return;
+        }
+        setLoading(true);
+
+        try {
+            // ISO Date: YYYY-MM-DDTHH:mm:ss
+            const isoString = `${formData.dob}T${formData.tob}:00`;
+            const loc = { latitude: location.lat, longitude: location.lon };
+            
+            // Get positions
+            const positions = await getPlanetaryPositions({ iso: isoString }, loc);
+            const kundli = getKundali(positions);
+
+            // Format data for our SVG
+            const formattedData = kundli.houses.map(h => ({
+                sign: h.sign,
+                planets: h.planets.map(p => ({
+                    name: p,
+                    degree: positions.planets[p]?.longitude % 30 || 0
+                }))
+            }));
+
+            // Special handling for Rahu/Ketu/Ascendant if not in planets list
+            // vedic-astro getKundali houses have 'planets' as an array of strings like ["Su", "Ma"]
+            // The positions object has planets: { Su: { longitude, ... }, ... }
+            
+            setChartData(formattedData);
+            setShowModal(true);
+        } catch (err) {
+            console.error("Calculation failed:", err);
+            alert("Failed to calculate Kundli. Please check your inputs.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const glassStyle = isDarkMode ? 'glass border-gold/30' : 'glass border-[#4B0082]/20';
+
     return (
-        <section id="calculator" className="py-24 relative overflow-hidden font-raleway">
+        <section className="py-24 relative overflow-hidden" id="kundli">
             <div className="container mx-auto px-6">
-                <div className="flex flex-col lg:flex-row items-center gap-16">
-                    <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full lg:w-1/2 text-center lg:text-left">
-                        <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6">Get Your <span className="text-gold">Free Kundli</span></h2>
-                        <div className="w-20 h-1.5 bg-gold mb-8 mx-auto lg:mx-0 rounded-full" />
-                        <p className="text-lg md:text-xl opacity-80 leading-relaxed max-w-lg mx-auto lg:mx-0">Precision Vedic birth chart calculation based on exact astronomical data.</p>
-                    </motion.div>
+                <motion.div 
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className={`max-w-xl mx-auto p-8 md:p-12 rounded-3xl ${glassStyle} shadow-2xl relative z-10`}
+                >
+                    <div className="text-center mb-10">
+                        <h2 className="text-4xl font-bold font-raleway mb-4" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
+                            Kundli Calculator
+                        </h2>
+                        <p className="text-sm md:text-base opacity-70">
+                            Get clear insights into your life, career, and future with your personalized Kundli.
+                        </p>
+                    </div>
 
-                    <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className={`w-full lg:w-1/2 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border ${isDarkMode ? 'bg-[#0A0A0A] border-gold/20' : 'bg-[#FFF9F0] border-[#4B0082]/10'}`}>
-                        <h3 className="text-2xl md:text-3xl font-bold mb-10 text-center uppercase tracking-widest" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>Kundli Calculator</h3>
-                        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <InputField label="Name" icon={<User className="w-4 h-4" />} required onChange={e => setFormData({...formData, name: e.target.value})} />
-                            <InputField label="Phone" icon={<Smartphone className="w-4 h-4" />} required onChange={e => setFormData({...formData, phone: e.target.value})} />
-                            <InputField label="Email" icon={<Mail className="w-4 h-4" />} type="email" required onChange={e => setFormData({...formData, email: e.target.value})} />
-                            <InputField label="Date" icon={<Calendar className="w-4 h-4" />} type="date" required onChange={e => setFormData({...formData, dob: e.target.value})} />
-                            <InputField label="Time" icon={<Clock className="w-4 h-4" />} type="time" required onChange={e => setFormData({...formData, tob: e.target.value})} />
-                            <div className="flex flex-col gap-2 relative">
-                                <label className="text-sm font-bold opacity-70 flex items-center gap-2"><MapPin className="w-4 h-4 text-gold" /> Birth Place</label>
-                                <input required value={formData.pob} className="bg-transparent border-b-2 border-gold/30 py-2 focus:border-gold outline-none" onChange={e => setFormData({...formData, pob: e.target.value})} />
-                                {isSearching && <Search className="absolute right-2 bottom-3 w-4 h-4 animate-spin text-gold" />}
-                                {citySuggestions.length > 0 && (
-                                    <div className={`absolute top-full left-0 right-0 z-50 mt-1 rounded-2xl shadow-2xl border overflow-hidden ${isDarkMode ? 'bg-[#121212] border-gold/20' : 'bg-white border-gray-100'}`}>
-                                        <div className="bg-[#666] text-white px-4 py-2 text-[11px] text-center font-bold tracking-tight opacity-90">Type more letters for precise results</div>
-                                        <div className="max-h-[250px] overflow-y-auto">
-                                            {citySuggestions.map((c, i) => (
-                                                <div key={i} onClick={() => handleSelectCity(c)} className="p-4 hover:bg-gold/10 hover:text-gold cursor-pointer text-sm flex items-center gap-3 border-b border-gray-100 dark:border-zinc-800 last:border-0 transition-colors">
-                                                    <MapPin className="w-4 h-4 text-gray-400" />
-                                                    <span className="font-medium">{c.displayName}</span>
+                    <form onSubmit={calculateKundli} className="space-y-6">
+                        <div className="relative group">
+                            <span className="absolute left-3 top-3 text-gold/60"><User size={20} /></span>
+                            <input 
+                                required
+                                type="text"
+                                placeholder="Enter your full name" 
+                                className={`w-full bg-transparent border-b-2 py-3 pl-12 outline-none transition-all ${isDarkMode ? 'border-gold/30 focus:border-gold' : 'border-[#4B0082]/20 focus:border-[#4B0082]'}`}
+                                value={formData.name}
+                                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="relative">
+                                <span className="absolute left-3 top-3 text-gold/60"><Phone size={20} /></span>
+                                <input 
+                                    required
+                                    type="tel"
+                                    placeholder="Phone number" 
+                                    className={`w-full bg-transparent border-b-2 py-3 pl-12 outline-none transition-all ${isDarkMode ? 'border-gold/30 focus:border-gold' : 'border-[#4B0082]/20 focus:border-[#4B0082]'}`}
+                                    value={formData.phone}
+                                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                                />
+                            </div>
+                            <div className="relative">
+                                <span className="absolute left-3 top-3 text-gold/60"><Mail size={20} /></span>
+                                <input 
+                                    required
+                                    type="email"
+                                    placeholder="Email address" 
+                                    className={`w-full bg-transparent border-b-2 py-3 pl-12 outline-none transition-all ${isDarkMode ? 'border-gold/30 focus:border-gold' : 'border-[#4B0082]/20 focus:border-[#4B0082]'}`}
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="relative">
+                                <span className="absolute left-3 top-3 text-gold/60"><Calendar size={20} /></span>
+                                <input 
+                                    required
+                                    type="date"
+                                    className={`w-full bg-transparent border-b-2 py-3 pl-12 outline-none transition-all ${isDarkMode ? 'border-gold/30 focus:border-gold' : 'border-[#4B0082]/20 focus:border-[#4B0082]'}`}
+                                    value={formData.dob}
+                                    onChange={(e) => setFormData({...formData, dob: e.target.value})}
+                                />
+                            </div>
+                            <div className="relative">
+                                <span className="absolute left-3 top-3 text-gold/60"><Clock size={20} /></span>
+                                <input 
+                                    required
+                                    type="time"
+                                    className={`w-full bg-transparent border-b-2 py-3 pl-12 outline-none transition-all ${isDarkMode ? 'border-gold/30 focus:border-gold' : 'border-[#4B0082]/20 focus:border-[#4B0082]'}`}
+                                    value={formData.tob}
+                                    onChange={(e) => setFormData({...formData, tob: e.target.value})}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="relative" ref={pobRef}>
+                            <span className="absolute left-3 top-3 text-gold/60"><MapPin size={20} /></span>
+                            <input 
+                                required
+                                type="text"
+                                placeholder="Enter your birth place" 
+                                className={`w-full bg-transparent border-b-2 py-3 pl-12 outline-none transition-all ${isDarkMode ? 'border-gold/30 focus:border-gold' : 'border-[#4B0082]/20 focus:border-[#4B0082]'}`}
+                                value={formData.pob}
+                                onChange={(e) => {
+                                    setFormData({...formData, pob: e.target.value});
+                                    fetchSuggestions(e.target.value);
+                                }}
+                                onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                            />
+                            <AnimatePresence>
+                                {showSuggestions && suggestions.length > 0 && (
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        className={`absolute left-0 right-0 top-full mt-2 rounded-xl border z-50 backdrop-blur-xl shadow-2xl max-h-60 overflow-y-auto ${isDarkMode ? 'bg-[#0A0A0A]/90 border-gold/30' : 'bg-white/90 border-[#4B0082]/20'}`}
+                                    >
+                                        {suggestions.map((s, idx) => (
+                                            <button
+                                                key={idx}
+                                                type="button"
+                                                onClick={() => handleSelectLocation(s)}
+                                                className={`w-full text-left px-4 py-3 text-sm hover:bg-gold/10 transition-colors border-b last:border-0 ${isDarkMode ? 'border-white/5' : 'border-black/5'}`}
+                                            >
+                                                <div className="font-bold">{s.properties.name}</div>
+                                                <div className="text-xs opacity-60">
+                                                    {[s.properties.city, s.properties.state, s.properties.country].filter(Boolean).join(", ")}
                                                 </div>
-                                            ))}
-                                        </div>
-                                        <div className="bg-[#C1FCB1]/30 dark:bg-[#C1FCB1]/10 px-4 py-3 text-sm text-center font-semibold text-gray-500 dark:text-gray-400 cursor-default">Show more places available</div>
-                                    </div>
+                                            </button>
+                                        ))}
+                                    </motion.div>
                                 )}
+                            </AnimatePresence>
+                        </div>
 
-                            </div>
-                            <div className="flex flex-col gap-2 md:col-span-2">
-                                <label className="text-sm font-bold opacity-70">Gender</label>
-                                <select required className={`bg-transparent border-b-2 border-gold/30 py-2 focus:border-gold outline-none ${isDarkMode ? 'text-white' : 'text-black'}`} onChange={e => setFormData({...formData, gender: e.target.value})}>
-                                    <option value="">--Select Option--</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            </div>
-                            <button disabled={status === 'loading'} className="md:col-span-2 mt-8 py-4 rounded-xl font-bold text-xl uppercase tracking-widest shadow-xl transition-all hover:scale-[1.02]" style={{ background: 'linear-gradient(45deg, #D4AF37, #FFD700, #B8860B)', color: '#000' }}>{status === 'loading' ? 'Calculating...' : 'Submit'}</button>
-                        </form>
-                    </motion.div>
-                </div>
+                        <div className="relative">
+                            <select 
+                                required
+                                className={`w-full bg-transparent border-b-2 py-3 px-4 outline-none transition-all appearance-none ${isDarkMode ? 'border-gold/30 focus:border-gold text-white' : 'border-[#4B0082]/20 focus:border-[#4B0082] text-black'}`}
+                                value={formData.gender}
+                                onChange={(e) => setFormData({...formData, gender: e.target.value})}
+                            >
+                                <option value="" disabled className={isDarkMode ? 'bg-[#0A0A0A]' : 'bg-white'}>--Select Gender--</option>
+                                <option value="male" className={isDarkMode ? 'bg-[#0A0A0A]' : 'bg-white'}>Male</option>
+                                <option value="female" className={isDarkMode ? 'bg-[#0A0A0A]' : 'bg-white'}>Female</option>
+                                <option value="other" className={isDarkMode ? 'bg-[#0A0A0A]' : 'bg-white'}>Other</option>
+                            </select>
+                            <div className="pointer-events-none absolute right-3 top-4 text-gold/60">▼</div>
+                        </div>
+
+                        <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            disabled={loading}
+                            type="submit"
+                            className={`w-full py-4 rounded-xl font-bold text-lg transition-all shadow-xl flex items-center justify-center gap-3 ${isDarkMode 
+                                ? 'bg-gold text-black hover:bg-white' 
+                                : 'bg-[#4B0082] text-white hover:bg-black'}`}
+                        >
+                            {loading ? (
+                                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            ) : (
+                                <><span>Submit Birth Details</span> <Sun size={20} /></>
+                            )}
+                        </motion.button>
+                    </form>
+                </motion.div>
             </div>
 
+            {/* Chart Modal */}
             <AnimatePresence>
-                {showChart && chartData && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-                        <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }} className={`relative w-full max-w-3xl rounded-[2.5rem] p-8 md:p-12 border-4 border-gold shadow-2xl ${isDarkMode ? 'bg-[#0f0f0f]' : 'bg-white'}`}>
-                            <button onClick={() => setShowChart(false)} className="absolute top-6 right-6 text-gold"><X className="w-10 h-10" /></button>
-                            <h3 className="text-2xl md:text-3xl font-bold text-center mb-12 text-gold tracking-widest uppercase">Precise Kundli Chart</h3>
-                            <div className="w-full aspect-square max-w-md mx-auto relative border border-gold/20 p-4">
-                                <NorthIndianChart lagna={chartData.lagna} placements={chartData.placements} />
+                {showModal && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setShowModal(false)}
+                            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                        />
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.9, rotateX: 20 }}
+                            animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, rotateX: 20 }}
+                            className={`relative w-full max-w-2xl p-6 md:p-10 rounded-3xl ${isDarkMode ? 'bg-[#0A0A0A] border border-gold/30' : 'bg-white border border-[#4B0082]/20'} shadow-2xl`}
+                        >
+                            <button 
+                                onClick={() => setShowModal(false)}
+                                className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full transition-colors text-gold"
+                            >
+                                <X size={24} />
+                            </button>
+
+                            <div className="text-center mb-8">
+                                <h3 className="text-2xl md:text-3xl font-bold font-raleway underline underline-offset-8 decoration-gold/30">
+                                    KUNDLI CHART
+                                </h3>
+                                <p className="mt-4 text-sm opacity-60">North Indian Style - {formData.name}</p>
+                            </div>
+
+                            <div className="w-full aspect-square max-w-[450px] mx-auto">
+                                <NorthIndianChart kundliData={chartData} isDarkMode={isDarkMode} />
+                            </div>
+
+                            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                <div className="p-3 rounded-xl bg-gold/5 border border-gold/10">
+                                    <div className="text-[10px] uppercase opacity-60">Sun Sign</div>
+                                    <div className="font-bold text-gold">{ZODIAC_SIGNS[chartData?.find(h => h.planets.some(p => p.name === 'Su'))?.sign - 1] || '---'}</div>
+                                </div>
+                                <div className="p-3 rounded-xl bg-gold/5 border border-gold/10">
+                                    <div className="text-[10px] uppercase opacity-60">Ascendant</div>
+                                    <div className="font-bold text-gold">{ZODIAC_SIGNS[chartData?.[0]?.sign - 1] || '---'}</div>
+                                </div>
+                                <div className="p-3 rounded-xl bg-gold/5 border border-gold/10">
+                                    <div className="text-[10px] uppercase opacity-60">Moon Sign</div>
+                                    <div className="font-bold text-gold">{ZODIAC_SIGNS[chartData?.find(h => h.planets.some(p => p.name === 'Mo'))?.sign - 1] || '---'}</div>
+                                </div>
+                                <div className="p-3 rounded-xl bg-gold/5 border border-gold/10">
+                                    <div className="text-[10px] uppercase opacity-60">DOB</div>
+                                    <div className="font-bold text-gold">{formData.dob}</div>
+                                </div>
                             </div>
                         </motion.div>
-                    </motion.div>
+                    </div>
                 )}
             </AnimatePresence>
         </section>
-    );
-}
-
-function InputField({ label, icon, ...props }) {
-    return (
-        <div className="flex flex-col gap-2">
-            <label className="text-sm font-bold opacity-70 flex items-center gap-2"><span className="text-gold">{icon}</span> {label}</label>
-            <input {...props} className="bg-transparent border-b-2 border-gold/30 py-2 focus:border-gold outline-none transition-all" />
-        </div>
-    );
-}
-
-function NorthIndianChart({ lagna, placements }) {
-    const getSign = (h) => { let s = (lagna + h - 1) % 12; return s === 0 ? 12 : s; };
-    return (
-        <div className="w-full h-full relative">
-            <svg viewBox="0 0 400 400" className="w-full h-full stroke-[#4B0082] stroke-[1.5] fill-none"><rect x="0" y="0" width="400" height="400" /><line x1="0" y1="0" x2="400" y2="400" /><line x1="400" y1="0" x2="0" y2="400" /><path d="M200 0 L400 200 L200 400 L0 200 Z" /></svg>
-            <ChartHouse x="200" y="120" sign={getSign(1)} planets={placements[1]} />
-            <ChartHouse x="100" y="50" sign={getSign(2)} planets={placements[2]} />
-            <ChartHouse x="50" y="100" sign={getSign(3)} planets={placements[3]} />
-            <ChartHouse x="120" y="200" sign={getSign(4)} planets={placements[4]} />
-            <ChartHouse x="50" y="300" sign={getSign(5)} planets={placements[5]} />
-            <ChartHouse x="100" y="350" sign={getSign(6)} planets={placements[6]} />
-            <ChartHouse x="200" y="280" sign={getSign(7)} planets={placements[7]} />
-            <ChartHouse x="300" y="350" sign={getSign(8)} planets={placements[8]} />
-            <ChartHouse x="350" y="300" sign={getSign(9)} planets={placements[9]} />
-            <ChartHouse x="280" y="200" sign={getSign(10)} planets={placements[10]} />
-            <ChartHouse x="350" y="100" sign={getSign(11)} planets={placements[11]} />
-            <ChartHouse x="300" y="50" sign={getSign(12)} planets={placements[12]} />
-        </div>
-    );
-}
-
-function ChartHouse({ x, y, sign, planets = [] }) {
-    return (
-        <div className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center p-1 text-center min-w-[50px]" style={{ left: `${(x / 400) * 100}%`, top: `${(y / 400) * 100}%` }}>
-            <span className="text-red-600 font-bold text-xs md:text-sm mb-1">{sign}</span>
-            <div className="flex flex-wrap items-center justify-center gap-1">
-                {planets?.map((p, i) => <span key={i} className="text-[10px] md:text-xs font-bold" style={{ color: PLANET_COLORS[p.split(' ')[0]] || '#D4AF37' }}>{p}</span>)}
-            </div>
-        </div>
     );
 }

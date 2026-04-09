@@ -199,7 +199,6 @@ function MainContent() {
       {/* FAQs Section */}
       <FAQs />
 
-      {/* Kundli Calculator Section */}
       <KundliCalculator />
 
       <Testimonials />
