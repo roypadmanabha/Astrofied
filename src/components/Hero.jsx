@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import astrologer from '../assets/about-section-image.jpg';
+import astrologer from '../assets/hero-astrologer.png';
+import zodiacBg from '../assets/zodiac-wheel.png';
 
 export default function Hero() {
     const { isDarkMode } = useTheme();
@@ -8,13 +9,13 @@ export default function Hero() {
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-28 pb-12 md:pb-20 overflow-hidden">
             {/* Background elements */}
-            <div className={`absolute top-1/4 -left-20 w-80 h-80 rounded-full blur-[120px] opacity-30 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`} />
+            <div className={`absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[150px] opacity-20 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`} />
             <div className={`absolute bottom-1/4 -right-20 w-80 h-80 rounded-full blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#4B0082]' : 'bg-gold'}`} />
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
                     {/* Left Content */}
-                    <div className="w-full lg:w-3/5 text-center lg:text-left order-1">
+                    <div className="w-full lg:w-1/2 text-center lg:text-left order-1 z-20">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -22,7 +23,7 @@ export default function Hero() {
                             className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 glass ${isDarkMode ? 'border-gold/20 text-gold shadow-gold/10' : 'border-[#4B0082]/20 text-[#4B0082] shadow-[#4B0082]/10'
                                 }`}
                         >
-                            <span className="text-sm font-bold tracking-wider uppercase">your  roadmap  to  the  right  decisions</span>
+                            <span className="text-sm font-bold tracking-wider uppercase">your roadmap to the right decisions</span>
                         </motion.div>
 
                         <motion.h1
@@ -40,7 +41,7 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className={`text-lg md:text-xl max-w-2xl mb-12 opacity-80 font-mulish leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                            className={`text-lg md:text-xl max-w-xl mb-12 opacity-80 font-mulish leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
                                 }`}
                         >
                             Refined Vedic insights designed to guide your decisions with clarity, confidence, and purpose through the ancient wisdom of the cosmos.
@@ -76,71 +77,72 @@ export default function Hero() {
                     </div>
 
                     {/* Right Image Segment */}
-                    <div className="w-full lg:w-2/5 relative flex justify-center order-2">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1 }}
-                            className="relative w-[300px] h-[400px] md:w-[400px] md:h-[500px]"
-                        >
-                            {/* Main Image with Frame */}
-                            <div className={`relative z-10 w-full h-full rounded-[40px] overflow-hidden ${isDarkMode ? 'bg-gradient-to-b from-[#1a0b32] to-black' : 'bg-gradient-to-b from-[#fff9e6] to-[#f5f5dc]'
-                                } shadow-2xl`}>
-                                <img
-                                    src={astrologer.replace('.jpg', '.png')}
-                                    alt="Astrologer"
-                                    className="w-full h-full object-contain select-none pointer-events-none mt-4"
-                                    draggable={false}
-                                />
-                            </div>
+                    <div className="w-full lg:w-1/2 relative flex justify-center items-center order-2">
+                        {/* Background Rotating Wheel */}
+                        <motion.img 
+                            src={zodiacBg} 
+                            alt="" 
+                            className="absolute w-[120%] h-[120%] max-w-none opacity-10 pointer-events-none select-none"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+                        />
 
-                            {/* Floating Stats Badges */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.5 }}
-                                className={`absolute right-4 top-12 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
-                                    }`}
-                            >
-                                <div className="flex flex-col">
-                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>2 Thousand+</span>
-                                    <span className="text-xs opacity-70">Consultations Completed</span>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, x: -50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.7 }}
-                                className={`absolute left-4 bottom-24 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
-                                    }`}
-                            >
-                                <div className="flex flex-col">
-                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>7+ Years</span>
-                                    <span className="text-xs opacity-70">of Legacy</span>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
+                        <div className="relative w-full max-w-[450px] aspect-[4/5]">
+                            {/* Main Astrologer Image (Transparent) */}
+                            <motion.img
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.9 }}
-                                className={`absolute right-6 bottom-6 z-20 px-5 py-3 rounded-2xl border glass shadow-2xl ${isDarkMode ? 'border-gold/30' : 'border-[#4B0082]/20'
+                                transition={{ duration: 1 }}
+                                src={astrologer}
+                                alt="Astrologer"
+                                className="relative z-10 w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                                draggable={false}
+                            />
+
+                            {/* Floating Stats Badges - POSITIONED CLOSER */}
+                            <motion.div
+                                initial={{ opacity: 0, x: 30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.5 }}
+                                className={`absolute right-4 top-1/4 z-20 px-4 py-2 rounded-xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                     }`}
                             >
                                 <div className="flex flex-col">
-                                    <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>100%</span>
-                                    <span className="text-xs opacity-70">Positive Feedback</span>
+                                    <span className="text-lg font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>2 Thousand+</span>
+                                    <span className="text-[10px] opacity-70 leading-none">Consultations</span>
                                 </div>
                             </motion.div>
 
-                            {/* Decorative Background Circles */}
-                            <div className={`absolute -top-10 -left-10 w-32 h-32 rounded-full border-2 border-dashed opacity-20 ${isDarkMode ? 'border-gold' : 'border-[#4B0082]'
-                                } animate-[spin_20s_linear_infinite]`} />
-                        </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0, x: -30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.7 }}
+                                className={`absolute -left-4 bottom-1/3 z-20 px-4 py-2 rounded-xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                    }`}
+                            >
+                                <div className="flex flex-col">
+                                    <span className="text-lg font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>7+ Years</span>
+                                    <span className="text-[10px] opacity-70 leading-none">of Legacy</span>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.9 }}
+                                className={`absolute right-8 bottom-1/4 z-20 px-4 py-2 rounded-xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                    }`}
+                            >
+                                <div className="flex flex-col">
+                                    <span className="text-lg font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>100%</span>
+                                    <span className="text-[10px] opacity-70 leading-none">Satisfaction</span>
+                                </div>
+                            </motion.div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     );
 }
+
