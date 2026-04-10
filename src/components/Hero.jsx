@@ -90,8 +90,8 @@ export default function Hero() {
                                     alt="Astrologer"
                                     className="w-full h-auto object-contain select-none pointer-events-none transition-transform duration-700 hover:scale-[1.02]"
                                     style={{
-                                        filter: isDarkMode 
-                                            ? 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 30px rgba(212, 175, 55, 0.3))' 
+                                        filter: isDarkMode
+                                            ? 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 30px rgba(212, 175, 55, 0.3))'
                                             : 'drop-shadow(0 0 15px rgba(75, 0, 130, 0.2))',
                                         maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)',
                                         WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)'
@@ -135,7 +135,7 @@ export default function Hero() {
                                 >
                                     <div className="flex flex-col">
                                         <span className="text-xl font-bold" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>100%</span>
-                                        <span className="text-xs opacity-70">Satisfaction</span>
+                                        <span className="text-xs opacity-70">Accuracy</span>
                                     </div>
                                 </motion.div>
                             </motion.div>
