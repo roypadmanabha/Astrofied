@@ -145,10 +145,10 @@ export default function Hero() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.2 }}
-                                className={`relative -mt-6 z-30 px-6 py-4 md:px-12 rounded-full border glass backdrop-blur-3xl whitespace-nowrap shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${isDarkMode ? 'border-gold/30 text-gold shadow-gold/20' : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
+                                className={`relative -mt-6 z-30 px-4 py-3 md:px-12 md:py-4 rounded-full border glass backdrop-blur-3xl whitespace-nowrap shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${isDarkMode ? 'border-gold/30 text-gold shadow-gold/20' : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
                                     }`}
                             >
-                                <span className="text-sm md:text-lg font-bold tracking-[0.3em] uppercase">your roadmap to the right decisions</span>
+                                <span className="text-[9px] sm:text-sm md:text-lg font-bold tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.3em] uppercase">your roadmap to the right decisions</span>
                             </motion.div>
                         </div>
                     </div>
