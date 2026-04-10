@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Briefcase, Landmark, Heart, Users, Scale, Baby, Stethoscope, ChevronRight } from 'lucide-react';
+import { Briefcase, Landmark, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, UserCheck } from 'lucide-react';
 
 const services = [
     {
@@ -27,7 +27,7 @@ const services = [
         desc: 'Vedic Kundali matching for a prosperous married life.',
         price: '₹ 8500',
         duration: '60 Min',
-        icon: Users,
+        icon: UserCheck,
         color: 'bg-blue-100 text-blue-600',
     },
     {
