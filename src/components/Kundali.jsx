@@ -306,22 +306,22 @@ const Kundali = () => {
                             initial={{ scale: 0.92, y: 60, opacity: 0 }}
                             animate={{ scale: 1, y: 0, opacity: 1 }}
                             exit={{ scale: 0.92, y: 60, opacity: 0 }}
-                            className={`relative w-full max-w-6xl max-h-[95vh] overflow-y-auto rounded-[2rem] md:rounded-[4rem] border shadow-[0_50px_150px_rgba(0,0,0,0.5)] p-6 md:p-16 transition-all duration-700 ${
+                            className={`relative w-full max-w-6xl max-h-[95vh] overflow-y-auto rounded-[2rem] md:rounded-[4rem] border shadow-[0_50px_150px_rgba(0,0,0,0.5)] p-5 md:p-16 transition-all duration-700 ${
                                 isDarkMode ? 'bg-[#0f0a1f]/95 border-gold/20' : 'bg-white/95 border-indigo-600/30'
                             }`}
                         >
                             {/* Close Button UI */}
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className={`absolute top-4 right-4 md:top-10 md:right-10 p-2 md:p-4 rounded-full transition-all group z-[110] ${
+                                className={`absolute top-3 right-3 md:top-10 md:right-10 p-1.5 md:p-4 rounded-full transition-all group z-[110] ${
                                     isDarkMode ? 'bg-white/10 text-white hover:bg-gold hover:text-black' : 'bg-indigo-600/10 text-indigo-950 hover:bg-indigo-600 hover:text-white'
                                 }`}
                             >
-                                <X size={20} className="md:hidden" />
+                                <X size={16} className="md:hidden" />
                                 <X size={28} className="hidden md:block group-hover:rotate-90 transition-transform duration-300" />
                             </button>
 
-                            <div className="flex flex-col lg:flex-row gap-8 md:gap-16 items-center">
+                            <div className="flex flex-col lg:flex-row gap-6 md:gap-16 items-center">
                                 {/* Left Side: Beautiful Specs (Hidden on Mobile) */}
                                 <div className="hidden lg:block w-full lg:w-2/5 space-y-10 text-left">
                                     <div className="space-y-6">
@@ -351,7 +351,7 @@ const Kundali = () => {
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                             onClick={downloadPDF}
-                                            className={`w-full py-6 rounded-3xl flex items-center justify-center gap-4 font-black tracking-[0.3em] uppercase text-sm transition-all shadow-xl ${
+                                            className={`w-full py-5 rounded-3xl flex items-center justify-center gap-4 font-black tracking-[0.3em] uppercase text-sm transition-all shadow-xl ${
                                                 isDarkMode 
                                                 ? 'bg-gold text-black hover:bg-yellow-300 shadow-gold/20' 
                                                 : 'bg-indigo-950 text-white hover:bg-black shadow-indigo-950/20'
@@ -364,32 +364,32 @@ const Kundali = () => {
 
                                 {/* Right Side: The Chart Rendering (The Hero on Mobile) */}
                                 <div className="w-full lg:w-3/5 relative group flex flex-col items-center">
-                                    <h3 className="lg:hidden text-2xl font-black font-raleway mb-6 text-center tracking-tighter">
+                                    <h3 className="lg:hidden text-lg md:text-2xl font-black font-raleway mb-4 text-center tracking-tighter">
                                         <span className={isDarkMode ? 'text-white' : 'text-indigo-950'}>{formData.name}'s</span> <span className="text-gold">Kundali</span>
                                     </h3>
                                     
                                     <div className={`absolute -inset-4 md:-inset-10 blur-[40px] md:blur-[80px] rounded-full opacity-20 transition-opacity duration-700 group-hover:opacity-30 ${isDarkMode ? 'bg-gold' : 'bg-indigo-600'}`} />
                                     <div 
                                         ref={chartRef}
-                                        className={`relative w-full aspect-square p-2 md:p-12 rounded-[1.5rem] md:rounded-[4rem] border transition-all duration-1000 overflow-hidden flex items-center justify-center bg-white shadow-[0_0_80px_rgba(0,0,0,0.1)] border-indigo-600/10`}
+                                        className={`relative w-full aspect-square p-1 md:p-12 rounded-[1rem] md:rounded-[4rem] border transition-all duration-1000 overflow-hidden flex items-center justify-center bg-white shadow-[0_0_80px_rgba(0,0,0,0.1)] border-indigo-600/10`}
                                         dangerouslySetInnerHTML={{ __html: chartSvg }}
                                     />
                                     
                                     {/* Mobile Only: Tiny Info Text */}
-                                    <div className="lg:hidden mt-6 text-center space-y-4 w-full px-4">
-                                        <p className={`text-[10px] font-bold uppercase tracking-[0.2em] opacity-60 ${isDarkMode ? 'text-white' : 'text-indigo-950'}`}>
+                                    <div className="lg:hidden mt-4 text-center space-y-3 w-full px-4">
+                                        <p className={`text-[9px] font-bold uppercase tracking-[0.2em] opacity-60 ${isDarkMode ? 'text-white' : 'text-indigo-950'}`}>
                                             {formData.dob.split('-').reverse().join('/')} • {formData.tob} • {formData.city.split(',')[0]}
                                         </p>
                                         
                                         <button
                                             onClick={downloadPDF}
-                                            className={`w-full py-4 rounded-2xl flex items-center justify-center gap-2 font-black tracking-widest uppercase text-xs transition-all ${
+                                            className={`w-full py-3 rounded-xl flex items-center justify-center gap-2 font-black tracking-widest uppercase text-[10px] transition-all ${
                                                 isDarkMode 
                                                 ? 'bg-gold text-black shadow-lg shadow-gold/20' 
                                                 : 'bg-indigo-950 text-white shadow-lg shadow-indigo-950/20'
                                             }`}
                                         >
-                                            <Download size={14} /> Download PDF
+                                            <Download size={12} /> Download PDF
                                         </button>
                                     </div>
 
