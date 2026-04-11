@@ -73,12 +73,15 @@ const Kundali = () => {
         setError(null);
 
         try {
-            // Updated to use local IP so mobile devices on the same Wi-Fi can reach the server
-            const API_URL = window.location.hostname === 'localhost' 
-                ? 'http://localhost:5005/api/kundali'
-                : 'http://192.168.29.131:5005/api/kundali';
+            // Updated to a Global Tunnel URL so anyone can use it across the globe
+            // Note: This requires the laptop server to be running.
+            const API_URL = 'https://astrofied-api.loca.lt/api/kundali';
                 
-            const res = await axios.post(API_URL, formData);
+            const res = await axios.post(API_URL, formData, {
+                headers: {
+                    'bypass-tunnel-reminder': 'true'
+                }
+            });
             setChartSvg(res.data);
             setIsModalOpen(true);
         } catch (err) {
