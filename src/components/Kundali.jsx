@@ -65,7 +65,12 @@ const Kundali = () => {
         setError(null);
 
         try {
-            const res = await axios.post('http://localhost:5005/api/kundali', formData);
+            // Dynamic URL to support local network testing on mobile
+            const backendUrl = window.location.hostname === 'localhost' 
+                ? 'http://localhost:5005' 
+                : `http://${window.location.hostname}:5005`;
+
+            const res = await axios.post(`${backendUrl}/api/kundali`, formData);
             setChartSvg(res.data);
             setIsModalOpen(true);
         } catch (err) {
