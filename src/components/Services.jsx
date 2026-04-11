@@ -64,7 +64,7 @@ const services = [
         price: '₹ 15000',
         duration: '60 Mins',
         icon: Scale,
-        color: 'bg-purple-100 text-purple-600',
+        color: 'bg-indigo-100 text-indigo-600',
     },
     {
         id: 8,

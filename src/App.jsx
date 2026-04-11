@@ -11,7 +11,7 @@ import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
 import Hero from './components/Hero';
-import MoonSigns from './components/MoonSigns';
+import Kundali from './components/Kundali';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -142,7 +142,7 @@ function MainContent() {
 
       {/* Services Section */}
       <Services />
-      <MoonSigns />
+      <Kundali />
 
       {/* About Us Section */}
       <section id="about" className="py-24 overflow-hidden">
