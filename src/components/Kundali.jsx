@@ -65,20 +65,38 @@ const Kundali = () => {
         setError(null);
 
         try {
-            // Dynamic URL to support local network testing on mobile
-            const backendUrl = window.location.hostname === 'localhost' 
-                ? 'http://localhost:5005' 
-                : `http://${window.location.hostname}:5005`;
+            // Dynamic URL Detection:
+            // 1. Localhost (Laptop)
+            // 2. Local Network IP (Mobile on WiFi)
+            // 3. GitHub/Production (Placeholder for cloud backend)
+            let backendUrl = 'http://localhost:5005';
+            
+            if (window.location.hostname !== 'localhost') {
+                if (window.location.hostname.includes('github.io')) {
+                    // When on GitHub Pages, we need a secure public backend URL
+                    // Replace the URL below when you deploy your server to Render/Railway
+                    backendUrl = 'http://localhost:5005'; // Fallback to local for now
+                } else {
+                    backendUrl = `http://${window.location.hostname}:5005`;
+                }
+            }
 
             const res = await axios.post(`${backendUrl}/api/kundali`, formData);
             setChartSvg(res.data);
             setIsModalOpen(true);
         } catch (err) {
-            const serverError = err.response?.data?.details?.errors?.[0]?.detail || 
-                              err.response?.data?.details?.message || 
-                              err.response?.data?.error || 
-                              'Failed to generate Kundali. Please check your details.';
-            setError(serverError);
+            console.error('API Error:', err);
+            let errorMsg = 'Failed to generate Kundali.';
+            
+            if (err.code === 'ERR_NETWORK') {
+                errorMsg = window.location.protocol === 'https:' 
+                    ? 'Browser blocked the local connection (Mixed Content). Use HTTP for testing or deploy the backend to HTTPS.'
+                    : 'Backend server is offline. Please run "npm start" in the server folder.';
+            } else {
+                errorMsg = err.response?.data?.details?.message || err.response?.data?.error || errorMsg;
+            }
+            
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }
