@@ -86,9 +86,15 @@ app.post('/api/kundali', async (req, res) => {
         res.send(response.data);
     } catch (error) {
         console.error('PROKERALA API ERROR:', error.response?.status, JSON.stringify(error.response?.data || error.message));
+        
+        // Extract the most descriptive error message from Prokerala V2 response
+        const prokeralaError = error.response?.data?.errors?.[0]?.detail || 
+                              error.response?.data?.message || 
+                              error.message;
+                              
         res.status(error.response?.status || 500).json({ 
-            error: 'Failed to generate Kundali',
-            details: error.response?.data || error.message 
+            error: prokeralaError,
+            details: error.response?.data
         });
     }
 });
