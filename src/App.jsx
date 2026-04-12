@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -26,7 +26,6 @@ function MainContent() {
   const [showFullAbout, setShowFullAbout] = useState(false);
   const { isDarkMode } = useTheme();
   const { scrollYProgress } = useScroll();
-  
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -34,25 +33,21 @@ function MainContent() {
   });
 
   useEffect(() => {
-    // Optimization: Disable smooth scroll for users who prefer reduced motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
+    // Force scroll to top on refresh
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.8, // Slightly faster for responsiveness
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.1,
-      // Performance: Disable for mobile to ensure high FPS on lower-end devices
+      wheelMultiplier: 1.2, // Increase for better handling
       smoothTouch: false,
-      touchMultiplier: 1.5,
+      touchMultiplier: 2,
       infinite: false,
     });
 
@@ -62,7 +57,10 @@ function MainContent() {
     }
 
     requestAnimationFrame(raf);
-    return () => lenis.destroy();
+
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
   return (
@@ -73,12 +71,14 @@ function MainContent() {
     >
       <div className="cosmic-bg">
         <div className="star-layer-3" />
+        <div className="shooting-star" />
+        <div className="shooting-star" />
+        <div className="shooting-star" />
         <div className="nebula" />
       </div>
-      
-      {/* Dynamic Progress Bar */}
+      {/* Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 z-[100] origin-left gpu"
+        className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"
         style={{ scaleX, background: isDarkMode ? '#D4AF37' : '#4B0082' }}
       />
 
@@ -92,26 +92,27 @@ function MainContent() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col-reverse md:flex-row items-center gap-16">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              className="w-full md:w-1/2 aspect-square glass rounded-full overflow-hidden shadow-2xl relative flex items-center justify-center p-4 border-4 border-gold/30 gpu"
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="w-full md:w-1/2 aspect-square glass rounded-full overflow-hidden shadow-2xl relative flex items-center justify-center p-4 border-4 border-gold/30"
             >
               <motion.img
                 src={zodiacWheel}
                 alt="Zodiac Wheel"
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain will-change-transform"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                loading="lazy"
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               />
               <div className="absolute inset-0 bg-gold/5 rounded-full pointer-events-none" />
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               className="w-full md:w-1/2"
             >
               <div className="flex flex-col sm:flex-row items-center gap-3 mb-8">
@@ -120,7 +121,6 @@ function MainContent() {
                   alt="Astrofied Logo"
                   className="w-28 h-28 md:w-24 md:h-24 object-contain"
                   style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
-                  loading="lazy"
                 />
                 <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
                   Why <span className="text-gold">Astrofied?</span>
@@ -131,7 +131,7 @@ function MainContent() {
               </p>
               <button
                 onClick={() => setShowFullWhySj(!showFullWhySj)}
-                className="mt-6 text-gold font-bold hover:underline transition-all flex items-center gap-2"
+                className="mt-4 text-gold font-bold hover:underline transition-all flex items-center gap-2"
               >
                 {showFullWhySj ? 'Read Less' : 'Read More'}
               </button>
@@ -140,6 +140,7 @@ function MainContent() {
         </div>
       </section>
 
+      {/* Services Section */}
       <Services />
       <Kundali />
 
@@ -148,23 +149,22 @@ function MainContent() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center gap-16">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-10%" }}
-              className="w-full md:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden glass shadow-2xl relative gpu"
+              viewport={{ once: true }}
+              className="w-full md:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden glass shadow-2xl relative"
             >
               <img
                 src={aboutSj}
                 alt="About Astrofied"
                 className="w-full h-full object-cover"
-                loading="lazy"
               />
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
+              viewport={{ once: true }}
               className="w-full md:w-1/2"
             >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
@@ -184,7 +184,7 @@ function MainContent() {
               </p>
               <button
                 onClick={() => setShowFullAbout(!showFullAbout)}
-                className="mt-6 text-gold font-bold hover:underline transition-all"
+                className="mt-4 text-gold font-bold hover:underline transition-all"
               >
                 {showFullAbout ? 'Read Less' : 'Read More'}
               </button>
@@ -194,22 +194,26 @@ function MainContent() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 relative flex justify-center items-center overflow-hidden px-6">
+      <section className="py-8 md:py-16 relative flex justify-center items-center overflow-hidden px-6">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20appointment', '_blank')}
-          className={`relative z-10 px-8 py-4 md:px-12 md:py-5 rounded-full border-2 text-base md:text-xl font-bold tracking-widest transition-all shadow-xl font-mulish gpu ${isDarkMode
+          onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20appointment%20for%20an%20online%20consultation%20with%20Astrofied.%20Please%20guide%20me%20through%20the%20process%20of%20sending%20my%20birth%20details%20and%20completing%20the%20payment.', '_blank')}
+          className={`relative z-10 px-6 py-3 sm:px-8 sm:py-4 md:px-12 md:py-5 rounded-full border-2 text-sm sm:text-base md:text-xl font-bold tracking-widest transition-all shadow-xl font-mulish ${isDarkMode
               ? 'bg-transparent border-gold text-gold hover:bg-gold hover:text-black shadow-gold/20'
-              : 'bg-[#4B0082] border-[#4B0082] text-white hover:bg-transparent hover:text-[#4B0082]'
+              : 'bg-[#4B0082] border-[#4B0082] text-white hover:bg-transparent hover:text-[#4B0082] shadow-[#4B0082]/20'
             }`}
         >
           BOOK A CONSULTATION
         </motion.button>
       </section>
 
+      {/* Feedback Section */}
       <Feedback />
+
+      {/* FAQs Section */}
       <FAQs />
+
       <Testimonials />
       <Footer />
     </div>
