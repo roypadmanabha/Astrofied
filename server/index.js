@@ -4,7 +4,26 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+
+// Modern CORS configuration
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://roypadmanabha.github.io',
+    'https://astrofied-production.up.railway.app'
+];
+
+app.use(cors({
+    origin: function(origin, callback) {
+        // allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    }
+}));
+
 app.use(express.json());
 
 const PROKERALA_TOKEN_URL = 'https://api.prokerala.com/token';
@@ -15,7 +34,6 @@ let tokenExpiry = null;
 
 // Function to get/refresh Prokerala Access Token
 async function getAccessToken() {
-    // Check if token is still valid (with a 1-minute buffer)
     if (accessToken && tokenExpiry && Date.now() < (tokenExpiry - 60000)) {
         return accessToken;
     }
@@ -31,7 +49,6 @@ async function getAccessToken() {
         });
 
         accessToken = response.data.access_token;
-        // tokenExpiry is calculated from current time + expires_in seconds
         tokenExpiry = Date.now() + (response.data.expires_in * 1000);
         
         console.log('Successfully obtained new Prokerala access token.');
@@ -50,10 +67,7 @@ app.post('/api/kundali', async (req, res) => {
             return res.status(400).json({ error: 'Missing required birth details' });
         }
 
-        // Format: YYYY-MM-DDTHH:MM:SS+HH:MM
-        // tzo is expected as '+HH:MM'
         const datetime = `${dob}T${tob}:00${tzo || '+05:30'}`;
-        
         console.log(`Generating Kundali for ${name} at ${datetime} (${lat}, ${lon})`);
 
         const token = await getAccessToken();
@@ -61,7 +75,7 @@ app.post('/api/kundali', async (req, res) => {
         const response = await axios.get(PROKERALA_CHART_URL, {
             params: {
                 ayanamsa: 1, // Lahiri
-                chart_type: 'rasi', // Fixed: lowercase 'rasi' is required for V2
+                chart_type: 'rasi',
                 chart_style: 'north-indian',
                 datetime: datetime,
                 coordinates: `${lat},${lon}`,
@@ -84,7 +98,8 @@ app.post('/api/kundali', async (req, res) => {
     }
 });
 
-const PORT = 5005;
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+// Update for Railway: Use process.env.PORT
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
 });

@@ -1,2 +1,26 @@
 ◇ injected env (3) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
 Server running on http://localhost:5005
+Generating Kundali for Egattur at 2002-03-20T15:05:00+05:30 (15.3004543, 74.0855134)
+Successfully obtained new Prokerala access token.
+Generating Kundali for ferfv at 2002-03-20T10:55:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Egattur at 2002-03-20T15:05:00+05:30 (15.3004543, 74.0855134)
+Generating Kundali for Egattur at 2002-03-20T15:05:00+05:30 (15.3004543, 74.0855134)
+Generating Kundali for afafad at 2002-03-20T10:55:00+05:30 (15.3004543, 74.0855134)
+Generating Kundali for adefgwgrw at 2020-03-20T03:09:00+05:30 (26.9784335, 75.7122089)
+Generating Kundali for Padmanabha Roy at 2002-03-20T10:55:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Padmanabha Roy at 2002-03-20T10:55:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Padmanabha Roy at 2002-03-20T10:55:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for gjcg at 2026-04-07T14:30:00+05:30 (43.1428414, -7.3218753)
+Generating Kundali for Eheh at 2026-04-07T23:57:00+05:30 (15.3004543, 74.0855134)
+Generating Kundali for Fff at 2002-04-22T10:55:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Fff at 2002-03-20T10:55:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Padmanabha Roy at 2002-03-20T10:55:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Hhh at 2026-04-07T23:12:00+05:30 (15.3004543, 74.0855134)
+Successfully obtained new Prokerala access token.
+Generating Kundali for Roy at 2026-04-22T23:22:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Ryy at 2026-04-24T16:40:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Sbbeb at 2026-04-15T23:50:00+05:30 (15.3004543, 74.0855134)
+Generating Kundali for Padmanabha Roy at 2002-04-20T10:54:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Padmanabha Roy at 2002-03-10T10:54:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for Padmanabha Roy at 2002-03-20T10:55:00+05:30 (23.8312377, 91.2823821)
+Generating Kundali for H5h5 at 2026-04-23T23:59:00+05:30 (15.3004543, 74.0855134)
