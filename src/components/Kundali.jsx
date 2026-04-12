@@ -72,6 +72,15 @@ const Kundali = () => {
         setLoading(true);
         setError(null);
 
+        // Future date check
+        const selectedDate = new Date(formData.dob);
+        const today = new Date();
+        if (selectedDate > today) {
+            setError("Astrology charts are for past/present dates only. Please select a past date.");
+            setLoading(false);
+            return;
+        }
+
         try {
             // Updated to handle both GitHub Pages and Netlify deployments
             const isLocal = window.location.hostname === 'localhost';
