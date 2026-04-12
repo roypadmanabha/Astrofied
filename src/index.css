@@ -29,25 +29,26 @@ html {
 }
 
 :root {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Mulish', sans-serif;
   line-height: 1.6;
   font-weight: 400;
   color-scheme: light dark;
   scroll-behavior: smooth;
 }
 
-/* Force Raleway on all elements as default */
+/* Force Mulish on all elements as default */
 * {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Mulish', sans-serif;
 }
 
-/* Force Raleway on all headings */
+/* Force Raleway on all headings and big texts */
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.font-raleway {
   font-family: 'Raleway', sans-serif !important;
 }
 
@@ -279,7 +280,7 @@ body.light {
   textarea,
   label,
   div {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Mulish', sans-serif;
   }
 
   a {

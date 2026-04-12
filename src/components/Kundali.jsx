@@ -100,14 +100,14 @@ const Kundali = () => {
                             }`}
                         >
                             <Sparkles size={14} />
-                            <span className="text-[10px] font-bold tracking-[0.2em] uppercase font-mulish">Vedic Astrology</span>
+                            <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Vedic Astrology</span>
                         </motion.div>
                         
                         <motion.h2 
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className={`text-4xl md:text-7xl lg:text-8xl font-black font-raleway leading-[1.1] tracking-tight ${
+                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${
                                 isDarkMode ? 'text-white' : 'text-[#4B0082]'
                             }`}
                         >
@@ -119,7 +119,7 @@ const Kundali = () => {
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className={`text-base md:text-xl font-mulish leading-relaxed max-w-xl mx-auto lg:mx-0 ${
+                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${
                                 isDarkMode ? 'text-gray-400' : 'text-[#4B0082]/70'
                             }`}
                         >
@@ -141,14 +141,14 @@ const Kundali = () => {
                         >
                             <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
                                 <div className="space-y-2">
-                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
                                         <User size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Name
                                     </label>
                                     <input
                                         type="text"
                                         required
                                         placeholder="Full Name"
-                                        className={`w-full border-b bg-transparent px-0 py-2 text-base md:text-lg font-bold font-mulish focus:outline-none transition-all ${
+                                        className={`w-full border-b bg-transparent px-0 py-2 text-base md:text-lg font-bold focus:outline-none transition-all ${
                                             isDarkMode 
                                             ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700' 
                                             : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
@@ -160,13 +160,13 @@ const Kundali = () => {
 
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
                                             <Calendar size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Date
                                         </label>
                                         <input
                                             type="date"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold font-mulish focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${
+                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${
                                                 isDarkMode 
                                                 ? 'border-white/10 text-white focus:border-gold' 
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
@@ -176,13 +176,13 @@ const Kundali = () => {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
                                             <Clock size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Time
                                         </label>
                                         <input
                                             type="time"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold font-mulish focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${
+                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${
                                                 isDarkMode 
                                                 ? 'border-white/10 text-white focus:border-gold' 
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
@@ -194,14 +194,14 @@ const Kundali = () => {
                                 </div>
 
                                 <div className="space-y-2 relative">
-                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
                                         <MapPin size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Location
                                     </label>
                                     <input
                                         type="text"
                                         required
                                         placeholder="Search city..."
-                                        className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold font-mulish focus:outline-none transition-all ${
+                                        className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all ${
                                             isDarkMode 
                                             ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700' 
                                             : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
@@ -226,7 +226,7 @@ const Kundali = () => {
                                                     <button
                                                         key={idx}
                                                         type="button"
-                                                        className={`w-full text-left px-4 py-3 text-xs font-semibold font-mulish transition-all border-b last:border-0 ${
+                                                        className={`w-full text-left px-4 py-3 text-xs font-semibold transition-all border-b last:border-0 ${
                                                             isDarkMode 
                                                             ? 'text-gray-300 hover:bg-gold/10 hover:text-gold border-white/5' 
                                                             : 'text-[#0A1931] hover:bg-purple-600/10 hover:text-[#4B0082] border-purple-600/5'
@@ -251,7 +251,7 @@ const Kundali = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     disabled={loading}
-                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs font-mulish ${
+                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${
                                         isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white shadow-xl'
                                     }`}
                                 >
@@ -285,15 +285,15 @@ const Kundali = () => {
                             <div className="flex flex-col h-full">
                                 <div className="p-6 md:p-12 text-center border-b border-purple-600/5">
                                     <div className="hidden sm:block space-y-4">
-                                        <h3 className={`text-3xl font-black font-raleway ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>{formData.name || 'Your Kundali'}</h3>
-                                        <div className={`flex justify-center gap-6 font-mulish text-xs font-bold ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>
+                                        <h3 className={`text-3xl font-black ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>{formData.name || 'Your Kundali'}</h3>
+                                        <div className={`flex justify-center gap-6 text-xs font-bold ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>
                                             <span>{formData.dob.split('-').reverse().join('/')}</span>
                                             <span>{formData.tob}</span>
                                             <span>{formData.city.split(',')[0]}</span>
                                         </div>
                                     </div>
                                     <div className="block sm:hidden pt-4">
-                                        <p className={`text-[9px] font-black uppercase tracking-tighter whitespace-nowrap overflow-hidden text-ellipsis font-mulish ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
+                                        <p className={`text-[9px] font-black uppercase tracking-tighter whitespace-nowrap overflow-hidden text-ellipsis ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
                                             {formData.name} • {formData.dob.split('-').reverse().join('/')} • {formData.tob} • {formData.city.split(',')[0]}
                                         </p>
                                     </div>

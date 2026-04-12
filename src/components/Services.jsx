@@ -123,7 +123,7 @@ export default function Services() {
                                 onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20appointment%20for%20an%20online%20consultation%20with%20Astrofied.%20Please%20guide%20me%20through%20the%20process%20of%20sending%20my%20birth%20details%20and%20completing%20the%20payment.', '_blank')}
                                 className="flex items-center gap-2 text-[#F25A29] font-bold hover:text-[#D14A1F] transition-colors group/btn mt-auto"
                             >
-                                <span className="border-b-2 border-transparent group-hover/btn:border-[#F25A29] pb-0.5 font-raleway">Buy Now</span>
+                                <span className="border-b-2 border-transparent group-hover/btn:border-[#F25A29] pb-0.5 font-mulish">Buy Now</span>
                                 <div className="bg-[#F25A29] text-white rounded-full p-1 group-hover/btn:bg-[#D14A1F] transition-colors flex items-center justify-center">
                                     <ChevronRight size={18} strokeWidth={3} />
                                 </div>
