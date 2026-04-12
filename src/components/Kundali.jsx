@@ -21,49 +21,34 @@ const Kundali = () => {
     const [chartSvg, setChartSvg] = useState(null);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const chartRef = useRef(null);
 
     // Brand Colors
-    const brandPurple = "#4B0082";
     const brandGold = "#D4AF37";
+    const brandPurple = "#4B0082";
+    const darkBlue = "#0A1931";
 
-    // City Search (Nominatim)
+    // City Search
     useEffect(() => {
         const timer = setTimeout(async () => {
             if (formData.city.length > 2) {
                 try {
                     const res = await axios.get(`https://nominatim.openstreetmap.org/search`, {
-                        params: {
-                            q: formData.city,
-                            format: 'json',
-                            addressdetails: 1,
-                            limit: 5
-                        }
+                        params: { q: formData.city, format: 'json', addressdetails: 1, limit: 5 }
                     });
                     setSuggestions(res.data);
-                } catch (err) {
-                    console.error('City search error:', err);
-                }
-            } else {
-                setSuggestions([]);
-            }
+                } catch (err) { console.error('City search error:', err); }
+            } else { setSuggestions([]); }
         }, 500);
         return () => clearTimeout(timer);
     }, [formData.city]);
 
     const handleCitySelect = (city) => {
-        setFormData({
-            ...formData,
-            city: city.display_name,
-            lat: city.lat,
-            lon: city.lon
-        });
+        setFormData({ ...formData, city: city.display_name, lat: city.lat, lon: city.lon });
         setSuggestions([]);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
         if (!formData.lat || !formData.lon) {
             setError("Please select a city from the suggestions.");
             return;
@@ -82,7 +67,6 @@ const Kundali = () => {
         }
 
         try {
-            // Updated to handle both GitHub Pages and Netlify deployments
             const isLocal = window.location.hostname === 'localhost';
             const API_URL = isLocal 
                 ? 'http://localhost:5001/api/kundali'
@@ -93,10 +77,7 @@ const Kundali = () => {
             setIsModalOpen(true);
         } catch (err) {
             console.error('API Error:', err);
-            const serverError = err.response?.data?.details?.errors?.[0]?.detail ||
-                              err.response?.data?.details?.message || 
-                              err.response?.data?.error || 
-                              'Failed to generate Kundali. Please try again later.';
+            const serverError = err.response?.data?.error || 'Failed to generate Kundali. Please try again.';
             setError(serverError);
         } finally {
             setLoading(false);
@@ -152,16 +133,16 @@ const Kundali = () => {
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center ${
+                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center ${
                                 isDarkMode 
-                                ? 'border-white/10 bg-[#0f0a1f]/80' 
-                                : 'border-purple-600/10 bg-white/40'
+                                ? 'border-gold bg-[#0f0a1f]/80' 
+                                : 'border-[#D4AF37]/20 bg-[#D4AF37]/10' 
                             }`}
                         >
                             <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
                                 <div className="space-y-2">
-                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
-                                        <User size={12} /> Name
+                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                        <User size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Name
                                     </label>
                                     <input
                                         type="text"
@@ -170,7 +151,7 @@ const Kundali = () => {
                                         className={`w-full border-b bg-transparent px-0 py-2 text-base md:text-lg font-bold font-mulish focus:outline-none transition-all ${
                                             isDarkMode 
                                             ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700' 
-                                            : 'border-[#4B0082]/10 text-[#4B0082] focus:border-[#4B0082] placeholder:text-gray-300'
+                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
                                         }`}
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -179,8 +160,8 @@ const Kundali = () => {
 
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
-                                            <Calendar size={12} /> Date
+                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                            <Calendar size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Date
                                         </label>
                                         <input
                                             type="date"
@@ -188,15 +169,15 @@ const Kundali = () => {
                                             className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold font-mulish focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${
                                                 isDarkMode 
                                                 ? 'border-white/10 text-white focus:border-gold' 
-                                                : 'border-[#4B0082]/10 text-[#4B0082] focus:border-[#4B0082]'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                             }`}
                                             value={formData.dob}
                                             onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
-                                            <Clock size={12} /> Time
+                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                            <Clock size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Time
                                         </label>
                                         <input
                                             type="time"
@@ -204,7 +185,7 @@ const Kundali = () => {
                                             className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold font-mulish focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${
                                                 isDarkMode 
                                                 ? 'border-white/10 text-white focus:border-gold' 
-                                                : 'border-[#4B0082]/10 text-[#4B0082] focus:border-[#4B0082]'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                             }`}
                                             value={formData.tob}
                                             onChange={(e) => setFormData({ ...formData, tob: e.target.value })}
@@ -213,8 +194,8 @@ const Kundali = () => {
                                 </div>
 
                                 <div className="space-y-2 relative">
-                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
-                                        <MapPin size={12} /> Location
+                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 font-mulish ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                        <MapPin size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Location
                                     </label>
                                     <input
                                         type="text"
@@ -223,7 +204,7 @@ const Kundali = () => {
                                         className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold font-mulish focus:outline-none transition-all ${
                                             isDarkMode 
                                             ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700' 
-                                            : 'border-[#4B0082]/10 text-[#4B0082] focus:border-[#4B0082] placeholder:text-gray-300'
+                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
                                         }`}
                                         value={formData.city}
                                         onChange={(e) => {
@@ -248,7 +229,7 @@ const Kundali = () => {
                                                         className={`w-full text-left px-4 py-3 text-xs font-semibold font-mulish transition-all border-b last:border-0 ${
                                                             isDarkMode 
                                                             ? 'text-gray-300 hover:bg-gold/10 hover:text-gold border-white/5' 
-                                                            : 'text-[#4B0082] hover:bg-purple-600/10 hover:text-[#4B0082] border-purple-600/5'
+                                                            : 'text-[#0A1931] hover:bg-purple-600/10 hover:text-[#4B0082] border-purple-600/5'
                                                         }`}
                                                         onClick={() => handleCitySelect(city)}
                                                     >
@@ -261,11 +242,7 @@ const Kundali = () => {
                                 </div>
 
                                 {error && (
-                                    <motion.p 
-                                        initial={{ opacity: 0 }} 
-                                        animate={{ opacity: 1 }}
-                                        className="text-red-500 text-[10px] font-bold text-center bg-red-500/5 py-2 rounded-lg"
-                                    >
+                                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-[10px] font-bold text-center bg-red-500/5 py-2 rounded-lg">
                                         {error}
                                     </motion.p>
                                 )}
@@ -275,15 +252,11 @@ const Kundali = () => {
                                     whileTap={{ scale: 0.98 }}
                                     disabled={loading}
                                     className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs font-mulish ${
-                                        isDarkMode 
-                                        ? 'bg-gold text-black' 
-                                        : 'bg-[#4B0082] text-white'
+                                        isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white shadow-xl'
                                     }`}
                                 >
                                     {loading ? <Loader2 className="animate-spin" size={18} /> : (
-                                        <>
-                                            <Sparkles size={16} /> Generate
-                                        </>
+                                        <><Sparkles size={16} /> Generate</>
                                     )}
                                 </motion.button>
                             </form>
@@ -296,66 +269,37 @@ const Kundali = () => {
             <AnimatePresence>
                 {isModalOpen && (
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                         className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
                     >
-                        {/* Backdrop */}
-                        <motion.div 
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            onClick={() => setIsModalOpen(false)}
-                            className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-black/95' : 'bg-white/95'}`}
-                        />
-
-                        {/* Modal Content */}
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => setIsModalOpen(false)} className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-black/95' : 'bg-white/95'}`} />
                         <motion.div
-                            initial={{ scale: 0.9, y: 50, opacity: 0 }}
-                            animate={{ scale: 1, y: 0, opacity: 1 }}
-                            exit={{ scale: 0.9, y: 50, opacity: 0 }}
+                            initial={{ scale: 0.9, y: 50, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} exit={{ scale: 0.9, y: 50, opacity: 0 }}
                             className={`relative w-full max-w-5xl rounded-[2.5rem] border shadow-2xl transition-all duration-700 overflow-hidden ${
                                 isDarkMode ? 'bg-[#0f0a1f]/95 border-gold/10' : 'bg-white border-purple-600/20'
                             }`}
                         >
-                            {/* Close Button */}
-                            <button
-                                onClick={() => setIsModalOpen(false)}
-                                className={`absolute top-4 right-4 p-3 rounded-full transition-all z-20 ${
-                                    isDarkMode ? 'bg-white/10 text-white hover:bg-gold hover:text-black' : 'bg-purple-600/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'
-                                }`}
-                            >
+                            <button onClick={() => setIsModalOpen(false)} className={`absolute top-4 right-4 p-3 rounded-full transition-all z-20 ${isDarkMode ? 'bg-white/10 text-white hover:bg-gold hover:text-black' : 'bg-purple-600/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'}`}>
                                 <X size={20} />
                             </button>
-
                             <div className="flex flex-col h-full">
-                                {/* Details Section */}
                                 <div className="p-6 md:p-12 text-center border-b border-purple-600/5">
                                     <div className="hidden sm:block space-y-4">
-                                        <h3 className={`text-3xl font-black font-raleway ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>
-                                            {formData.name || 'Your Kundali'}
-                                        </h3>
+                                        <h3 className={`text-3xl font-black font-raleway ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>{formData.name || 'Your Kundali'}</h3>
                                         <div className={`flex justify-center gap-6 font-mulish text-xs font-bold ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>
                                             <span>{formData.dob.split('-').reverse().join('/')}</span>
                                             <span>{formData.tob}</span>
                                             <span>{formData.city.split(',')[0]}</span>
                                         </div>
                                     </div>
-
-                                    {/* Mobile Only Tiny Text (325px - 480px) */}
                                     <div className="block sm:hidden pt-4">
                                         <p className={`text-[9px] font-black uppercase tracking-tighter whitespace-nowrap overflow-hidden text-ellipsis font-mulish ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
                                             {formData.name} • {formData.dob.split('-').reverse().join('/')} • {formData.tob} • {formData.city.split(',')[0]}
                                         </p>
                                     </div>
                                 </div>
-
-                                {/* Chart Display (Pure White BG for visibility) */}
                                 <div className={`flex-1 flex items-center justify-center p-6 md:p-12 ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-purple-600/5'}`}>
-                                    <div 
-                                        className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-purple-600/10 shadow-lg rounded-[2rem] flex items-center justify-center`}
-                                        dangerouslySetInnerHTML={{ __html: chartSvg }}
-                                    />
+                                    <div className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-purple-600/10 shadow-lg rounded-[2rem] flex items-center justify-center`} dangerouslySetInnerHTML={{ __html: chartSvg }} />
                                 </div>
                             </div>
                         </motion.div>
@@ -364,39 +308,11 @@ const Kundali = () => {
             </AnimatePresence>
             
             <style jsx>{`
-                :global(svg) {
-                    width: 100% !important;
-                    height: 100% !important;
-                    overflow: visible !important;
-                }
-                
-                :global(svg path), 
-                :global(svg line), 
-                :global(svg polygon), 
-                :global(svg rect), 
-                :global(svg circle) {
-                    stroke-width: 1.5px !important;
-                    stroke: #4B0082 !important;
-                }
-                
-                :global(svg text) {
-                    fill: #4B0082 !important;
-                    font-family: 'Raleway', sans-serif !important;
-                    font-weight: 800 !important;
-                    font-size: 16px !important;
-                }
-
-                @media (max-width: 480px) {
-                    :global(svg text) {
-                        font-size: 20px !important;
-                    }
-                }
-                
-                input::-webkit-calendar-picker-indicator {
-                    filter: ${isDarkMode ? 'invert(1)' : 'invert(0)'};
-                    cursor: pointer;
-                    opacity: 0.2;
-                }
+                :global(svg) { width: 100% !important; height: 100% !important; overflow: visible !important; }
+                :global(svg path), :global(svg line), :global(svg polygon), :global(svg rect), :global(svg circle) { stroke-width: 1.5px !important; stroke: #4B0082 !important; }
+                :global(svg text) { fill: #4B0082 !important; font-family: 'Raleway', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
+                @media (max-width: 480px) { :global(svg text) { font-size: 20px !important; } }
+                input::-webkit-calendar-picker-indicator { filter: ${isDarkMode ? 'invert(1)' : 'invert(0)'}; cursor: pointer; opacity: 0.2; }
             `}</style>
         </section>
     );
