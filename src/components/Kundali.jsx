@@ -82,9 +82,11 @@ const Kundali = () => {
             setChartSvg(res.data);
             setIsModalOpen(true);
         } catch (err) {
-            const serverError = err.response?.data?.details?.message || 
+            console.error('API Error:', err);
+            const serverError = err.response?.data?.details?.errors?.[0]?.detail ||
+                              err.response?.data?.details?.message || 
                               err.response?.data?.error || 
-                              'Failed to generate Kundali. Please try again.';
+                              'Failed to generate Kundali. Please try again later.';
             setError(serverError);
         } finally {
             setLoading(false);

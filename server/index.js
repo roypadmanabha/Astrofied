@@ -12,18 +12,7 @@ const allowedOrigins = [
     'https://astrofied-production.up.railway.app'
 ];
 
-app.use(cors({
-    origin: function(origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    }
-}));
-
+app.use(cors()); // Temporarily permissive for easier debugging in production
 app.use(express.json());
 
 const PROKERALA_TOKEN_URL = 'https://api.prokerala.com/token';
@@ -44,6 +33,7 @@ async function getAccessToken() {
     }
 
     try {
+        console.log('Attempting to get Prokerala access token...');
         const params = new URLSearchParams();
         params.append('grant_type', 'client_credentials');
         params.append('client_id', process.env.PROKERALA_CLIENT_ID);
@@ -59,8 +49,8 @@ async function getAccessToken() {
         console.log('Successfully obtained new Prokerala access token.');
         return accessToken;
     } catch (error) {
-        console.error('PROKERALA AUTH ERROR:', error.response?.status, error.response?.data || error.message);
-        throw new Error('Failed to authenticate with Prokerala');
+        console.error('PROKERALA AUTH ERROR:', error.response?.status, JSON.stringify(error.response?.data || error.message));
+        throw new Error('Failed to authenticate with Prokerala. Please check your Client ID and Secret in the Railway Variables tab.');
     }
 }
 
