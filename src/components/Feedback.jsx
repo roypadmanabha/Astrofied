@@ -27,7 +27,7 @@ export default function Feedback() {
         setStatus('loading');
 
         try {
-            // Using FormSubmit.co for hassle-free backend sending without registration
+            // Using FormSubmit.co for reliable cross-domain mail delivery
             const response = await fetch("https://formsubmit.co/ajax/contact.astrofied@gmail.com", {
                 method: "POST",
                 headers: {
@@ -38,14 +38,16 @@ export default function Feedback() {
                     name: formData.name,
                     email: formData.email,
                     message: formData.message,
-                    _subject: "New Astrofied Customer Feedback!",
-                    _captcha: "false"
+                    _replyto: formData.email,
+                    _subject: `Feedback from ${formData.name} - Astrofied`,
+                    _captcha: "false",
+                    _template: "table"
                 })
             });
 
             const data = await response.json();
 
-            if (response.ok && data.success === "true") {
+            if (response.ok) {
                 // Save the email to local storage to prevent duplicates
                 sentEmails.push(normalizedEmail);
                 localStorage.setItem('astrofied_feedback_emails', JSON.stringify(sentEmails));
