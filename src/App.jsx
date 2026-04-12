@@ -126,7 +126,7 @@ function MainContent() {
                   Why <span className="text-gold">Astrofied?</span>
                 </h1>
               </div>
-              <p className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line">
+              <p className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish">
                 {showFullWhySj ? WHY_SJ_TEXT : `${WHY_SJ_TEXT.slice(0, 350)}...`}
               </p>
               <button
