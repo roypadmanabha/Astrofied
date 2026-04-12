@@ -1,7 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-require('dotenv').config({ path: './server/.env' });
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 
@@ -12,7 +13,14 @@ const allowedOrigins = [
     'https://astrofied-production.up.railway.app'
 ];
 
-app.use(cors()); // Temporarily permissive for easier debugging in production
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'https://roypadmanabha.github.io',
+        'https://astrofied-online.netlify.app'
+    ],
+    credentials: true
+}));
 app.use(express.json());
 
 const PROKERALA_TOKEN_URL = 'https://api.prokerala.com/token';
