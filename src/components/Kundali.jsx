@@ -313,9 +313,9 @@ const Kundali = () => {
                 :global(svg text) { fill: #4B0082 !important; font-family: 'Raleway', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
                 @media (max-width: 480px) { :global(svg text) { font-size: 20px !important; } }
                 input::-webkit-calendar-picker-indicator { 
-                    filter: ${isDarkMode ? 'invert(1)' : 'invert(0.5)'}; 
+                    filter: ${isDarkMode ? 'invert(1) brightness(10)' : 'invert(0)'}; 
                     cursor: pointer; 
-                    opacity: 0.8 !important; 
+                    opacity: 1 !important; 
                 }
             `}</style>
         </section>
