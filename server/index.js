@@ -32,6 +32,11 @@ const PROKERALA_CHART_URL = 'https://api.prokerala.com/v2/astrology/chart';
 let accessToken = null;
 let tokenExpiry = null;
 
+// Root route for health check
+app.get('/', (req, res) => {
+    res.send('Astrofied Backend is running successfully!');
+});
+
 // Function to get/refresh Prokerala Access Token
 async function getAccessToken() {
     if (accessToken && tokenExpiry && Date.now() < (tokenExpiry - 60000)) {
