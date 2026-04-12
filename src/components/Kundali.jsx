@@ -312,7 +312,11 @@ const Kundali = () => {
                 :global(svg path), :global(svg line), :global(svg polygon), :global(svg rect), :global(svg circle) { stroke-width: 1.5px !important; stroke: #4B0082 !important; }
                 :global(svg text) { fill: #4B0082 !important; font-family: 'Raleway', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
                 @media (max-width: 480px) { :global(svg text) { font-size: 20px !important; } }
-                input::-webkit-calendar-picker-indicator { filter: ${isDarkMode ? 'invert(1)' : 'invert(0)'}; cursor: pointer; opacity: 0.2; }
+                input::-webkit-calendar-picker-indicator { 
+                    filter: ${isDarkMode ? 'invert(1)' : 'invert(0.5)'}; 
+                    cursor: pointer; 
+                    opacity: 0.8 !important; 
+                }
             `}</style>
         </section>
     );
