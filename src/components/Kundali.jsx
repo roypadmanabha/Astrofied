@@ -73,8 +73,9 @@ const Kundali = () => {
         setError(null);
 
         try {
-            // Production Backend URL (Railway)
-            const API_URL = window.location.hostname === 'localhost' 
+            // Updated to handle both GitHub Pages and Netlify deployments
+            const isLocal = window.location.hostname === 'localhost';
+            const API_URL = isLocal 
                 ? 'http://localhost:5001/api/kundali'
                 : 'https://astrofied-production.up.railway.app/api/kundali';
                 

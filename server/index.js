@@ -1,22 +1,18 @@
-import express from 'express';
-import axios from 'axios';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-// Setup for ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load env from both root and server folder just in case
-dotenv.config();
-dotenv.config({ path: path.join(__dirname, '.env') });
+const express = require('express');
+const axios = require('axios');
+const cors = require('cors');
+require('dotenv').config({ path: './server/.env' });
 
 const app = express();
 
-// Use fully permissive CORS to eliminate all browser blocks
-app.use(cors());
+// Modern CORS configuration
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://roypadmanabha.github.io',
+    'https://astrofied-production.up.railway.app'
+];
+
+app.use(cors()); // Temporarily permissive for easier debugging in production
 app.use(express.json());
 
 const PROKERALA_TOKEN_URL = 'https://api.prokerala.com/token';
@@ -25,9 +21,9 @@ const PROKERALA_CHART_URL = 'https://api.prokerala.com/v2/astrology/chart';
 let accessToken = null;
 let tokenExpiry = null;
 
-// Essential Health Check Route
+// Root route for health check
 app.get('/', (req, res) => {
-    res.status(200).send('<h1>Astrofied API</h1><p>Status: <b>Online</b></p><p>Railway Deployment is Working!</p>');
+    res.send('Astrofied Backend is running successfully!');
 });
 
 // Function to get/refresh Prokerala Access Token
@@ -37,7 +33,7 @@ async function getAccessToken() {
     }
 
     try {
-        console.log('Fetching new Prokerala Access Token...');
+        console.log('Attempting to get Prokerala access token...');
         const params = new URLSearchParams();
         params.append('grant_type', 'client_credentials');
         params.append('client_id', process.env.PROKERALA_CLIENT_ID);
@@ -50,11 +46,11 @@ async function getAccessToken() {
         accessToken = response.data.access_token;
         tokenExpiry = Date.now() + (response.data.expires_in * 1000);
         
-        console.log('Access token obtained successfully.');
+        console.log('Successfully obtained new Prokerala access token.');
         return accessToken;
     } catch (error) {
         console.error('PROKERALA AUTH ERROR:', error.response?.status, JSON.stringify(error.response?.data || error.message));
-        throw new Error('Prokerala Authentication Failed. Verify CLIENT_ID and CLIENT_SECRET in Railway Variables.');
+        throw new Error('Failed to authenticate with Prokerala. Please check your Client ID and Secret in the Railway Variables tab.');
     }
 }
 
@@ -63,17 +59,17 @@ app.post('/api/kundali', async (req, res) => {
         const { name, dob, tob, lat, lon, tzo } = req.body;
         
         if (!dob || !tob || !lat || !lon) {
-            return res.status(400).json({ error: 'Missing birth details (Date, Time, or Location)' });
+            return res.status(400).json({ error: 'Missing required birth details' });
         }
 
         const datetime = `${dob}T${tob}:00${tzo || '+05:30'}`;
-        console.log(`Generating chart for ${name} [${datetime}]`);
+        console.log(`Generating Kundali for ${name} at ${datetime} (${lat}, ${lon})`);
 
         const token = await getAccessToken();
 
         const response = await axios.get(PROKERALA_CHART_URL, {
             params: {
-                ayanamsa: 1,
+                ayanamsa: 1, // Lahiri
                 chart_type: 'rasi',
                 chart_style: 'north-indian',
                 datetime: datetime,
@@ -87,18 +83,18 @@ app.post('/api/kundali', async (req, res) => {
         });
 
         res.set('Content-Type', 'image/svg+xml');
-        res.status(200).send(response.data);
+        res.send(response.data);
     } catch (error) {
-        console.error('CHART GENERATION ERROR:', error.response?.status, JSON.stringify(error.response?.data || error.message));
+        console.error('PROKERALA API ERROR:', error.response?.status, JSON.stringify(error.response?.data || error.message));
         res.status(error.response?.status || 500).json({ 
-            error: 'Failed to generate chart',
+            error: 'Failed to generate Kundali',
             details: error.response?.data || error.message 
         });
     }
 });
 
-// Dynamic Port for Railway
+// Update for Railway: Use process.env.PORT
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Backend Active: Listening on Port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

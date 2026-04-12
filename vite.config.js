@@ -8,6 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: '/Astrofied/',
+  // Use root base for Netlify and local dev, but /Astrofied/ for GitHub Pages
+  // Netlify sets the NETLIFY environment variable to true
+  base: process.env.NETLIFY ? '/' : '/Astrofied/',
 })
-
