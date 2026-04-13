@@ -23,8 +23,13 @@ export default function Hero() {
                             className="text-4xl md:text-6xl lg:text-7xl font-bold font-raleway leading-[1.1] mb-6"
                             style={{ color: isDarkMode ? '#F5F5F5' : '#0A0A0A' }}
                         >
-                            A Deeper Understanding <br className="hidden md:block" />
-                            <span style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>of Your Life</span> Begins Here
+                            <span className="block md:hidden text-2xl sm:text-3xl lowercase tracking-wider">
+                                your roadmap <br /> <span style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>to the right</span> <br /> decisions
+                            </span>
+                            <span className="hidden md:block">
+                                A Deeper Understanding <br />
+                                <span style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>of Your Life</span> Begins Here
+                            </span>
                         </motion.h1>
 
                         <motion.p
