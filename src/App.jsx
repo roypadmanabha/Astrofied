@@ -16,7 +16,7 @@ import LegalModal from './components/LegalModal';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
-import aboutSj from './assets/ai-about-astrologer.png';
+import aboutSj from './assets/about-section-image.jpg';
 
 const WHY_SJ_TEXT = `We offer trusted and result-oriented astrological services to clients seeking guidance in different areas of life. Whether your concern is related to personal matters, legal issues, finance, health, marriage, or career, we provide detailed insights and practical solutions tailored to your situation. What makes us different is our strong commitment to accuracy and client satisfaction. Our predictions, whether daily, yearly, or long-term, are explained clearly and in detail, helping clients feel confident and assured about their life decisions. Our experienced astrologer is knowledgeable, well-mannered, and highly intuitive. With deep analysis, we identify the root cause of your challenges and guide you with suitable remedies and actionable solutions. We focus not just on predicting events, but on helping you understand and navigate them in the right way. We believe in clarity, honesty, and proven results. Our goal is not just to make promises, but to deliver guidance that truly makes a difference in your life. Share your birth details with us, stay open to guidance, and take your first step toward a clearer and more confident future.`;
 
@@ -240,12 +240,16 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="w-full md:w-5/12 aspect-[4/3] rounded-3xl overflow-hidden glass shadow-2xl relative hover:scale-[1.03] transition-all duration-500 cursor-pointer group"
+              className="w-full md:w-5/12 aspect-[4/3] rounded-3xl overflow-hidden glass shadow-2xl relative"
             >
               <img
                 src={aboutSj}
                 alt="About Astrofied"
                 className="w-full h-full object-cover"
+                style={{
+                  maskImage: 'linear-gradient(to right, black 80%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to right, black 80%, transparent 100%)'
+                }}
               />
             </motion.div>
 
