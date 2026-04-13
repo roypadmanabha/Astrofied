@@ -40,32 +40,34 @@ You must be at least 18 years of age to use this Website or purchase services. B
 
 <b>3. Nature of Services (Disclaimer)</b>
 Entertainment Purposes: All astrological consultations, reports, and content provided by Astrofied are for guidance and entertainment purposes only.
-No Professional Advice: Astrology is not a substitute for professional medical, legal, financial, or psychological advice. Astrofied does not guarantee the accuracy or reliability of any predictions or insights.
-User Responsibility: Any actions taken based on the information provided by Astrofied are solely the responsibility of the user.
+Any actions taken based on the information provided by Astrofied are solely the responsibility of the user.
 
-<b>4. Payments and Refunds</b>
+<b>4. No Professional Advice</b>
+Astrology is not a substitute for professional medical, legal, financial, or psychological advice. Astrofied does not guarantee the accuracy or reliability of any predictions or insights.
+
+<b>5. Payments and Refunds</b>
 Pricing: All fees for consultations and reports are clearly stated on the Website. We reserve the right to change pricing at any time.
 Refund Policy: Due to the personalized nature of astrological reports and the time allocated for live consultations, payments are generally non-refundable once the service has been initiated or delivered, except in cases of technical failure on our part.
 
-<b>5. User Conduct</b>
+<b>6. User Conduct</b>
 You agree not to use the Website for any unlawful purpose. You are prohibited from:
 Providing false information during registration or consultation.
 Attempting to interfere with the Website’s security or functionality.
 Harassing or using abusive language toward our consultants.
 
-<b>6. Intellectual Property</b>
+<b>7. Intellectual Property</b>
 All content on Astrofied, including text, graphics, logos, and software, is the property of Astrofied and protected by copyright and intellectual property laws. You may not reproduce, distribute, or sell any content without prior written consent.
 
-<b>7. Privacy and Data Security</b>
+<b>8. Privacy and Data Security</b>
 Your personal data, including birth details, is handled in accordance with our Privacy Policy. While we implement industry-standard security measures, we cannot guarantee absolute security of data transmitted over the internet.
 
-<b>8. Limitation of Liability</b>
+<b>9. Limitation of Liability</b>
 To the maximum extent permitted by law, Astrofied and its practitioners shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use our services, even if advised of the possibility of such damages.
 
-<b>9. Modifications to Terms</b>
+<b>10. Modifications to Terms</b>
 Astrofied reserves the right to modify these Terms and Conditions at any time. Updates will be posted on this page with a revised Last Updated date. Continued use of the Website constitutes acceptance of the new terms.
 
-<b>10. Governing Law</b>
+<b>11. Governing Law</b>
 These terms shall be governed by and construed in accordance with the laws of India, and any disputes shall be subject to the exclusive jurisdiction of the courts in Agartala, Tripura.`
       });
     } else if (type === 'privacy') {
