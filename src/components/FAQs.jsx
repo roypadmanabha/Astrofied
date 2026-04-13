@@ -5,7 +5,7 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
     {
-        question: "Who can book an Online Consultation?",
+        question: "Who can book an 'Online Consultation?'",
         answer: "Anyone seeking clarity in life, career, relationships, business, finances, or personal growth can book a consultation. No prior astrology knowledge is required."
     },
 
