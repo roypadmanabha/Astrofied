@@ -72,13 +72,40 @@ These terms shall be governed by and construed in accordance with the laws of In
       setLegalModal({
         isOpen: true,
         title: 'Privacy Policy',
-        content: `Your privacy is important to us. Here is how we handle your data:
+        content: `At Astrofied, we value the trust you place in us when sharing your personal information and birth details. This Privacy Policy outlines how we collect, use, and protect your data in compliance with the laws of India and the jurisdiction of Tripura.
 
-1. Data Collection: We collect birth details (Date, Time, Location) solely for generating your Kundali or performing consultations.
-2. Data Sharing: Your personal details are never shared with third parties for marketing purposes.
-3. Security: We implement standard security measures to protect your information.
+Data Protection and Non-Tampering
+All customer data collected through our website or consultations is handled with the highest level of privacy. We ensure that your personal information, including names, contact details, and birth data, is never tampered with, altered, or sold to third parties for marketing purposes.
 
-More content to be added as provided...`
+Confidentiality of Personal Matters
+We understand that astrological consultations often involve discussing sensitive personal problems. All information shared during a session, whether personal, financial, or emotional, is kept strictly secret and remains confidential between the consultant and the client.
+
+Ethical Practice and Expectations
+Astrofied operates on the principle of transparency. We do not make any false promises to change your destiny or provide guaranteed outcomes. Our services are intended for guidance and insight based on astrological calculations, and we encourage clients to maintain a realistic perspective.
+
+No Cold Calling or Unsolicited Outreach
+To protect your privacy and peace of mind, we do not initiate calls to individuals for consultations. We only engage in outreach through official social media channels, our website, or organized events. Any consultation initiated will be at the request of the customer.
+
+Fair Pricing and No Hidden Charges
+We maintain a strict policy of financial transparency. There are no hidden or extra charges beyond the prices clearly stated on our platform. We do not charge "surprise fees" after a service has been booked or completed.
+
+Reasonable Remedies
+Astrofied does not suggest or provide remedies that involve illogical practices or costs that are higher than usual market rates. We focus on practical and traditional guidance rather than high-cost commercialized solutions.
+
+Information Collection and Use
+We collect information that you voluntarily provide, such as your date, time, and place of birth, to generate accurate astrological charts. This data is used solely for the purpose of providing the service you have requested.
+
+Data Retention
+We retain your personal information only for as long as necessary to provide our services and to comply with legal obligations under Indian law.
+
+Security Measures
+We implement industry-standard security protocols to prevent unauthorized access to your data. However, please be aware that no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
+
+Governing Law
+This Privacy Policy is governed by the laws of India. Any disputes regarding data privacy or the terms mentioned herein shall be subject to the exclusive jurisdiction of the courts in Agartala, Tripura.
+
+Contact Us
+If you have any questions regarding this Privacy Policy or how your data is handled, please contact us through our official website channels.`
       });
     }
   };
