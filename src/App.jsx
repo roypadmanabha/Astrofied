@@ -176,7 +176,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <Hero />
 
       {/* Why Astrofied Section */}
-      <section id="why-astrofied" className="py-24 overflow-hidden">
+      <section id="why-astrofied" className={`py-24 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
         <div className="container mx-auto px-6">
           <div className="flex flex-col-reverse md:flex-row items-center gap-16">
             <motion.div
