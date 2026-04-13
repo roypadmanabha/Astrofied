@@ -7,6 +7,7 @@ import ThemeToggle3D from './components/ThemeToggle3D';
 import Services from './components/Services';
 import Footer from './components/Footer';
 import Feedback from './components/Feedback';
+import Grievance from './components/Grievance';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
@@ -296,8 +297,8 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         </motion.button>
       </section>
 
-      {/* Feedback Section */}
       <Feedback />
+      <Grievance />
 
       {/* FAQs Section */}
       <FAQs />
