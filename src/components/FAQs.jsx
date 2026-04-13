@@ -56,7 +56,7 @@ export default function FAQs() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="text-3xl md:text-5xl font-bold text-center mb-12 font-raleway"
-                    style={{ color: isDarkMode ? '#FFFFFF' : '#111827' }}
+                    style={{ color: isDarkMode ? '#FFFFFF' : '#4B0082' }}
                 >
                     Frequently Asked Questions
                 </motion.h2>
@@ -72,13 +72,13 @@ export default function FAQs() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className={`border-2 rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
+                                className={`border rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm glass ${isDarkMode
                                     ? isActive
-                                        ? 'border-[#D4AF37] bg-[#4B0082]/30 shadow-[#D4AF37]/10'
-                                        : 'border-[#4B0082] bg-[#121212] hover:border-[#D4AF37]/50'
+                                        ? 'border-gold bg-[#4B0082]/20 shadow-gold/10'
+                                        : 'border-gold/20 hover:border-gold/50'
                                     : isActive
-                                        ? 'border-[#DC2626] bg-[#FEF9C3] shadow-[#DC2626]/10'
-                                        : 'border-[#FCA5A5] bg-[#FFFFFF] hover:border-[#EF4444]'
+                                        ? 'border-[#DC2626] bg-white/40 shadow-purple-600/10'
+                                        : 'border-purple-600/10 hover:border-purple-600/30'
                                     }`}
                             >
                                 <button
@@ -87,13 +87,13 @@ export default function FAQs() {
                                 >
                                     <span className={`text-base md:text-lg font-bold transition-colors font-raleway ${isDarkMode
                                         ? isActive ? 'text-[#D4AF37]' : 'text-gray-100 hover:text-white'
-                                        : isActive ? 'text-[#DC2626]' : 'text-gray-800 hover:text-[#DC2626]'
+                                        : isActive ? 'text-[#DC2626]' : 'text-[#4B0082] hover:text-[#DC2626]'
                                         }`}>
                                         {faq.question}
                                     </span>
                                     <span className={`flex-shrink-0 transition-colors ${isDarkMode
                                         ? isActive ? 'text-[#D4AF37]' : 'text-gray-100'
-                                        : isActive ? 'text-[#DC2626]' : 'text-gray-800'
+                                        : isActive ? 'text-[#DC2626]' : 'text-[#4B0082]'
                                         }`}>
                                         {isActive ? <Minus size={24} strokeWidth={3} /> : <Plus size={24} strokeWidth={3} />}
                                     </span>

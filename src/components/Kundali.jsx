@@ -130,9 +130,9 @@ const Kundali = () => {
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center ${isDarkMode
-                                ? 'border-gold bg-[#0f0a1f]/80'
-                                : 'border-[#D4AF37]/20 bg-[#D4AF37]/10'
+                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center glass ${isDarkMode
+                                ? 'border-gold/20'
+                                : 'border-[#D4AF37]/20'
                                 }`}
                         >
                             <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
@@ -264,7 +264,7 @@ const Kundali = () => {
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => setIsModalOpen(false)} className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-black/95' : 'bg-white/95'}`} />
                         <motion.div
                             initial={{ scale: 0.9, y: 50, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} exit={{ scale: 0.9, y: 50, opacity: 0 }}
-                            className={`relative w-full max-w-5xl rounded-[2.5rem] border shadow-2xl transition-all duration-700 overflow-hidden ${isDarkMode ? 'bg-[#0f0a1f]/95 border-gold/10' : 'bg-white border-purple-600/20'
+                            className={`relative w-full max-w-5xl rounded-[2.5rem] border shadow-2xl transition-all duration-700 overflow-hidden glass ${isDarkMode ? 'border-gold/10' : 'border-purple-600/20'
                                 }`}
                         >
                             <button onClick={() => setIsModalOpen(false)} className={`absolute top-4 right-4 p-3 rounded-full transition-all z-20 ${isDarkMode ? 'bg-white/10 text-white hover:bg-gold hover:text-black' : 'bg-purple-600/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'}`}>

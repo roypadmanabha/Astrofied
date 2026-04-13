@@ -99,8 +99,10 @@ export default function Navbar({ onOpenLegal }) {
             </AnimatePresence>
 
             <nav
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled 
-                    ? isDarkMode ? 'py-2 bg-black border-b border-gold/20 shadow-2xl' : 'py-2 bg-white border-b border-[#4B0082]/10 shadow-xl'
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 glass-nav ${scrolled 
+                    ? isDarkMode 
+                        ? 'py-2 bg-[#0a0a0a]/50 border-b border-gold/10 shadow-2xl backdrop-blur-3xl' 
+                        : 'py-2 bg-white/50 border-b border-[#4B0082]/10 shadow-xl backdrop-blur-3xl'
                     : 'py-3 md:py-4 bg-transparent'
                 }`}
             >
