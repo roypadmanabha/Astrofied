@@ -63,7 +63,7 @@ export default function Testimonials() {
                     {testimonials.map((t) => (
                         <div
                             key={`first-${t.id}`}
-                            className={`flex items-start gap-4 mx-4 px-6 py-4 rounded-2xl border border-opacity-20 glass backdrop-blur-md transition-all min-w-[300px] md:min-w-[400px] whitespace-normal
+                            className={`flex items-start gap-4 mx-4 px-4 py-3 sm:px-6 sm:py-4 rounded-2xl border border-opacity-20 glass backdrop-blur-md transition-all min-w-[260px] sm:min-w-[300px] md:min-w-[400px] whitespace-normal
                                 ${isDarkMode ? 'border-gold/30 hover:border-gold text-white' : 'border-[#4B0082]/20 hover:border-[#4B0082] text-black'}
                             `}
                         >
@@ -86,7 +86,7 @@ export default function Testimonials() {
                     {testimonials.map((t) => (
                         <div
                             key={`second-${t.id}`}
-                            className={`flex items-start gap-4 mx-4 px-6 py-4 rounded-2xl border border-opacity-20 glass backdrop-blur-md transition-all min-w-[300px] md:min-w-[400px] whitespace-normal
+                            className={`flex items-start gap-4 mx-4 px-4 py-3 sm:px-6 sm:py-4 rounded-2xl border border-opacity-20 glass backdrop-blur-md transition-all min-w-[260px] sm:min-w-[300px] md:min-w-[400px] whitespace-normal
                                 ${isDarkMode ? 'border-gold/30 hover:border-gold text-white' : 'border-[#4B0082]/20 hover:border-[#4B0082] text-black'}
                             `}
                         >

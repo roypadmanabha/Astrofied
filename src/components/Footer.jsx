@@ -73,7 +73,7 @@ export default function Footer({ onOpenLegal }) {
                     />
 
                     {/* Legal Links Column */}
-                    <div className="flex flex-col gap-6 w-[45%] md:w-[45%] lg:w-auto">
+                    <div className="flex flex-col gap-6 w-full min-[450px]:w-[45%] lg:w-auto">
                         <h4
                             className="text-lg md:text-xl lg:text-2xl font-bold"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
@@ -102,7 +102,7 @@ export default function Footer({ onOpenLegal }) {
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
-                    <div className="flex flex-col gap-6 w-[45%] md:w-[45%] lg:w-auto">
+                    <div className="flex flex-col gap-6 w-full min-[450px]:w-[45%] lg:w-auto">
                         <h4
                             className="text-lg md:text-xl lg:text-2xl font-bold"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
