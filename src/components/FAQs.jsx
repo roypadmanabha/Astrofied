@@ -77,7 +77,7 @@ export default function FAQs() {
                                         ? 'border-[#D4AF37] bg-[#4B0082]/30 shadow-[#D4AF37]/10'
                                         : 'border-[#4B0082] bg-[#121212] hover:border-[#D4AF37]/50'
                                     : isActive
-                                        ? 'border-[#4B0082] bg-[#FCF9F2] shadow-[#4B0082]/10'
+                                        ? 'border-[#4B0082] bg-[#FEF9C2] shadow-[#4B0082]/10'
                                         : 'border-[#4B0082]/20 bg-[#FFFFFF] hover:border-[#4B0082]'
                                     }`}
                             >
