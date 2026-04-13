@@ -48,7 +48,13 @@ export default function Testimonials() {
                 </h2>
             </div>
 
-            <div className="relative flex overflow-x-hidden group">
+            <div 
+                className="relative flex overflow-x-hidden group mx-4 md:mx-[30px]"
+                style={{ 
+                    WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+                    maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
+                }}
+            >
                 {/* 
                   We use an animation that translates X from 0 to -100%.
                   To make it infinite and seamless, we duplicate the content.
