@@ -15,7 +15,7 @@ const Kundali = () => {
         lon: '',
         tzo: '+05:30'
     });
-    
+
     const [suggestions, setSuggestions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [chartSvg, setChartSvg] = useState(null);
@@ -68,16 +68,16 @@ const Kundali = () => {
 
         try {
             const isLocal = window.location.hostname === 'localhost';
-            const API_URL = isLocal 
+            const API_URL = isLocal
                 ? 'http://localhost:5001/api/kundali'
                 : 'https://astrofied-production.up.railway.app/api/kundali';
-                
+
             const res = await axios.post(API_URL, formData);
             setChartSvg(res.data);
             setIsModalOpen(true);
         } catch (err) {
             console.error('API Error:', err);
-            const serverError = err.response?.data?.error || 'Failed to generate Kundali. Please try again.';
+            const serverError = err.response?.data?.error || 'Failed to fetch your data. Please try after sometime!';
             setError(serverError);
         } finally {
             setLoading(false);
@@ -88,40 +88,37 @@ const Kundali = () => {
         <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#05010d]' : 'bg-white'}`}>
             <div className="container mx-auto px-6">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
-                    
+
                     {/* Left Side: Heading */}
                     <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6 md:space-y-8">
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm ${
-                                isDarkMode ? 'border-gold/30 text-gold bg-gold/5' : 'border-purple-600/20 text-[#4B0082] bg-purple-600/5'
-                            }`}
+                            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm ${isDarkMode ? 'border-gold/30 text-gold bg-gold/5' : 'border-purple-600/20 text-[#4B0082] bg-purple-600/5'
+                                }`}
                         >
                             <Sparkles size={14} />
                             <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Vedic Astrology</span>
                         </motion.div>
-                        
-                        <motion.h2 
+
+                        <motion.h2
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${
-                                isDarkMode ? 'text-white' : 'text-[#4B0082]'
-                            }`}
+                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4B0082]'
+                                }`}
                         >
                             Astrofied Free <br />
                             <span className="text-gold italic">Kundali</span>
                         </motion.h2>
 
-                        <motion.p 
+                        <motion.p
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${
-                                isDarkMode ? 'text-gray-400' : 'text-[#4B0082]/70'
-                            }`}
+                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]/70'
+                                }`}
                         >
                             Generate your precise North Indian style D1 Lagna chart based on your birth coordinates.
                         </motion.p>
@@ -133,11 +130,10 @@ const Kundali = () => {
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center ${
-                                isDarkMode 
-                                ? 'border-gold bg-[#0f0a1f]/80' 
-                                : 'border-[#D4AF37]/20 bg-[#D4AF37]/10' 
-                            }`}
+                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center ${isDarkMode
+                                ? 'border-gold bg-[#0f0a1f]/80'
+                                : 'border-[#D4AF37]/20 bg-[#D4AF37]/10'
+                                }`}
                         >
                             <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
                                 <div className="space-y-2">
@@ -148,11 +144,10 @@ const Kundali = () => {
                                         type="text"
                                         required
                                         placeholder="Full Name"
-                                        className={`w-full border-b bg-transparent px-0 py-2 text-base md:text-lg font-bold focus:outline-none transition-all ${
-                                            isDarkMode 
-                                            ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700' 
+                                        className={`w-full border-b bg-transparent px-0 py-2 text-base md:text-lg font-bold focus:outline-none transition-all ${isDarkMode
+                                            ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
                                             : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
-                                        }`}
+                                            }`}
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     />
@@ -166,11 +161,10 @@ const Kundali = () => {
                                         <input
                                             type="date"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${
-                                                isDarkMode 
-                                                ? 'border-white/10 text-white focus:border-gold' 
+                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
+                                                ? 'border-white/10 text-white focus:border-gold'
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
-                                            }`}
+                                                }`}
                                             value={formData.dob}
                                             onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                                         />
@@ -182,11 +176,10 @@ const Kundali = () => {
                                         <input
                                             type="time"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${
-                                                isDarkMode 
-                                                ? 'border-white/10 text-white focus:border-gold' 
+                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
+                                                ? 'border-white/10 text-white focus:border-gold'
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
-                                            }`}
+                                                }`}
                                             value={formData.tob}
                                             onChange={(e) => setFormData({ ...formData, tob: e.target.value })}
                                         />
@@ -201,11 +194,10 @@ const Kundali = () => {
                                         type="text"
                                         required
                                         placeholder="Search city..."
-                                        className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all ${
-                                            isDarkMode 
-                                            ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700' 
+                                        className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
+                                            ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
                                             : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
-                                        }`}
+                                            }`}
                                         value={formData.city}
                                         onChange={(e) => {
                                             setFormData({ ...formData, city: e.target.value });
@@ -218,19 +210,17 @@ const Kundali = () => {
                                                 initial={{ opacity: 0, y: 5 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: 5 }}
-                                                className={`absolute z-50 w-full mt-2 border rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl ${
-                                                    isDarkMode ? 'bg-[#1a1233]/95 border-white/10' : 'bg-white/95 border-purple-600/10'
-                                                }`}
+                                                className={`absolute z-50 w-full mt-2 border rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl ${isDarkMode ? 'bg-[#1a1233]/95 border-white/10' : 'bg-white/95 border-purple-600/10'
+                                                    }`}
                                             >
                                                 {suggestions.map((city, idx) => (
                                                     <button
                                                         key={idx}
                                                         type="button"
-                                                        className={`w-full text-left px-4 py-3 text-xs font-semibold transition-all border-b last:border-0 ${
-                                                            isDarkMode 
-                                                            ? 'text-gray-300 hover:bg-gold/10 hover:text-gold border-white/5' 
+                                                        className={`w-full text-left px-4 py-3 text-xs font-semibold transition-all border-b last:border-0 ${isDarkMode
+                                                            ? 'text-gray-300 hover:bg-gold/10 hover:text-gold border-white/5'
                                                             : 'text-[#0A1931] hover:bg-purple-600/10 hover:text-[#4B0082] border-purple-600/5'
-                                                        }`}
+                                                            }`}
                                                         onClick={() => handleCitySelect(city)}
                                                     >
                                                         {city.display_name.split(',').slice(0, 2).join(',')}
@@ -251,9 +241,8 @@ const Kundali = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     disabled={loading}
-                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${
-                                        isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white shadow-xl'
-                                    }`}
+                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white shadow-xl'
+                                        }`}
                                 >
                                     {loading ? <Loader2 className="animate-spin" size={18} /> : (
                                         <><Sparkles size={16} /> Generate</>
@@ -275,9 +264,8 @@ const Kundali = () => {
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => setIsModalOpen(false)} className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-black/95' : 'bg-white/95'}`} />
                         <motion.div
                             initial={{ scale: 0.9, y: 50, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} exit={{ scale: 0.9, y: 50, opacity: 0 }}
-                            className={`relative w-full max-w-5xl rounded-[2.5rem] border shadow-2xl transition-all duration-700 overflow-hidden ${
-                                isDarkMode ? 'bg-[#0f0a1f]/95 border-gold/10' : 'bg-white border-purple-600/20'
-                            }`}
+                            className={`relative w-full max-w-5xl rounded-[2.5rem] border shadow-2xl transition-all duration-700 overflow-hidden ${isDarkMode ? 'bg-[#0f0a1f]/95 border-gold/10' : 'bg-white border-purple-600/20'
+                                }`}
                         >
                             <button onClick={() => setIsModalOpen(false)} className={`absolute top-4 right-4 p-3 rounded-full transition-all z-20 ${isDarkMode ? 'bg-white/10 text-white hover:bg-gold hover:text-black' : 'bg-purple-600/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'}`}>
                                 <X size={20} />
@@ -306,7 +294,7 @@ const Kundali = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-            
+
             <style jsx>{`
                 :global(svg) { width: 100% !important; height: 100% !important; overflow: visible !important; }
                 :global(svg path), :global(svg line), :global(svg polygon), :global(svg rect), :global(svg circle) { stroke-width: 1.5px !important; stroke: #4B0082 !important; }
