@@ -3,7 +3,7 @@ import { useTheme } from '../context/ThemeContext';
 import { Instagram, Facebook, Youtube, Phone, Mail, MapPin } from 'lucide-react';
 import logo from '../assets/logo.png';
 
-export default function Footer() {
+export default function Footer({ onOpenLegal }) {
     const { isDarkMode } = useTheme();
 
     const socialLinks = [
@@ -94,12 +94,18 @@ export default function Footer() {
                             Legal
                         </h4>
                         <div className="flex flex-col gap-4">
-                            <a href="/terms-and-conditions.html" className="text-xs md:text-sm lg:text-lg hover:text-gold transition-colors">
+                            <button 
+                                onClick={() => onOpenLegal('terms')}
+                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
+                            >
                                 Terms and Conditions
-                            </a>
-                            <a href="/privacy-policy.html" className="text-xs md:text-sm lg:text-lg hover:text-gold transition-colors">
+                            </button>
+                            <button 
+                                onClick={() => onOpenLegal('privacy')}
+                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
+                            >
                                 Privacy Policy
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>

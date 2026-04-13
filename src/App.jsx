@@ -12,6 +12,7 @@ import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
+import LegalModal from './components/LegalModal';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -24,6 +25,35 @@ const ABOUT_US_TEXT = `Astrofied, established in late 2019, is a trusted astrolo
 function MainContent() {
   const [showFullWhySj, setShowFullWhySj] = useState(false);
   const [showFullAbout, setShowFullAbout] = useState(false);
+  const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
+
+  const openLegalModal = (type) => {
+    if (type === 'terms') {
+      setLegalModal({
+        isOpen: true,
+        title: 'Terms and Conditions',
+        content: `Welcome to Astrofied. By using our website and services, you agree to comply with and be bound by the following terms and conditions.
+
+1. Astrological Insights: All predictions and guidance provided are based on individual research and tradition. We do not guarantee 100% accuracy as astrology is a matter of belief and interpretation.
+2. Personal Responsibility: Users are responsible for their own life decisions; Astrofied is not liable for outcomes based on our guidance.
+3. Refunds: Consultations are non-refundable once the session has commenced.
+
+More content to be added as provided...`
+      });
+    } else if (type === 'privacy') {
+      setLegalModal({
+        isOpen: true,
+        title: 'Privacy Policy',
+        content: `Your privacy is important to us. Here is how we handle your data:
+
+1. Data Collection: We collect birth details (Date, Time, Location) solely for generating your Kundali or performing consultations.
+2. Data Sharing: Your personal details are never shared with third parties for marketing purposes.
+3. Security: We implement standard security measures to protect your information.
+
+More content to be added as provided...`
+      });
+    }
+  };
   const { isDarkMode } = useTheme();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -82,7 +112,7 @@ function MainContent() {
         style={{ scaleX, background: isDarkMode ? '#D4AF37' : '#4B0082' }}
       />
 
-      <Navbar />
+      <Navbar onOpenLegal={openLegalModal} />
       <ThemeToggle3D />
 
       <Hero />
@@ -215,7 +245,13 @@ function MainContent() {
       <FAQs />
 
       <Testimonials />
-      <Footer />
+      <Footer onOpenLegal={openLegalModal} />
+      <LegalModal 
+        isOpen={legalModal.isOpen} 
+        onClose={() => setLegalModal({ ...legalModal, isOpen: false })}
+        title={legalModal.title}
+        content={legalModal.content}
+      />
     </div>
   );
 }

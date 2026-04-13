@@ -21,7 +21,7 @@ const mobileNavLinks = [
     { name: 'Privacy Policy', href: '/privacy-policy.html' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onOpenLegal }) {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const { isDarkMode } = useTheme();
@@ -67,22 +67,33 @@ export default function Navbar() {
                         >
                             ✕
                         </button>
-                        {mobileNavLinks.map((link, index) => (
-                            <motion.a
-                                key={link.name}
-                                href={link.href}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.05 }}
-                                onClick={() => setIsOpen(false)}
-                                className={`text-base font-bold tracking-tight transition-all block py-1.5 uppercase ${
-                                    isDarkMode ? 'text-white hover:text-gold' : 'text-[#4B0082] hover:text-[#DC2626]'
-                                }`}
-                                whileTap={{ scale: 0.98 }}
-                            >
-                                {link.name}
-                            </motion.a>
-                        ))}
+                        {mobileNavLinks.map((link, index) => {
+                            const isLegal = link.href.includes('.html');
+                            const type = link.name.includes('Terms') ? 'terms' : 'privacy';
+                            
+                            return (
+                                <motion.a
+                                    key={link.name}
+                                    href={isLegal ? undefined : link.href}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.05 }}
+                                    onClick={(e) => {
+                                        if (isLegal) {
+                                            e.preventDefault();
+                                            onOpenLegal(type);
+                                        }
+                                        setIsOpen(false);
+                                    }}
+                                    className={`text-base font-bold tracking-tight transition-all block py-1.5 uppercase cursor-pointer ${
+                                        isDarkMode ? 'text-white hover:text-gold' : 'text-[#4B0082] hover:text-[#DC2626]'
+                                    }`}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    {link.name}
+                                </motion.a>
+                            );
+                        })}
                     </motion.div>
                 )}
             </AnimatePresence>
