@@ -75,7 +75,7 @@ export default function Testimonials() {
                             />
                             <div className="flex flex-col">
                                 <span className="font-bold text-sm md:text-base font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
-                                <span className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed">{t.text}</span>
+                                <p className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed text-justify">{t.text}</p>
                             </div>
                         </div>
                     ))}
@@ -98,7 +98,7 @@ export default function Testimonials() {
                             />
                             <div className="flex flex-col">
                                 <span className="font-bold text-sm md:text-base font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
-                                <span className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed">{t.text}</span>
+                                <p className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed text-justify">{t.text}</p>
                             </div>
                         </div>
                     ))}
