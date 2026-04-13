@@ -5,21 +5,39 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
     {
-        question: "Who Can Book A Personalized Astrology Consultation?",
+        question: "Who Can Book an Online Consultation?",
         answer: "Anyone seeking clarity in life, career, relationships, business, finances, or personal growth can book a consultation. No prior astrology knowledge is required."
     },
+
+    {
+        question: "Why shall I choose Astrofied?",
+        answer: "We do not pressure you to purchase remedies, buy expensive gemstones, or pay large sums for spiritual corrections. Our focus remains on core predictions and guiding you toward the right path with accuracy. We prioritise genuine insight over selling costly gemstones with unverified claims about changing your luck."
+    },
+
+
     {
         question: "How Is The Astrology Consultation Conducted?",
-        answer: "Consultations are available in Bengali, Hindi, and English through telephonic sessions, video calls, as well as in-person chamber visits depending on your location and comfort."
+        answer: "Consultations are available in Bengali, Hindi, and English via calls and are conducted strictly through online mode. Please note that there is no option for physical chamber visits or in-person consultations."
     },
+
+    {
+        question: "How do I make the payment?",
+        answer: "Payments can be made through any UPI app, our QR code, or via a specific UPI ID. Please note that cash payments are not accepted, as all consultations are conducted strictly online and no in-person sessions are available."
+    },
+
     {
         question: "What Details Do I Need To Provide Before The Consultation?",
         answer: "You need to provide your exact Date of Birth, Time of Birth, and Place of Birth. These precise details are essential to cast an accurate birth chart (Kundali) for detailed predictions."
     },
     {
         question: "How Long Does Each Consultation Session Last?",
-        answer: "Depending on the specific consultation package you choose, a typical session lasts between 40 minutes to 60 minutes, giving enough time to deeply analyze your chart and answer queries."
-    }
+        answer: "Depending on the specific consultation service you choose, a typical session lasts between 30 minutes to 60 minutes, giving enough time to deeply analyze your chart and answer queries."
+    },
+
+
+
+
+
 ];
 
 export default function FAQs() {
@@ -54,32 +72,29 @@ export default function FAQs() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className={`border-2 rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${
-                                    isDarkMode
-                                        ? isActive 
-                                            ? 'border-[#D4AF37] bg-[#4B0082]/30 shadow-[#D4AF37]/10' 
-                                            : 'border-[#4B0082] bg-[#121212] hover:border-[#D4AF37]/50'
-                                        : isActive
-                                            ? 'border-[#DC2626] bg-[#FEF9C3] shadow-[#DC2626]/10'
-                                            : 'border-[#FCA5A5] bg-[#FFFFFF] hover:border-[#EF4444]'
-                                }`}
+                                className={`border-2 rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
+                                    ? isActive
+                                        ? 'border-[#D4AF37] bg-[#4B0082]/30 shadow-[#D4AF37]/10'
+                                        : 'border-[#4B0082] bg-[#121212] hover:border-[#D4AF37]/50'
+                                    : isActive
+                                        ? 'border-[#DC2626] bg-[#FEF9C3] shadow-[#DC2626]/10'
+                                        : 'border-[#FCA5A5] bg-[#FFFFFF] hover:border-[#EF4444]'
+                                    }`}
                             >
                                 <button
                                     onClick={() => toggleFAQ(index)}
                                     className="w-full text-left px-6 py-5 md:py-6 flex items-center justify-between gap-4 focus:outline-none"
                                 >
-                                    <span className={`text-base md:text-lg font-bold transition-colors font-raleway ${
-                                        isDarkMode 
-                                            ? isActive ? 'text-[#D4AF37]' : 'text-gray-100 hover:text-white'
-                                            : isActive ? 'text-[#DC2626]' : 'text-gray-800 hover:text-[#DC2626]'
-                                    }`}>
+                                    <span className={`text-base md:text-lg font-bold transition-colors font-raleway ${isDarkMode
+                                        ? isActive ? 'text-[#D4AF37]' : 'text-gray-100 hover:text-white'
+                                        : isActive ? 'text-[#DC2626]' : 'text-gray-800 hover:text-[#DC2626]'
+                                        }`}>
                                         {faq.question}
                                     </span>
-                                    <span className={`flex-shrink-0 transition-colors ${
-                                        isDarkMode
-                                            ? isActive ? 'text-[#D4AF37]' : 'text-gray-100'
-                                            : isActive ? 'text-[#DC2626]' : 'text-gray-800'
-                                    }`}>
+                                    <span className={`flex-shrink-0 transition-colors ${isDarkMode
+                                        ? isActive ? 'text-[#D4AF37]' : 'text-gray-100'
+                                        : isActive ? 'text-[#DC2626]' : 'text-gray-800'
+                                        }`}>
                                         {isActive ? <Minus size={24} strokeWidth={3} /> : <Plus size={24} strokeWidth={3} />}
                                     </span>
                                 </button>
@@ -92,9 +107,8 @@ export default function FAQs() {
                                             exit={{ height: 0, opacity: 0 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                         >
-                                            <div className={`px-6 pb-6 pt-1 text-sm md:text-base leading-relaxed ${
-                                                isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                                            }`}>
+                                            <div className={`px-6 pb-6 pt-1 text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                                                }`}>
                                                 {faq.answer}
                                             </div>
                                         </motion.div>
