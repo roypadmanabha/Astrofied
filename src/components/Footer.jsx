@@ -39,10 +39,19 @@ export default function Footer({ onOpenLegal }) {
                                     href={social.href}
                                     target="_blank"
                                     className="w-11 h-11 md:w-14 md:h-14 rounded-2xl glass flex items-center justify-center hover:scale-110 transition-all cursor-pointer relative group"
+                                    style={{ 
+                                        borderColor: isDarkMode ? 'rgba(212, 175, 55, 0.2)' : '#4B0082' 
+                                    }}
                                     whileHover={{ y: -10, rotate: 5 }}
                                 >
-                                    <div className="absolute inset-0 bg-gold/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    <span className="relative z-10 text-gold group-hover:text-white transition-colors duration-300">
+                                    <div 
+                                        className="absolute inset-0 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" 
+                                        style={{ backgroundColor: isDarkMode ? 'rgba(212, 175, 55, 0.2)' : 'rgba(75, 0, 130, 0.2)' }}
+                                    />
+                                    <span 
+                                        className="relative z-10 group-hover:text-white transition-colors duration-300"
+                                        style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                                    >
                                         {social.icon}
                                     </span>
                                 </motion.a>
