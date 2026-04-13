@@ -55,20 +55,23 @@ export default function Navbar({ onOpenLegal }) {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -50 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className={`fixed inset-0 z-[100] flex flex-col items-start justify-center gap-4 md:hidden overflow-y-auto px-10 ${
-                            isDarkMode ? 'bg-black/95 backdrop-blur-xl' : 'bg-white/95 backdrop-blur-xl'
+                        className={`fixed inset-0 z-[100] flex flex-col items-start justify-start pt-36 gap-4 md:hidden overflow-y-auto px-10 ${
+                            isDarkMode ? 'bg-black/98 backdrop-blur-2xl' : 'bg-white/98 backdrop-blur-2xl'
                         }`}
                     >
-                        {/* Top Branding In Overlay */}
-                        <div className="absolute top-5 left-6 flex items-center gap-0">
+                        {/* Mobile Menu Header (Brand Identity) */}
+                        <div 
+                            className="absolute top-6 left-6 flex items-center gap-0 cursor-pointer"
+                            onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                        >
                             <img
                                 src={logo}
                                 alt="Astrofied Logo"
-                                className="w-10 h-10 object-contain select-none"
-                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-4px' }}
+                                className="w-16 h-16 object-contain"
+                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-6px' }}
                             />
                             <span
-                                className="text-xl font-bold tracking-tighter font-mulish"
+                                className="text-2xl md:text-3xl font-bold tracking-tighter"
                                 style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                             >
                                 Astrofied
@@ -77,14 +80,12 @@ export default function Navbar({ onOpenLegal }) {
 
                         <button
                             onClick={() => setIsOpen(false)}
-                            className={`absolute top-5 right-6 text-3xl p-2 focus:outline-none transition-all border-none bg-transparent ${
+                            className={`absolute top-10 right-8 text-3xl p-2 focus:outline-none transition-all border-none bg-transparent ${
                                 isDarkMode ? 'text-gold' : 'text-[#4B0082]'
                             }`}
                         >
                             ✕
                         </button>
-                        
-                        <div className="flex flex-col gap-4 mt-12 w-full">
                         {mobileNavLinks.map((link, index) => {
                             const isLegal = link.href.includes('.html');
                             const type = link.name.includes('Terms') ? 'terms' : 'privacy';
@@ -103,7 +104,7 @@ export default function Navbar({ onOpenLegal }) {
                                         }
                                         setIsOpen(false);
                                     }}
-                                    className={`text-xl font-bold tracking-tight transition-all block py-2.5 cursor-pointer ${
+                                    className={`text-lg font-bold tracking-tight transition-all block py-2 cursor-pointer ${
                                         isDarkMode ? 'text-white hover:text-gold' : 'text-[#4B0082] hover:text-[#DC2626]'
                                     }`}
                                     whileTap={{ scale: 0.98 }}
@@ -112,7 +113,6 @@ export default function Navbar({ onOpenLegal }) {
                                 </motion.a>
                             );
                         })}
-                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
