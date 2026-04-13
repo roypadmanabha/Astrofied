@@ -87,13 +87,13 @@ export default function FAQs() {
                                 >
                                     <span className={`text-base md:text-lg font-bold transition-colors font-raleway ${isDarkMode
                                         ? isActive ? 'text-[#D4AF37]' : 'text-gray-100 hover:text-white'
-                                        : isActive ? 'text-[#DC2626]' : 'text-[#4B0082] hover:text-[#DC2626]'
+                                        : isActive ? 'text-[#DC2626]' : 'text-[#17202A] hover:text-[#DC2626]'
                                         }`}>
                                         {faq.question}
                                     </span>
                                     <span className={`flex-shrink-0 transition-colors ${isDarkMode
                                         ? isActive ? 'text-[#D4AF37]' : 'text-gray-100'
-                                        : isActive ? 'text-[#DC2626]' : 'text-[#4B0082]'
+                                        : isActive ? 'text-[#DC2626]' : 'text-[#17202A]'
                                         }`}>
                                         {isActive ? <Minus size={24} strokeWidth={3} /> : <Plus size={24} strokeWidth={3} />}
                                     </span>
