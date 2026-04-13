@@ -140,7 +140,7 @@ const Kundali = () => {
                                 <img 
                                     src={logo} 
                                     alt="Astrofied" 
-                                    className="absolute top-8 right-8 w-12 h-12 object-contain opacity-40 mix-blend-multiply select-none pointer-events-none" 
+                                    className="absolute top-8 right-8 w-12 h-12 object-contain select-none pointer-events-none" 
                                 />
                             )}
                             <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
