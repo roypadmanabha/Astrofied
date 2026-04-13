@@ -32,13 +32,41 @@ function MainContent() {
       setLegalModal({
         isOpen: true,
         title: 'Terms and Conditions',
-        content: `Welcome to Astrofied. By using our website and services, you agree to comply with and be bound by the following terms and conditions.
+        content: `1. Acceptance of Terms
+By accessing and using Astrofied (the Website), you agree to be bound by these Terms and Conditions and our Privacy Policy. If you do not agree with any part of these terms, you must immediately discontinue use of our services.
 
-1. Astrological Insights: All predictions and guidance provided are based on individual research and tradition. We do not guarantee 100% accuracy as astrology is a matter of belief and interpretation.
-2. Personal Responsibility: Users are responsible for their own life decisions; Astrofied is not liable for outcomes based on our guidance.
-3. Refunds: Consultations are non-refundable once the session has commenced.
+2. Eligibility
+You must be at least 18 years of age to use this Website or purchase services. By using Astrofied, you represent and warrant that you meet this age requirement and have the legal capacity to enter into a binding agreement.
 
-More content to be added as provided...`
+3. Nature of Services (Disclaimer)
+Entertainment Purposes: All astrological consultations, reports, and content provided by Astrofied are for guidance and entertainment purposes only.
+No Professional Advice: Astrology is not a substitute for professional medical, legal, financial, or psychological advice. Astrofied does not guarantee the accuracy or reliability of any predictions or insights.
+User Responsibility: Any actions taken based on the information provided by Astrofied are solely the responsibility of the user.
+
+4. Payments and Refunds
+Pricing: All fees for consultations and reports are clearly stated on the Website. We reserve the right to change pricing at any time.
+Refund Policy: Due to the personalized nature of astrological reports and the time allocated for live consultations, payments are generally non-refundable once the service has been initiated or delivered, except in cases of technical failure on our part.
+
+5. User Conduct
+You agree not to use the Website for any unlawful purpose. You are prohibited from:
+Providing false information during registration or consultation.
+Attempting to interfere with the Website’s security or functionality.
+Harassing or using abusive language toward our consultants.
+
+6. Intellectual Property
+All content on Astrofied, including text, graphics, logos, and software, is the property of Astrofied and protected by copyright and intellectual property laws. You may not reproduce, distribute, or sell any content without prior written consent.
+
+7. Privacy and Data Security
+Your personal data, including birth details, is handled in accordance with our Privacy Policy. While we implement industry-standard security measures, we cannot guarantee absolute security of data transmitted over the internet.
+
+8. Limitation of Liability
+To the maximum extent permitted by law, Astrofied and its practitioners shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use our services, even if advised of the possibility of such damages.
+
+9. Modifications to Terms
+Astrofied reserves the right to modify these Terms and Conditions at any time. Updates will be posted on this page with a revised Last Updated date. Continued use of the Website constitutes acceptance of the new terms.
+
+10. Governing Law
+These terms shall be governed by and construed in accordance with the laws of India, and any disputes shall be subject to the exclusive jurisdiction of the courts in Agartala, Tripura.`
       });
     } else if (type === 'privacy') {
       setLegalModal({
