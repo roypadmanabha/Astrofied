@@ -127,7 +127,7 @@ export default function Footer({ onOpenLegal }) {
 
                 </div>
 
-                <div className="flex justify-center gap-10 md:gap-10 mb-12 md:mb-16">
+                <div className="flex justify-center gap-10 md:gap-10 mb-6 md:mb-16">
                     {socialLinks.map((social, index) => (
                         <motion.a
                             key={index}
@@ -166,7 +166,7 @@ export default function Footer({ onOpenLegal }) {
                     ))}
                 </div>
 
-                <div className="border-t border-gold/20 pt-8 text-center text-sm text-gray-500">
+                <div className="border-t border-gold/20 pt-4 md:pt-8 text-center text-[10px] md:text-sm text-gray-500">
                     © {new Date().getFullYear()} Astrofied. All rights reserved.
                 </div>
             </div>
