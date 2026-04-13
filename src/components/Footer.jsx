@@ -67,8 +67,8 @@ export default function Footer({ onOpenLegal }) {
                     </div>
 
                     {/* Divider */}
-                    <div 
-                        className="hidden lg:block w-[1px] h-28 self-center transition-colors duration-300" 
+                    <div
+                        className="hidden lg:block w-[1px] h-30 self-center transition-colors duration-300"
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
@@ -97,8 +97,8 @@ export default function Footer({ onOpenLegal }) {
                     </div>
 
                     {/* Divider */}
-                    <div 
-                        className="hidden lg:block w-[1px] h-28 self-center transition-colors duration-300" 
+                    <div
+                        className="hidden lg:block w-[1px] h-30 self-center transition-colors duration-300"
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
@@ -122,8 +122,8 @@ export default function Footer({ onOpenLegal }) {
                     </div>
 
                     {/* Divider */}
-                    <div 
-                        className="hidden lg:block w-[1px] h-28 self-center transition-colors duration-300" 
+                    <div
+                        className="hidden lg:block w-[1px] h-30 self-center transition-colors duration-300"
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 

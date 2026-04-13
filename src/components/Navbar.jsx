@@ -59,14 +59,32 @@ export default function Navbar({ onOpenLegal }) {
                             isDarkMode ? 'bg-black/95 backdrop-blur-xl' : 'bg-white/95 backdrop-blur-xl'
                         }`}
                     >
+                        {/* Top Branding In Overlay */}
+                        <div className="absolute top-5 left-6 flex items-center gap-0">
+                            <img
+                                src={logo}
+                                alt="Astrofied Logo"
+                                className="w-10 h-10 object-contain select-none"
+                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-4px' }}
+                            />
+                            <span
+                                className="text-xl font-bold tracking-tighter font-mulish"
+                                style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                            >
+                                Astrofied
+                            </span>
+                        </div>
+
                         <button
                             onClick={() => setIsOpen(false)}
-                            className={`absolute top-6 right-6 text-3xl p-2 focus:outline-none transition-all border-none bg-transparent ${
+                            className={`absolute top-5 right-6 text-3xl p-2 focus:outline-none transition-all border-none bg-transparent ${
                                 isDarkMode ? 'text-gold' : 'text-[#4B0082]'
                             }`}
                         >
                             ✕
                         </button>
+                        
+                        <div className="flex flex-col gap-4 mt-12 w-full">
                         {mobileNavLinks.map((link, index) => {
                             const isLegal = link.href.includes('.html');
                             const type = link.name.includes('Terms') ? 'terms' : 'privacy';
@@ -85,7 +103,7 @@ export default function Navbar({ onOpenLegal }) {
                                         }
                                         setIsOpen(false);
                                     }}
-                                    className={`text-base font-bold tracking-tight transition-all block py-1.5 uppercase cursor-pointer ${
+                                    className={`text-xl font-bold tracking-tight transition-all block py-2.5 cursor-pointer ${
                                         isDarkMode ? 'text-white hover:text-gold' : 'text-[#4B0082] hover:text-[#DC2626]'
                                     }`}
                                     whileTap={{ scale: 0.98 }}
@@ -94,6 +112,7 @@ export default function Navbar({ onOpenLegal }) {
                                 </motion.a>
                             );
                         })}
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
