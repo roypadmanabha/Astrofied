@@ -51,11 +51,11 @@ export default function Navbar() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className={`fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 md:hidden overflow-y-auto px-6 ${
+                        className={`fixed inset-0 z-[100] flex flex-col items-start justify-center gap-4 md:hidden overflow-y-auto px-10 ${
                             isDarkMode ? 'bg-black/95 backdrop-blur-xl' : 'bg-white/95 backdrop-blur-xl'
                         }`}
                     >
@@ -71,11 +71,11 @@ export default function Navbar() {
                             <motion.a
                                 key={link.name}
                                 href={link.href}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: index * 0.05 }}
                                 onClick={() => setIsOpen(false)}
-                                className={`text-xl font-medium tracking-tight transition-all block py-2 ${
+                                className={`text-base font-bold tracking-tight transition-all block py-1.5 uppercase ${
                                     isDarkMode ? 'text-white hover:text-gold' : 'text-[#4B0082] hover:text-[#DC2626]'
                                 }`}
                                 whileTap={{ scale: 0.98 }}
