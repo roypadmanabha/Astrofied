@@ -31,7 +31,7 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className={`text-lg md:text-xl max-w-xl mb-12 opacity-80 font-mulish leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                            className={`text-lg md:text-xl max-w-xl mb-12 opacity-80 font-mulish leading-relaxed text-justify lg:text-left ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
                                 }`}
                         >
                             Refined Vedic insights designed to guide your decisions with clarity, confidence, and purpose through the ancient wisdom of the cosmos.
