@@ -5,7 +5,7 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
     {
-        question: "Who Can Book an Online Consultation?",
+        question: "Who can book an Online Consultation?",
         answer: "Anyone seeking clarity in life, career, relationships, business, finances, or personal growth can book a consultation. No prior astrology knowledge is required."
     },
 
@@ -16,7 +16,7 @@ const faqs = [
 
 
     {
-        question: "How Is The Astrology Consultation Conducted?",
+        question: "How is the consultation conducted?",
         answer: "Consultations are available in Bengali, Hindi, and English via calls and are conducted strictly through online mode. Please note that there is no option for physical chamber visits or in-person consultations."
     },
 
@@ -26,11 +26,11 @@ const faqs = [
     },
 
     {
-        question: "What Details Do I Need To Provide Before The Consultation?",
+        question: "What details do I need to provide before the consultation?",
         answer: "You need to provide your exact Date of Birth, Time of Birth, and Place of Birth. These precise details are essential to cast an accurate birth chart (Kundali) for detailed predictions."
     },
     {
-        question: "How Long Does Each Consultation Session Last?",
+        question: "How long does each Consultation session last?",
         answer: "Depending on the specific consultation service you choose, a typical session lasts between 30 minutes to 60 minutes, giving enough time to deeply analyse your chart and answer queries."
     },
 
@@ -107,7 +107,7 @@ export default function FAQs() {
                                             exit={{ height: 0, opacity: 0 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                         >
-                                            <div className={`px-6 pb-6 pt-1 text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                                            <div className={`px-6 pb-6 pt-1 text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-black'
                                                 }`}>
                                                 {faq.answer}
                                             </div>
