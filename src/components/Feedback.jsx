@@ -77,7 +77,7 @@ export default function Feedback() {
                     className={`glass rounded-3xl p-8 md:p-12 shadow-2xl border flex flex-col md:flex-row gap-12 items-center ${isDarkMode ? 'border-gray-800' : 'border-gray-200 bg-white/60'
                         }`}
                 >
-                    <div className="w-full md:w-5/12 flex flex-col justify-center text-center md:text-left">
+                    <div className="w-full md:hidden flex flex-col justify-center text-center">
                         <h2
                             className="text-3xl md:text-4xl font-bold mb-4 font-raleway"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
@@ -89,7 +89,7 @@ export default function Feedback() {
                         </p>
                     </div>
 
-                    <div className="w-full md:w-7/12 relative">
+                    <div className="w-full md:w-7/12 md:ml-auto relative">
                         {status === 'duplicate' && (
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
