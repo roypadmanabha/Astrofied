@@ -263,7 +263,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   ABOUT_US_TEXT.split('Prasanta Chakraborty').map((part, i, arr) => (
                     <span key={i}>
                       {part}
-                      {i < arr.length - 1 && <span className="font-bold text-gold">Prasanta Chakraborty</span>}
+                      {i < arr.length - 1 && <span className={`font-bold ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>Prasanta Chakraborty</span>}
                     </span>
                   ))
                 ) : (
