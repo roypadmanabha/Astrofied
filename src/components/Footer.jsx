@@ -96,10 +96,10 @@ export default function Footer({ onOpenLegal }) {
                         </div>
                     </div>
 
-                    {/* Divider (Legal | Contact Mobile Partition) */}
+                    {/* Divider (Dynamic Legal | Contact Partition) */}
                     <div
-                        className="w-[1px] h-20 lg:h-30 self-center transition-colors duration-300"
-                        style={{ backgroundColor: isDarkMode ? 'white' : 'black' }}
+                        className="w-[0.5px] h-auto self-stretch mt-4 mb-2 transition-colors duration-300"
+                        style={{ backgroundColor: isDarkMode ? '#D4AF37' : 'black' }}
                     />
 
                     <div className="flex flex-col gap-6 flex-1 sm:flex-none sm:w-auto min-w-[160px]">
