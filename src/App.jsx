@@ -184,16 +184,55 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="w-full md:w-1/2 aspect-square glass rounded-full overflow-hidden shadow-2xl relative flex items-center justify-center p-4 border-4 border-gold/30"
+              className="w-full md:w-1/2 aspect-square rounded-full relative flex items-center justify-center p-4"
             >
+              {/* Sunray Beams Background */}
+              <motion.div 
+                className="absolute inset-[-20%] opacity-40 mix-blend-screen pointer-events-none"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                style={{
+                  background: `conic-gradient(from 0deg, transparent 0%, rgba(212, 175, 55, 0.4) 10%, transparent 20%, rgba(212, 175, 55, 0.4) 30%, transparent 40%, rgba(212, 175, 55, 0.4) 50%, transparent 60%, rgba(212, 175, 55, 0.4) 70%, transparent 80%, rgba(212, 175, 55, 0.4) 90%, transparent 100%)`
+                }}
+              />
+              
+              {/* Secondary Pulsing Glow */}
+              <motion.div 
+                className="absolute inset-0 rounded-full bg-gold/10 blur-3xl pointer-events-none"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+
+              {/* Glitter Particles Effect Wrapper */}
+              <div className="absolute inset-0 overflow-visible pointer-events-none">
+                {[...Array(12)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute top-1/2 left-1/2 w-1 h-1 bg-gold rounded-full shadow-[0_0_10px_#D4AF37]"
+                    initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                    animate={{ 
+                      opacity: [0, 1, 0],
+                      scale: [0, 1.5, 0],
+                      x: (Math.random() - 0.5) * 400,
+                      y: (Math.random() - 0.5) * 400
+                    }}
+                    transition={{ 
+                      duration: 3 + Math.random() * 2,
+                      repeat: Infinity,
+                      delay: i * 0.4,
+                      ease: "easeOut"
+                    }}
+                  />
+                ))}
+              </div>
+
               <motion.img
                 src={zodiacWheel}
                 alt="Zodiac Wheel"
-                className="w-full h-full object-contain will-change-transform"
+                className="w-full h-full object-contain will-change-transform relative z-10 glass rounded-full border-4 border-gold/30 shadow-2xl"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
               />
-              <div className="absolute inset-0 bg-gold/5 rounded-full pointer-events-none" />
             </motion.div>
 
             <motion.div
