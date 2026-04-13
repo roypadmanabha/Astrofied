@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
-/* iPad Mini (768px - 1023px) Specific Optimization */
+/* iPad Mini & Mid-Tablets (768px - 1023px) Specific Optimization */
 @media (min-width: 768px) and (max-width: 1023px) {
   .container {
     max-width: 100% !important;
-    padding-left: 10% !important;
-    padding-right: 10% !important;
+    padding-left: 7% !important;
+    padding-right: 7% !important;
   }
 }
 

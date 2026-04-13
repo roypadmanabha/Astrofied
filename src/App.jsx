@@ -178,13 +178,13 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* Why Astrofied Section */}
       <section id="why-astrofied" className={`py-24 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
         <div className="container mx-auto px-6">
-          <div className="flex flex-col-reverse md:flex-row items-center gap-16">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="w-full md:w-1/2 aspect-square glass rounded-full overflow-hidden shadow-2xl relative flex items-center justify-center p-4 border-4 border-gold/30"
+              className="w-full md:w-5/12 aspect-square glass rounded-full overflow-hidden shadow-2xl relative flex items-center justify-center p-4 border-4 border-gold/30"
             >
               <motion.img
                 src={zodiacWheel}
@@ -201,7 +201,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full md:w-1/2"
+              className="w-full md:w-7/12"
             >
               <div className="flex flex-col sm:flex-row items-center gap-3 mb-8">
                 <img
@@ -210,7 +210,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   className="w-28 h-28 md:w-32 md:h-32 lg:w-36 xl:w-44 lg:h-36 xl:h-44 object-contain"
                   style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                 />
-                <h1 className="text-4xl md:text-5xl lg:text-[2.75rem] xl:text-7xl font-bold leading-tight">
+                <h1 className="text-4xl md:text-4xl lg:text-[2.75rem] xl:text-7xl font-bold leading-tight">
                   Why <span className="text-gold">Astrofied?</span>
                 </h1>
               </div>
@@ -235,12 +235,12 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* About Us Section */}
       <section id="about" className="py-24 overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center gap-16">
+          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="w-full md:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden glass shadow-2xl relative"
+              className="w-full md:w-5/12 aspect-[4/3] rounded-3xl overflow-hidden glass shadow-2xl relative"
             >
               <img
                 src={aboutSj}
@@ -253,7 +253,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="w-full md:w-1/2"
+              className="w-full md:w-7/12"
             >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
                 About Us
