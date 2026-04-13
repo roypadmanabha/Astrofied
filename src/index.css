@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* iPad Mini (768px - 1024px) Specific Optimization */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    max-width: 100% !important;
+    padding-left: 10% !important;
+    padding-right: 10% !important;
+  }
+}
+
 @theme {
   --color-gold: #D4AF37;
   --color-obsidian: #0A0A0A;

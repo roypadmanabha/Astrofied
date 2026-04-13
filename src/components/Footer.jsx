@@ -48,7 +48,7 @@ export default function Footer({ onOpenLegal }) {
         <footer id="footer" className={`py-12 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/10'}`}>
             <div className="container mx-auto px-6">
                 <div className="flex flex-wrap justify-between gap-x-4 gap-y-12 mb-12 md:mb-16">
-                    <div className="flex flex-col gap-6 w-full lg:w-auto">
+                    <div className="flex flex-col gap-6 w-full md:w-[45%] lg:w-auto">
                         <div className="flex items-center gap-0">
                             <img
                                 src={logo}
@@ -73,7 +73,7 @@ export default function Footer({ onOpenLegal }) {
                     />
 
                     {/* Legal Links Column */}
-                    <div className="flex flex-col gap-6 w-[45%] sm:w-auto">
+                    <div className="flex flex-col gap-6 w-[45%] md:w-[45%] lg:w-auto">
                         <h4
                             className="text-lg md:text-xl lg:text-2xl font-bold"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
@@ -96,13 +96,13 @@ export default function Footer({ onOpenLegal }) {
                         </div>
                     </div>
 
-                    {/* Divider (Dynamic Legal | Contact Partition) */}
+                    {/* Divider */}
                     <div
-                        className="w-[0.5px] h-auto self-stretch mt-4 mb-2 transition-colors duration-300"
-                        style={{ backgroundColor: isDarkMode ? '#D4AF37' : 'black' }}
+                        className="hidden lg:block w-[1px] h-30 self-center transition-colors duration-300"
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
-                    <div className="flex flex-col gap-6 flex-1 sm:flex-none sm:w-auto min-w-[160px]">
+                    <div className="flex flex-col gap-6 w-[45%] md:w-[45%] lg:w-auto">
                         <h4
                             className="text-lg md:text-xl lg:text-2xl font-bold"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
@@ -127,7 +127,7 @@ export default function Footer({ onOpenLegal }) {
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
-                    <div className="flex flex-col gap-6 w-full lg:w-auto">
+                    <div className="flex flex-col gap-6 w-full md:w-[45%] lg:w-auto">
                         <h4
                             className="text-lg md:text-xl lg:text-2xl font-bold"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
