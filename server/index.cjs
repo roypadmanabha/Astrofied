@@ -17,6 +17,7 @@ app.use(cors({
     origin: [
         'http://localhost:5173',
         'https://roypadmanabha.github.io',
+        'https://astrofied.netlify.app',
         'https://astrofied-online.netlify.app'
     ],
     credentials: true
