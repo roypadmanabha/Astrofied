@@ -9,7 +9,7 @@ export default function Footer({ onOpenLegal }) {
     const socialLinks = [
         { 
             icon: (
-                <svg viewBox="0 0 24 24" className="w-6 h-6 md:w-9 md:h-9">
+                <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] md:w-9 md:h-9">
                     <defs>
                         <radialGradient id="ig-gradient" cx="0%" cy="100%" r="150%">
                             <stop offset="0%" stopColor="#f09433"/>
@@ -26,7 +26,7 @@ export default function Footer({ onOpenLegal }) {
         },
         { 
             icon: (
-                <svg viewBox="0 0 24 24" className="w-7 h-7 md:w-10 md:h-10">
+                <svg viewBox="0 0 24 24" className="w-[20px] h-[20px] md:w-10 md:h-10">
                     <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                     <path fill="#FFF" d="M16.671 15.458l.532-3.47h-3.328V9.738c0-.949.465-1.874 1.956-1.874h1.513V4.91s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.669v2.645H7.078v3.47h3.047v8.385a12.09 12.09 0 001.438.086c.49 0 .969-.03 1.437-.086v-8.385h2.796z"/>
                 </svg>
@@ -35,7 +35,7 @@ export default function Footer({ onOpenLegal }) {
         },
         { 
             icon: (
-                <svg viewBox="0 0 24 24" className="w-7 h-7 md:w-10 md:h-10">
+                <svg viewBox="0 0 24 24" className="w-[20px] h-[20px] md:w-10 md:h-10">
                     <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
                     <path fill="#FFF" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
@@ -127,31 +127,39 @@ export default function Footer({ onOpenLegal }) {
 
                 </div>
 
-                {/* Social Media Row - Centered and Big */}
-                <div className="flex justify-center gap-6 md:gap-10 mb-12 md:mb-16">
+                <div className="flex justify-center gap-10 md:gap-10 mb-12 md:mb-16">
                     {socialLinks.map((social, index) => (
                         <motion.a
                             key={index}
                             href={social.href}
                             target="_blank"
-                            className="w-14 h-14 md:w-20 md:h-20 rounded-full glass flex items-center justify-center hover:scale-110 transition-all cursor-pointer relative group"
+                            className="md:w-20 md:h-20 md:rounded-full md:glass flex items-center justify-center hover:scale-110 transition-all cursor-pointer relative group"
                             style={{ 
                                 borderColor: isDarkMode ? 'rgba(212, 175, 55, 0.3)' : 'rgba(75, 0, 130, 0.15)',
-                                borderWidth: '2px',
-                                boxShadow: isDarkMode 
-                                    ? 'inset 0 0 15px rgba(212, 175, 55, 0.15), 0 10px 40px rgba(0, 0, 0, 0.3)' 
-                                    : 'inset 0 0 15px rgba(255, 255, 255, 0.8), 0 10px 40px rgba(75, 0, 130, 0.1)',
-                                background: isDarkMode
-                                    ? 'rgba(10, 10, 10, 0.5)'
-                                    : 'rgba(255, 255, 255, 0.5)'
+                                borderWidth: 'var(--border-width, 0px)',
+                                boxShadow: 'var(--social-shadow, none)',
+                                background: 'var(--social-bg, transparent)'
                             }}
                             whileHover={{ y: -10, rotate: 5 }}
                         >
+                            <style dangerouslySetInnerHTML={{ __html: `
+                                @media (min-width: 768px) {
+                                    .group {
+                                        --border-width: 2px;
+                                        --social-shadow: ${isDarkMode 
+                                            ? 'inset 0 0 15px rgba(212, 175, 55, 0.15), 0 10px 40px rgba(0, 0, 0, 0.3)' 
+                                            : 'inset 0 0 15px rgba(255, 255, 255, 0.8), 0 10px 40px rgba(75, 0, 130, 0.1)'};
+                                        --social-bg: ${isDarkMode
+                                            ? 'rgba(10, 10, 10, 0.5)'
+                                            : 'rgba(255, 255, 255, 0.5)'};
+                                    }
+                                }
+                            `}} />
                             <div 
-                                className="absolute inset-0 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" 
+                                className="absolute inset-0 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity hidden md:block" 
                                 style={{ backgroundColor: isDarkMode ? 'rgba(212, 175, 55, 0.25)' : 'rgba(75, 0, 130, 0.15)' }}
                             />
-                            <span className="relative z-10 transition-transform duration-300 group-hover:scale-125">
+                            <span className="relative z-10 transition-transform duration-300 group-hover:scale-125 flex items-center justify-center">
                                 {social.icon}
                             </span>
                         </motion.a>
