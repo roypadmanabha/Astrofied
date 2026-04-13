@@ -66,6 +66,9 @@ export default function Footer({ onOpenLegal }) {
                         </div>
                     </div>
 
+                    {/* Divider */}
+                    <div className="hidden lg:block w-[0.5px] h-24 bg-black/10 self-center"></div>
+
                     {/* Legal Links Column */}
                     <div className="flex flex-col gap-6 w-[45%] sm:w-auto">
                         <h4
@@ -90,6 +93,9 @@ export default function Footer({ onOpenLegal }) {
                         </div>
                     </div>
 
+                    {/* Divider */}
+                    <div className="hidden lg:block w-[0.5px] h-24 bg-black/10 self-center"></div>
+
                     <div className="flex flex-col gap-6 flex-1 sm:flex-none sm:w-auto min-w-[160px]">
                         <h4
                             className="text-lg md:text-xl lg:text-2xl font-bold"
@@ -108,6 +114,9 @@ export default function Footer({ onOpenLegal }) {
                             </a>
                         </div>
                     </div>
+
+                    {/* Divider */}
+                    <div className="hidden lg:block w-[0.5px] h-24 bg-black/10 self-center"></div>
 
                     <div className="flex flex-col gap-6 w-full lg:w-auto">
                         <h4
