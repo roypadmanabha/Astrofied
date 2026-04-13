@@ -70,15 +70,22 @@ export default function Footer({ onOpenLegal }) {
                                     key={index}
                                     href={social.href}
                                     target="_blank"
-                                    className="w-11 h-11 md:w-14 md:h-14 rounded-2xl glass flex items-center justify-center hover:scale-110 transition-all cursor-pointer relative group"
+                                    className="w-12 h-12 md:w-16 md:h-16 rounded-full glass flex items-center justify-center hover:scale-110 transition-all cursor-pointer relative group"
                                     style={{ 
-                                        borderColor: isDarkMode ? 'rgba(212, 175, 55, 0.2)' : '#4B0082' 
+                                        borderColor: isDarkMode ? 'rgba(212, 175, 55, 0.3)' : 'rgba(75, 0, 130, 0.15)',
+                                        borderWidth: '1.5px',
+                                        boxShadow: isDarkMode 
+                                            ? 'inset 0 0 12px rgba(212, 175, 55, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2)' 
+                                            : 'inset 0 0 12px rgba(255, 255, 255, 0.6), 0 8px 32px rgba(75, 0, 130, 0.05)',
+                                        background: isDarkMode
+                                            ? 'rgba(10, 10, 10, 0.4)'
+                                            : 'rgba(255, 255, 255, 0.4)'
                                     }}
-                                    whileHover={{ y: -10, rotate: 5 }}
+                                    whileHover={{ y: -8, rotate: 8 }}
                                 >
                                     <div 
-                                        className="absolute inset-0 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" 
-                                        style={{ backgroundColor: isDarkMode ? 'rgba(212, 175, 55, 0.2)' : 'rgba(75, 0, 130, 0.2)' }}
+                                        className="absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" 
+                                        style={{ backgroundColor: isDarkMode ? 'rgba(212, 175, 55, 0.15)' : 'rgba(75, 0, 130, 0.1)' }}
                                     />
                                     <span className="relative z-10 transition-transform duration-300 group-hover:scale-110">
                                         {social.icon}
