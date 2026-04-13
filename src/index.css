@@ -237,9 +237,14 @@ body.light {
 }
 
 .light .glass {
-  background: rgba(252, 249, 242, 0.6);
-  border: 1px solid rgba(75, 0, 130, 0.1);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  background: rgba(252, 249, 242, 0.65);
+  backdrop-filter: blur(25px) saturate(200%);
+  -webkit-backdrop-filter: blur(25px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 
+    0 10px 40px -10px rgba(0, 0, 0, 0.05),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.02);
 }
 
 .glass-nav {
@@ -262,12 +267,12 @@ body.light {
 }
 
 .dark {
-  background-color: #03002b;
+  background-color: #0A0A0A;
   color: #F5F5F5;
 }
 
 .light {
-  background-color: #FCF9F2;
+  background-color: #F5F5DC;
   color: #0A0A0A;
 }
 
