@@ -13,17 +13,17 @@ export default function Hero() {
             <div className={`absolute bottom-1/4 -right-20 w-80 h-80 rounded-full blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#4B0082]' : 'bg-gold'}`} />
 
             <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-24">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
                     {/* Left Content */}
                     <div className="w-full lg:w-1/2 text-center lg:text-left order-1 z-20">
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
-                            className="text-4xl md:text-6xl lg:text-7xl font-bold font-raleway leading-[1.1] mb-6"
+                            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-raleway leading-[1.1] mb-6"
                             style={{ color: isDarkMode ? '#F5F5F5' : '#0A0A0A' }}
                         >
-                            A Deeper Understanding <br className="hidden md:block" />
+                            A Deeper Understanding <br className="hidden lg:block xl:hidden" />
                             <span style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>of Your Life</span> Begins Here
                         </motion.h1>
 
@@ -104,7 +104,7 @@ export default function Hero() {
                                     initial={{ opacity: 0, x: 30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.5 }}
-                                    className={`absolute right-0 md:right-4 lg:right-6 top-[42%] md:top-[45%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                    className={`absolute right-4 lg:right-4 xl:right-6 top-[42%] md:top-[45%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                         }`}
                                 >
                                     <div className="flex flex-col">
@@ -130,12 +130,12 @@ export default function Hero() {
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.9 }}
-                                    className={`absolute -right-4 md:-right-12 lg:-right-16 bottom-[18%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
+                                    className={`absolute -right-2 md:-right-8 lg:-right-10 xl:-right-16 bottom-[18%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/20'
                                         }`}
                                 >
                                     <div className="flex flex-col">
-                                        <span className="text-xl font-bold font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>100%</span>
-                                        <span className="text-xs opacity-70">Accuracy</span>
+                                        <span className="text-lg md:text-xl font-bold font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>100%</span>
+                                        <span className="text-[10px] md:text-xs opacity-70">Accuracy</span>
                                     </div>
                                 </motion.div>
                             </motion.div>
@@ -145,10 +145,10 @@ export default function Hero() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.2 }}
-                                className={`relative -mt-6 z-30 px-4 py-3 md:px-12 md:py-4 rounded-full border glass backdrop-blur-3xl whitespace-nowrap shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${isDarkMode ? 'border-gold/30 text-gold shadow-gold/20' : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
+                                className={`relative -mt-6 z-30 px-6 py-3 md:px-10 lg:px-8 xl:px-12 md:py-4 rounded-full border glass backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${isDarkMode ? 'border-gold/30 text-gold shadow-gold/20' : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
                                     }`}
                             >
-                                <span className="text-[9px] sm:text-sm md:text-lg font-bold tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.3em] uppercase font-raleway">your roadmap to the right decisions</span>
+                                <span className="text-[9px] sm:text-xs md:text-sm font-bold tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.3em] uppercase font-raleway">your roadmap to the right decisions</span>
                             </motion.div>
                         </div>
                     </div>

@@ -178,7 +178,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* Why Astrofied Section */}
       <section id="why-astrofied" className={`py-24 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
         <div className="container mx-auto px-6">
-          <div className="flex flex-col-reverse md:flex-row items-center gap-16 lg:gap-24">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-16">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -207,10 +207,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 <img
                   src={logo}
                   alt="Astrofied Logo"
-                  className="w-28 h-28 md:w-32 md:h-32 lg:w-44 lg:h-44 object-contain"
+                  className="w-28 h-28 md:w-32 md:h-32 lg:w-36 xl:w-44 lg:h-36 xl:h-44 object-contain"
                   style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                 />
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-[2.75rem] xl:text-7xl font-bold leading-tight">
                   Why <span className="text-gold">Astrofied?</span>
                 </h1>
               </div>
@@ -235,7 +235,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* About Us Section */}
       <section id="about" className="py-24 overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+          <div className="flex flex-col md:flex-row items-center gap-16">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
