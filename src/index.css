@@ -63,7 +63,7 @@ body {
 }
 
 body.dark {
-  background: radial-gradient(circle at 50% 50%, #0a0e1a 0%, #050812 100%);
+  background: radial-gradient(circle at 50% 50%, #03002b 0%, #01001a 100%);
 }
 
 body.light {
@@ -79,7 +79,7 @@ body.light {
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 50%, #0a0e1a 0%, #05050a 100%);
+  background: radial-gradient(circle at 50% 50%, #03002b 0%, #000000 100%);
   animation: cosmic-zoom 120s ease-in-out infinite alternate;
 }
 
