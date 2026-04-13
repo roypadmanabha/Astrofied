@@ -88,8 +88,13 @@ const Kundali = () => {
     return (
         <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#05010d]' : 'bg-white'}`}>
             <div className="container mx-auto px-6">
-                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
-
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className={`glass rounded-[2.5rem] p-8 md:p-12 shadow-2x border flex flex-col lg:flex-row gap-12 items-center max-w-6xl mx-auto ${isDarkMode ? 'border-gold/30 bg-[#0f0a1f]/80' : 'border-[#D4AF37]/20 bg-[#F5F5DC]'
+                        }`}
+                >
                     {/* Left Side: Heading */}
                     <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6 md:space-y-8">
                         <motion.div
@@ -103,163 +108,140 @@ const Kundali = () => {
                             <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Vedic Astrology</span>
                         </motion.div>
 
-                        <motion.h2
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4B0082]'
+                        <h2
+                            className={`text-3xl md:text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4B0082]'
                                 }`}
                         >
                             Astrofied Free <br />
                             <span className="text-gold italic">Kundali</span>
-                        </motion.h2>
+                        </h2>
 
-                        <motion.p
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]/70'
+                        <p
+                            className={`text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]/70'
                                 }`}
                         >
                             Generate your precise North Indian style D1 Lagna chart based on your birth coordinates.
-                        </motion.p>
+                        </p>
                     </div>
 
-                    {/* Right Side: Compact Form Container */}
-                    <div className="w-full lg:w-2/5 max-w-md mx-auto lg:mx-0">
-                        <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center relative ${isDarkMode
-                                ? 'border-gold bg-[#0f0a1f]/80'
-                                : 'border-[#D4AF37]/20 bg-[#F5F5DC]'
-                                }`}
-                        >
-                            {!isDarkMode && (
-                                <img
-                                    src={logo}
-                                    alt="Astrofied"
-                                    className="absolute top-2 right-2 md:top-4 md:right-4 w-16 h-16 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain select-none pointer-events-none"
+                    {/* Right Side: Form Container */}
+                    <div className="w-full lg:w-1/2 relative">
+                        <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+                            <div className="space-y-2">
+                                <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                    <User size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Name
+                                </label>
+                                <input
+                                    type="text"
+                                    required
+                                    placeholder="Full Name"
+                                    className={`w-full border-b bg-transparent px-0 py-2 text-base md:text-lg font-bold focus:outline-none transition-all ${isDarkMode
+                                        ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
+                                        : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
+                                        }`}
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 />
-                            )}
-                            <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
-                                        <User size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Name
+                                        <Calendar size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Date
                                     </label>
                                     <input
-                                        type="text"
+                                        type="date"
                                         required
-                                        placeholder="Full Name"
-                                        className={`w-full border-b bg-transparent px-0 py-2 text-base md:text-lg font-bold focus:outline-none transition-all ${isDarkMode
-                                            ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
+                                        className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
+                                            ? 'border-white/10 text-white focus:border-gold'
+                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                             }`}
-                                        value={formData.name}
-                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                        value={formData.dob}
+                                        onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                                     />
                                 </div>
-
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
-                                            <Calendar size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Date
-                                        </label>
-                                        <input
-                                            type="date"
-                                            required
-                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
-                                                ? 'border-white/10 text-white focus:border-gold'
-                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
-                                                }`}
-                                            value={formData.dob}
-                                            onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
-                                            <Clock size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Time
-                                        </label>
-                                        <input
-                                            type="time"
-                                            required
-                                            className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
-                                                ? 'border-white/10 text-white focus:border-gold'
-                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
-                                                }`}
-                                            value={formData.tob}
-                                            onChange={(e) => setFormData({ ...formData, tob: e.target.value })}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="space-y-2 relative">
+                                <div className="space-y-2">
                                     <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
-                                        <MapPin size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Location
+                                        <Clock size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Time
                                     </label>
                                     <input
-                                        type="text"
+                                        type="time"
                                         required
-                                        placeholder="Search city..."
-                                        className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
-                                            ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
+                                        className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
+                                            ? 'border-white/10 text-white focus:border-gold'
+                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                             }`}
-                                        value={formData.city}
-                                        onChange={(e) => {
-                                            setFormData({ ...formData, city: e.target.value });
-                                            if (error) setError(null);
-                                        }}
+                                        value={formData.tob}
+                                        onChange={(e) => setFormData({ ...formData, tob: e.target.value })}
                                     />
-                                    <AnimatePresence>
-                                        {suggestions.length > 0 && (
-                                            <motion.div
-                                                initial={{ opacity: 0, y: 5 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: 5 }}
-                                                className={`absolute z-50 w-full mt-2 border rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl ${isDarkMode ? 'bg-[#1a1233]/95 border-white/10' : 'bg-white/95 border-purple-600/10'
-                                                    }`}
-                                            >
-                                                {suggestions.map((city, idx) => (
-                                                    <button
-                                                        key={idx}
-                                                        type="button"
-                                                        className={`w-full text-left px-4 py-3 text-xs font-semibold transition-all border-b last:border-0 ${isDarkMode
-                                                            ? 'text-gray-300 hover:bg-gold/10 hover:text-gold border-white/5'
-                                                            : 'text-[#0A1931] hover:bg-purple-600/10 hover:text-[#4B0082] border-purple-600/5'
-                                                            }`}
-                                                        onClick={() => handleCitySelect(city)}
-                                                    >
-                                                        {city.display_name.split(',').slice(0, 2).join(',')}
-                                                    </button>
-                                                ))}
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
                                 </div>
+                            </div>
 
-                                {error && (
-                                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-[10px] font-bold text-center bg-red-500/5 py-2 rounded-lg">
-                                        {error}
-                                    </motion.p>
-                                )}
-
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    disabled={loading}
-                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white shadow-xl'
+                            <div className="space-y-2 relative">
+                                <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                    <MapPin size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Location
+                                </label>
+                                <input
+                                    type="text"
+                                    required
+                                    placeholder="Search city..."
+                                    className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
+                                        ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
+                                        : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
                                         }`}
-                                >
-                                    {loading ? <Loader2 className="animate-spin" size={18} /> : (
-                                        <><Sparkles size={16} /> Generate</>
+                                    value={formData.city}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, city: e.target.value });
+                                        if (error) setError(null);
+                                    }}
+                                />
+                                <AnimatePresence>
+                                    {suggestions.length > 0 && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 5 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 5 }}
+                                            className={`absolute z-50 w-full mt-2 border rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl ${isDarkMode ? 'bg-[#1a1233]/95 border-white/10' : 'bg-white/95 border-purple-600/10'
+                                                }`}
+                                        >
+                                            {suggestions.map((city, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    type="button"
+                                                    className={`w-full text-left px-4 py-3 text-xs font-semibold transition-all border-b last:border-0 ${isDarkMode
+                                                        ? 'text-gray-300 hover:bg-gold/10 hover:text-gold border-white/5'
+                                                        : 'text-[#0A1931] hover:bg-purple-600/10 hover:text-[#4B0082] border-purple-600/5'
+                                                        }`}
+                                                    onClick={() => handleCitySelect(city)}
+                                                >
+                                                    {city.display_name.split(',').slice(0, 2).join(',')}
+                                                </button>
+                                            ))}
+                                        </motion.div>
                                     )}
-                                </motion.button>
-                            </form>
-                        </motion.div>
+                                </AnimatePresence>
+                            </div>
+
+                            {error && (
+                                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-[10px] font-bold text-center bg-red-500/5 py-2 rounded-lg">
+                                    {error}
+                                </motion.p>
+                            )}
+
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                disabled={loading}
+                                className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white shadow-xl'
+                                    }`}
+                            >
+                                {loading ? <Loader2 className="animate-spin" size={18} /> : (
+                                    <><Sparkles size={16} /> Generate</>
+                                )}
+                            </motion.button>
+                        </form>
                     </div>
-                </div>
+                </motion.div>
             </div>
 
             {/* Modal for Chart */}
