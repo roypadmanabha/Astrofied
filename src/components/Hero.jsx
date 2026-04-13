@@ -13,7 +13,7 @@ export default function Hero() {
             <div className={`absolute bottom-1/4 -right-20 w-80 h-80 rounded-full blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#4B0082]' : 'bg-gold'}`} />
 
             <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-24">
                     {/* Left Content */}
                     <div className="w-full lg:w-1/2 text-center lg:text-left order-1 z-20">
                         <motion.h1

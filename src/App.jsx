@@ -178,7 +178,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* Why Astrofied Section */}
       <section id="why-astrofied" className={`py-24 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
         <div className="container mx-auto px-6">
-          <div className="flex flex-col-reverse md:flex-row items-center gap-16">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-16 lg:gap-24">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -235,7 +235,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* About Us Section */}
       <section id="about" className="py-24 overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center gap-16">
+          <div className="flex flex-col md:flex-row items-center gap-16 lg:gap-24">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
