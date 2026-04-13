@@ -77,8 +77,8 @@ export default function FAQs() {
                                         ? 'border-gold bg-[#4B0082]/20 shadow-gold/10'
                                         : 'border-gold/20 hover:border-gold/50'
                                     : isActive
-                                        ? 'border-[#4B0082] bg-white/40 shadow-purple-600/10'
-                                        : 'border-purple-600/10 hover:border-purple-600/30'
+                                        ? 'border-[#DC2626] bg-[#FEF9C3] shadow-[#DC2626]/10'
+                                        : 'border-red-500/10 bg-red-500/5 hover:bg-red-500/10 hover:border-red-500/30'
                                     }`}
                             >
                                 <button
@@ -87,13 +87,13 @@ export default function FAQs() {
                                 >
                                     <span className={`text-base md:text-lg font-bold transition-colors font-raleway ${isDarkMode
                                         ? isActive ? 'text-[#D4AF37]' : 'text-gray-100 hover:text-white'
-                                        : isActive ? 'text-[#DC2626]' : 'text-[#DC2626] hover:text-[#DC2626]/80'
+                                        : isActive ? 'text-[#DC2626]' : 'text-[#17202A] hover:text-[#DC2626]'
                                         }`}>
                                         {faq.question}
                                     </span>
                                     <span className={`flex-shrink-0 transition-colors ${isDarkMode
                                         ? isActive ? 'text-[#D4AF37]' : 'text-gray-100'
-                                        : isActive ? 'text-gray-800' : 'text-gray-800'
+                                        : isActive ? 'text-[#DC2626]' : 'text-[#17202A]'
                                         }`}>
                                         {isActive ? <Minus size={24} strokeWidth={3} /> : <Plus size={24} strokeWidth={3} />}
                                     </span>
