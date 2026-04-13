@@ -72,7 +72,7 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
                         className="flex-1 overflow-y-auto p-6 md:p-10 font-mulish custom-scrollbar"
                         data-lenis-prevent
                     >
-                        <div className={`text-sm md:text-base leading-relaxed opacity-90 whitespace-pre-line`}>
+                        <div className={`text-sm md:text-base leading-relaxed opacity-90 whitespace-pre-line text-justify`}>
                             {content || "Content will be updated soon..."}
                         </div>
                     </div>
