@@ -64,7 +64,7 @@ export default function Footer({ onOpenLegal }) {
                                 Astrofied
                             </h4>
                         </div>
-                        <div className="flex gap-6">
+                        <div className="flex gap-6 justify-center lg:justify-start">
                             {socialLinks.map((social, index) => (
                                 <motion.a
                                     key={index}
