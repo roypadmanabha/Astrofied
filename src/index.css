@@ -128,6 +128,8 @@ body.light {
   background-size: 100px 100px;
   opacity: 0.2;
   animation: stars-rotate 400s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* Shooting Stars */
@@ -179,6 +181,8 @@ body.light {
     radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
   filter: blur(100px);
   animation: nebula-float 40s ease-in-out infinite alternate;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 @keyframes nebula-float {

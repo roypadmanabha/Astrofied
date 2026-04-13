@@ -67,8 +67,7 @@ const Kundali = () => {
         }
 
         try {
-            // Robust 24/7 Global Access Logic: Use Production URL unless strictly on Localhost
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const isLocal = window.location.hostname === 'localhost';
             const API_URL = isLocal 
                 ? 'http://localhost:5001/api/kundali'
                 : 'https://astrofied-production.up.railway.app/api/kundali';
@@ -78,9 +77,7 @@ const Kundali = () => {
             setIsModalOpen(true);
         } catch (err) {
             console.error('API Error:', err);
-            const isLocal = window.location.hostname === 'localhost';
-            const target = isLocal ? 'Local Server' : 'Global Cloud Server';
-            const serverError = err.response?.data?.error || `Could not connect to ${target}. Please check your internet connection.`;
+            const serverError = err.response?.data?.error || 'Failed to generate Kundali. Please try again.';
             setError(serverError);
         } finally {
             setLoading(false);
