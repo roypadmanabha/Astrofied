@@ -95,6 +95,30 @@ export default function Footer({ onOpenLegal }) {
                         </div>
                     </div>
 
+                    {/* Legal Links Column */}
+                    <div className="flex flex-col gap-6">
+                        <h4
+                            className="text-lg md:text-xl lg:text-2xl font-bold"
+                            style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                        >
+                            Legal
+                        </h4>
+                        <div className="flex flex-col gap-4">
+                            <button 
+                                onClick={() => onOpenLegal('terms')}
+                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
+                            >
+                                Terms and Conditions
+                            </button>
+                            <button 
+                                onClick={() => onOpenLegal('privacy')}
+                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
+                            >
+                                Privacy Policy
+                            </button>
+                        </div>
+                    </div>
+
                     <div className="flex flex-col gap-6">
                         <h4
                             className="text-lg md:text-xl lg:text-2xl font-bold"
@@ -130,29 +154,6 @@ export default function Footer({ onOpenLegal }) {
                         </a>
                     </div>
 
-                    {/* Legal Links Column */}
-                    <div className="flex flex-col gap-6">
-                        <h4
-                            className="text-lg md:text-xl lg:text-2xl font-bold"
-                            style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
-                        >
-                            Legal
-                        </h4>
-                        <div className="flex flex-col gap-4">
-                            <button 
-                                onClick={() => onOpenLegal('terms')}
-                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
-                            >
-                                Terms and Conditions
-                            </button>
-                            <button 
-                                onClick={() => onOpenLegal('privacy')}
-                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
-                            >
-                                Privacy Policy
-                            </button>
-                        </div>
-                    </div>
                 </div>
 
                 <div className="border-t border-gold/20 pt-8 text-center text-sm text-gray-500">
