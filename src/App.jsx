@@ -32,40 +32,40 @@ function MainContent() {
       setLegalModal({
         isOpen: true,
         title: 'Terms and Conditions',
-        content: `1. Acceptance of Terms
+        content: `<b>1. Acceptance of Terms</b>
 By accessing and using Astrofied (the Website), you agree to be bound by these Terms and Conditions and our Privacy Policy. If you do not agree with any part of these terms, you must immediately discontinue use of our services.
 
-2. Eligibility
+<b>2. Eligibility</b>
 You must be at least 18 years of age to use this Website or purchase services. By using Astrofied, you represent and warrant that you meet this age requirement and have the legal capacity to enter into a binding agreement.
 
-3. Nature of Services (Disclaimer)
+<b>3. Nature of Services (Disclaimer)</b>
 Entertainment Purposes: All astrological consultations, reports, and content provided by Astrofied are for guidance and entertainment purposes only.
 No Professional Advice: Astrology is not a substitute for professional medical, legal, financial, or psychological advice. Astrofied does not guarantee the accuracy or reliability of any predictions or insights.
 User Responsibility: Any actions taken based on the information provided by Astrofied are solely the responsibility of the user.
 
-4. Payments and Refunds
+<b>4. Payments and Refunds</b>
 Pricing: All fees for consultations and reports are clearly stated on the Website. We reserve the right to change pricing at any time.
 Refund Policy: Due to the personalized nature of astrological reports and the time allocated for live consultations, payments are generally non-refundable once the service has been initiated or delivered, except in cases of technical failure on our part.
 
-5. User Conduct
+<b>5. User Conduct</b>
 You agree not to use the Website for any unlawful purpose. You are prohibited from:
 Providing false information during registration or consultation.
 Attempting to interfere with the Website’s security or functionality.
 Harassing or using abusive language toward our consultants.
 
-6. Intellectual Property
+<b>6. Intellectual Property</b>
 All content on Astrofied, including text, graphics, logos, and software, is the property of Astrofied and protected by copyright and intellectual property laws. You may not reproduce, distribute, or sell any content without prior written consent.
 
-7. Privacy and Data Security
+<b>7. Privacy and Data Security</b>
 Your personal data, including birth details, is handled in accordance with our Privacy Policy. While we implement industry-standard security measures, we cannot guarantee absolute security of data transmitted over the internet.
 
-8. Limitation of Liability
+<b>8. Limitation of Liability</b>
 To the maximum extent permitted by law, Astrofied and its practitioners shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use our services, even if advised of the possibility of such damages.
 
-9. Modifications to Terms
+<b>9. Modifications to Terms</b>
 Astrofied reserves the right to modify these Terms and Conditions at any time. Updates will be posted on this page with a revised Last Updated date. Continued use of the Website constitutes acceptance of the new terms.
 
-10. Governing Law
+<b>10. Governing Law</b>
 These terms shall be governed by and construed in accordance with the laws of India, and any disputes shall be subject to the exclusive jurisdiction of the courts in Agartala, Tripura.`
       });
     } else if (type === 'privacy') {
@@ -74,41 +74,42 @@ These terms shall be governed by and construed in accordance with the laws of In
         title: 'Privacy Policy',
         content: `At Astrofied, we value the trust you place in us when sharing your personal information and birth details. This Privacy Policy outlines how we collect, use, and protect your data in compliance with the laws of India and the jurisdiction of Tripura.
 
-1. Data Protection and Non-Tampering
+<b>1. Data Protection and Non-Tampering</b>
 All customer data collected through our website or consultations is handled with the highest level of privacy. We ensure that your personal information, including names, contact details, and birth data, is never tampered with, altered, or sold to third parties for marketing purposes.
 
-2. Confidentiality of Personal Matters
+<b>2. Confidentiality of Personal Matters</b>
 We understand that astrological consultations often involve discussing sensitive personal problems. All information shared during a session, whether personal, financial, or emotional, is kept strictly secret and remains confidential between the consultant and the client.
 
-3. Ethical Practice and Expectations
+<b>3. Ethical Practice and Expectations</b>
 Astrofied operates on the principle of transparency. We do not make any false promises to change your destiny or provide guaranteed outcomes. Our services are intended for guidance and insight based on astrological calculations, and we encourage clients to maintain a realistic perspective.
 
-4. No Cold Calling or Unsolicited Outreach
+<b>4. No Cold Calling or Unsolicited Outreach</b>
 To protect your privacy and peace of mind, we do not initiate calls to individuals for consultations. We only engage in outreach through official social media channels, our website, or organized events. Any consultation initiated will be at the request of the customer.
 
-5. Fair Pricing and No Hidden Charges
+<b>5. Fair Pricing and No Hidden Charges</b>
 We maintain a strict policy of financial transparency. There are no hidden or extra charges beyond the prices clearly stated on our platform. We do not charge "surprise fees" after a service has been booked or completed.
 
-6. Reasonable Remedies
+<b>6. Reasonable Remedies</b>
 Astrofied does not suggest or provide remedies that involve illogical practices or costs that are higher than usual market rates. We focus on practical and traditional guidance rather than high-cost commercialized solutions.
 
-7. Information Collection and Use
+<b>7. Information Collection and Use</b>
 We collect information that you voluntarily provide, such as your date, time, and place of birth, to generate accurate astrological charts. This data is used solely for the purpose of providing the service you have requested.
 
-8. Data Retention
+<b>8. Data Retention</b>
 We retain your personal information only for as long as necessary to provide our services and to comply with legal obligations under Indian law.
 
-9. Security Measures
+<b>9. Security Measures</b>
 We implement industry-standard security protocols to prevent unauthorized access to your data. However, please be aware that no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
 
-10. Governing Law
+<b>10. Governing Law</b>
 This Privacy Policy is governed by the laws of India. Any disputes regarding data privacy or the terms mentioned herein shall be subject to the exclusive jurisdiction of the courts in Agartala, Tripura.
 
-11. Contact Us
+<b>11. Contact Us</b>
 If you have any questions regarding this Privacy Policy or how your data is handled, please contact us through our official website channels.`
       });
     }
   };
+
   const { isDarkMode } = useTheme();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
