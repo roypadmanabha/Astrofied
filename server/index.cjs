@@ -63,45 +63,6 @@ async function getAccessToken() {
     }
 }
 
-// OTP Storage (In-memory for session)
-const otpStore = new Map();
-
-// Endpoint: Send OTP
-app.post('/api/send-otp', (req, res) => {
-    const { phoneNumber } = req.body;
-    if (!phoneNumber) return res.status(400).json({ error: 'Phone number is required' });
-
-    // Generate 6-digit OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiry = Date.now() + 5 * 60 * 1000; // 5 minutes
-
-    otpStore.set(phoneNumber, { otp, expiry });
-
-    const isLocal = process.env.NODE_ENV !== 'production';
-    console.log(`[OTP] Sent to ${phoneNumber}: ${otp}`);
-
-    res.json({ message: 'OTP sent successfully', demo: isLocal }); // Share 'demo' flag if local
-});
-
-// Endpoint: Verify OTP
-app.post('/api/verify-otp', (req, res) => {
-    const { phoneNumber, otp } = req.body;
-    const record = otpStore.get(phoneNumber);
-
-    if (!record) return res.status(400).json({ error: 'No OTP found for this number' });
-    if (Date.now() > record.expiry) {
-        otpStore.delete(phoneNumber);
-        return res.status(400).json({ error: 'OTP expired' });
-    }
-
-    if (record.otp === otp) {
-        otpStore.delete(phoneNumber); // Clear after use
-        return res.json({ success: true, message: 'Verified successfully' });
-    }
-
-    res.status(400).json({ error: 'Invalid OTP code' });
-});
-
 app.post('/api/kundali', async (req, res) => {
     try {
         const { name, dob, tob, lat, lon, tzo } = req.body;

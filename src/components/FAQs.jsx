@@ -31,7 +31,7 @@ const faqs = [
     },
     {
         question: "How Long Does Each Consultation Session Last?",
-        answer: "Depending on the specific consultation service you choose, a typical session lasts between 30 minutes to 60 minutes, giving enough time to deeply analyze your chart and answer queries."
+        answer: "Depending on the specific consultation service you choose, a typical session lasts between 30 minutes to 60 minutes, giving enough time to deeply analyse your chart and answer queries."
     },
 
 
