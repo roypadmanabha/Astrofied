@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
@@ -5,6 +6,17 @@ import logo from '../assets/logo.png';
 
 const LegalModal = ({ isOpen, onClose, title, content }) => {
     const { isDarkMode } = useTheme();
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -56,7 +68,10 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
                     </div>
 
                     {/* Scrollable Body */}
-                    <div className="flex-1 overflow-y-auto p-6 md:p-10 font-mulish custom-scrollbar">
+                    <div 
+                        className="flex-1 overflow-y-auto p-6 md:p-10 font-mulish custom-scrollbar"
+                        data-lenis-prevent
+                    >
                         <div className={`text-sm md:text-base leading-relaxed opacity-90 whitespace-pre-line`}>
                             {content || "Content will be updated soon..."}
                         </div>
