@@ -6,12 +6,14 @@ import logo from '../assets/logo.png';
 
 const desktopNavLinks = [
     { name: 'Services', href: '#services' },
+    { name: 'Kundali', href: '#kundali' },
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#footer' },
 ];
 
 const mobileNavLinks = [
     { name: 'Services', href: '#services' },
+    { name: 'Kundali', href: '#kundali' },
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#footer' },
     { name: 'Feedback', href: '#feedback' },
