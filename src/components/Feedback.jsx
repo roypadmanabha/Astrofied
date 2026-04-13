@@ -69,27 +69,35 @@ export default function Feedback() {
 
     return (
         <section id="feedback" className="py-24 relative overflow-hidden">
-            <div className="container mx-auto px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className={`glass rounded-3xl p-8 md:p-16 shadow-2xl border flex flex-col md:flex-row gap-12 lg:gap-20 items-center ${isDarkMode ? 'border-gray-800' : 'border-gray-200 bg-white/60'
-                        }`}
-                >
-                    <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left">
+            <div className="container mx-auto px-6 max-w-6xl">
+                <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start justify-between">
+                    {/* Left Side: Content */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
+                    >
                         <h2
-                            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-raleway leading-tight"
+                            className="text-4xl md:text-5xl font-bold mb-6 font-raleway leading-tight"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                         >
-                            We Value Your Feedback
+                            We Value Your <br className="hidden lg:block" /> Feedback
                         </h2>
-                        <p className={`text-base md:text-lg lg:text-xl opacity-80 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        <p className={`text-lg md:text-xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                             Your insights help us improve and serve you better. Share your experience with Astrofied!
                         </p>
-                    </div>
+                    </motion.div>
 
-                    <div className="w-full md:w-1/2 relative">
+                    {/* Right Side: Form in its own Glass Card */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        className={`w-full lg:w-6/12 glass rounded-3xl p-8 md:p-10 shadow-2xl border relative ${
+                            isDarkMode ? 'border-gray-800 bg-black/40' : 'border-gray-200 bg-white/70'
+                        }`}
+                    >
                         {status === 'duplicate' && (
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
@@ -169,8 +177,8 @@ export default function Feedback() {
 
 
                         </form>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </div>
             </div>
         </section>
     );
