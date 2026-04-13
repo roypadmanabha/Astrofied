@@ -207,10 +207,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 <img
                   src={logo}
                   alt="Astrofied Logo"
-                  className="w-28 h-28 md:w-32 md:h-32 lg:w-44 lg:h-44 object-contain"
+                  className="w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-44 xl:h-44 object-contain"
                   style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                 />
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-5xl xl:text-7xl font-bold leading-tight">
                   Why <span className="text-gold">Astrofied?</span>
                 </h1>
               </div>
@@ -255,7 +255,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               viewport={{ once: true }}
               className="w-full md:w-1/2"
             >
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
+              <h2 className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-8" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
                 About Us
               </h2>
               <p className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish">

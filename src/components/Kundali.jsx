@@ -88,7 +88,7 @@ const Kundali = () => {
     return (
         <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#05010d]' : 'bg-white'}`}>
             <div className="container mx-auto px-6">
-                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 xl:gap-24">
 
                     {/* Left Side: Heading */}
                     <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6 md:space-y-8">
@@ -107,7 +107,7 @@ const Kundali = () => {
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4B0082]'
+                            className={`text-4xl md:text-6xl lg:text-6xl xl:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4B0082]'
                                 }`}
                         >
                             Astrofied Free <br />
@@ -140,7 +140,7 @@ const Kundali = () => {
                                 <img
                                     src={logo}
                                     alt="Astrofied"
-                                    className="absolute top-2 right-2 md:top-4 md:right-4 w-16 h-16 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain select-none pointer-events-none"
+                                    className="absolute top-2 right-2 md:top-4 md:right-4 w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 object-contain select-none pointer-events-none"
                                 />
                             )}
                             <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">

@@ -47,13 +47,13 @@ export default function Footer({ onOpenLegal }) {
     return (
         <footer id="footer" className={`py-12 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/10'}`}>
             <div className="container mx-auto px-6">
-                <div className="flex flex-wrap justify-between gap-x-4 gap-y-12 mb-12 md:mb-16">
-                    <div className="flex flex-col gap-6 w-full lg:w-auto">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-12 md:mb-16">
+                    <div className="flex flex-col gap-6 w-full">
                         <div className="flex items-center gap-0">
                             <img
                                 src={logo}
                                 alt="Astrofied Logo"
-                                className="w-24 h-24 lg:w-32 lg:h-32 object-contain select-none pointer-events-none"
+                                className="w-24 h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 object-contain select-none pointer-events-none"
                                 draggable={false}
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-6px' }}
                             />
