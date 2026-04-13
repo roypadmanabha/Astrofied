@@ -13,10 +13,9 @@ export default function Footer({ onOpenLegal }) {
     ];
 
     return (
-        <footer id="footer" className={`${isDarkMode ? 'py-12 md:py-24 glass mt-4 md:mt-8' : 'pt-12 md:pt-24 bg-white mt-0'} font-mulish overflow-hidden`}>
+        <footer id="footer" className={`py-12 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/10'}`}>
             <div className="container mx-auto px-6">
                 <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap justify-between gap-12 mb-12 md:mb-16">
-                    {/* ... main footer content ... */}
                     <div className="flex flex-col gap-6">
                         <div className="flex items-center gap-0">
                             <img
@@ -39,9 +38,7 @@ export default function Footer({ onOpenLegal }) {
                                     key={index}
                                     href={social.href}
                                     target="_blank"
-                                    className={`w-11 h-11 md:w-14 md:h-14 rounded-2xl flex items-center justify-center hover:scale-110 transition-all cursor-pointer relative group ${
-                                        isDarkMode ? 'glass' : 'bg-[#FCF9F2] shadow-sm'
-                                    }`}
+                                    className="w-11 h-11 md:w-14 md:h-14 rounded-2xl glass flex items-center justify-center hover:scale-110 transition-all cursor-pointer relative group"
                                     whileHover={{ y: -10, rotate: 5 }}
                                 >
                                     <div className="absolute inset-0 bg-gold/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -112,12 +109,8 @@ export default function Footer({ onOpenLegal }) {
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div className={`border-t border-gold/20 py-8 px-6 text-center text-sm ${
-                isDarkMode ? 'text-gray-500' : 'bg-[#FCF9F2] text-[#4B0082]/60'
-            }`}>
-                <div className="container mx-auto">
+                <div className="border-t border-gold/20 pt-8 text-center text-sm text-gray-500">
                     © {new Date().getFullYear()} Astrofied. All rights reserved.
                 </div>
             </div>
