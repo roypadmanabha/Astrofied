@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { Sparkles, MapPin, Calendar, Clock, User, Loader2, X } from 'lucide-react';
+import logo from '../assets/logo.png';
 import { useTheme } from '../context/ThemeContext';
 
 const Kundali = () => {
@@ -130,11 +131,18 @@ const Kundali = () => {
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center ${isDarkMode
+                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center relative ${isDarkMode
                                 ? 'border-gold bg-[#0f0a1f]/80'
-                                : 'border-[#D4AF37]/20 bg-[#D4AF37]/10'
+                                : 'border-[#D4AF37]/20 bg-[#F5F5DC]'
                                 }`}
                         >
+                            {!isDarkMode && (
+                                <img 
+                                    src={logo} 
+                                    alt="Astrofied" 
+                                    className="absolute top-8 right-8 w-12 h-12 object-contain opacity-40 mix-blend-multiply select-none pointer-events-none" 
+                                />
+                            )}
                             <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
                                 <div className="space-y-2">
                                     <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
