@@ -67,7 +67,10 @@ export default function Footer({ onOpenLegal }) {
                     </div>
 
                     {/* Divider */}
-                    <div className="hidden lg:block w-[0.5px] h-24 bg-black/10 self-center"></div>
+                    <div 
+                        className="hidden lg:block w-[1px] h-28 self-center transition-colors duration-300" 
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
+                    />
 
                     {/* Legal Links Column */}
                     <div className="flex flex-col gap-6 w-[45%] sm:w-auto">
@@ -94,7 +97,10 @@ export default function Footer({ onOpenLegal }) {
                     </div>
 
                     {/* Divider */}
-                    <div className="hidden lg:block w-[0.5px] h-24 bg-black/10 self-center"></div>
+                    <div 
+                        className="hidden lg:block w-[1px] h-28 self-center transition-colors duration-300" 
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
+                    />
 
                     <div className="flex flex-col gap-6 flex-1 sm:flex-none sm:w-auto min-w-[160px]">
                         <h4
@@ -116,7 +122,10 @@ export default function Footer({ onOpenLegal }) {
                     </div>
 
                     {/* Divider */}
-                    <div className="hidden lg:block w-[0.5px] h-24 bg-black/10 self-center"></div>
+                    <div 
+                        className="hidden lg:block w-[1px] h-28 self-center transition-colors duration-300" 
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
+                    />
 
                     <div className="flex flex-col gap-6 w-full lg:w-auto">
                         <h4
