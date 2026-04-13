@@ -130,15 +130,15 @@ const Kundali = () => {
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center glitter-glass ${isDarkMode
+                            className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center ${isDarkMode
                                 ? 'border-gold bg-[#0f0a1f]/80'
-                                : 'border-[#D4AF37]/30 bg-[#F5F5DC]'
+                                : 'border-[#D4AF37]/20 bg-[#D4AF37]/10'
                                 }`}
                         >
                             <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
                                 <div className="space-y-2">
-                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#D4AF37]'}`}>
-                                        <User size={12} /> Name
+                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                        <User size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Name
                                     </label>
                                     <input
                                         type="text"
@@ -146,7 +146,7 @@ const Kundali = () => {
                                         placeholder="Full Name"
                                         className={`w-full border-b bg-transparent px-0 py-2 text-base md:text-lg font-bold focus:outline-none transition-all ${isDarkMode
                                             ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                            : 'border-[#D4AF37]/20 text-[#17202A] focus:border-[#D4AF37] placeholder:text-gray-400'
+                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
                                             }`}
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -155,30 +155,30 @@ const Kundali = () => {
 
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#D4AF37]'}`}>
-                                            <Calendar size={12} /> Date
+                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                            <Calendar size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Date
                                         </label>
                                         <input
                                             type="date"
                                             required
                                             className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold'
-                                                : 'border-[#D4AF37]/20 text-[#17202A] focus:border-[#D4AF37]'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                                 }`}
                                             value={formData.dob}
                                             onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#D4AF37]'}`}>
-                                            <Clock size={12} /> Time
+                                        <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                            <Clock size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Time
                                         </label>
                                         <input
                                             type="time"
                                             required
                                             className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold'
-                                                : 'border-[#D4AF37]/20 text-[#17202A] focus:border-[#D4AF37]'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                                 }`}
                                             value={formData.tob}
                                             onChange={(e) => setFormData({ ...formData, tob: e.target.value })}
@@ -187,8 +187,8 @@ const Kundali = () => {
                                 </div>
 
                                 <div className="space-y-2 relative">
-                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#D4AF37]'}`}>
-                                        <MapPin size={12} /> Location
+                                    <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                        <MapPin size={12} className={isDarkMode ? 'text-gold' : 'text-[#0A1931]'} /> Location
                                     </label>
                                     <input
                                         type="text"
@@ -196,7 +196,7 @@ const Kundali = () => {
                                         placeholder="Search city..."
                                         className={`w-full border-b bg-transparent px-0 py-2 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                             ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                            : 'border-[#D4AF37]/20 text-[#17202A] focus:border-[#D4AF37] placeholder:text-gray-400'
+                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
                                             }`}
                                         value={formData.city}
                                         onChange={(e) => {

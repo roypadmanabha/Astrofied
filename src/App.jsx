@@ -24,6 +24,16 @@ const ABOUT_US_TEXT = `Astrofied, established in late 2019, is a trusted astrolo
 
 function MainContent() {
   const [showFullWhySj, setShowFullWhySj] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Show preloader for 2 seconds
+    const timer = setTimeout(() => {
+        setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
 
@@ -169,6 +179,84 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"
         style={{ scaleX, background: isDarkMode ? '#D4AF37' : '#4B0082' }}
       />
+
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            key="preloader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className={`fixed inset-0 z-[9999] flex items-center justify-center transition-colors duration-700 ${isDarkMode ? 'bg-[#05010d]' : 'bg-[#F5F5DC]'}`}
+          >
+            <div className="relative group">
+              {/* Massive Outer Glow */}
+              <motion.div 
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1.2, opacity: [0, 0.5, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="absolute inset-[-50px] bg-gold/30 blur-[60px] rounded-full"
+              />
+              
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 1.2, 
+                  ease: [0.34, 1.56, 0.64, 1], // Popping elastic effect
+                }}
+                className="relative z-10 p-12"
+              >
+                {/* Logo with Shimmer/Glitering effect */}
+                <div className="relative overflow-hidden rounded-3xl">
+                  <img
+                    src={logo}
+                    alt="Astrofied"
+                    className="w-48 h-48 md:w-80 md:h-80 object-contain drop-shadow-[0_0_25px_rgba(212,175,55,0.6)]"
+                    style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
+                  />
+                  {/* Glossy Glitter Shine Overlay */}
+                  <motion.div 
+                    animate={{ 
+                      x: ['-100%', '200%'],
+                      opacity: [0, 1, 0]
+                    }}
+                    transition={{ 
+                      duration: 1.5, 
+                      repeat: Infinity,
+                      repeatDelay: 0.5,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-30deg]"
+                  />
+                </div>
+                
+                {/* Glitter Particles Effect */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ 
+                        scale: [0, 1, 0],
+                        opacity: [0, 1, 0],
+                        x: [0, (Math.random() - 0.5) * 200],
+                        y: [0, (Math.random() - 0.5) * 200]
+                      }}
+                      transition={{ 
+                        duration: 1.5, 
+                        delay: Math.random() * 0.5,
+                        repeat: Infinity 
+                      }}
+                      className="absolute left-1/2 top-1/2 w-2 h-2 bg-gold rounded-full blur-[1px]"
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Navbar onOpenLegal={openLegalModal} />
       <ThemeToggle3D />
