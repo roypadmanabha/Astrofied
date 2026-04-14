@@ -9,6 +9,7 @@ const app = express();
 // Modern CORS configuration
 const allowedOrigins = [
     'http://localhost:5173',
+    'http://localhost:5174',
     'https://roypadmanabha.github.io',
     'https://astrofied-production.up.railway.app'
 ];
@@ -16,6 +17,7 @@ const allowedOrigins = [
 app.use(cors({
     origin: [
         'http://localhost:5173',
+        'http://localhost:5174',
         'https://roypadmanabha.github.io',
         'https://astrofied.netlify.app',
         'https://astrofied-online.netlify.app'
