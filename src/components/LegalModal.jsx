@@ -55,7 +55,7 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
                                 className="w-10 h-10 object-contain"
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                             />
-                            <h2 className="text-xl md:text-2xl font-bold font-raleway">{title}</h2>
+                            <h2 className="text-xl md:text-2xl font-bold font-mulish">{title}</h2>
                         </div>
                         <button 
                             onClick={onClose}

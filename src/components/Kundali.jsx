@@ -305,7 +305,7 @@ const Kundali = () => {
             <style jsx>{`
                 :global(svg) { width: 100% !important; height: 100% !important; overflow: visible !important; }
                 :global(svg path), :global(svg line), :global(svg polygon), :global(svg rect), :global(svg circle) { stroke-width: 1.5px !important; stroke: #4B0082 !important; }
-                :global(svg text) { fill: #4B0082 !important; font-family: 'Raleway', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
+                :global(svg text) { fill: #4B0082 !important; font-family: 'Mulish', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
                 @media (max-width: 480px) { :global(svg text) { font-size: 20px !important; } }
                 input::-webkit-calendar-picker-indicator { 
                     filter: ${isDarkMode ? 'brightness(0) invert(1)' : 'brightness(0)'}; 

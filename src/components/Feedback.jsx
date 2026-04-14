@@ -79,7 +79,7 @@ export default function Feedback() {
                         className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
                     >
                         <h2
-                            className="text-4xl md:text-5xl font-bold mb-6 font-raleway leading-tight"
+                            className="text-4xl md:text-5xl font-bold mb-6 font-mulish leading-tight"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                         >
                             We Value Your <br className="hidden lg:block" /> Feedback

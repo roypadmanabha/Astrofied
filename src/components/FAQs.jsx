@@ -55,7 +55,7 @@ export default function FAQs() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-3xl md:text-5xl font-bold text-center mb-12 font-raleway"
+                    className="text-3xl md:text-5xl font-bold text-center mb-12 font-mulish"
                     style={{ color: isDarkMode ? '#FFFFFF' : '#4B0082' }}
                 >
                     Frequently Asked Questions
@@ -85,7 +85,7 @@ export default function FAQs() {
                                     onClick={() => toggleFAQ(index)}
                                     className="w-full text-left px-6 py-5 md:py-6 flex items-center justify-between gap-4 focus:outline-none"
                                 >
-                                    <span className={`text-base md:text-lg font-bold transition-colors font-raleway ${isDarkMode
+                                    <span className={`text-base md:text-lg font-bold transition-colors font-mulish ${isDarkMode
                                         ? isActive ? 'text-[#D4AF37]' : 'text-gray-100 hover:text-white'
                                         : isActive ? 'text-[#DC2626]' : 'text-[#17202A] hover:text-[#DC2626]'
                                         }`}>

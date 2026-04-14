@@ -41,7 +41,7 @@ export default function Testimonials() {
         <section className={`py-8 md:py-12 overflow-hidden relative ${isDarkMode ? '' : 'bg-white'}`} style={{ background: isDarkMode ? 'transparent' : 'white' }}>
             <div className="container mx-auto px-6 mb-8 md:mb-12 text-center">
                 <h2
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold font-raleway"
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold font-mulish"
                     style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                 >
                     What our clients say
@@ -74,7 +74,7 @@ export default function Testimonials() {
                                 draggable={false}
                             />
                             <div className="flex flex-col">
-                                <span className="font-bold text-sm md:text-base font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
+                                <span className="font-bold text-sm md:text-base font-mulish" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
                                 <p className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed text-justify">{t.text}</p>
                             </div>
                         </div>
@@ -97,7 +97,7 @@ export default function Testimonials() {
                                 draggable={false}
                             />
                             <div className="flex flex-col">
-                                <span className="font-bold text-sm md:text-base font-raleway" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
+                                <span className="font-bold text-sm md:text-base font-mulish" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
                                 <p className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed text-justify">{t.text}</p>
                             </div>
                         </div>

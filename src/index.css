@@ -26,7 +26,6 @@
   --color-indigo: #4B0082;
   --color-bronze: #CD7F32;
 
-  --font-raleway: "Raleway", sans-serif;
   --font-mulish: "Mulish", sans-serif;
 
   --animate-marquee: marquee 60s linear infinite;
@@ -59,15 +58,14 @@ html {
   font-family: 'Mulish', sans-serif;
 }
 
-/* Force Raleway on all headings and big texts */
+/* Force Mulish on all headings and big texts */
 h1,
 h2,
 h3,
 h4,
 h5,
-h6,
-.font-raleway {
-  font-family: 'Raleway', sans-serif !important;
+h6 {
+  font-family: 'Mulish', sans-serif !important;
 }
 
 body {
@@ -176,7 +174,7 @@ body.light {
   h4,
   h5,
   h6 {
-    font-family: 'Raleway', sans-serif !important;
+    font-family: 'Mulish', sans-serif !important;
     @apply font-bold tracking-tight;
   }
 
