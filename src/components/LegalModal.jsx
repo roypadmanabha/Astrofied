@@ -37,56 +37,52 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
                     initial={{ scale: 0.9, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                    className={`relative w-[90vw] md:w-full md:max-w-2xl aspect-square md:aspect-auto bg-modal-bg rounded-[2.5rem] shadow-2xl border overflow-hidden flex flex-col ${
-                        isDarkMode 
-                        ? 'bg-[#0f0a1f] border-gold/30 text-white' 
-                        : 'bg-[#FCF9F2] border-[#D4AF37]/30 text-[#0A1931]'
-                    }`}
+                    className={`relative w-[90vw] md:w-full md:max-w-2xl aspect-square md:aspect-auto bg-modal-bg rounded-[2.5rem] shadow-2xl border overflow-hidden flex flex-col ${isDarkMode
+                            ? 'bg-[#0f0a1f] border-gold/30 text-white'
+                            : 'bg-[#FCF9F2] border-[#D4AF37]/30 text-[#0A1931]'
+                        }`}
                     style={{ maxHeight: '90vh' }}
                 >
                     {/* Header */}
-                    <div className={`flex items-center justify-between p-6 md:p-8 border-b ${
-                        isDarkMode ? 'border-white/10' : 'border-[#0A1931]/10'
-                    }`}>
+                    <div className={`flex items-center justify-between p-6 md:p-8 border-b ${isDarkMode ? 'border-white/10' : 'border-[#0A1931]/10'
+                        }`}>
                         <div className="flex items-center gap-4">
-                            <img 
-                                src={logo} 
-                                alt="Astrofied" 
+                            <img
+                                src={logo}
+                                alt="Astrofied"
                                 className="w-10 h-10 object-contain"
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                             />
                             <h2 className="text-xl md:text-2xl font-bold font-mulish">{title}</h2>
                         </div>
-                        <button 
+                        <button
                             onClick={onClose}
-                            className={`p-2 rounded-full transition-all ${
-                                isDarkMode ? 'hover:bg-white/10 text-gold' : 'hover:bg-[#0A1931]/10 text-[#4B0082]'
-                            }`}
+                            className={`p-2 rounded-full transition-all ${isDarkMode ? 'hover:bg-white/10 text-gold' : 'hover:bg-[#0A1931]/10 text-[#4B0082]'
+                                }`}
                         >
                             <X size={24} />
                         </button>
                     </div>
 
                     {/* Scrollable Body */}
-                    <div 
+                    <div
                         className="flex-1 overflow-y-auto p-6 md:p-10 font-mulish custom-scrollbar"
                         data-lenis-prevent
                     >
-                        <div 
+                        <div
                             className={`text-sm md:text-base leading-relaxed opacity-90 whitespace-pre-line text-justify`}
                             dangerouslySetInnerHTML={{ __html: content || "Content will be updated soon..." }}
                         />
                     </div>
 
                     {/* Footer / Fade effect */}
-                    <div className={`h-8 pointer-events-none absolute bottom-0 left-0 right-0 ${
-                        isDarkMode 
-                        ? 'bg-gradient-to-t from-[#0f0a1f] to-transparent' 
-                        : 'bg-gradient-to-t from-[#FCF9F2] to-transparent'
-                    }`} />
+                    <div className={`h-8 pointer-events-none absolute bottom-0 left-0 right-0 ${isDarkMode
+                            ? 'bg-gradient-to-t from-[#0f0a1f] to-transparent'
+                            : 'bg-gradient-to-t from-[#FCF9F2] to-transparent'
+                        }`} />
                 </motion.div>
             </div>
-            
+
             <style jsx>{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 6px;

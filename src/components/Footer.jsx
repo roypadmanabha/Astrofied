@@ -110,14 +110,14 @@ export default function Footer({ onOpenLegal }) {
                             Contact Details
                         </h4>
                         <div className="flex flex-col gap-4">
-                            <a href="tel:+919612736566" className="flex items-center gap-3 hover:text-gold transition-colors">
+                            <button onClick={() => window.location.href = 'tel:+919612736566'} className="flex items-center gap-3 hover:text-gold transition-colors bg-transparent border-none p-0 cursor-pointer">
                                 <Phone className="w-4 h-4 md:w-5 md:h-5 text-gold" />
                                 <span className="text-xs md:text-sm lg:text-lg">+91 96127 36566</span>
-                            </a>
-                            <a href="mailto:contact.astrofied@gmail.com" className="flex items-center gap-3 hover:text-gold transition-colors">
+                            </button>
+                            <button onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} className="flex items-center gap-3 hover:text-gold transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                                 <Mail className="w-4 h-4 md:w-5 md:h-5 text-gold" />
                                 <span className="text-xs md:text-sm lg:text-lg">contact.astrofied@gmail.com</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
 
@@ -134,31 +134,33 @@ export default function Footer({ onOpenLegal }) {
                         >
                             Address
                         </h4>
-                        <a href="https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-gold transition-colors block">
+                        <button 
+                            onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')} 
+                            className="flex items-start gap-3 hover:text-gold transition-colors block bg-transparent border-none p-0 cursor-pointer text-left"
+                        >
                             <MapPin className="w-4 h-4 md:w-5 md:h-5 text-gold mt-1 shrink-0" />
                             <address className="not-italic text-xs md:text-sm lg:text-lg">
                                 Dakbanglow Road, near Rajarshi Hall,<br />
                                 Udaipur, Gomati, Tripura - 799120
                             </address>
-                        </a>
+                        </button>
                     </div>
 
                 </div>
 
                 <div className="flex justify-center gap-12 md:gap-16 mb-6 md:mb-16">
                     {socialLinks.map((social, index) => (
-                        <motion.a
+                        <motion.button
                             key={index}
-                            href={social.href}
-                            target="_blank"
-                            className="flex items-center justify-center cursor-pointer relative group"
+                            onClick={() => window.open(social.href, '_blank')}
+                            className="flex items-center justify-center cursor-pointer relative group bg-transparent border-none p-0"
                             whileHover={{ scale: 1.5 }}
                             transition={{ type: "spring", stiffness: 400, damping: 10 }}
                         >
                             <span className="relative z-10 flex items-center justify-center">
                                 {social.icon}
                             </span>
-                        </motion.a>
+                        </motion.button>
                     ))}
                 </div>
 

@@ -91,16 +91,19 @@ export default function Navbar({ onOpenLegal }) {
                             const type = link.name.includes('Terms') ? 'terms' : 'privacy';
                             
                             return (
-                                <motion.a
+                                <motion.div
                                     key={link.name}
-                                    href={isLegal ? undefined : link.href}
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: index * 0.05 }}
                                     onClick={(e) => {
                                         if (isLegal) {
-                                            e.preventDefault();
                                             onOpenLegal(type);
+                                        } else {
+                                            const element = document.querySelector(link.href);
+                                            if (element) {
+                                                element.scrollIntoView({ behavior: 'smooth' });
+                                            }
                                         }
                                         setIsOpen(false);
                                     }}
@@ -110,7 +113,7 @@ export default function Navbar({ onOpenLegal }) {
                                     whileTap={{ scale: 0.98 }}
                                 >
                                     {link.name}
-                                </motion.a>
+                                </motion.div>
                             );
                         })}
                     </motion.div>
@@ -147,10 +150,15 @@ export default function Navbar({ onOpenLegal }) {
                 {/* Desktop Links */}
                 <div className="hidden md:flex gap-8">
                     {desktopNavLinks.map((link) => (
-                        <motion.a
+                        <motion.button
                             key={link.name}
-                            href={link.href}
-                            className={`text-lg font-bold transition-all relative group ${
+                            onClick={() => {
+                                const element = document.querySelector(link.href);
+                                if (element) {
+                                    element.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }}
+                            className={`text-lg font-bold transition-all relative group bg-transparent border-none p-0 cursor-pointer ${
                                 isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-[#4B0082] hover:text-[#DC2626]'
                             }`}
                             whileHover={{ scale: 1.05 }}
@@ -159,7 +167,7 @@ export default function Navbar({ onOpenLegal }) {
                             <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
                                 isDarkMode ? 'bg-gold' : 'bg-[#DC2626]'
                             }`} />
-                        </motion.a>
+                        </motion.button>
                     ))}
                 </div>
 
