@@ -136,13 +136,12 @@ const Kundali = () => {
                                 : 'border-[#D4AF37]/20 bg-[#F5F5DC]'
                                 }`}
                         >
-                            {!isDarkMode && (
-                                <img
-                                    src={logo}
-                                    alt="Astrofied"
-                                    className="absolute top-2 right-2 md:top-4 md:right-4 w-16 h-16 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain select-none pointer-events-none"
-                                />
-                            )}
+                            <img
+                                src={logo}
+                                alt="Astrofied"
+                                className="absolute top-2 right-2 md:top-4 md:right-4 w-16 h-16 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain select-none pointer-events-none"
+                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
+                            />
                             <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
                                 <div className="space-y-2">
                                     <label className={`text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
