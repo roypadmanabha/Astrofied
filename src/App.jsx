@@ -155,8 +155,6 @@ If you have any questions regarding this Privacy Policy or how your data is hand
   return (
     <div
       className={`min-h-screen transition-colors duration-500 overflow-x-hidden ${isDarkMode ? 'dark' : 'light'}`}
-      onContextMenu={(e) => e.preventDefault()}
-      onDragStart={(e) => e.preventDefault()}
     >
       <StarfieldBg />
       {/* Progress Bar */}
