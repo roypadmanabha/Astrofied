@@ -86,7 +86,7 @@ const Kundali = () => {
     };
 
     return (
-        <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#05010d]' : 'bg-white'}`}>
+        <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#05010d]/80' : 'bg-white'}`}>
             <div className="container mx-auto px-6">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
 

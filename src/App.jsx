@@ -13,6 +13,7 @@ import Testimonials from './components/Testimonials';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
 import LegalModal from './components/LegalModal';
+import StarfieldBg from './components/StarfieldBg';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -157,13 +158,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       onContextMenu={(e) => e.preventDefault()}
       onDragStart={(e) => e.preventDefault()}
     >
-      <div className="cosmic-bg">
-        <div className="star-layer-3" />
-        <div className="shooting-star" />
-        <div className="shooting-star" />
-        <div className="shooting-star" />
-        <div className="nebula" />
-      </div>
+      <StarfieldBg />
       {/* Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"
@@ -240,18 +235,12 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="w-full md:w-5/12 aspect-[4/3] relative"
+              className="w-full md:w-5/12 aspect-[4/3] rounded-3xl overflow-hidden glass shadow-2xl relative"
             >
               <img
                 src={aboutSj}
                 alt="About Astrofied"
                 className="w-full h-full object-cover"
-                style={{
-                  maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-                  maskComposite: 'intersect',
-                  WebkitMaskComposite: 'destination-in',
-                }}
               />
             </motion.div>
 
