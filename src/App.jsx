@@ -232,68 +232,39 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <Services />
       <Kundali />
 
-      {/* About Us Section — Minimalist Luxury */}
-      <section id="about" className="py-16 md:py-28 overflow-hidden transition-colors duration-500" style={{ background: isDarkMode ? 'transparent' : '#FAF8F2' }}>
+      {/* About Us Section */}
+      <section id="about" className="py-24 overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-stretch gap-0 md:gap-0 relative">
-
-            {/* Left: Cathedral Arch Image */}
+          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
             <motion.div
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full md:w-5/12 flex justify-center md:justify-start relative z-10"
+              className="w-full md:w-5/12 aspect-[4/3] relative"
             >
-              <div
-                className="w-[280px] sm:w-[320px] md:w-[340px] lg:w-[380px] xl:w-[420px]"
+              <img
+                src={aboutSj}
+                alt="About Astrofied"
+                className="w-full h-full object-cover"
                 style={{
-                  aspectRatio: '3/4.5',
-                  clipPath: 'polygon(50% 0%, 100% 15%, 100% 100%, 0% 100%, 0% 15%)',
-                  borderRadius: '50% 50% 24px 24px / 20% 20% 24px 24px',
-                  overflow: 'hidden',
-                  boxShadow: isDarkMode
-                    ? '0 30px 80px rgba(212, 175, 55, 0.08), 0 0 0 1px rgba(212, 175, 55, 0.1)'
-                    : '0 30px 80px rgba(75, 0, 130, 0.08), 0 0 0 1px rgba(75, 0, 130, 0.06)',
+                  maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                  maskComposite: 'intersect',
+                  WebkitMaskComposite: 'destination-in',
                 }}
-              >
-                <img
-                  src={aboutSj}
-                  alt="About Astrofied"
-                  className="w-full h-full object-cover select-none pointer-events-none"
-                  draggable={false}
-                />
-              </div>
+              />
             </motion.div>
 
-            {/* Right: Content with Overlapping Title */}
             <motion.div
-              initial={{ opacity: 0, x: 60 }}
+              initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full md:w-7/12 flex flex-col justify-center relative z-20 mt-8 md:mt-0 md:-ml-16 lg:-ml-20"
+              className="w-full md:w-7/12"
             >
-              {/* Oversized Serif Heading — Overlaps the Arch */}
-              <h2
-                className="font-bold leading-[0.9] tracking-tight mb-6 md:mb-8"
-                style={{
-                  fontFamily: "'EB Garamond', 'Playfair Display', Georgia, serif",
-                  fontSize: 'clamp(48px, 7vw, 80px)',
-                  color: isDarkMode ? '#D4AF37' : '#4B0082',
-                  textShadow: isDarkMode ? 'none' : '0 2px 20px rgba(75, 0, 130, 0.06)',
-                }}
-              >
-                About<br />Us
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
+                About Us
               </h2>
-
-              {/* Thin gold accent line */}
-              <div
-                className="w-16 h-[2px] mb-6 md:mb-8 rounded-full"
-                style={{ background: isDarkMode ? '#D4AF37' : '#4B0082' }}
-              />
-
-              <p className="text-sm md:text-base lg:text-lg leading-relaxed text-justify opacity-75 whitespace-pre-line font-mulish max-w-xl">
+              <p className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish">
                 {showFullAbout ? (
                   ABOUT_US_TEXT.split('Prasanta Chakraborty').map((part, i, arr) => (
                     <span key={i}>
@@ -305,43 +276,13 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   `${ABOUT_US_TEXT.slice(0, 400)}...`
                 )}
               </p>
-
-              {/* Rotating Compass Icon — Replaces Read More */}
               <button
                 onClick={() => setShowFullAbout(!showFullAbout)}
-                className="mt-6 md:mt-8 flex items-center gap-3 group transition-all"
-                aria-label={showFullAbout ? 'Read Less' : 'Read More'}
+                className="mt-4 text-gold font-bold hover:underline transition-all"
               >
-                <motion.svg
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                  viewBox="0 0 48 48"
-                  className="w-10 h-10 md:w-12 md:h-12 group-hover:scale-110 transition-transform duration-500"
-                  fill="none"
-                >
-                  {/* Outer ring */}
-                  <circle cx="24" cy="24" r="22" stroke={isDarkMode ? '#D4AF37' : '#4B0082'} strokeWidth="1.5" opacity="0.3" />
-                  <circle cx="24" cy="24" r="18" stroke={isDarkMode ? '#D4AF37' : '#4B0082'} strokeWidth="0.5" opacity="0.15" />
-                  {/* Cardinal ticks */}
-                  <line x1="24" y1="2" x2="24" y2="8" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
-                  <line x1="24" y1="40" x2="24" y2="46" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
-                  <line x1="2" y1="24" x2="8" y2="24" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
-                  <line x1="40" y1="24" x2="46" y2="24" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
-                  {/* Compass needle (N-S) */}
-                  <polygon points="24,6 27,24 24,28 21,24" fill="#D4AF37" opacity="0.9" />
-                  <polygon points="24,42 27,24 24,20 21,24" fill={isDarkMode ? '#D4AF37' : '#4B0082'} opacity="0.4" />
-                  {/* Center dot */}
-                  <circle cx="24" cy="24" r="2.5" fill="#D4AF37" />
-                </motion.svg>
-                <span
-                  className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] group-hover:tracking-[0.3em] transition-all duration-500"
-                  style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
-                >
-                  {showFullAbout ? 'Collapse' : 'Discover'}
-                </span>
+                {showFullAbout ? 'Read Less' : 'Read More'}
               </button>
             </motion.div>
-
           </div>
         </div>
       </section>
