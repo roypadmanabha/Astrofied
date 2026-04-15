@@ -257,15 +257,15 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 />
                 
                 {/* Destiny Label */}
-                <div className="absolute -bottom-2 md:-bottom-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-max z-20 flex justify-center">
+                <div className="absolute -bottom-2 md:bottom-0 left-0 right-0 z-20 flex justify-center px-4 md:px-6">
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-[#4B0082] px-4 py-2 sm:px-6 sm:py-2.5 rounded-2xl shadow-xl border border-gold/20 text-center"
+                    className="bg-[#4B0082] py-2 md:py-3 rounded-2xl shadow-2xl border border-gold/30 text-center w-full max-w-[400px] flex items-center justify-center overflow-hidden"
                   >
                     <span 
-                        className="text-[10px] sm:text-xs md:text-sm font-bold tracking-tight block leading-tight font-mulish"
+                        className="text-[min(3.5vw,14px)] sm:text-[14px] font-bold tracking-tight whitespace-nowrap font-mulish"
                         style={{ color: '#D4AF37' }}
                     >
                       Make sure your goals are aligned with your destiny!
