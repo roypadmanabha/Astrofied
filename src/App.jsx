@@ -262,14 +262,27 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="bg-[#4B0082] py-1.5 md:py-2 rounded-xl shadow-2xl border border-gold/30 text-center w-full max-w-[400px] flex items-center justify-center overflow-visible"
+                    className="bg-[#4B0082] py-2 md:py-2.5 rounded-xl shadow-2xl border border-gold/30 w-full max-w-[420px] overflow-hidden flex items-center justify-center"
                   >
-                    <span 
-                        className="text-[clamp(7px,3vw,14px)] font-bold tracking-tighter whitespace-nowrap font-mulish leading-none inline-block px-1"
-                        style={{ color: '#D4AF37' }}
+                    <svg 
+                      viewBox="0 0 350 25" 
+                      className="w-[95%] h-auto max-h-[1.5rem]"
+                      preserveAspectRatio="xMidYMid meet"
                     >
-                      Make sure your goals are aligned with your destiny!
-                    </span>
+                      <text
+                        x="50%"
+                        y="50%"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        className="font-bold font-mulish"
+                        fill="#D4AF37"
+                        style={{ fontSize: '18px' }}
+                        textLength="340"
+                        lengthAdjust="spacingAndGlyphs"
+                      >
+                        Make sure your goals are aligned with your destiny!
+                      </text>
+                    </svg>
                   </motion.div>
                 </div>
               </motion.div>
