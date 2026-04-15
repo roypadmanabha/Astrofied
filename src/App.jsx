@@ -255,6 +255,20 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                       : 'drop-shadow(0 0 20px rgba(75, 0, 130, 0.1))'
                   }}
                 />
+                
+                {/* Destiny Label */}
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-max max-w-[90%] z-20">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="bg-[#5e00eb] text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-2xl shadow-xl border border-white/20 whitespace-nowrap"
+                  >
+                    <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-tight">
+                      Make sure your goals are aligned with your destiny!
+                    </span>
+                  </motion.div>
+                </div>
               </motion.div>
               {/* Background decorative element */}
               <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 rounded-full blur-[100px] opacity-20 -z-10 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`} />
