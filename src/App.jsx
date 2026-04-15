@@ -17,7 +17,7 @@ import StarfieldBg from './components/StarfieldBg';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
-import aboutSj from './assets/about-section-image.jpg';
+import aboutSj from './assets/about-prasanta-new.png';
 
 const WHY_SJ_TEXT = `We offer trusted and result-oriented astrological services to clients seeking guidance in different areas of life. Whether your concern is related to personal matters, legal issues, finance, health, marriage, or career, we provide detailed insights and practical solutions tailored to your situation. What makes us different is our strong commitment to accuracy and client satisfaction. Our predictions, whether daily, yearly, or long-term, are explained clearly and in detail, helping clients feel confident and assured about their life decisions. Our experienced astrologer is knowledgeable, well-mannered, and highly intuitive. With deep analysis, we identify the root cause of your challenges and guide you with suitable remedies and actionable solutions. We focus not just on predicting events, but on helping you understand and navigate them in the right way. We believe in clarity, honesty, and proven results. Our goal is not just to make promises, but to deliver guidance that truly makes a difference in your life. Share your birth details with us, stay open to guidance, and take your first step toward a clearer and more confident future.`;
 
@@ -234,16 +234,30 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="w-full md:w-5/12 aspect-[4/3] rounded-3xl overflow-hidden glass shadow-2xl relative"
+              transition={{ duration: 0.8 }}
+              className="w-full md:w-5/12 relative group"
             >
-              <img
-                src={aboutSj}
-                alt="About Astrofied"
-                className="w-full h-full object-cover"
-              />
+              <motion.div
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="relative z-10"
+              >
+                <img
+                  src={aboutSj}
+                  alt="Prasanta Chakraborty"
+                  className="w-full h-auto drop-shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-transform duration-700 group-hover:scale-105"
+                  style={{
+                    filter: isDarkMode 
+                      ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))' 
+                      : 'drop-shadow(0 0 20px rgba(75, 0, 130, 0.1))'
+                  }}
+                />
+              </motion.div>
+              {/* Background decorative element */}
+              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 rounded-full blur-[100px] opacity-20 -z-10 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`} />
             </motion.div>
 
             <motion.div
