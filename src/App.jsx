@@ -238,17 +238,17 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="w-full md:w-5/12 relative group"
+              className="w-full md:w-5/12 relative group mx-auto max-w-sm md:max-w-none"
             >
               <motion.div
                 animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="relative z-10"
+                className="relative z-10 w-full"
               >
                 <img
                   src={aboutSj}
                   alt="Prasanta Chakraborty"
-                  className="w-full h-auto drop-shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-auto max-w-full drop-shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-transform duration-700 group-hover:scale-105"
                   style={{
                     filter: isDarkMode 
                       ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))' 
@@ -257,14 +257,17 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 />
                 
                 {/* Destiny Label */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-max max-w-[90%] z-20">
+                <div className="absolute -bottom-2 md:-bottom-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-max z-20 flex justify-center">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="bg-[#5e00eb] text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-2xl shadow-xl border border-white/20 whitespace-nowrap"
+                    className="bg-[#4B0082] px-4 py-2 sm:px-6 sm:py-2.5 rounded-2xl shadow-xl border border-gold/20 text-center"
                   >
-                    <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-tight">
+                    <span 
+                        className="text-[10px] sm:text-xs md:text-sm font-bold tracking-tight block leading-tight font-mulish"
+                        style={{ color: '#D4AF37' }}
+                    >
                       Make sure your goals are aligned with your destiny!
                     </span>
                   </motion.div>
