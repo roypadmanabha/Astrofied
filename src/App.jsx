@@ -248,7 +248,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 <img
                   src={aboutSj}
                   alt="Prasanta Chakraborty"
-                  className="w-full h-auto max-w-full drop-shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-auto max-w-full drop-shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-transform duration-700"
                   style={{
                     filter: isDarkMode 
                       ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))' 
