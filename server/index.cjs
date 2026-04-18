@@ -20,7 +20,8 @@ app.use(cors({
         'http://localhost:5174',
         'https://roypadmanabha.github.io',
         'https://astrofied.netlify.app',
-        'https://astrofied-online.netlify.app'
+        'https://astrofied-online.netlify.app',
+        'https://astrofied-official.netlify.app'
     ],
     credentials: true
 }));

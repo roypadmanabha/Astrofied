@@ -111,7 +111,7 @@ export default function Hero() {
                                         }`}
                                 >
                                     <div className="flex flex-col">
-                                        <span className="text-xl font-bold font-mulish" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>2 Thousand+</span>
+                                        <span className="text-xl font-bold font-mulish" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>5 Thousand+</span>
                                         <span className="text-xs opacity-70">Consultations</span>
                                     </div>
                                 </motion.div>
