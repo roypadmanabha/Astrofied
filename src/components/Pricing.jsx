@@ -58,7 +58,7 @@ const Pricing = () => {
               transition={{ duration: 0.8, delay: idx * 0.2 }}
               className={`relative group rounded-[2.5rem] p-4 border shadow-2xl overflow-hidden transition-all duration-500 ${isDarkMode
                 ? 'bg-[#17202A] border-white/10 hover:border-gold/30'
-                : 'bg-[#D4AF37] border-black/5 hover:border-purple-600/30'
+                : 'bg-[#F5F5DC] border-black/5 hover:border-purple-600/30'
                 }`}
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-30 -z-10`} />
