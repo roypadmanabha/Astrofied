@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import pricingZodiac from '../assets/pricing-zodiac.jpg';
+import pricingHoroscope from '../assets/pricing-horoscope.png';
 import pricingKundali from '../assets/pricing-kundali.jpg';
 
 const Pricing = () => {
@@ -12,7 +12,7 @@ const Pricing = () => {
       id: 1,
       title: "Overall Horoscope Analysis",
       price: "750",
-      image: pricingZodiac,
+      image: pricingHoroscope,
       description: "Complete life roadmap and planetary guidance.",
       tag: "Best Seller",
       color: "from-blue-500/20 to-purple-500/20",
