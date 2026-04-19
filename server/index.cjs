@@ -11,18 +11,23 @@ const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:5174',
     'https://roypadmanabha.github.io',
+    'https://astrofied.netlify.app',
+    'https://astrofied-online.netlify.app',
+    'https://astrofied-official.netlify.app',
     'https://astrofied-production.up.railway.app'
 ];
 
 app.use(cors({
-    origin: [
-        'http://localhost:5173',
-        'http://localhost:5174',
-        'https://roypadmanabha.github.io',
-        'https://astrofied.netlify.app',
-        'https://astrofied-online.netlify.app',
-        'https://astrofied-official.netlify.app'
-    ],
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.netlify.app')) {
+            callback(null, true);
+        } else {
+            console.log('CORS Blocked for origin:', origin);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 app.use(express.json());
