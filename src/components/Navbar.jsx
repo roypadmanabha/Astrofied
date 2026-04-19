@@ -7,6 +7,7 @@ import logo from '../assets/logo.png';
 const desktopNavLinks = [
     { name: 'Services', href: '#services' },
     { name: 'Kundali', href: '#kundali' },
+    { name: 'Pricing', href: '#pricing' },
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#footer' },
 ];
@@ -14,6 +15,7 @@ const desktopNavLinks = [
 const mobileNavLinks = [
     { name: 'Services', href: '#services' },
     { name: 'Kundali', href: '#kundali' },
+    { name: 'Pricing', href: '#pricing' },
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#footer' },
     { name: 'Feedback', href: '#feedback' },
