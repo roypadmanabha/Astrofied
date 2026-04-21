@@ -121,7 +121,7 @@ const Kundali = () => {
                             className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]/70'
                                 }`}
                         >
-                            Generate your precise North Indian style D1 Lagna chart based on your birth coordinates.
+                            Generate your precise East Indian style D1 Lagna chart based on your birth coordinates.
                         </motion.p>
                     </div>
 
