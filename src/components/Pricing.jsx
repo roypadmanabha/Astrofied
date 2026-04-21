@@ -54,12 +54,11 @@ const Pricing = () => {
               key={item.id}
               initial={{ opacity: 0, x: idx === 0 ? -50 : 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              whileHover={{ y: -12, transition: { duration: 0.3 } }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: idx * 0.2 }}
               className={`relative group rounded-[2.5rem] p-4 border shadow-2xl overflow-hidden transition-all duration-500 ${isDarkMode
-                ? 'bg-[#17202A] border-white/10 hover:border-gold/30 hover:shadow-gold/10'
-                : 'bg-[#F5F5DC] border-black/5 hover:border-purple-600/30 hover:shadow-purple-500/10'
+                ? 'bg-[#17202A] border-white/10 hover:border-gold/30'
+                : 'bg-[#F5F5DC] border-black/5 hover:border-purple-600/30'
                 }`}
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-30 -z-10`} />
@@ -67,14 +66,14 @@ const Pricing = () => {
               {/* Image Container */}
               <div className={`relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-8 shadow-inner ${isDarkMode ? 'bg-white/5' : 'bg-[#FAF9F6]'}`}>
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.5 }}
+                  whileHover={{ opacity: 0.8 }}
+                  transition={{ duration: 0.4 }}
                   className="w-full h-full"
                 >
                   <img
                     src={item.image}
                     alt={item.title}
-                    className={`w-full h-full object-cover select-none pointer-events-none transition-all duration-700 group-hover:scale-110 ${item.isKundali
+                    className={`w-full h-full object-cover select-none pointer-events-none transition-all duration-700 ${item.isKundali
                       ? (isDarkMode ? 'brightness-110 contrast-125 saturate-[1.2] multiply-blend invert-colors' : 'mix-blend-multiply')
                       : ''
                       }`}
