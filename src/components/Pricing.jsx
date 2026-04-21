@@ -66,7 +66,7 @@ const Pricing = () => {
               {/* Image Container */}
               <div className={`relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-8 shadow-inner ${isDarkMode ? 'bg-white/5' : 'bg-[#FAF9F6]'}`}>
                 <motion.div
-                  whileHover={{ opacity: 0.8 }}
+                  whileHover={{ opacity: 0.8, scale: 1.02 }}
                   transition={{ duration: 0.4 }}
                   className="w-full h-full"
                 >
