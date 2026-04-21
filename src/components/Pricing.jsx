@@ -73,8 +73,8 @@ const Pricing = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className={`w-full h-full object-cover select-none pointer-events-none transition-all duration-700 ${item.isKundali
-                      ? (isDarkMode ? 'brightness-110 contrast-125 saturate-[1.2] multiply-blend invert-colors' : 'mix-blend-multiply')
+                    className={`w-full h-full object-cover select-none pointer-events-none ${item.isKundali
+                      ? (isDarkMode ? 'brightness-110 contrast-125 saturate-[1.2]' : 'mix-blend-multiply')
                       : ''
                       }`}
                     style={item.isKundali ? {
