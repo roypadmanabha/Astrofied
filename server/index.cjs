@@ -88,7 +88,7 @@ app.post('/api/kundali', async (req, res) => {
             params: {
                 ayanamsa: 1, // Lahiri
                 chart_type: 'rasi',
-                chart_style: 'north-indian',
+                chart_style: 'east-indian',
                 datetime: datetime,
                 coordinates: `${lat},${lon}`,
                 la: 'en'
