@@ -64,9 +64,9 @@ const Pricing = () => {
               <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-30 -z-10`} />
 
               {/* Image Container */}
-              <div className={`relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-8 shadow-inner ${isDarkMode ? 'bg-white/5' : 'bg-[#FAF9F6]'}`}>
+              <div className={`relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-8 ${isDarkMode ? 'bg-black/40' : 'bg-[#FAF9F6] shadow-inner'}`}>
                 <motion.div
-                  whileHover={{ opacity: 0.8, scale: 1.02 }}
+                  whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.4 }}
                   className="w-full h-full"
                 >
@@ -74,12 +74,12 @@ const Pricing = () => {
                     src={item.image}
                     alt={item.title}
                     className={`w-full h-full object-cover select-none pointer-events-none ${item.isKundali
-                      ? (isDarkMode ? 'brightness-110 contrast-125 saturate-[1.2]' : 'mix-blend-multiply')
+                      ? (isDarkMode ? '' : 'mix-blend-multiply')
                       : ''
                       }`}
                     style={item.isKundali ? {
                       mixBlendMode: isDarkMode ? 'screen' : 'multiply',
-                      filter: isDarkMode ? 'invert(1) hue-rotate(180deg) brightness(0.8)' : 'none'
+                      filter: isDarkMode ? 'invert(1) brightness(0.9)' : 'none'
                     } : {}}
                   />
                 </motion.div>
