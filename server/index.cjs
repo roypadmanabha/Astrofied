@@ -91,7 +91,7 @@ app.post('/api/kundali', async (req, res) => {
                 chart_style: 'east-indian',
                 datetime: datetime,
                 coordinates: `${lat},${lon}`,
-                la: 'bn'
+                la: 'en'
             },
             headers: {
                 'Authorization': `Bearer ${token}`,
