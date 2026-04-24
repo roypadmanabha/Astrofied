@@ -26,6 +26,7 @@ const WHY_SJ_TEXT = `We offer trusted and result-oriented astrological services 
 const ABOUT_US_TEXT = `Astrofied, established in late 2019, is a trusted astrological center founded and led by Prasanta Chakraborty, a highly skilled and experienced astrologer with over 7 years of professional practice. He specialises in Vedic Astrology, KP (Krishnamurti Paddhati), Nadi Astrology, Bhrigu Nandi Nadi, Jaimini, Parashari systems, and Palmistry, offering complete and detailed guidance based on deep analysis and practical understanding. Our mission is to carefully understand each client's problems, identify the root cause, and guide them toward the best possible path according to their destiny. We combine traditional astrological wisdom with logical and systematic techniques to provide clear, honest, and result-oriented guidance. We never force clients to purchase remedies from us, if remedies are required, we simply suggest them, and the choice always remains with the client. Starting from Tripura, we are now expanding our services to other states across India. Consultations are available in Bengali, Hindi, and English through telephonic sessions. With numerous satisfied clients who have found clarity and direction through our guidance, we continue to work towards creating a positive impact in the society. Book your consultation today, because one small decision at the right time can create a powerful change in your life.`;
 
 function MainContent() {
+  const lenisRef = React.useRef(null);
   const [showFullWhySj, setShowFullWhySj] = useState(false);
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
@@ -139,16 +140,11 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     window.scrollTo(0, 0);
 
     const lenis = new Lenis({
-      duration: 0.8, // Slightly faster for responsiveness
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.2, // Increase for better handling
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
     });
+    lenisRef.current = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -161,6 +157,16 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       lenis.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    if (lenisRef.current) {
+      if (isConsultationModalOpen || legalModal.isOpen) {
+        lenisRef.current.stop();
+      } else {
+        lenisRef.current.start();
+      }
+    }
+  }, [isConsultationModalOpen, legalModal.isOpen]);
 
   return (
     <div
