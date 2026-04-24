@@ -14,14 +14,14 @@ const desktopNavLinks = [
 ];
 
 const mobileNavLinks = [
-    { name: 'Services', href: '#services', icon: Briefcase },
-    { name: 'Kundali', href: '#kundali', icon: Star },
-    { name: 'Pricing', href: '#pricing', icon: Landmark },
-    { name: 'About', href: '#about', icon: Info },
-    { name: 'Contact', href: '#footer', icon: Mail },
-    { name: 'Feedback', href: '#feedback', icon: MessageSquare },
-    { name: 'Terms & Conditions', href: '/terms-and-conditions.html', icon: ShieldCheck },
-    { name: 'Privacy Policy', href: '/privacy-policy.html', icon: FileText },
+    { name: 'Services', href: '#services', icon: ChevronRight },
+    { name: 'Kundali', href: '#kundali', icon: ChevronRight },
+    { name: 'Pricing', href: '#pricing', icon: ChevronRight },
+    { name: 'About', href: '#about', icon: ChevronRight },
+    { name: 'Contact', href: '#footer', icon: ChevronRight },
+    { name: 'Feedback', href: '#feedback', icon: ChevronRight },
+    { name: 'Terms & Conditions', href: '/terms-and-conditions.html', icon: ChevronRight },
+    { name: 'Privacy Policy', href: '/privacy-policy.html', icon: ChevronRight },
 ];
 
 export default function Navbar({ onOpenLegal }) {
@@ -125,9 +125,9 @@ export default function Navbar({ onOpenLegal }) {
                                         whileTap={{ scale: 0.96 }}
                                     >
                                         <div className={`p-2 rounded-xl transition-all group-hover:scale-110 ${
-                                            isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#4B0082]/10 text-[#4B0082]'
+                                            isDarkMode ? 'bg-gold/10 text-gold shadow-[0_0_10px_rgba(212,175,55,0.1)]' : 'bg-[#4B0082]/10 text-[#4B0082]'
                                         }`}>
-                                            <link.icon size={18} strokeWidth={2.5} />
+                                            <link.icon size={18} strokeWidth={3} />
                                         </div>
                                         <span>{link.name}</span>
                                     </motion.div>
