@@ -15,6 +15,7 @@ import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
+import RainEffect from './components/RainEffect';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -162,6 +163,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       onDragStart={(e) => e.preventDefault()}
     >
       <StarfieldBg />
+      <RainEffect />
       {/* Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"
