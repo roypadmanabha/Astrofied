@@ -49,7 +49,7 @@ export default function FAQs() {
     };
 
     return (
-        <section id="faqs" className={`py-24 relative overflow-hidden ${isDarkMode ? '' : 'bg-transparent'}`}>
+        <section id="faqs" className={`py-24 relative overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
             <div className="container mx-auto px-6 max-w-4xl">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}

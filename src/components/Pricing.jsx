@@ -32,7 +32,7 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className={`py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-transparent'}`}>
+    <section id="pricing" className={`py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-[#FAF9F6]'}`}>
       <div className="container mx-auto px-6 max-w-[1200px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,7 +58,7 @@ const Pricing = () => {
               transition={{ duration: 0.8, delay: idx * 0.2 }}
               className={`relative group rounded-[2.5rem] p-4 border shadow-2xl overflow-hidden transition-all duration-500 ${isDarkMode
                 ? 'bg-[#08002e] border-white/10 hover:border-gold/30'
-                : 'bg-white/40 backdrop-blur-md border-black/5 hover:border-purple-600/30'
+                : 'bg-[#F5F5DC] border-black/5 hover:border-purple-600/30'
                 }`}
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-30 -z-10`} />

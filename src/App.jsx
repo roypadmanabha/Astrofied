@@ -13,9 +13,9 @@ import Testimonials from './components/Testimonials';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
+import Highlights from './components/Highlights';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
-import CloudFlightBg from './components/CloudFlightBg';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -163,7 +163,6 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       onDragStart={(e) => e.preventDefault()}
     >
       <StarfieldBg />
-      <CloudFlightBg />
       {/* Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"
@@ -176,7 +175,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <Hero />
 
       {/* Why Astrofied Section */}
-      <section id="why-astrofied" className={`py-24 overflow-hidden relative ${isDarkMode ? '' : 'bg-white/10 backdrop-blur-[2px]'}`}>
+      <section id="why-astrofied" className={`py-24 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
         <div className="container mx-auto px-6">
           <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
             <motion.div
@@ -343,6 +342,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
       {/* Feedback Section */}
       <Feedback />
+
+      {/* Highlights Section */}
+      <Highlights />
 
       {/* FAQs Section */}
       <FAQs />
