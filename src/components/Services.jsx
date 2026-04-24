@@ -2,6 +2,13 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Briefcase, Landmark, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, UserCheck } from 'lucide-react';
 
+const DoubleHeart = ({ size, strokeWidth }) => (
+    <div className="relative">
+        <Heart size={size * 0.8} strokeWidth={strokeWidth} className="relative -top-2 -left-2 opacity-50" />
+        <Heart size={size * 0.8} strokeWidth={strokeWidth} className="absolute top-2 left-2" />
+    </div>
+);
+
 const services = [
     {
         id: 1,
@@ -18,7 +25,7 @@ const services = [
         desc: 'Find the right time and harmony for marital bliss.',
         price: '₹ 10095',
         duration: '40 Min',
-        icon: Users,
+        icon: DoubleHeart,
         color: 'bg-teal-100 text-teal-600',
     },
     {
@@ -81,7 +88,7 @@ export default function Services() {
     const { isDarkMode } = useTheme();
 
     return (
-        <section id="services" className={`py-24 relative ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`}>
+        <section id="services" className={`py-24 relative ${isDarkMode ? 'bg-transparent' : 'bg-[#F5F5DC]/70'}`}>
             <div className="container mx-auto px-10 sm:px-6">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
@@ -101,7 +108,7 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className={`rounded-[2rem] p-6 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-[#17202A] border-gray-800' : 'bg-white/40 backdrop-blur-md border-gold/10'} group relative overflow-hidden`}
+                            className={`rounded-[2rem] p-6 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-[#17202A] border-gray-800' : 'bg-[#FFFFFF] border-gold/10'} group relative overflow-hidden`}
                         >
                             {/* Decorative Corner Gradients matching the image */}
                             <div className="absolute top-0 left-0 w-6 h-6 bg-gradient-to-br from-red-500 to-yellow-500" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
