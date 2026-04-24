@@ -9,17 +9,17 @@ const posts = [
   {
     id: 1,
     title: 'Mercury Transit',
-    description: 'Mercury's transit into Aries brings sharp communication & bold decision-making. Know how it impacts your chart.',
+    description: "Mercury's transit into Aries brings sharp communication & bold decision-making. Know how it impacts your chart.",
     gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    icon: '☿',
+    icon: '\u263F',
     tag: 'TRANSIT',
   },
   {
     id: 2,
     title: 'Saturn Return',
-    description: 'Experiencing your Saturn Return? It's a time of transformation, discipline and major life lessons.',
+    description: "Experiencing your Saturn Return? It's a time of transformation, discipline and major life lessons.",
     gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    icon: '♄',
+    icon: '\u2644',
     tag: 'PLANET',
   },
   {
@@ -27,7 +27,7 @@ const posts = [
     title: 'Full Moon Insights',
     description: 'The Full Moon illuminates hidden truths. Discover which house it activates in your birth chart.',
     gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-    icon: '🌕',
+    icon: '\uD83C\uDF15',
     tag: 'LUNAR',
   },
   {
@@ -35,15 +35,15 @@ const posts = [
     title: 'Rahu-Ketu Axis',
     description: 'The shadow planets Rahu & Ketu define your karmic journey. Learn about their current transit effects.',
     gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-    icon: '☊',
+    icon: '\u260A',
     tag: 'KARMA',
   },
   {
     id: 5,
     title: 'Jupiter in Taurus',
-    description: 'Jupiter's transit through Taurus expands material stability and spiritual grounding for all signs.',
+    description: "Jupiter's transit through Taurus expands material stability and spiritual grounding for all signs.",
     gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
-    icon: '♃',
+    icon: '\u2643',
     tag: 'TRANSIT',
   },
   {
@@ -51,7 +51,7 @@ const posts = [
     title: 'Venus & Relationships',
     description: 'Venus governs love, beauty & partnerships. See how its current placement shapes your relationships.',
     gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
-    icon: '♀',
+    icon: '\u2640',
     tag: 'LOVE',
   },
   {
@@ -59,15 +59,15 @@ const posts = [
     title: 'Mars Energy Boost',
     description: 'Mars fuels ambition, courage & drive. Understand your Mars sign to unlock peak performance.',
     gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
-    icon: '♂',
+    icon: '\u2642',
     tag: 'ENERGY',
   },
   {
     id: 8,
     title: 'Nakshatra Wisdom',
-    description: 'The 27 Nakshatras hold the key to your deeper personality. Explore your birth star's secrets.',
+    description: "The 27 Nakshatras hold the key to your deeper personality. Explore your birth star's secrets.",
     gradient: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
-    icon: '✦',
+    icon: '\u2726',
     tag: 'VEDIC',
   },
 ];
@@ -148,7 +148,7 @@ export default function InstagramFeed() {
               isDarkMode ? 'text-gray-400' : 'text-gray-600'
             }`}
           >
-            Explore our page to learn about planets, transits, and astrology in a way that's easy to
+            Explore our page to learn about planets, transits, and astrology in a way that is easy to
             understand, insightful, and truly enriching.
           </p>
         </motion.div>
