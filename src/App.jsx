@@ -13,7 +13,6 @@ import Testimonials from './components/Testimonials';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
-import InstagramFeed from './components/InstagramFeed';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
 
@@ -345,9 +344,6 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
       {/* FAQs Section */}
       <FAQs />
-
-      {/* Instagram Feed Section */}
-      <InstagramFeed />
 
       <Testimonials />
       <Footer onOpenLegal={openLegalModal} />

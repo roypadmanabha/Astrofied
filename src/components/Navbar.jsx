@@ -123,9 +123,9 @@ export default function Navbar({ onOpenLegal }) {
             </AnimatePresence>
 
             <nav
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent ${scrolled 
-                    ? 'py-2 backdrop-blur-md'
-                    : 'py-3 md:py-4'
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md ${scrolled 
+                    ? isDarkMode ? 'py-2 bg-black/60 border-b border-gold/20 shadow-2xl' : 'py-2 bg-white/60 border-b border-[#4B0082]/10 shadow-xl'
+                    : 'py-3 md:py-4 bg-transparent'
                 }`}
             >
             <div className="container mx-auto px-6 flex justify-between items-center">
