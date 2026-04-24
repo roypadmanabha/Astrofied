@@ -276,6 +276,11 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                                 WebkitOverflowScrolling: 'touch'
                             }}
                         >
+                            {/* Watermark Logo */}
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] overflow-hidden">
+                                <img src={logo} alt="" className="w-1/2 aspect-square object-contain" style={{ filter: isDarkMode ? 'none' : 'multiply' }} />
+                            </div>
+
                             {/* Close Button */}
                             {step !== 'processing' && (
                                 <button
