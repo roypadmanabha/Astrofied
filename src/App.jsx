@@ -113,6 +113,43 @@ This Privacy Policy is governed by the laws of India. Any disputes regarding dat
 <b>11. Contact Us</b>
 If you have any questions regarding this Privacy Policy or how your data is handled, please contact us through our official website channels.`
       });
+    } else if (type === 'refund') {
+      setLegalModal({
+        isOpen: true,
+        title: 'Refund and Cancellation Policy',
+        content: `<b>1. Digital Services and Consultations</b>
+At Astrofied Ltd., we provide personalised astrological services, including live consultations and digital reports. Due to the high level of individual analysis and time dedicated by our experts for each booking, our refund policy is as follows:
+
+<b>2. Cancellations by Customer</b>
+• <b>Live Consultations:</b> If you wish to cancel a scheduled consultation, you must do so at least 24 hours before the appointment time to be eligible for a partial refund or rescheduling.
+• <b>Reports:</b> Once the analysis has begun (usually within 2 hours of payment), the order cannot be cancelled or refunded.
+
+<b>3. Refund Eligibility</b>
+• Refunds are only processed if the service is not delivered by our expert within the promised timeframe.
+• If you are unable to attend a scheduled session without prior notice (24 hours), no refund will be issued.
+
+<b>4. Processing Refunds</b>
+In case of an approved refund, the amount will be credited back to your original payment method within 7-10 working days.
+
+<b>5. Contact Us</b>
+For any cancellation or refund requests, please email us at contact.astrofied@gmail.com with your Payment ID.`
+      });
+    } else if (type === 'shipping') {
+      setLegalModal({
+        isOpen: true,
+        title: 'Shipping and Delivery Policy',
+        content: `Astrofied Ltd. primarily provides digital and consultation-based services. We do not ship physical products unless explicitly stated.
+
+<b>1. Digital Reports</b>
+All digital astrological reports are delivered via Email or WhatsApp in PDF format within 3-5 working days of receiving clear and complete birth details.
+
+<b>2. Consultation Sessions</b>
+Scheduling for live telephonic or video consultations will be confirmed within 24 hours of payment. The actual session will take place as per the mutually agreed time slot.
+
+<b>3. Service Delivery</b>
+For domestic buyers, orders are shipped through registered domestic courier companies and /or speed post only. For International buyers, orders are shipped and delivered through registered international courier companies and/or International speed post only. 
+For Digital Services: Delivery of our services will be confirmed on your mail ID as specified during registration. For any issues in utilizing our services you may contact our helpdesk on +91 96127 36566.`
+      });
     }
   };
 

@@ -195,7 +195,14 @@ app.post('/api/verify-payment', async (req, res) => {
         console.log(`Amount      : ₹${amount}`);
         console.log(`Payment ID  : ${razorpay_payment_id}`);
         console.log(`Order ID    : ${razorpay_order_id}`);
+        console.log(`Name        : ${customerDetails.name}`);
+        console.log(`Phone       : ${customerDetails.phone}`);
+        console.log(`Email       : ${customerDetails.email || 'N/A'}`);
         console.log(`Address     : ${customerDetails.address}`);
+        console.log(`DOB         : ${customerDetails.dob}`);
+        console.log(`Place/Birth : ${customerDetails.pob}`);
+        console.log(`Time/Birth  : ${customerDetails.tob}`);
+        console.log(`Notes       : ${customerDetails.notes || 'None'}`);
         console.log('═══════════════════════════════════════════');
 
         // Send email notification (non-blocking — don't let email failure break the response)
@@ -241,30 +248,6 @@ async function sendBookingEmail(customer, service, amount, paymentId) {
         }
     });
 
-    let birthDetailsText = '';
-    if (service === 'Horoscope Matching') {
-        birthDetailsText = `
-👦 BOY'S BIRTH DETAILS:
-   Name       : ${customer.boyName}
-   Date       : ${customer.boyDob}
-   Place      : ${customer.boyPob}
-   Time       : ${customer.boyTob}
-
-👧 GIRL'S BIRTH DETAILS:
-   Name       : ${customer.girlName}
-   Date       : ${customer.girlDob}
-   Place      : ${customer.girlPob}
-   Time       : ${customer.girlTob}
-        `;
-    } else {
-        birthDetailsText = `
-🗓️ BIRTH DETAILS:
-   Date       : ${customer.dob}
-   Place      : ${customer.pob}
-   Time       : ${customer.tob}
-        `;
-    }
-
     const emailBody = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✨ NEW ASTROFIED BOOKING — PAYMENT RECEIVED
@@ -275,12 +258,18 @@ async function sendBookingEmail(customer, service, amount, paymentId) {
 🧾 PAYMENT ID: ${paymentId}
 
 👤 CUSTOMER DETAILS:
-   Name       : ${service === 'Horoscope Matching' ? `${customer.boyName} & ${customer.girlName}` : customer.name}
+   Name       : ${customer.name}
    Phone      : ${customer.phone}
    Email      : ${customer.email || 'Not provided'}
    Address    : ${customer.address}
 
-${birthDetailsText}
+🗓️ BIRTH DETAILS:
+   Date       : ${customer.dob}
+   Place      : ${customer.pob}
+   Time       : ${customer.tob}
+
+📝 ADDITIONAL NOTES:
+   ${customer.notes || 'None'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Booking received at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
@@ -290,7 +279,7 @@ Booking received at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolk
     await transporter.sendMail({
         from: `"Astrofied Ltd." <${process.env.NOTIFY_EMAIL}>`,
         to: process.env.NOTIFY_EMAIL,
-        subject: `🔔 New Booking: ${service} — ${service === 'Horoscope Matching' ? customer.boyName : customer.name} (₹${amount})`,
+        subject: `🔔 New Booking: ${service} — ${customer.name} (₹${amount})`,
         text: emailBody
     });
 
@@ -298,26 +287,6 @@ Booking received at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolk
 }
 
 function buildWhatsAppMessage(customer, service, amount, paymentId) {
-    let birthDetails = '';
-    if (service === 'Horoscope Matching') {
-        birthDetails = `👦 *Boy's Details:*
-• Name: ${customer.boyName}
-• DOB: ${customer.boyDob}
-• Place: ${customer.boyPob}
-• Time: ${customer.boyTob}
-
-👧 *Girl's Details:*
-• Name: ${customer.girlName}
-• DOB: ${customer.girlDob}
-• Place: ${customer.girlPob}
-• Time: ${customer.girlTob}`;
-    } else {
-        birthDetails = `🗓️ *Birth Details:*
-• DOB: ${customer.dob}
-• Place: ${customer.pob}
-• Time: ${customer.tob}`;
-    }
-
     return `🔔 *NEW ASTROFIED BOOKING*
 
 📋 *Service:* ${service}
@@ -325,12 +294,17 @@ function buildWhatsAppMessage(customer, service, amount, paymentId) {
 🧾 *Payment ID:* ${paymentId}
 
 👤 *Customer Details:*
-• Name: ${service === 'Horoscope Matching' ? `${customer.boyName} & ${customer.girlName}` : customer.name}
+• Name: ${customer.name}
 • Phone: ${customer.phone}
 • Email: ${customer.email || 'N/A'}
 • Address: ${customer.address}
 
-${birthDetails}
+🗓️ *Birth Details:*
+• DOB: ${customer.dob}
+• Place: ${customer.pob}
+• Time: ${customer.tob}
+
+📝 *Notes:* ${customer.notes || 'None'}
 
 📅 _${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}_`;
 }
