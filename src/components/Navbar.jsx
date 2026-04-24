@@ -57,7 +57,7 @@ export default function Navbar({ onOpenLegal }) {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -50 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className={`fixed inset-0 z-[100] flex flex-col items-start justify-start pt-36 gap-4 md:hidden overflow-y-auto px-10 ${
+                        className={`fixed inset-0 z-[100] flex flex-col items-start justify-start pt-28 gap-0 md:hidden overflow-y-auto px-8 ${
                             isDarkMode ? 'bg-black/98 backdrop-blur-2xl' : 'bg-white/98 backdrop-blur-2xl'
                         }`}
                     >
@@ -82,7 +82,7 @@ export default function Navbar({ onOpenLegal }) {
 
                         <button
                             onClick={() => setIsOpen(false)}
-                            className={`absolute top-10 right-8 text-3xl p-2 focus:outline-none transition-all border-none bg-transparent ${
+                            className={`absolute top-11 right-8 text-base p-2 focus:outline-none transition-all border-none bg-transparent ${
                                 isDarkMode ? 'text-gold' : 'text-[#4B0082]'
                             }`}
                         >
@@ -109,7 +109,7 @@ export default function Navbar({ onOpenLegal }) {
                                         }
                                         setIsOpen(false);
                                     }}
-                                    className={`text-lg font-bold tracking-tight transition-all block py-2 cursor-pointer ${
+                                    className={`text-base font-bold tracking-tight transition-all block py-1.5 cursor-pointer ${
                                         isDarkMode ? 'text-white hover:text-gold' : 'text-[#4B0082] hover:text-[#DC2626]'
                                     }`}
                                     whileTap={{ scale: 0.98 }}
