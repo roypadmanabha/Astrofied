@@ -183,7 +183,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         style={{ scaleX, background: isDarkMode ? '#D4AF37' : '#4B0082' }}
       />
 
-      <Navbar onOpenLegal={openLegalModal} />
+      <Navbar 
+        onOpenLegal={openLegalModal} 
+        onOpenConsultation={() => setIsConsultationModalOpen(true)} 
+      />
       <ThemeToggle3D />
 
       <Hero onOpenConsultation={() => setIsConsultationModalOpen(true)} />

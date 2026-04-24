@@ -14,6 +14,7 @@ const desktopNavLinks = [
 ];
 
 const mobileNavLinks = [
+    { name: 'Book Consultation', href: '#', icon: ChevronRight },
     { name: 'Services', href: '#services', icon: ChevronRight },
     { name: 'Kundali', href: '#kundali', icon: ChevronRight },
     { name: 'Pricing', href: '#pricing', icon: ChevronRight },
@@ -24,7 +25,7 @@ const mobileNavLinks = [
     { name: 'Privacy Policy', href: '/privacy-policy.html', icon: ChevronRight },
 ];
 
-export default function Navbar({ onOpenLegal }) {
+export default function Navbar({ onOpenLegal, onOpenConsultation }) {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const { isDarkMode } = useTheme();
@@ -107,7 +108,9 @@ export default function Navbar({ onOpenLegal }) {
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: index * 0.04, type: 'spring', stiffness: 100 }}
                                         onClick={(e) => {
-                                            if (isLegal) {
+                                            if (link.name === 'Book Consultation') {
+                                                onOpenConsultation();
+                                            } else if (isLegal) {
                                                 onOpenLegal(type);
                                             } else {
                                                 const element = document.querySelector(link.href);
