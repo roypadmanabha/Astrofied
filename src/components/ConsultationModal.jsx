@@ -58,7 +58,13 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm }) {
                         </div>
 
                         {/* Guidelines Image Body */}
-                        <div className="flex-1 overflow-y-auto p-4 sm:p-8 custom-scrollbar">
+                        <div 
+                            className="flex-1 overflow-y-auto p-4 sm:p-8 custom-scrollbar"
+                            style={{ 
+                                touchAction: 'pan-y', 
+                                WebkitOverflowScrolling: 'touch' 
+                            }}
+                        >
                             <div className={`rounded-3xl overflow-hidden border shadow-lg ${
                                 isDarkMode ? 'border-white/5' : 'border-black/5'
                             }`}>
