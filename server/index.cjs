@@ -71,16 +71,17 @@ async function getAccessToken() {
     }
 }
 
-// ==========================================
-//  PROKERALA V2 Endpoints
-// ==========================================
-
 app.post('/api/kundali', async (req, res) => {
     try {
         const { name, dob, tob, lat, lon, tzo } = req.body;
-        if (!dob || !tob || !lat || !lon) return res.status(400).json({ error: 'Missing required birth details' });
+        
+        if (!dob || !tob || !lat || !lon) {
+            return res.status(400).json({ error: 'Missing required birth details' });
+        }
 
         const datetime = `${dob}T${tob}:00${tzo || '+05:30'}`;
+        console.log(`Generating Kundali for ${name} at ${datetime} (${lat}, ${lon})`);
+
         const token = await getAccessToken();
 
         const response = await axios.get(PROKERALA_CHART_URL, {
@@ -92,84 +93,28 @@ app.post('/api/kundali', async (req, res) => {
                 coordinates: `${lat},${lon}`,
                 la: 'en'
             },
-            headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'image/svg+xml' }
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'image/svg+xml'
+            }
         });
+
         res.set('Content-Type', 'image/svg+xml');
         res.send(response.data);
     } catch (error) {
-        handleApiError(res, error, 'Kundali Chart');
-    }
-});
-
-app.post('/api/panchang', async (req, res) => {
-    try {
-        const { datetime, lat, lon } = req.body;
-        const token = await getAccessToken();
-        const response = await axios.get('https://api.prokerala.com/v2/astrology/panchang', {
-            params: { datetime, coordinates: `${lat},${lon}`, ayanamsa: 1, la: 'en' },
-            headers: { 'Authorization': `Bearer ${token}` }
+        console.error('PROKERALA API ERROR:', error.response?.status, JSON.stringify(error.response?.data || error.message));
+        
+        // Extract the most descriptive error message from Prokerala V2 response
+        const prokeralaError = error.response?.data?.errors?.[0]?.detail || 
+                              error.response?.data?.message || 
+                              error.message;
+                              
+        res.status(error.response?.status || 500).json({ 
+            error: prokeralaError,
+            details: error.response?.data
         });
-        res.json(response.data);
-    } catch (error) {
-        handleApiError(res, error, 'Panchang');
     }
 });
-
-app.post('/api/nakshatra', async (req, res) => {
-    try {
-        const { datetime, lat, lon } = req.body;
-        const token = await getAccessToken();
-        const response = await axios.get('https://api.prokerala.com/v2/astrology/nakshatra', {
-            params: { datetime, coordinates: `${lat},${lon}`, ayanamsa: 1, la: 'en' },
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        res.json(response.data);
-    } catch (error) {
-        handleApiError(res, error, 'Nakshatra');
-    }
-});
-
-app.post('/api/gemstone', async (req, res) => {
-    try {
-        const { datetime, lat, lon } = req.body;
-        const token = await getAccessToken();
-        const response = await axios.get('https://api.prokerala.com/v2/astrology/gemstone-recommendation', {
-            params: { datetime, coordinates: `${lat},${lon}`, ayanamsa: 1, la: 'en' },
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        res.json(response.data);
-    } catch (error) {
-        handleApiError(res, error, 'Gemstone Recommendation');
-    }
-});
-
-app.post('/api/matching', async (req, res) => {
-    try {
-        const { girl_dob, girl_tob, girl_lat, girl_lon, boy_dob, boy_tob, boy_lat, boy_lon } = req.body;
-        const token = await getAccessToken();
-        const response = await axios.get('https://api.prokerala.com/v2/astrology/kundli-matching', {
-            params: {
-                girl_datetime: `${girl_dob}T${girl_tob}:00+05:30`,
-                girl_coordinates: `${girl_lat},${girl_lon}`,
-                boy_datetime: `${boy_dob}T${boy_tob}:00+05:30`,
-                boy_coordinates: `${boy_lat},${boy_lon}`,
-                ayanamsa: 1,
-                la: 'en'
-            },
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        res.json(response.data);
-    } catch (error) {
-        handleApiError(res, error, 'Kundli Matching');
-    }
-});
-
-// Helper for error handling
-function handleApiError(res, error, serviceName) {
-    console.error(`PROKERALA ${serviceName.toUpperCase()} ERROR:`, error.response?.status, JSON.stringify(error.response?.data || error.message));
-    const msg = error.response?.data?.errors?.[0]?.detail || error.response?.data?.message || error.message;
-    res.status(error.response?.status || 500).json({ error: msg, details: error.response?.data });
-}
 
 // Update for Railway: Use process.env.PORT
 const PORT = process.env.PORT || 5001;
