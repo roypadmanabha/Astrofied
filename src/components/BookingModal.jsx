@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { X, User, Phone, MapPin, Calendar, Clock, Mail, FileText, CheckCircle, Loader2, Shield, CreditCard, AlertCircle } from 'lucide-react';
@@ -13,29 +13,33 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
     const [error, setError] = useState('');
     const [paymentResult, setPaymentResult] = useState(null);
 
-    // Robust body scroll lock when modal is open
-    useEffect(() => {
-        if (isOpen) {
-            const scrollY = window.scrollY;
-            document.documentElement.style.overflow = 'hidden';
-            document.body.style.overflow = 'hidden';
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.left = '0';
-            document.body.style.right = '0';
-            document.body.style.width = '100%';
+    const modalRef = useRef(null);
 
-            return () => {
-                document.documentElement.style.overflow = '';
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.left = '';
-                document.body.style.right = '';
-                document.body.style.width = '';
-                window.scrollTo(0, scrollY);
-            };
-        }
+    // Lock background scroll, allow modal scroll (including touch)
+    useEffect(() => {
+        if (!isOpen) return;
+
+        // Block background scroll
+        const scrollY = window.scrollY;
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+
+        // Prevent touch-scroll on anything EXCEPT the modal content
+        const preventBgTouch = (e) => {
+            if (modalRef.current && modalRef.current.contains(e.target)) {
+                return; // Allow touch inside modal
+            }
+            e.preventDefault(); // Block touch on backdrop / body
+        };
+
+        document.addEventListener('touchmove', preventBgTouch, { passive: false });
+
+        return () => {
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+            document.removeEventListener('touchmove', preventBgTouch);
+            window.scrollTo(0, scrollY);
+        };
     }, [isOpen]);
 
     const [formData, setFormData] = useState({
@@ -255,8 +259,9 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                         className={`fixed inset-0 backdrop-blur-2xl ${isDarkMode ? 'bg-black/90' : 'bg-white/90'}`}
                     />
 
-                    {/* Modal Content */}
+                    {/* Modal Content — scrollable via touch + mouse */}
                     <motion.div
+                        ref={modalRef}
                         initial={{ scale: 0.9, y: 40, opacity: 0 }}
                         animate={{ scale: 1, y: 0, opacity: 1 }}
                         exit={{ scale: 0.9, y: 40, opacity: 0 }}
@@ -269,7 +274,8 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                             scrollbarWidth: 'thin',
                             scrollbarColor: isDarkMode ? '#D4AF37 transparent' : '#4B0082 transparent',
                             overscrollBehavior: 'contain',
-                            WebkitOverflowScrolling: 'touch'
+                            WebkitOverflowScrolling: 'touch',
+                            touchAction: 'pan-y'
                         }}
                     >
                         {/* Close Button */}
