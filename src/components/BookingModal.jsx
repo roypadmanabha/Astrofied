@@ -226,7 +226,8 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
     if (!isOpen) return null;
 
     return (
-        <AnimatePresence>
+        <>
+            <AnimatePresence>
             {isOpen && (
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -576,6 +577,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                 background: ${isDarkMode ? 'rgba(212, 175, 55, 0.5)' : 'rgba(75, 0, 130, 0.5)'};
             }
         `}</style>
+        </>
     );
 };
 
