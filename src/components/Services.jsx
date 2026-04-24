@@ -17,7 +17,7 @@ const services = [
         price: '₹ 8915',
         duration: '40 Min',
         icon: Briefcase,
-        color: 'bg-red-100 text-red-600',
+        color: 'bg-purple-100 text-purple-600',
     },
     {
         id: 2,
