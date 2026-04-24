@@ -186,7 +186,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <Navbar onOpenLegal={openLegalModal} />
       <ThemeToggle3D />
 
-      <Hero />
+      <Hero onOpenConsultation={() => setIsConsultationModalOpen(true)} />
 
       {/* Why Astrofied Section */}
       <section id="why-astrofied" className={`py-24 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
