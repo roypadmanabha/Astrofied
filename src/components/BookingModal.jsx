@@ -100,7 +100,9 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                 prefill: {
                     name: formData.name,
                     email: formData.email,
-                    contact: `+91${formData.phone}`
+                    contact: `+91${formData.phone}`,
+                    method: 'upi',
+                    'upi[vpa]': 'prasantachakraborty.udp@okicici'
                 },
                 notes: {
                     service: service,
@@ -111,6 +113,34 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                 theme: {
                     color: isDarkMode ? '#D4AF37' : '#4B0082',
                     backdrop_color: 'rgba(0,0,0,0.8)'
+                },
+                config: {
+                    display: {
+                        blocks: {
+                            upi: {
+                                name: 'Pay via UPI',
+                                instruments: [
+                                    {
+                                        method: 'upi',
+                                        flows: ['collect', 'intent', 'qr'],
+                                        apps: ['google_pay', 'phonepe', 'paytm']
+                                    }
+                                ]
+                            },
+                            other: {
+                                name: 'Other Payment Methods',
+                                instruments: [
+                                    { method: 'card' },
+                                    { method: 'netbanking' },
+                                    { method: 'wallet' }
+                                ]
+                            }
+                        },
+                        sequence: ['block.upi', 'block.other'],
+                        preferences: {
+                            show_default_blocks: false
+                        }
+                    }
                 },
                 modal: {
                     ondismiss: () => {
