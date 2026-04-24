@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import astrologer from '../assets/hero-astrologer.png';
-import zodiacBg from '../assets/zodiac-wheel.png';
+import solarSystem from '../assets/solar-system.png';
 
 export default function Hero() {
     const { isDarkMode } = useTheme();
@@ -71,13 +71,13 @@ export default function Hero() {
 
                     {/* Right Image Segment */}
                     <div className="w-full lg:w-1/2 relative flex justify-center items-center order-2 mt-12 lg:mt-0">
-                        {/* Background Rotating Wheel */}
+                        {/* Background Rotating Solar System */}
                         <motion.img
-                            src={zodiacBg}
+                            src={solarSystem}
                             alt=""
-                            className="absolute w-[120%] h-[120%] max-w-none opacity-20 pointer-events-none select-none blur-[2px]"
+                            className="absolute w-[120%] h-[120%] md:w-[130%] md:h-[130%] max-w-none opacity-30 pointer-events-none select-none blur-[1px]"
                             animate={{ rotate: 360 }}
-                            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+                            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
                         />
 
                         <div className="relative w-full max-w-[500px] flex flex-col items-center">
