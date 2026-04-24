@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { X, Check, ArrowRight } from 'lucide-react';
@@ -6,6 +6,17 @@ import guidelinesImg from '../assets/consultation-guidelines.png';
 
 export default function ConsultationModal({ isOpen, onClose, onConfirm }) {
     const { isDarkMode } = useTheme();
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
