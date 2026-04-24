@@ -116,26 +116,64 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     } else if (type === 'refund') {
       setLegalModal({
         isOpen: true,
-        title: 'Refund Policy',
-        content: `<b>1. Personalized Nature of Services</b>
-Astrological reports and consultations are highly personalized and involve significant time and effort from our expert. Once a report is generated or a consultation session has been initiated/completed, the service is considered "delivered".
+        title: 'Cancellation & Refund Policy',
+        content: `<b>1. Cancellation Policy</b>
+At Astrofied Ltd., we understand that circumstances may change. You can cancel your consultation booking under the following conditions:
+• Cancellations made at least 24 hours before the scheduled appointment time are eligible for a full refund or rescheduling.
+• Cancellations made within 24 hours of the appointment time will result in a 50% cancellation fee.
+• No-shows at the time of consultation without prior notice will not be eligible for a refund.
 
-<b>2. Non-Refundable Services</b>
-Due to the nature of digital goods and professional consulting services:
-- Customized reports are non-refundable once delivered.
-- Completed consultations (phone, chat, or in-person) are non-refundable.
+<b>2. Refund Policy</b>
+We aim to provide high-quality astrological guidance. However, please note:
+• Due to the personalised nature of astrological reports and consultations, refunds are generally not provided once the service/consultation has been completed.
+• If a technical failure on our part prevents the consultation from occurring, a full refund or immediate rescheduling will be offered.
+• In case of a duplicate payment due to a technical glitch, the extra amount will be refunded to the original payment method within 5-7 working days.
 
-<b>3. Exceptions for Refund</b>
-You may request a refund in the following scenarios:
-- <b>Double Payment:</b> If you were charged twice for the same service due to a technical error.
-- <b>Incomplete Service:</b> If the service is not delivered by us within the promised timeframe (usually 3-7 working days for reports) or the consultation does not happen due to our absence.
-- <b>Cancellation:</b> If you cancel your booking at least 24 hours before the scheduled consultation time.
+<b>3. Processing Refunds</b>
+All eligible refunds will be processed back to the original payment method (Credit Card, Debit Card, UPI, or Net Banking) used during the transaction. It may take 5 to 7 business days for the amount to reflect in your account depending on your bank.`
+      });
+    } else if (type === 'shipping') {
+      setLegalModal({
+        isOpen: true,
+        title: 'Shipping & Delivery Policy',
+        content: `At Astrofied Ltd., all our services are digital in nature. This policy outlines how we deliver our astrological consultations and reports.
 
-<b>4. Refund Process</b>
-To request a refund, please email us at sj.astrologyservices@gmail.com with your Order ID and Payment ID. Refund requests will be processed within 5-7 working days after approval.
+<b>1. Nature of Delivery</b>
+All services provided by Astrofied Ltd. are delivered digitally. We do not ship any physical products.
 
-<b>5. Dispute Resolution</b>
-For any payment-related disputes, please contact us directly before raising a chargeback with your bank or payment provider. We are committed to resolving issues for our valued customers.`
+<b>2. Delivery Method</b>
+• <b>Online Consultations:</b> These are conducted via telephonic calls, WhatsApp calls, or video conferencing as agreed upon at the time of booking.
+• <b>Astrological Reports:</b> Digital reports (PDF or images) are delivered via WhatsApp or Email to the contact details provided during the booking process.
+
+<b>3. Delivery Timeline</b>
+• <b>Live Consultations:</b> These are delivered at the specific date and time scheduled during the booking process.
+• <b>Written Reports:</b> Personalized reports are typically delivered within 24 to 48 hours of receiving all the necessary birth details and payment confirmation.
+
+<b>4. Delivery Confirmation</b>
+A service is considered "delivered" once the consultation has taken place or the digital report has been sent to your provided contact number/email. If you do not receive your digital report or the scheduled call within the specified time, please reach out to us at contact.astrofied@gmail.com.`
+      });
+    } else if (type === 'contact') {
+      setLegalModal({
+        isOpen: true,
+        title: 'Contact Us',
+        content: `For any queries, feedback, or support regarding our astrological services or your bookings, please feel free to reach out to us.
+
+<b>Business Name:</b> Astrofied Ltd.
+<b>Founder:</b> Prasanta Chakraborty
+
+<b>Registered Address:</b>
+Dakbanglow Road, near Rajarshi Hall,
+Udaipur, Gomati, Tripura - 799120
+
+<b>Contact Details:</b>
+• <b>Phone/WhatsApp:</b> +91 96127 36566
+• <b>Email:</b> contact.astrofied@gmail.com
+• <b>Alternative Email:</b> sj.astrologyservices@gmail.com
+
+<b>Operational Hours:</b>
+Monday to Sunday: 10:00 AM – 9:00 PM (IST)
+
+We aim to respond to all inquiries within 24 hours.`
       });
     }
   };
@@ -253,7 +291,7 @@ For any payment-related disputes, please contact us directly before raising a ch
       {/* Services Section */}
       <Services />
       <Kundali />
-      <Pricing onOpenLegal={openLegalModal} />
+      <Pricing />
 
       {/* About Us Section */}
       <section id="about" className="py-24 overflow-hidden">

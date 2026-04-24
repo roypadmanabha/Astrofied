@@ -5,7 +5,7 @@ import pricingHoroscope from '../assets/pricing-horoscope.png';
 import pricingKundali from '../assets/pricing-kundali.jpg';
 import BookingModal from './BookingModal';
 
-const Pricing = ({ onOpenLegal }) => {
+const Pricing = () => {
   const { isDarkMode } = useTheme();
   const [selectedService, setSelectedService] = useState(null);
 
@@ -128,7 +128,6 @@ const Pricing = ({ onOpenLegal }) => {
       <BookingModal
         isOpen={!!selectedService}
         onClose={() => setSelectedService(null)}
-        onOpenLegal={onOpenLegal}
         service={selectedService?.title || ''}
         price={selectedService?.price || ''}
       />
