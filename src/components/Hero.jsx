@@ -143,15 +143,19 @@ export default function Hero() {
                                 </motion.div>
                             </motion.div>
 
-                            {/* Bottom Roadmap Label - POSITIONED JUST BELOW THE IMAGE */}
+                            {/* Bottom Roadmap Label - POSITIONED TO COVER THE IMAGE BOTTOM */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.2 }}
-                                className={`relative -mt-6 z-30 px-6 py-3 md:px-10 lg:px-8 xl:px-12 md:py-4 rounded-full border glass backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] ${isDarkMode ? 'border-gold/30 text-gold shadow-gold/20' : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
+                                className={`relative -mt-10 md:-mt-12 z-30 w-full px-4 md:px-10 py-3.5 md:py-4 rounded-2xl md:rounded-full border glass backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex justify-center items-center ${isDarkMode 
+                                    ? 'border-gold/30 text-gold shadow-gold/20' 
+                                    : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
                                     }`}
                             >
-                                <span className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm font-bold tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em] uppercase font-mulish whitespace-nowrap">your roadmap to the right decisions</span>
+                                <span className="text-[9px] sm:text-[10px] md:text-sm font-black tracking-[0.1em] sm:tracking-[0.2em] uppercase font-mulish text-center leading-tight">
+                                    your roadmap to the right decisions
+                                </span>
                             </motion.div>
                         </div>
                     </div>
