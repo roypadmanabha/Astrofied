@@ -13,14 +13,29 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
     const [error, setError] = useState('');
     const [paymentResult, setPaymentResult] = useState(null);
 
-    // Lock body scroll when modal is open
+    // Robust body scroll lock when modal is open
     useEffect(() => {
         if (isOpen) {
+            const scrollY = window.scrollY;
+            document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.width = '100%';
+
+            return () => {
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.left = '';
+                document.body.style.right = '';
+                document.body.style.width = '';
+                window.scrollTo(0, scrollY);
+            };
         }
-        return () => { document.body.style.overflow = ''; };
     }, [isOpen]);
 
     const [formData, setFormData] = useState({
@@ -252,7 +267,9 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                         }`}
                         style={{
                             scrollbarWidth: 'thin',
-                            scrollbarColor: isDarkMode ? '#D4AF37 transparent' : '#4B0082 transparent'
+                            scrollbarColor: isDarkMode ? '#D4AF37 transparent' : '#4B0082 transparent',
+                            overscrollBehavior: 'contain',
+                            WebkitOverflowScrolling: 'touch'
                         }}
                     >
                         {/* Close Button */}
