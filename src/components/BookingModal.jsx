@@ -42,8 +42,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
         girlName: '',
         girlDob: '',
         girlPob: '',
-        girlTob: '',
-        notes: ''
+        girlTob: ''
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -441,11 +440,6 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                                                 <input type="text" placeholder="House/Flat, Street, City, State, PIN" className={inputClass('address')}
                                                     value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} />
                                                 {errors.address && <p className="text-red-500 text-[10px] mt-1 font-semibold">{errors.address}</p>}
-                                            </div>
-                                            <div>
-                                                <label className={labelClass}><FileText size={11} /> Additional Notes</label>
-                                                <textarea placeholder="Any specific questions..." rows={2} className={`${inputClass('notes')} resize-none border-b-2`}
-                                                    value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })} />
                                             </div>
                                         </div>
 

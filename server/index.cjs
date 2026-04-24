@@ -195,19 +195,7 @@ app.post('/api/verify-payment', async (req, res) => {
         console.log(`Amount      : ₹${amount}`);
         console.log(`Payment ID  : ${razorpay_payment_id}`);
         console.log(`Order ID    : ${razorpay_order_id}`);
-        if (service === 'Horoscope Matching') {
-            console.log(`Boy Details : ${customerDetails.boyName} | ${customerDetails.boyDob} | ${customerDetails.boyTob} | ${customerDetails.boyPob}`);
-            console.log(`Girl Details: ${customerDetails.girlName} | ${customerDetails.girlDob} | ${customerDetails.girlTob} | ${customerDetails.girlPob}`);
-        } else {
-            console.log(`Name        : ${customerDetails.name}`);
-            console.log(`DOB         : ${customerDetails.dob}`);
-            console.log(`Place/Birth : ${customerDetails.pob}`);
-            console.log(`Time/Birth  : ${customerDetails.tob}`);
-        }
-        console.log(`Phone       : ${customerDetails.phone}`);
-        console.log(`Email       : ${customerDetails.email || 'N/A'}`);
         console.log(`Address     : ${customerDetails.address}`);
-        console.log(`Notes       : ${customerDetails.notes || 'None'}`);
         console.log('═══════════════════════════════════════════');
 
         // Send email notification (non-blocking — don't let email failure break the response)
@@ -294,9 +282,6 @@ async function sendBookingEmail(customer, service, amount, paymentId) {
 
 ${birthDetailsText}
 
-📝 ADDITIONAL NOTES:
-   ${customer.notes || 'None'}
-
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Booking received at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -346,8 +331,6 @@ function buildWhatsAppMessage(customer, service, amount, paymentId) {
 • Address: ${customer.address}
 
 ${birthDetails}
-
-📝 *Notes:* ${customer.notes || 'None'}
 
 📅 _${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}_`;
 }
