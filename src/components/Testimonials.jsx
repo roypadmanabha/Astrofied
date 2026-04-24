@@ -38,7 +38,7 @@ export default function Testimonials() {
     const { isDarkMode } = useTheme();
 
     return (
-        <section className={`py-8 md:py-12 overflow-hidden relative ${isDarkMode ? '' : 'bg-white'}`} style={{ background: isDarkMode ? 'transparent' : 'white' }}>
+        <section className={`py-8 md:py-12 overflow-hidden relative ${isDarkMode ? '' : 'bg-transparent'}`} style={{ background: isDarkMode ? 'transparent' : 'transparent' }}>
             <div className="container mx-auto px-6 mb-8 md:mb-12 text-center">
                 <h2
                     className="text-3xl md:text-4xl lg:text-5xl font-bold font-mulish"

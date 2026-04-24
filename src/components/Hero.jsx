@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import astrologer from '../assets/hero-astrologer.png';
-import solarSystem from '../assets/solar-system.png';
+import zodiacBg from '../assets/zodiac-wheel.png';
 
 export default function Hero() {
     const { isDarkMode } = useTheme();
@@ -71,13 +71,13 @@ export default function Hero() {
 
                     {/* Right Image Segment */}
                     <div className="w-full lg:w-1/2 relative flex justify-center items-center order-2 mt-12 lg:mt-0">
-                        {/* Background Rotating Solar System */}
+                        {/* Background Rotating Wheel */}
                         <motion.img
-                            src={solarSystem}
+                            src={zodiacBg}
                             alt=""
-                            className="absolute w-[120%] h-[120%] md:w-[130%] md:h-[130%] max-w-none opacity-50 pointer-events-none select-none blur-[1px] -translate-y-12"
+                            className="absolute w-[120%] h-[120%] max-w-none opacity-20 pointer-events-none select-none blur-[2px]"
                             animate={{ rotate: 360 }}
-                            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
                         />
 
                         <div className="relative w-full max-w-[500px] flex flex-col items-center">
@@ -148,8 +148,8 @@ export default function Hero() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.2 }}
-                                className={`relative -mt-10 md:-mt-12 z-30 w-full px-4 md:px-10 py-3.5 md:py-4 rounded-2xl md:rounded-full border glass backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex justify-center items-center ${isDarkMode
-                                    ? 'border-gold/30 text-gold shadow-gold/20'
+                                className={`relative -mt-10 md:-mt-12 z-30 w-full px-4 md:px-10 py-3.5 md:py-4 rounded-2xl md:rounded-full border glass backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex justify-center items-center ${isDarkMode 
+                                    ? 'border-gold/30 text-gold shadow-gold/20' 
                                     : 'border-[#4B0082]/30 text-[#4B0082] shadow-[#4B0082]/20'
                                     }`}
                             >

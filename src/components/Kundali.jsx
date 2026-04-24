@@ -86,7 +86,7 @@ const Kundali = () => {
     };
 
     return (
-        <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#05010d]/80' : 'bg-white'}`}>
+        <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#05010d]/80' : 'bg-transparent'}`}>
             <div className="container mx-auto px-6">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
 
@@ -133,7 +133,7 @@ const Kundali = () => {
                             viewport={{ once: true }}
                             className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center relative ${isDarkMode
                                 ? 'border-gold bg-[#0f0a1f]/80'
-                                : 'border-[#D4AF37]/20 bg-[#F5F5DC]'
+                                : 'border-[#D4AF37]/20 bg-white/40 backdrop-blur-md'
                                 }`}
                         >
                             <img

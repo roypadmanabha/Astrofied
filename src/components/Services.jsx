@@ -81,7 +81,7 @@ export default function Services() {
     const { isDarkMode } = useTheme();
 
     return (
-        <section id="services" className={`py-24 relative ${isDarkMode ? 'bg-transparent' : 'bg-[#F5F5DC]/70'}`}>
+        <section id="services" className={`py-24 relative ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`}>
             <div className="container mx-auto px-10 sm:px-6">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
@@ -90,7 +90,7 @@ export default function Services() {
                     className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16"
                     style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                 >
-                    What We Offer
+                    What We Cover
                 </motion.h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
@@ -101,7 +101,7 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className={`rounded-[2rem] p-6 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-[#17202A] border-gray-800' : 'bg-[#FFFFFF] border-gold/10'} group relative overflow-hidden`}
+                            className={`rounded-[2rem] p-6 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-[#17202A] border-gray-800' : 'bg-white/40 backdrop-blur-md border-gold/10'} group relative overflow-hidden`}
                         >
                             {/* Decorative Corner Gradients matching the image */}
                             <div className="absolute top-0 left-0 w-6 h-6 bg-gradient-to-br from-red-500 to-yellow-500" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
