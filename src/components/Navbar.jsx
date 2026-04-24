@@ -132,9 +132,6 @@ export default function Navbar({ onOpenLegal }) {
                     </motion.div>
                 )}
             </AnimatePresence>
-                    </motion.div>
-                )}
-            </AnimatePresence>
 
             <nav
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md ${scrolled 
