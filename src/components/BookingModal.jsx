@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { X, User, Phone, MapPin, Calendar, Clock, Mail, FileText, CheckCircle, Loader2, Shield, CreditCard, AlertCircle } from 'lucide-react';
@@ -12,6 +12,16 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [paymentResult, setPaymentResult] = useState(null);
+
+    // Lock body scroll when modal is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [isOpen]);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -220,14 +230,14 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4 md:p-8"
+                    className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4 md:p-8 overflow-hidden"
                 >
-                    {/* Backdrop */}
+                    {/* Backdrop — fixed, no scroll */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         onClick={step === 'processing' ? undefined : handleClose}
-                        className={`absolute inset-0 backdrop-blur-2xl ${isDarkMode ? 'bg-black/90' : 'bg-white/90'}`}
+                        className={`fixed inset-0 backdrop-blur-2xl ${isDarkMode ? 'bg-black/90' : 'bg-white/90'}`}
                     />
 
                     {/* Modal Content */}
@@ -236,9 +246,9 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                         animate={{ scale: 1, y: 0, opacity: 1 }}
                         exit={{ scale: 0.9, y: 40, opacity: 0 }}
                         transition={{ type: 'spring', duration: 0.5 }}
-                        className={`relative w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-[1.5rem] md:rounded-[2.5rem] border shadow-2xl ${isDarkMode
-                            ? 'bg-[#0a0520] border-gold/10'
-                            : 'bg-white border-[#4B0082]/10'
+                        className={`relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[1.5rem] md:rounded-[2.5rem] border shadow-2xl ${isDarkMode
+                            ? 'bg-[#17202A] border-gold/10'
+                            : 'bg-[#F5F5DC] border-[#4B0082]/10'
                         }`}
                         style={{
                             scrollbarWidth: 'thin',
