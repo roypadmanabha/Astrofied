@@ -50,7 +50,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
 
     const validate = () => {
         const newErrors = {};
-        
+
         // Common details
         if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
         else if (!/^[6-9]\d{9}$/.test(formData.phone.replace(/\s/g, ''))) newErrors.phone = 'Enter a valid 10-digit Indian phone number';
@@ -63,7 +63,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
             if (!formData.boyDob) newErrors.boyDob = "Boy's DOB is required";
             if (!formData.boyPob.trim()) newErrors.boyPob = "Boy's POB is required";
             if (!formData.boyTob) newErrors.boyTob = "Boy's TOB is required";
-            
+
             // Girl's details
             if (!formData.girlName.trim()) newErrors.girlName = "Girl's name is required";
             if (!formData.girlDob) newErrors.girlDob = "Girl's DOB is required";
@@ -228,13 +228,12 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
         onClose();
     };
 
-    const inputClass = (field) => `w-full border-b-2 bg-transparent px-0 py-2.5 text-sm md:text-base font-semibold focus:outline-none transition-all placeholder:font-normal ${
-        errors[field]
-            ? 'border-red-500 text-red-400'
-            : isDarkMode
-                ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-600'
-                : 'border-black/10 text-black focus:border-[#4B0082] placeholder:text-gray-400'
-    }`;
+    const inputClass = (field) => `w-full border-b-2 bg-transparent px-0 py-2.5 text-sm md:text-base font-semibold focus:outline-none transition-all placeholder:font-normal ${errors[field]
+        ? 'border-red-500 text-red-400'
+        : isDarkMode
+            ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-600'
+            : 'border-black/10 text-black focus:border-[#4B0082] placeholder:text-gray-400'
+        }`;
 
     const labelClass = `text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2 mb-1 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`;
 
@@ -267,7 +266,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                             className={`relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[1.5rem] md:rounded-[2.5rem] border shadow-2xl custom-scrollbar ${isDarkMode
                                 ? 'bg-[#17202A] border-gold/10'
                                 : 'bg-[#F5F5DC] border-[#4B0082]/10'
-                            }`}
+                                }`}
                             data-lenis-prevent
                             style={{
                                 scrollbarWidth: 'thin',
@@ -277,7 +276,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                             }}
                         >
                             {/* Watermark Logo */}
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.4] overflow-hidden">
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.2] overflow-hidden">
                                 <img src={logo} alt="" className="w-1/2 aspect-square object-contain" style={{ filter: isDarkMode ? 'none' : 'multiply' }} />
                             </div>
 
@@ -288,7 +287,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                                     className={`absolute top-3 right-3 md:top-4 md:right-4 p-2 rounded-full transition-all z-20 ${isDarkMode
                                         ? 'bg-white/10 text-white hover:bg-gold hover:text-black'
                                         : 'bg-[#4B0082]/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'
-                                    }`}
+                                        }`}
                                 >
                                     <X size={16} />
                                 </button>
@@ -302,7 +301,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                                         <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.15em] mb-3 md:mb-4 ${isDarkMode
                                             ? 'bg-gold/10 text-gold border border-gold/20'
                                             : 'bg-[#4B0082]/10 text-[#4B0082] border border-[#4B0082]/20'
-                                        }`}>
+                                            }`}>
                                             <Shield size={10} />
                                             Secure Booking
                                         </div>
@@ -315,7 +314,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                                     </div>
 
                                     <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
-                                        
+
                                         {isMatching ? (
                                             <>
                                                 {/* Boy's Details */}
@@ -326,28 +325,28 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                                                     </div>
                                                     <div>
                                                         <label className={labelClass}>Name *</label>
-                                                        <input type="text" placeholder="Boy's full name" className={inputClass('boyName')} 
-                                                            value={formData.boyName} onChange={(e) => setFormData({...formData, boyName: e.target.value})} />
+                                                        <input type="text" placeholder="Boy's full name" className={inputClass('boyName')}
+                                                            value={formData.boyName} onChange={(e) => setFormData({ ...formData, boyName: e.target.value })} />
                                                         {errors.boyName && <p className="text-red-500 text-[10px] mt-1 font-semibold">{errors.boyName}</p>}
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div>
                                                             <label className={labelClass}><Calendar size={11} /> DOB *</label>
                                                             <input type="date" className={`${inputClass('boyDob')} [color-scheme:${isDarkMode ? 'dark' : 'light'}]`}
-                                                                value={formData.boyDob} onChange={(e) => setFormData({...formData, boyDob: e.target.value})} />
+                                                                value={formData.boyDob} onChange={(e) => setFormData({ ...formData, boyDob: e.target.value })} />
                                                             {errors.boyDob && <p className="text-red-500 text-[10px] mt-1 font-semibold">{errors.boyDob}</p>}
                                                         </div>
                                                         <div>
                                                             <label className={labelClass}><Clock size={11} /> TOB *</label>
                                                             <input type="time" className={`${inputClass('boyTob')} [color-scheme:${isDarkMode ? 'dark' : 'light'}]`}
-                                                                value={formData.boyTob} onChange={(e) => setFormData({...formData, boyTob: e.target.value})} />
+                                                                value={formData.boyTob} onChange={(e) => setFormData({ ...formData, boyTob: e.target.value })} />
                                                             {errors.boyTob && <p className="text-red-500 text-[10px] mt-1 font-semibold">{errors.boyTob}</p>}
                                                         </div>
                                                     </div>
                                                     <div>
                                                         <label className={labelClass}><MapPin size={11} /> Place of Birth *</label>
                                                         <input type="text" placeholder="City, State" className={inputClass('boyPob')}
-                                                            value={formData.boyPob} onChange={(e) => setFormData({...formData, boyPob: e.target.value})} />
+                                                            value={formData.boyPob} onChange={(e) => setFormData({ ...formData, boyPob: e.target.value })} />
                                                         {errors.boyPob && <p className="text-red-500 text-[10px] mt-1 font-semibold">{errors.boyPob}</p>}
                                                     </div>
                                                 </div>
@@ -361,27 +360,27 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                                                     <div>
                                                         <label className={labelClass}>Name *</label>
                                                         <input type="text" placeholder="Girl's full name" className={inputClass('girlName')}
-                                                            value={formData.girlName} onChange={(e) => setFormData({...formData, girlName: e.target.value})} />
+                                                            value={formData.girlName} onChange={(e) => setFormData({ ...formData, girlName: e.target.value })} />
                                                         {errors.girlName && <p className="text-red-500 text-[10px] mt-1 font-semibold">{errors.girlName}</p>}
                                                     </div>
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div>
                                                             <label className={labelClass}><Calendar size={11} /> DOB *</label>
                                                             <input type="date" className={`${inputClass('girlDob')} [color-scheme:${isDarkMode ? 'dark' : 'light'}]`}
-                                                                value={formData.girlDob} onChange={(e) => setFormData({...formData, girlDob: e.target.value})} />
+                                                                value={formData.girlDob} onChange={(e) => setFormData({ ...formData, girlDob: e.target.value })} />
                                                             {errors.girlDob && <p className="text-red-500 text-[10px] mt-1 font-semibold">{errors.girlDob}</p>}
                                                         </div>
                                                         <div>
                                                             <label className={labelClass}><Clock size={11} /> TOB *</label>
                                                             <input type="time" className={`${inputClass('girlTob')} [color-scheme:${isDarkMode ? 'dark' : 'light'}]`}
-                                                                value={formData.girlTob} onChange={(e) => setFormData({...formData, girlTob: e.target.value})} />
+                                                                value={formData.girlTob} onChange={(e) => setFormData({ ...formData, girlTob: e.target.value })} />
                                                             {errors.girlTob && <p className="text-red-500 text-[10px] mt-1 font-semibold">{errors.girlTob}</p>}
                                                         </div>
                                                     </div>
                                                     <div>
                                                         <label className={labelClass}><MapPin size={11} /> Place of Birth *</label>
                                                         <input type="text" placeholder="City, State" className={inputClass('girlPob')}
-                                                            value={formData.girlPob} onChange={(e) => setFormData({...formData, girlPob: e.target.value})} />
+                                                            value={formData.girlPob} onChange={(e) => setFormData({ ...formData, girlPob: e.target.value })} />
                                                         {errors.girlPob && <p className="text-red-500 text-[10px] mt-1 font-semibold">{errors.girlPob}</p>}
                                                     </div>
                                                 </div>
@@ -458,7 +457,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                                                 className={`flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-xl font-black text-[10px] md:text-xs tracking-widest uppercase shadow-lg transition-all disabled:opacity-50 ${isDarkMode
                                                     ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                                                     : 'bg-[#4B0082] text-white hover:bg-black shadow-[#4B0082]/20'
-                                                }`}>
+                                                    }`}>
                                                 {loading ? <Loader2 size={16} className="animate-spin" /> : <><CreditCard size={14} /> Pay Now</>}
                                             </motion.button>
                                         </div>
