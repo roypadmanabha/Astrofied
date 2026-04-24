@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -131,6 +131,12 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     restDelta: 0.001
   });
 
+  const isModalOpenRef = useRef(false);
+  
+  useEffect(() => {
+    isModalOpenRef.current = isConsultationModalOpen || legalModal.isOpen;
+  }, [isConsultationModalOpen, legalModal.isOpen]);
+
   useEffect(() => {
     // Force scroll to top on refresh
     if ('scrollRestoration' in window.history) {
@@ -139,24 +145,19 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     window.scrollTo(0, 0);
 
     const lenis = new Lenis({
-      duration: 0.8, // Slightly faster for responsiveness
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.2, // Increase for better handling
+      wheelMultiplier: 1.2,
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
     });
 
     function raf(time) {
-      // Check if any modal is open to stop Lenis scroll
-      const isModalOpen = document.body.style.overflow === 'hidden' || 
-                          isConsultationModalOpen || 
-                          legalModal.isOpen;
-      
-      if (!isModalOpen) {
+      if (!isModalOpenRef.current) {
         lenis.raf(time);
       }
       requestAnimationFrame(raf);
