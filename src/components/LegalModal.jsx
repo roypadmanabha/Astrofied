@@ -44,7 +44,7 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
                     style={{ maxHeight: '90vh' }}
                 >
                     {/* Watermark Logo */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.4] overflow-hidden">
                         <img src={logo} alt="" className="w-1/2 md:w-3/4 aspect-square object-contain" style={{ filter: isDarkMode ? 'none' : 'multiply' }} />
                     </div>
 
