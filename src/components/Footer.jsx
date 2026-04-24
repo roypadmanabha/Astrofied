@@ -93,24 +93,6 @@ export default function Footer({ onOpenLegal }) {
                             >
                                 Privacy Policy
                             </button>
-                            <button
-                                onClick={() => onOpenLegal('refund')}
-                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
-                            >
-                                Refund Policy
-                            </button>
-                            <button
-                                onClick={() => onOpenLegal('shipping')}
-                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
-                            >
-                                Shipping Policy
-                            </button>
-                            <button
-                                onClick={() => onOpenLegal('contact')}
-                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
-                            >
-                                Contact Us
-                            </button>
                         </div>
                     </div>
 

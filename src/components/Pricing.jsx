@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import pricingHoroscope from '../assets/pricing-horoscope.png';
 import pricingKundali from '../assets/pricing-kundali.jpg';
-import BookingModal from './BookingModal';
 
 const Pricing = () => {
   const { isDarkMode } = useTheme();
-  const [selectedService, setSelectedService] = useState(null);
 
   const pricingData = [
     {
@@ -109,7 +107,7 @@ const Pricing = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedService(item)}
+                    onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
                     className={`px-6 py-3 rounded-xl font-black text-xs tracking-widest uppercase shadow-lg transition-all ${isDarkMode
                       ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                       : 'bg-[#4B0082] text-white hover:bg-black shadow-[#4B0082]/20'
@@ -123,14 +121,6 @@ const Pricing = () => {
           ))}
         </div>
       </div>
-
-      {/* Booking Modal with Razorpay */}
-      <BookingModal
-        isOpen={!!selectedService}
-        onClose={() => setSelectedService(null)}
-        service={selectedService?.title || ''}
-        price={selectedService?.price || ''}
-      />
     </section>
   );
 };
