@@ -14,6 +14,7 @@ import Hero from './components/Hero';
 import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
+import ConsultationModal from './components/ConsultationModal';
 import StarfieldBg from './components/StarfieldBg';
 
 import logo from './assets/logo.png';
@@ -28,6 +29,12 @@ function MainContent() {
   const [showFullWhySj, setShowFullWhySj] = useState(false);
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
+  const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
+
+  const handleConsultationConfirm = () => {
+    setIsConsultationModalOpen(false);
+    window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20appointment%20for%20an%20online%20consultation%20with%20Astrofied.%20Please%20guide%20me%20through%20the%20process%20of%20sending%20my%20birth%20details%20and%20completing%20the%20payment.', '_blank');
+  };
 
   const openLegalModal = (type) => {
     if (type === 'terms') {
@@ -329,7 +336,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20appointment%20for%20an%20online%20consultation%20with%20Astrofied.%20Please%20guide%20me%20through%20the%20process%20of%20sending%20my%20birth%20details%20and%20completing%20the%20payment.', '_blank')}
+          onClick={() => setIsConsultationModalOpen(true)}
           className={`relative z-10 px-6 py-3 sm:px-8 sm:py-4 md:px-12 md:py-5 rounded-full border-2 text-sm sm:text-base md:text-xl font-bold tracking-widest transition-all shadow-xl font-mulish ${isDarkMode
             ? 'bg-transparent border-gold text-gold hover:bg-gold hover:text-black shadow-gold/20'
             : 'bg-[#4B0082] border-[#4B0082] text-white hover:bg-transparent hover:text-[#4B0082] shadow-[#4B0082]/20'
@@ -352,6 +359,11 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         onClose={() => setLegalModal({ ...legalModal, isOpen: false })}
         title={legalModal.title}
         content={legalModal.content}
+      />
+      <ConsultationModal
+        isOpen={isConsultationModalOpen}
+        onClose={() => setIsConsultationModalOpen(false)}
+        onConfirm={handleConsultationConfirm}
       />
     </div>
   );
