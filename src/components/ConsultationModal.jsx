@@ -65,7 +65,7 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm }) {
                                 WebkitOverflowScrolling: 'touch' 
                             }}
                         >
-                            <div className={`rounded-3xl overflow-hidden border shadow-lg ${
+                            <div className={`rounded-none overflow-hidden border shadow-lg ${
                                 isDarkMode ? 'border-white/5' : 'border-black/5'
                             }`}>
                                 <img
