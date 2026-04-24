@@ -116,39 +116,26 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     } else if (type === 'refund') {
       setLegalModal({
         isOpen: true,
-        title: 'Refund and Cancellation Policy',
-        content: `<b>1. Digital Services and Consultations</b>
-At Astrofied Ltd., we provide personalised astrological services, including live consultations and digital reports. Due to the high level of individual analysis and time dedicated by our experts for each booking, our refund policy is as follows:
+        title: 'Refund Policy',
+        content: `<b>1. Personalized Nature of Services</b>
+Astrological reports and consultations are highly personalized and involve significant time and effort from our expert. Once a report is generated or a consultation session has been initiated/completed, the service is considered "delivered".
 
-<b>2. Cancellations by Customer</b>
-• <b>Live Consultations:</b> If you wish to cancel a scheduled consultation, you must do so at least 24 hours before the appointment time to be eligible for a partial refund or rescheduling.
-• <b>Reports:</b> Once the analysis has begun (usually within 2 hours of payment), the order cannot be cancelled or refunded.
+<b>2. Non-Refundable Services</b>
+Due to the nature of digital goods and professional consulting services:
+- Customized reports are non-refundable once delivered.
+- Completed consultations (phone, chat, or in-person) are non-refundable.
 
-<b>3. Refund Eligibility</b>
-• Refunds are only processed if the service is not delivered by our expert within the promised timeframe.
-• If you are unable to attend a scheduled session without prior notice (24 hours), no refund will be issued.
+<b>3. Exceptions for Refund</b>
+You may request a refund in the following scenarios:
+- <b>Double Payment:</b> If you were charged twice for the same service due to a technical error.
+- <b>Incomplete Service:</b> If the service is not delivered by us within the promised timeframe (usually 3-7 working days for reports) or the consultation does not happen due to our absence.
+- <b>Cancellation:</b> If you cancel your booking at least 24 hours before the scheduled consultation time.
 
-<b>4. Processing Refunds</b>
-In case of an approved refund, the amount will be credited back to your original payment method within 7-10 working days.
+<b>4. Refund Process</b>
+To request a refund, please email us at sj.astrologyservices@gmail.com with your Order ID and Payment ID. Refund requests will be processed within 5-7 working days after approval.
 
-<b>5. Contact Us</b>
-For any cancellation or refund requests, please email us at contact.astrofied@gmail.com with your Payment ID.`
-      });
-    } else if (type === 'shipping') {
-      setLegalModal({
-        isOpen: true,
-        title: 'Shipping and Delivery Policy',
-        content: `Astrofied Ltd. primarily provides digital and consultation-based services. We do not ship physical products unless explicitly stated.
-
-<b>1. Digital Reports</b>
-All digital astrological reports are delivered via Email or WhatsApp in PDF format within 3-5 working days of receiving clear and complete birth details.
-
-<b>2. Consultation Sessions</b>
-Scheduling for live telephonic or video consultations will be confirmed within 24 hours of payment. The actual session will take place as per the mutually agreed time slot.
-
-<b>3. Service Delivery</b>
-For domestic buyers, orders are shipped through registered domestic courier companies and /or speed post only. For International buyers, orders are shipped and delivered through registered international courier companies and/or International speed post only. 
-For Digital Services: Delivery of our services will be confirmed on your mail ID as specified during registration. For any issues in utilizing our services you may contact our helpdesk on +91 96127 36566.`
+<b>5. Dispute Resolution</b>
+For any payment-related disputes, please contact us directly before raising a chargeback with your bank or payment provider. We are committed to resolving issues for our valued customers.`
       });
     }
   };
@@ -266,7 +253,7 @@ For Digital Services: Delivery of our services will be confirmed on your mail ID
       {/* Services Section */}
       <Services />
       <Kundali />
-      <Pricing />
+      <Pricing onOpenLegal={openLegalModal} />
 
       {/* About Us Section */}
       <section id="about" className="py-24 overflow-hidden">

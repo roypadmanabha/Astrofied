@@ -5,7 +5,7 @@ import { X, User, Phone, MapPin, Calendar, Clock, Mail, FileText, CheckCircle, L
 import axios from 'axios';
 import logo from '../assets/logo.png';
 
-const BookingModal = ({ isOpen, onClose, service, price }) => {
+const BookingModal = ({ isOpen, onClose, service, price, onOpenLegal }) => {
     const { isDarkMode } = useTheme();
 
     const [step, setStep] = useState('form'); // 'form' | 'processing' | 'success' | 'error'
@@ -24,6 +24,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
         notes: ''
     });
 
+    const [agreedToTerms, setAgreedToTerms] = useState(false);
     const [errors, setErrors] = useState({});
 
     const validate = () => {
@@ -36,6 +37,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
         if (!formData.dob) newErrors.dob = 'Date of birth is required';
         if (!formData.pob.trim()) newErrors.pob = 'Place of birth is required';
         if (!formData.tob) newErrors.tob = 'Time of birth is required';
+        if (!agreedToTerms) newErrors.agreedToTerms = 'You must agree to the Terms and Refund Policy';
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -167,6 +169,7 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
         setError('');
         setPaymentResult(null);
         setFormData({ name: '', phone: '', email: '', address: '', dob: '', pob: '', tob: '', notes: '' });
+        setAgreedToTerms(false);
         setErrors({});
         onClose();
     };
@@ -369,6 +372,21 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                                             onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                                         />
                                     </div>
+
+                                    {/* Terms & Conditions Checkbox */}
+                                    <div className="flex items-start gap-3 py-2">
+                                        <input
+                                            type="checkbox"
+                                            id="terms"
+                                            className="mt-1"
+                                            checked={agreedToTerms}
+                                            onChange={(e) => setAgreedToTerms(e.target.checked)}
+                                        />
+                                        <label htmlFor="terms" className={`text-[10px] md:text-xs font-medium leading-tight ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                                            I agree to the <button type="button" onClick={() => onOpenLegal('terms')} className="text-gold font-bold hover:underline">Terms & Conditions</button> and <button type="button" onClick={() => onOpenLegal('refund')} className="text-gold font-bold hover:underline">Refund Policy</button> of Astrofied Ltd.
+                                        </label>
+                                    </div>
+                                    {errors.agreedToTerms && <p className="text-red-500 text-[10px] font-semibold -mt-2">{errors.agreedToTerms}</p>}
 
                                     {/* Price & Pay Button */}
                                     <div className={`flex items-center justify-between p-3 md:p-4 rounded-2xl mt-2 ${isDarkMode ? 'bg-white/5' : 'bg-black/5'}`}>
