@@ -26,7 +26,7 @@ const services = [
         price: '₹ 10095',
         duration: '40 Min',
         icon: DoubleHeart,
-        color: 'bg-[#0047AB]/10 text-[#0047AB]',
+        color: 'bg-[#FF7F50]/20 text-[#FF7F50]',
     },
     {
         id: 3,
