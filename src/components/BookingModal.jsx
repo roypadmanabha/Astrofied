@@ -13,39 +13,16 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
     const [error, setError] = useState('');
     const [paymentResult, setPaymentResult] = useState(null);
 
-    // Robust body scroll lock when modal is open
+    // Simple scroll lock matching LegalModal
     useEffect(() => {
         if (isOpen) {
-            const scrollY = window.scrollY;
-            document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.left = '0';
-            document.body.style.right = '0';
-            document.body.style.width = '100%';
-
-            return () => {
-                document.documentElement.style.overflow = '';
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.left = '';
-                document.body.style.right = '';
-                document.body.style.width = '';
-                
-                // First try to scroll to the saved position
-                window.scrollTo(0, scrollY);
-                
-                // Additionally, ensure we are at the pricing section if it jumped
-                setTimeout(() => {
-                    const pricingSection = document.getElementById('pricing');
-                    if (pricingSection) {
-                        pricingSection.scrollIntoView({ behavior: 'instant', block: 'nearest' });
-                    }
-                }, 0);
-            };
+        } else {
+            document.body.style.overflow = '';
         }
+        return () => {
+            document.body.style.overflow = '';
+        };
     }, [isOpen]);
 
     const [formData, setFormData] = useState({
@@ -271,10 +248,11 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                         animate={{ scale: 1, y: 0, opacity: 1 }}
                         exit={{ scale: 0.9, y: 40, opacity: 0 }}
                         transition={{ type: 'spring', duration: 0.5 }}
-                        className={`relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[1.5rem] md:rounded-[2.5rem] border shadow-2xl ${isDarkMode
+                        className={`relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[1.5rem] md:rounded-[2.5rem] border shadow-2xl custom-scrollbar ${isDarkMode
                             ? 'bg-[#17202A] border-gold/10'
                             : 'bg-[#F5F5DC] border-[#4B0082]/10'
                         }`}
+                        data-lenis-prevent
                         style={{
                             scrollbarWidth: 'thin',
                             scrollbarColor: isDarkMode ? '#D4AF37 transparent' : '#4B0082 transparent',
@@ -582,6 +560,22 @@ const BookingModal = ({ isOpen, onClose, service, price }) => {
                 </motion.div>
             )}
         </AnimatePresence>
+
+        <style jsx>{`
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 6px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: ${isDarkMode ? 'rgba(212, 175, 55, 0.2)' : 'rgba(75, 0, 130, 0.2)'};
+                border-radius: 10px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: ${isDarkMode ? 'rgba(212, 175, 55, 0.5)' : 'rgba(75, 0, 130, 0.5)'};
+            }
+        `}</style>
     );
 };
 
