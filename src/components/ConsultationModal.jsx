@@ -75,28 +75,20 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm }) {
                         </div>
 
                         {/* Footer Actions */}
-                        <div className={`p-6 border-t flex flex-col sm:flex-row gap-4 items-center justify-center ${
-                            isDarkMode ? 'border-white/10' : 'border-black/5'
+                        <div className={`p-6 border-t flex flex-row gap-3 items-center justify-center ${
+                            isDarkMode ? 'border-white/10 bg-black/40' : 'border-black/5 bg-black/5'
                         }`}>
                             <button
                                 onClick={onClose}
-                                className={`w-full sm:w-auto px-10 py-3 rounded-full font-bold transition-all border ${
-                                    isDarkMode 
-                                        ? 'border-white/10 text-white hover:bg-white/5' 
-                                        : 'border-black/10 text-gray-700 hover:bg-black/5'
-                                }`}
+                                className="flex-1 px-4 py-3.5 rounded-2xl font-bold transition-all bg-[#FF3B30] text-white shadow-[0_4px_15px_rgba(255,59,48,0.3)] hover:scale-[1.02] active:scale-95 text-sm"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={onConfirm}
-                                className={`w-full sm:w-auto px-12 py-3 rounded-full font-bold transition-all shadow-lg flex items-center justify-center gap-2 ${
-                                    isDarkMode 
-                                        ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20' 
-                                        : 'bg-[#4B0082] text-white hover:bg-[#34005a] shadow-[#4B0082]/20'
-                                }`}
+                                className="flex-[1.5] px-4 py-3.5 rounded-2xl font-bold transition-all bg-[#4B0082] text-white shadow-[0_4px_15px_rgba(75,0,130,0.3)] hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 text-sm"
                             >
-                                Proceed <ArrowRight size={18} />
+                                Proceed <ArrowRight size={16} />
                             </button>
                         </div>
                     </motion.div>
