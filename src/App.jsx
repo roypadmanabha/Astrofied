@@ -15,7 +15,6 @@ import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
 import ConsultationModal from './components/ConsultationModal';
-import Highlights from './components/Highlights';
 import StarfieldBg from './components/StarfieldBg';
 
 import logo from './assets/logo.png';
@@ -357,9 +356,6 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           BOOK A CONSULTATION
         </motion.button>
       </section>
-
-      {/* Highlights Section */}
-      <Highlights />
 
       {/* Feedback Section */}
       <Feedback />

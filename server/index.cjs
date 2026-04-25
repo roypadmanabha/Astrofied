@@ -116,42 +116,6 @@ app.post('/api/kundali', async (req, res) => {
     }
 });
 
-app.post('/api/navamsa', async (req, res) => {
-    try {
-        const { year, month, date, hours, minutes, seconds, latitude, longitude, timezone } = req.body;
-
-        const payload = {
-            year,
-            month,
-            date,
-            hours,
-            minutes,
-            seconds: seconds || 0,
-            latitude,
-            longitude,
-            timezone,
-            settings: {
-                observation_point: 'topocentric',
-                ayanamsha: 'lahiri'
-            }
-        };
-
-        const response = await axios.post('https://json.freeastrologyapi.com/navamsa-chart-info', payload, {
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': process.env.FREE_ASTROLOGY_API_KEY
-            }
-        });
-
-        res.json(response.data);
-    } catch (error) {
-        console.error('FREEASTRO API ERROR:', error.response?.status, error.response?.data || error.message);
-        res.status(error.response?.status || 500).json({ 
-            error: error.response?.data?.message || 'Failed to fetch Navamsa data' 
-        });
-    }
-});
-
 // Update for Railway: Use process.env.PORT
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, '0.0.0.0', () => {
