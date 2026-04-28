@@ -62,7 +62,7 @@ async function getAccessToken() {
 
         accessToken = response.data.access_token;
         tokenExpiry = Date.now() + (response.data.expires_in * 1000);
-        
+
         console.log('Successfully obtained new Prokerala access token.');
         return accessToken;
     } catch (error) {
@@ -74,7 +74,7 @@ async function getAccessToken() {
 app.post('/api/kundali', async (req, res) => {
     try {
         const { name, dob, tob, lat, lon, tzo } = req.body;
-        
+
         if (!dob || !tob || !lat || !lon) {
             return res.status(400).json({ error: 'Missing required birth details' });
         }
@@ -108,12 +108,12 @@ app.post('/api/kundali', async (req, res) => {
             data: error.response?.data,
             message: error.message
         });
-        
-        const prokeralaError = error.response?.data?.errors?.[0]?.detail || 
-                              error.response?.data?.message || 
-                              error.message;
-                              
-        res.status(error.response?.status || 500).json({ 
+
+        const prokeralaError = error.response?.data?.errors?.[0]?.detail ||
+            error.response?.data?.message ||
+            error.message;
+
+        res.status(error.response?.status || 500).json({
             error: prokeralaError,
             details: error.response?.data
         });
