@@ -176,19 +176,21 @@ export default function Hero({ onOpenConsultation }) {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className={`relative w-full max-w-5xl overflow-hidden rounded-[2rem] border shadow-2xl ${isDarkMode ? 'bg-[#121212] border-gold/20' : 'bg-white border-[#4B0082]/20'
+                            className={`relative w-full max-w-5xl rounded-[2rem] border shadow-2xl ${isDarkMode ? 'bg-[#121212] border-gold/20' : 'bg-white border-[#4B0082]/20'
                                 }`}
                         >
-                            <button
-                                onClick={() => setIsDetailsModalOpen(false)}
-                                className={`absolute top-4 right-4 p-2 rounded-full transition-all z-10 ${isDarkMode
-                                    ? 'bg-white/10 text-white hover:bg-gold hover:text-black'
-                                    : 'bg-[#4B0082]/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'
-                                    }`}
-                            >
-                                <X size={24} />
-                            </button>
-                            <div className="p-2 md:p-4">
+                            <div className="flex justify-end p-2 md:p-4">
+                                <button
+                                    onClick={() => setIsDetailsModalOpen(false)}
+                                    className={`p-2 rounded-full transition-all z-10 ${isDarkMode
+                                        ? 'bg-white/10 text-white hover:bg-gold hover:text-black'
+                                        : 'bg-[#4B0082]/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'
+                                        }`}
+                                >
+                                    <X size={24} />
+                                </button>
+                            </div>
+                            <div className="p-2 md:p-4 pt-0 md:pt-0">
                                 <img
                                     src={astrofiedDetails}
                                     alt="Astrofied Details"
