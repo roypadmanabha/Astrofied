@@ -1,11 +1,18 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, UserCheck } from 'lucide-react';
+import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, UserCheck, LayoutGrid } from 'lucide-react';
 
 const DoubleHeart = ({ size, strokeWidth }) => (
     <div className="relative">
         <Heart size={size * 0.8} strokeWidth={strokeWidth} className="relative -top-2 -left-2 opacity-50" />
         <Heart size={size * 0.8} strokeWidth={strokeWidth} className="absolute top-2 left-2" />
+    </div>
+);
+
+const DoubleChart = ({ size, strokeWidth }) => (
+    <div className="relative">
+        <LayoutGrid size={size * 0.8} strokeWidth={strokeWidth} className="relative -top-1 -left-1 opacity-50" />
+        <LayoutGrid size={size * 0.8} strokeWidth={strokeWidth} className="absolute top-1 left-1" />
     </div>
 );
 
@@ -34,7 +41,7 @@ const services = [
         desc: 'Vedic Kundali matching for a prosperous married life.',
         price: '₹ 8500',
         duration: '60 Min',
-        icon: UserCheck,
+        icon: DoubleChart,
         color: 'bg-blue-100 text-blue-600',
     },
     {
