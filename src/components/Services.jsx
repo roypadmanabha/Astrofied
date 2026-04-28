@@ -122,12 +122,18 @@ export default function Services() {
                             className={`rounded-[2rem] p-6 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-[#17202A] border-gray-800' : 'bg-[#FFFFFF] border-gold/10'} group relative overflow-hidden`}
                         >
                             {/* Glossy Gift Ribbon */}
-                            <div className="absolute top-0 left-0 w-35 h-20 pointer-events-none z-20">
-                                <div className="absolute top-0 left-0 w-[160%] h-7 bg-gradient-to-r from-red-700 via-red-500 to-red-700 shadow-xl transform -rotate-45 -translate-x-[35%] translate-y-[32%] flex items-center justify-center border-y border-white/30 overflow-hidden">
+                            <div className="absolute top-0 left-0 w-25 h-20 pointer-events-none z-20">
+                                <div className={`absolute top-0 left-0 w-[160%] h-7 shadow-xl transform -rotate-45 -translate-x-[35%] translate-y-[32%] flex items-center justify-center border-y border-white/30 overflow-hidden ${
+                                    isDarkMode 
+                                        ? 'bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#B8860B]' 
+                                        : 'bg-gradient-to-r from-[#4B0082] via-[#6A0DAD] to-[#4B0082]'
+                                }`}>
                                     {/* Glossy Shine Effect */}
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
 
-                                    <span className="text-[9px] font-black text-white tracking-[0.2em] uppercase flex items-center gap-1.5 drop-shadow-sm">
+                                    <span className={`text-[9px] font-black tracking-[0.2em] uppercase flex items-center gap-1.5 drop-shadow-sm ${
+                                        isDarkMode ? 'text-black' : 'text-white'
+                                    }`}>
                                         Astrofied
                                     </span>
                                 </div>
