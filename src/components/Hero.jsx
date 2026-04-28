@@ -179,18 +179,7 @@ export default function Hero({ onOpenConsultation }) {
                             className={`relative w-full max-w-5xl rounded-[2rem] border shadow-2xl ${isDarkMode ? 'bg-[#121212] border-gold/20' : 'bg-white border-[#4B0082]/20'
                                 }`}
                         >
-                            <div className="flex justify-end p-2 md:p-4">
-                                <button
-                                    onClick={() => setIsDetailsModalOpen(false)}
-                                    className={`p-2 rounded-full transition-all z-10 ${isDarkMode
-                                        ? 'bg-white/10 text-white hover:bg-gold hover:text-black'
-                                        : 'bg-[#4B0082]/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'
-                                        }`}
-                                >
-                                    <X size={24} />
-                                </button>
-                            </div>
-                            <div className="p-2 md:p-4 pt-0 md:pt-0">
+                            <div className="p-2 md:p-4">
                                 <img
                                     src={astrofiedDetails}
                                     alt="Astrofied Details"
