@@ -1,10 +1,14 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { X } from 'lucide-react';
 import astrologer from '../assets/hero-astrologer.png';
 import zodiacBg from '../assets/zodiac-wheel.png';
+import astrofiedDetails from '../assets/astrofied-details.png';
+import { useState } from 'react';
 
 export default function Hero({ onOpenConsultation }) {
     const { isDarkMode } = useTheme();
+    const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-28 pb-12 md:pb-20 overflow-hidden">
@@ -52,13 +56,8 @@ export default function Hero({ onOpenConsultation }) {
                             >
                                 Book a Consultation
                             </button>
-                            <button
-                                onClick={() => {
-                                    const element = document.querySelector('#why-astrofied');
-                                    if (element) {
-                                        element.scrollIntoView({ behavior: 'smooth' });
-                                    }
-                                }}
+                             <button
+                                onClick={() => setIsDetailsModalOpen(true)}
                                 className={`px-10 py-4 rounded-xl font-bold text-lg transition-all border glass hover:scale-105 active:scale-95 cursor-pointer ${isDarkMode
                                     ? 'border-gold/30 text-gold hover:border-gold shadow-gold/5'
                                     : 'border-[#4B0082]/30 text-[#4B0082] hover:border-[#4B0082] shadow-[#4B0082]/5'
@@ -161,6 +160,45 @@ export default function Hero({ onOpenConsultation }) {
                     </div>
                 </div>
             </div>
+
+            {/* Details Modal */}
+            <AnimatePresence>
+                {isDetailsModalOpen && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setIsDetailsModalOpen(false)}
+                            className={`absolute inset-0 backdrop-blur-md ${isDarkMode ? 'bg-black/80' : 'bg-white/80'}`}
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className={`relative w-full max-w-5xl overflow-hidden rounded-[2rem] border shadow-2xl ${isDarkMode ? 'bg-[#121212] border-gold/20' : 'bg-white border-[#4B0082]/20'
+                                }`}
+                        >
+                            <button
+                                onClick={() => setIsDetailsModalOpen(false)}
+                                className={`absolute top-4 right-4 p-2 rounded-full transition-all z-10 ${isDarkMode
+                                    ? 'bg-white/10 text-white hover:bg-gold hover:text-black'
+                                    : 'bg-[#4B0082]/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'
+                                    }`}
+                            >
+                                <X size={24} />
+                            </button>
+                            <div className="p-2 md:p-4">
+                                <img
+                                    src={astrofiedDetails}
+                                    alt="Astrofied Details"
+                                    className="w-full h-auto rounded-xl object-contain"
+                                />
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </section>
     );
 }

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Briefcase, Landmark, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, UserCheck } from 'lucide-react';
+import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, UserCheck } from 'lucide-react';
 
 const DoubleHeart = ({ size, strokeWidth }) => (
     <div className="relative">
@@ -52,7 +52,7 @@ const services = [
         desc: 'Insights into wealth accumulation and financial stability.',
         price: '₹ 12455',
         duration: '40 Mins',
-        icon: Landmark,
+        icon: IndianRupee,
         color: 'bg-orange-100 text-orange-600',
     },
     {

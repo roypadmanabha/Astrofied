@@ -99,12 +99,16 @@ app.post('/api/kundali', async (req, res) => {
             }
         });
 
+        console.log(`Successfully generated chart for ${name}`);
         res.set('Content-Type', 'image/svg+xml');
         res.send(response.data);
     } catch (error) {
-        console.error('PROKERALA API ERROR:', error.response?.status, JSON.stringify(error.response?.data || error.message));
+        console.error('PROKERALA API ERROR:', {
+            status: error.response?.status,
+            data: error.response?.data,
+            message: error.message
+        });
         
-        // Extract the most descriptive error message from Prokerala V2 response
         const prokeralaError = error.response?.data?.errors?.[0]?.detail || 
                               error.response?.data?.message || 
                               error.message;
