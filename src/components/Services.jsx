@@ -123,13 +123,13 @@ export default function Services() {
                         >
                             {/* Glossy Gift Ribbon */}
                             <div className="absolute top-0 left-0 w-20 h-20 pointer-events-none z-20">
-                                <div className="absolute top-0 left-0 w-[140%] h-7 bg-gradient-to-r from-red-700 via-red-500 to-red-700 shadow-xl transform -rotate-45 -translate-x-[35%] translate-y-[20%] flex items-center justify-center border-y border-white/30 overflow-hidden">
+                                <div className="absolute top-0 left-0 w-[140%] h-7 bg-gradient-to-r from-red-700 via-red-500 to-red-700 shadow-xl transform -rotate-45 -translate-x-[30%] translate-y-[30%] flex items-center justify-center border-y border-white/30 overflow-hidden">
                                     {/* Glossy Shine Effect */}
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-                                    
+
                                     <span className="text-[9px] font-black text-white tracking-[0.2em] uppercase flex items-center gap-1.5 drop-shadow-sm">
                                         <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse shadow-[0_0_5px_white]" />
-                                        Vedic
+                                        Astrofied
                                     </span>
                                 </div>
                             </div>
