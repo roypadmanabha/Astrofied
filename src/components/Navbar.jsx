@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronRight } from 'lucide-react';
+import { Sun, Moon, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronsRight } from 'lucide-react';
 
 import logo from '../assets/logo.png';
 
@@ -14,15 +14,15 @@ const desktopNavLinks = [
 ];
 
 const mobileNavLinks = [
-    { name: 'Book Consultation', href: '#', icon: ChevronRight },
-    { name: 'Services', href: '#services', icon: ChevronRight },
-    { name: 'Kundali', href: '#kundali', icon: ChevronRight },
-    { name: 'Pricing', href: '#pricing', icon: ChevronRight },
-    { name: 'About', href: '#about', icon: ChevronRight },
-    { name: 'Contact', href: '#footer', icon: ChevronRight },
-    { name: 'Feedback', href: '#feedback', icon: ChevronRight },
-    { name: 'Terms & Conditions', href: '/terms-and-conditions.html', icon: ChevronRight },
-    { name: 'Privacy Policy', href: '/privacy-policy.html', icon: ChevronRight },
+    { name: 'Book Consultation', href: '#', icon: ChevronsRight },
+    { name: 'Services', href: '#services', icon: ChevronsRight },
+    { name: 'Kundali', href: '#kundali', icon: ChevronsRight },
+    { name: 'Pricing', href: '#pricing', icon: ChevronsRight },
+    { name: 'About', href: '#about', icon: ChevronsRight },
+    { name: 'Contact', href: '#footer', icon: ChevronsRight },
+    { name: 'Feedback', href: '#feedback', icon: ChevronsRight },
+    { name: 'Terms & Conditions', href: '/terms-and-conditions.html', icon: ChevronsRight },
+    { name: 'Privacy Policy', href: '/privacy-policy.html', icon: ChevronsRight },
 ];
 
 export default function Navbar({ onOpenLegal, onOpenConsultation }) {
