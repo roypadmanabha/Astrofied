@@ -143,7 +143,7 @@ export default function Services() {
                             <div className={`absolute bottom-0 right-0 w-12 h-12 transition-colors duration-300 ${
                                 isDarkMode 
                                     ? 'bg-gradient-to-tl from-[#002366] via-[#4169E1] to-[#002366]' 
-                                    : 'bg-gradient-to-tl from-[#E9967A] via-[#FF7F50] to-[#E9967A]'
+                                    : 'bg-gradient-to-tl from-[#B8860B] via-[#D4AF37] to-[#B8860B]'
                             }`} style={{ clipPath: 'polygon(100% 100%, 0 100%, 100% 0)' }}>
                                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                             </div>
