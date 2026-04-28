@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
-import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, UserCheck } from 'lucide-react';
+import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass } from 'lucide-react';
 
 const DoubleHeart = ({ size, strokeWidth }) => (
     <div className="relative">
@@ -31,11 +31,11 @@ const services = [
     },
     {
         id: 3,
-        title: 'Horoscope Matching',
-        desc: 'Vedic Kundali matching for a prosperous married life.',
+        title: 'Dasha Analysis',
+        desc: 'Current/Upcoming Dasha Analysis for a clear future roadmap.',
         price: '₹ 8500',
         duration: '60 Min',
-        icon: UserCheck,
+        icon: Hourglass,
         color: 'bg-blue-100 text-blue-600',
     },
     {
