@@ -14,7 +14,7 @@ const services = [
     {
         id: 1,
         title: 'Career',
-        desc: 'Navigate your professional path with expert astrological guidance.',
+        desc: 'Choose your career path with astrological guidance',
         price: '₹ 8915',
         duration: '40 Min',
         icon: Briefcase,
@@ -23,7 +23,7 @@ const services = [
     {
         id: 2,
         title: 'Marriage',
-        desc: 'Find the right time and harmony for marital bliss.',
+        desc: 'Find the right time and harmony for marital bliss',
         price: '₹ 10095',
         duration: '40 Min',
         icon: DoubleHeart,
@@ -32,7 +32,7 @@ const services = [
     {
         id: 3,
         title: 'Dasha Analysis',
-        desc: 'Current/Upcoming Dasha Analysis for a clear future roadmap.',
+        desc: 'Dasha Analysis gives you a clear future roadmap',
         price: '₹ 8500',
         duration: '60 Min',
         icon: Hourglass,
@@ -41,7 +41,7 @@ const services = [
     {
         id: 4,
         title: 'Relationship Reading',
-        desc: 'Deep dive into your personal dynamics and love life.',
+        desc: 'Deep dive into your personal dynamics and love life',
         price: '₹ 10095',
         duration: '40 Min',
         icon: Heart,
@@ -50,7 +50,7 @@ const services = [
     {
         id: 5,
         title: 'Financial Reading',
-        desc: 'Insights into wealth accumulation and financial stability.',
+        desc: 'Insights into wealth accumulation and financial stability',
         price: '₹ 12455',
         duration: '40 Mins',
         icon: IndianRupee,
@@ -59,7 +59,7 @@ const services = [
     {
         id: 6,
         title: 'Health',
-        desc: 'Understand planetary influences on your physical well-being.',
+        desc: 'Understand planetary influences on your physical well-being',
         price: '₹ 6555',
         duration: '40 Mins',
         icon: Stethoscope,
@@ -68,7 +68,7 @@ const services = [
     {
         id: 7,
         title: 'Legal Disputes',
-        desc: 'Astrological remedies to navigate complex legal matters.',
+        desc: 'Astrological guidance to navigate complex legal matters',
         price: '₹ 15000',
         duration: '60 Mins',
         icon: Scale,
@@ -77,7 +77,7 @@ const services = [
     {
         id: 8,
         title: 'Child Birth',
-        desc: 'Guidance and muhurta for family planning and progeny.',
+        desc: 'Guidance and muhurta for family planning and progeny',
         price: '₹ 9500',
         duration: '40 Mins',
         icon: Baby,
@@ -121,9 +121,22 @@ export default function Services() {
                             transition={isMobile ? { duration: 0 } : { delay: index * 0.1 }}
                             className={`rounded-[2rem] p-6 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-[#17202A] border-gray-800' : 'bg-[#FFFFFF] border-gold/10'} group relative overflow-hidden`}
                         >
-                            {/* Decorative Corner Gradients matching the image */}
-                            <div className="absolute top-0 left-0 w-6 h-6 bg-gradient-to-br from-red-500 to-yellow-500" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
-                            <div className="absolute bottom-0 right-0 w-6 h-6 bg-gradient-to-br from-red-500 to-yellow-500" style={{ clipPath: 'polygon(100% 100%, 0 100%, 100% 0)' }} />
+                            {/* Glossy Gift Ribbon */}
+                            <div className="absolute top-0 left-0 w-20 h-20 pointer-events-none z-20">
+                                <div className="absolute top-0 left-0 w-[140%] h-7 bg-gradient-to-r from-red-700 via-red-500 to-red-700 shadow-xl transform -rotate-45 -translate-x-[35%] translate-y-[20%] flex items-center justify-center border-y border-white/30 overflow-hidden">
+                                    {/* Glossy Shine Effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                                    
+                                    <span className="text-[9px] font-black text-white tracking-[0.2em] uppercase flex items-center gap-1.5 drop-shadow-sm">
+                                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse shadow-[0_0_5px_white]" />
+                                        Vedic
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Bottom Right Accent */}
+                            <div className="absolute bottom-0 right-0 w-10 h-10 bg-gradient-to-br from-red-500/20 to-yellow-500/20 blur-sm" style={{ clipPath: 'polygon(100% 100%, 0 100%, 100% 0)' }} />
+                            <div className="absolute bottom-0 right-0 w-4 h-4 bg-gradient-to-br from-red-500 to-yellow-500" style={{ clipPath: 'polygon(100% 100%, 0 100%, 100% 0)' }} />
 
                             <div className={`w-28 h-28 rounded-full flex items-center justify-center mb-6 relative transition-transform duration-500 group-hover:scale-110 ${service.color}`}>
                                 <service.icon size={48} strokeWidth={1} />
