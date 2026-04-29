@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
-import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass } from 'lucide-react';
+import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass, GraduationCap, Home, HandCoins, Plane } from 'lucide-react';
 
 const DoubleHeart = ({ size, strokeWidth }) => (
     <div className="relative">
@@ -82,6 +82,42 @@ const services = [
         duration: '40 Mins',
         icon: Baby,
         color: 'bg-yellow-100 text-yellow-600',
+    },
+    {
+        id: 9,
+        title: 'Education',
+        desc: 'Navigate academic choices and competitive success with astrology',
+        price: '₹ 7500',
+        duration: '40 Mins',
+        icon: GraduationCap,
+        color: 'bg-cyan-100 text-cyan-600',
+    },
+    {
+        id: 10,
+        title: 'House and Properties',
+        desc: 'Identify the best time for buying, selling, or building your home',
+        price: '₹ 12000',
+        duration: '40 Mins',
+        icon: Home,
+        color: 'bg-teal-100 text-teal-600',
+    },
+    {
+        id: 11,
+        title: 'Loans and Debts',
+        desc: 'Astrological solutions for debt clearance and financial recovery',
+        price: '₹ 9000',
+        duration: '40 Mins',
+        icon: HandCoins,
+        color: 'bg-rose-100 text-rose-600',
+    },
+    {
+        id: 12,
+        title: 'Foreign Settlement',
+        desc: 'Insights into visa success, travel, and settling in a new land',
+        price: '₹ 11000',
+        duration: '40 Mins',
+        icon: Plane,
+        color: 'bg-emerald-100 text-emerald-600',
     },
 
 
