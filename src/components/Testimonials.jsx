@@ -40,12 +40,16 @@ export default function Testimonials() {
     return (
         <section className={`py-8 md:py-12 overflow-hidden relative ${isDarkMode ? '' : 'bg-white'}`} style={{ background: isDarkMode ? 'transparent' : 'white' }}>
             <div className="container mx-auto px-6 mb-8 md:mb-12 text-center">
-                <h2
+                <motion.h2
+                    initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
+                    whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                     className="text-3xl md:text-4xl lg:text-5xl font-bold font-mulish"
                     style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                 >
                     What our clients say
-                </h2>
+                </motion.h2>
             </div>
 
             <div 

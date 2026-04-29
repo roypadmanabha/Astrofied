@@ -120,10 +120,10 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
     return (
         <motion.div
             key={service.id}
-            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={isMobile ? { duration: 0 } : { delay: index * 0.1 }}
+            initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
+            whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
             className={`rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-[#17202A] border-gray-800' : 'bg-[#FFFFFF] border-gold/10'} group relative overflow-hidden`}
         >
             {/* Glossy Gift Ribbon */}
@@ -197,19 +197,20 @@ export default function Services() {
         <section id="services" className={`py-24 relative ${isDarkMode ? 'bg-transparent' : 'bg-[#F5F5DC]/70'}`}>
             <div className="container mx-auto px-10 sm:px-6">
                 <motion.h2
-                    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
+                    whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                     viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                     className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4"
                     style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                 >
                     What We Cover
                 </motion.h2>
                 <motion.p
-                    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
+                    whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
+                    transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
                     className={`text-center mb-16 max-w-4xl mx-auto text-base md:text-lg opacity-80 font-mulish ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}
                 >
                     Here's what we cover in a single online consultation based on the questions you ask.

@@ -192,10 +192,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         <div className="container mx-auto px-6">
           <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
+              whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               className="w-full md:w-5/12 aspect-square glass rounded-full overflow-hidden shadow-2xl relative flex items-center justify-center p-4 border-4 border-gold/30"
             >
               <motion.img
@@ -209,10 +209,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
+              whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="w-full md:w-7/12"
             >
               <div className="flex flex-col sm:flex-row items-center gap-3 mb-8">
@@ -250,10 +250,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
+              whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               className="w-full md:w-5/12 relative group mx-auto max-w-sm md:max-w-none"
             >
               <motion.div
@@ -307,9 +307,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
+              whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="w-full md:w-7/12"
             >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>

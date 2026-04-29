@@ -35,9 +35,10 @@ const Pricing = () => {
     <section id="pricing" className={`py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-[#FAF9F6]'}`}>
       <div className="container mx-auto px-6 max-w-[1200px]">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
+          whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
@@ -52,10 +53,10 @@ const Pricing = () => {
           {pricingData.map((item, idx) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, x: idx === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: idx * 0.2 }}
+              initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
+              whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: idx * 0.1, ease: "easeOut" }}
               className={`relative group rounded-[2.5rem] p-4 border shadow-2xl overflow-hidden transition-all duration-500 ${isDarkMode
                 ? 'bg-[#08002e] border-white/10 hover:border-gold/30'
                 : 'bg-[#F5F5DC] border-black/5 hover:border-purple-600/30'

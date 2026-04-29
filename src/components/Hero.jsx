@@ -21,9 +21,9 @@ export default function Hero({ onOpenConsultation }) {
                     {/* Left Content */}
                     <div className="w-full lg:w-1/2 text-center lg:text-left order-1 z-20">
                         <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
+                            initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
+                            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
                             className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-mulish leading-[1.1] mb-6"
                             style={{ color: isDarkMode ? '#F5F5F5' : '#0A0A0A' }}
                         >
@@ -32,9 +32,9 @@ export default function Hero({ onOpenConsultation }) {
                         </motion.h1>
 
                         <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
+                            initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
+                            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                             className={`text-lg md:text-xl max-w-xl mb-12 opacity-80 font-mulish leading-relaxed text-justify lg:text-left ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
                                 }`}
                         >
@@ -42,9 +42,9 @@ export default function Hero({ onOpenConsultation }) {
                         </motion.p>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.3 }}
+                            initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
+                            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
                             className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start"
                         >
                             <button
