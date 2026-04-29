@@ -41,10 +41,10 @@ export default function Testimonials() {
     const TestimonialCard = ({ t, idPrefix }) => (
         <div
             key={`${idPrefix}-${t.id}`}
-            className={`group relative flex flex-col gap-4 mx-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border border-opacity-20 glass backdrop-blur-xl transition-all duration-500 min-w-[280px] sm:min-w-[320px] md:min-w-[420px] whitespace-normal hover:-translate-y-2
+            className={`group relative flex flex-col gap-4 mx-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border border-opacity-20 glass backdrop-blur-xl transition-all duration-500 min-w-[280px] sm:min-w-[320px] md:min-w-[420px] whitespace-normal
                 ${isDarkMode 
-                    ? 'border-gold/30 hover:border-gold/60 text-white hover:shadow-[0_20px_50px_rgba(212,175,55,0.15)]' 
-                    : 'border-[#4B0082]/20 hover:border-[#4B0082]/40 text-black hover:shadow-[0_20px_50px_rgba(75,0,130,0.1)]'}
+                    ? 'border-gold/30 hover:border-gold/60 text-white' 
+                    : 'border-[#4B0082]/20 hover:border-[#4B0082]/40 text-black'}
             `}
         >
             <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-10 transition-opacity group-hover:opacity-20 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
