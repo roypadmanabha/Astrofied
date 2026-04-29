@@ -114,10 +114,6 @@ const services = [
         icon: Hourglass,
         color: 'bg-blue-100 text-blue-600',
     },
-];xt-emerald-600',
-    },
-
-
 ];
 
 export default function Services() {
