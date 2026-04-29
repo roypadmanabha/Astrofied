@@ -242,8 +242,8 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
       {/* Services Section */}
       <Services />
-      <Kundali />
       <Pricing />
+      <Kundali />
 
       {/* About Us Section */}
       <section id="about" className="py-24 overflow-hidden">
