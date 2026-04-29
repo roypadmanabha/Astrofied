@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { Quote, Star } from 'lucide-react';
 import amjad from '../assets/testimonials/amjad.jpg';
 import aritrika from '../assets/testimonials/aritrika.jpg';
 import debadrita from '../assets/testimonials/debadrita.jpg';
@@ -37,74 +38,74 @@ const testimonials = [
 export default function Testimonials() {
     const { isDarkMode } = useTheme();
 
+    const TestimonialCard = ({ t, idPrefix }) => (
+        <div
+            key={`${idPrefix}-${t.id}`}
+            className={`group relative flex flex-col gap-4 mx-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border border-opacity-20 glass backdrop-blur-xl transition-all duration-500 min-w-[280px] sm:min-w-[320px] md:min-w-[420px] whitespace-normal hover:-translate-y-2
+                ${isDarkMode 
+                    ? 'border-gold/30 hover:border-gold/60 text-white hover:shadow-[0_20px_50px_rgba(212,175,55,0.15)]' 
+                    : 'border-[#4B0082]/20 hover:border-[#4B0082]/40 text-black hover:shadow-[0_20px_50px_rgba(75,0,130,0.1)]'}
+            `}
+        >
+            <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-10 transition-opacity group-hover:opacity-20 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
+            
+            <div className="flex items-center gap-4">
+                <div className={`relative p-0.5 rounded-full ${isDarkMode ? 'bg-gold/30' : 'bg-[#4B0082]/20'}`}>
+                    <img
+                        src={t.img}
+                        alt={t.name}
+                        className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover select-none pointer-events-none border-2 border-transparent"
+                        draggable={false}
+                    />
+                </div>
+                <div className="flex flex-col">
+                    <span className="font-bold text-base md:text-lg font-mulish tracking-tight" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
+                        {t.name}
+                    </span>
+                    <div className="flex gap-0.5 mt-1">
+                        {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-3 h-3 md:w-4 md:h-4 fill-gold text-gold" />
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <p className={`text-sm md:text-base font-mulish opacity-80 leading-relaxed italic relative z-10 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                "{t.text}"
+            </p>
+
+            <div className={`absolute bottom-0 left-0 right-0 h-1 rounded-b-[2rem] transition-all duration-500 scale-x-0 group-hover:scale-x-100 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`} />
+        </div>
+    );
+
     return (
-        <section className={`py-8 md:py-12 overflow-hidden relative ${isDarkMode ? '' : 'bg-white'}`} style={{ background: isDarkMode ? 'transparent' : 'white' }}>
-            <div className="container mx-auto px-6 mb-8 md:mb-12 text-center">
-                <motion.h2
-                    initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
-                    whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold font-mulish"
+        <section id="testimonials" className={`py-12 md:py-20 overflow-hidden relative ${isDarkMode ? '' : 'bg-white'}`} style={{ background: isDarkMode ? 'transparent' : 'white' }}>
+            <div className="container mx-auto px-6 mb-12 md:mb-16 text-center">
+                <h2
+                    className="text-3xl md:text-5xl lg:text-6xl font-black font-mulish tracking-tight"
                     style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                 >
-                    What our clients say
-                </motion.h2>
+                    Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4B0082]'}>Trust</span>
+                </h2>
+                <div className={`h-1 w-24 mx-auto mt-4 rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`} />
             </div>
 
             <div 
-                className="relative flex overflow-x-hidden group mx-4 md:mx-[30px]"
+                className="relative flex overflow-x-hidden group py-4"
                 style={{ 
                     WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
                     maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
                 }}
             >
-                {/* 
-                  We use an animation that translates X from 0 to -100%.
-                  To make it infinite and seamless, we duplicate the content.
-                */}
                 <div className="flex animate-marquee group-hover:pause active:pause">
                     {testimonials.map((t) => (
-                        <div
-                            key={`first-${t.id}`}
-                            className={`flex items-start gap-4 mx-4 px-4 py-3 sm:px-6 sm:py-4 rounded-2xl border border-opacity-20 glass backdrop-blur-md transition-all min-w-[260px] sm:min-w-[300px] md:min-w-[400px] whitespace-normal
-                                ${isDarkMode ? 'border-gold/30 hover:border-gold text-white' : 'border-[#4B0082]/20 hover:border-[#4B0082] text-black'}
-                            `}
-                        >
-                            <img
-                                src={t.img}
-                                alt={t.name}
-                                className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover select-none pointer-events-none"
-                                draggable={false}
-                            />
-                            <div className="flex flex-col">
-                                <span className="font-bold text-sm md:text-base font-mulish" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
-                                <p className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed text-justify">{t.text}</p>
-                            </div>
-                        </div>
+                        <TestimonialCard key={`first-${t.id}`} t={t} idPrefix="first" />
                     ))}
                 </div>
 
-                {/* Duplicate for seamless loop */}
                 <div className="flex animate-marquee group-hover:pause active:pause" aria-hidden="true">
                     {testimonials.map((t) => (
-                        <div
-                            key={`second-${t.id}`}
-                            className={`flex items-start gap-4 mx-4 px-4 py-3 sm:px-6 sm:py-4 rounded-2xl border border-opacity-20 glass backdrop-blur-md transition-all min-w-[260px] sm:min-w-[300px] md:min-w-[400px] whitespace-normal
-                                ${isDarkMode ? 'border-gold/30 hover:border-gold text-white' : 'border-[#4B0082]/20 hover:border-[#4B0082] text-black'}
-                            `}
-                        >
-                            <img
-                                src={t.img}
-                                alt={t.name}
-                                className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover select-none pointer-events-none"
-                                draggable={false}
-                            />
-                            <div className="flex flex-col">
-                                <span className="font-bold text-sm md:text-base font-mulish" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>{t.name}</span>
-                                <p className="text-xs md:text-sm font-mulish opacity-80 leading-relaxed text-justify">{t.text}</p>
-                            </div>
-                        </div>
+                        <TestimonialCard key={`second-${t.id}`} t={t} idPrefix="second" />
                     ))}
                 </div>
             </div>
