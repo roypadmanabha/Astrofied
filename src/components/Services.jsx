@@ -144,7 +144,7 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.1 }}
-                    className={`text-center mb-16 max-w-2xl mx-auto text-base md:text-lg opacity-80 font-mulish ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}
+                    className={`text-center mb-16 max-w-4xl mx-auto text-base md:text-lg opacity-80 font-mulish ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}
                 >
                     Here's what we cover in a single online consultation based on the questions you ask.
                 </motion.p>
