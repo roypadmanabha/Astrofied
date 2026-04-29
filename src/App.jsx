@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import Lenis from 'lenis';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import ThemeToggle3D from './components/ThemeToggle3D';
@@ -129,12 +128,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
   };
 
   const { isDarkMode } = useTheme();
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+
 
   const isModalOpenRef = useRef(false);
   
@@ -148,31 +142,6 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       window.history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
-
-    const lenis = new Lenis({
-      duration: 0.8,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.2,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-    });
-
-    function raf(time) {
-      if (!isModalOpenRef.current) {
-        lenis.raf(time);
-      }
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
   }, []);
 
   return (
@@ -182,11 +151,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       onDragStart={(e) => e.preventDefault()}
     >
       <StarfieldBg />
-      {/* Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"
-        style={{ scaleX, background: isDarkMode ? '#D4AF37' : '#4B0082' }}
-      />
+
 
       <Navbar 
         onOpenLegal={openLegalModal} 
@@ -201,10 +166,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         <div className="container mx-auto px-6">
           <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
             <motion.div
-              initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 1, x: 0 }}
               className="w-full md:w-5/12 aspect-square glass rounded-full overflow-hidden shadow-2xl relative flex items-center justify-center p-4 border-4 border-gold/30"
             >
               <motion.img
@@ -218,10 +180,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             </motion.div>
 
             <motion.div
-              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: isMobile ? 0 : 0.2 }}
+              initial={{ opacity: 1, y: 0 }}
               className="w-full md:w-7/12"
             >
               <div className="flex flex-col sm:flex-row items-center gap-3 mb-8">
@@ -259,10 +218,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
             <motion.div
-              initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 1, x: 0 }}
               className="w-full md:w-5/12 relative group mx-auto max-w-sm md:max-w-none"
             >
               <motion.div
@@ -284,9 +240,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 {/* Destiny Label */}
                 <div className="absolute -bottom-2 md:bottom-0 left-0 right-0 z-20 flex justify-center px-2">
                   <motion.div
-                    initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, margin: "-100px" }}
+                    initial={{ opacity: 1, scale: 1 }}
                     className="bg-[#4B0082] py-2 md:py-2.5 rounded-xl shadow-2xl border border-gold/30 w-full max-w-[420px] overflow-hidden flex items-center justify-center"
                   >
                     <svg 
@@ -316,9 +270,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             </motion.div>
 
             <motion.div
-              initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              initial={{ opacity: 1, x: 0 }}
               className="w-full md:w-7/12"
             >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>

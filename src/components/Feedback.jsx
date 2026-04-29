@@ -73,10 +73,7 @@ export default function Feedback() {
                 <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start justify-between">
                     {/* Left Side: Content */}
                     <motion.div 
-                        initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
-                        whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        initial={{ opacity: 1, x: 0 }}
                         className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
                     >
                         <h2
@@ -92,10 +89,7 @@ export default function Feedback() {
 
                     {/* Right Side: Form in its own Glass Card */}
                     <motion.div 
-                        initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
-                        whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        initial={{ opacity: 1, x: 0 }}
                         className={`w-full lg:w-6/12 glass rounded-3xl p-8 md:p-10 shadow-2xl border relative ${
                             isDarkMode ? 'border-gray-800 bg-black/40' : 'border-gray-200 bg-white/70'
                         }`}
