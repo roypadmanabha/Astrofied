@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
-import { Sparkles, MapPin, Calendar, Clock, User, Loader2, X } from 'lucide-react';
+import { Sparkles, MapPin, Calendar, Clock, User, Loader2, X, Download } from 'lucide-react';
 import logo from '../assets/logo.png';
 import { useTheme } from '../context/ThemeContext';
 
+import html2canvas from 'html2canvas';
+
 const Kundali = () => {
     const { isDarkMode } = useTheme();
+    const chartRef = useRef(null);
     const [formData, setFormData] = useState({
         name: '',
         dob: '',
@@ -22,11 +25,33 @@ const Kundali = () => {
     const [chartSvg, setChartSvg] = useState(null);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [downloading, setDownloading] = useState(false);
 
     // Brand Colors
     const brandGold = "#D4AF37";
     const brandPurple = "#4B0082";
     const darkBlue = "#0A1931";
+
+    const handleDownload = async () => {
+        if (!chartRef.current) return;
+        setDownloading(true);
+        try {
+            const canvas = await html2canvas(chartRef.current, {
+                scale: 3, // High resolution
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false,
+            });
+            const link = document.createElement('a');
+            link.download = `${formData.name || 'Astrofied'}_Kundali.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+        } catch (err) {
+            console.error('Download error:', err);
+        } finally {
+            setDownloading(false);
+        }
+    };
 
     // City Search
     useEffect(() => {
@@ -293,8 +318,27 @@ const Kundali = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <div className={`flex-1 flex items-center justify-center p-6 md:p-12 ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-purple-600/5'}`}>
-                                    <div className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-purple-600/10 shadow-lg rounded-[2rem] flex items-center justify-center`} dangerouslySetInnerHTML={{ __html: chartSvg }} />
+                                <div className={`flex-1 flex flex-col items-center justify-center p-6 md:p-12 ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-purple-600/5'}`}>
+                                    <div 
+                                        ref={chartRef}
+                                        className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-purple-600/10 shadow-lg rounded-[2rem] flex items-center justify-center`} 
+                                        dangerouslySetInnerHTML={{ __html: chartSvg }} 
+                                    />
+                                    
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={handleDownload}
+                                        disabled={downloading}
+                                        className={`mt-8 px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all shadow-xl disabled:opacity-50 ${
+                                            isDarkMode 
+                                                ? 'bg-gold text-black hover:bg-white' 
+                                                : 'bg-[#4B0082] text-white hover:bg-purple-700'
+                                        }`}
+                                    >
+                                        {downloading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
+                                        {downloading ? 'Processing...' : 'Download as PNG'}
+                                    </motion.button>
                                 </div>
                             </div>
                         </motion.div>
