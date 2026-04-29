@@ -231,7 +231,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </p>
               <button
                 onClick={() => setShowFullWhySj(!showFullWhySj)}
-                className="mt-4 text-gold font-bold hover:underline transition-all flex items-center gap-2"
+                className="mt-4 text-gold font-bold transition-all flex items-center gap-2"
               >
                 {showFullWhySj ? 'Read Less' : 'Read More'}
               </button>
@@ -331,7 +331,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </p>
               <button
                 onClick={() => setShowFullAbout(!showFullAbout)}
-                className="mt-4 text-gold font-bold hover:underline transition-all"
+                className="mt-4 text-gold font-bold transition-all"
               >
                 {showFullAbout ? 'Read Less' : 'Read More'}
               </button>

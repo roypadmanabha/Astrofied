@@ -167,7 +167,7 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
             {isMobile && !isExpanded && (
                 <button
                     onClick={() => setIsExpanded(true)}
-                    className="text-[10px] text-gold font-bold mb-4 hover:underline"
+                    className="text-[10px] text-gold font-bold mb-4"
                 >
                     Read More
                 </button>
