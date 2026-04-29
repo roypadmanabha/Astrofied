@@ -47,7 +47,7 @@ export default function Testimonials() {
                     : 'border-[#4B0082]/40 hover:border-[#4B0082] text-black'}
             `}
         >
-            <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-10 transition-opacity group-hover:opacity-20 hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
+            <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-100 transition-opacity hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
 
             <div className="flex items-center gap-4">
                 <div className={`relative p-[2px] rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}>
