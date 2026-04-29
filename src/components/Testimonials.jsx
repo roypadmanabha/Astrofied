@@ -50,11 +50,11 @@ export default function Testimonials() {
             <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-10 transition-opacity group-hover:opacity-20 hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
             
             <div className="flex items-center gap-4">
-                <div className={`relative p-0.5 rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}>
+                <div className={`relative p-[1px] rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}>
                     <img
                         src={t.img}
                         alt={t.name}
-                        className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover select-none pointer-events-none border-2 border-white/10"
+                        className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover select-none pointer-events-none"
                         draggable={false}
                     />
                 </div>
