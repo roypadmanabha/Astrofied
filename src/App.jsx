@@ -145,36 +145,43 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     window.scrollTo(0, 0);
 
     // Mystical Chime Effect
-    const playMysticalChime = () => {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
+    const playMysticalChime = async () => {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
 
-      const audioCtx = new AudioContext();
-      
-      const playTone = (freq, startTime, duration) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, startTime);
-        // Add a bit of frequency slide for "mystical" feel
-        osc.frequency.exponentialRampToValueAtTime(freq * 1.01, startTime + duration);
+        const audioCtx = new AudioContext();
         
-        gain.gain.setValueAtTime(0, startTime);
-        gain.gain.linearRampToValueAtTime(0.1, startTime + 0.1);
-        gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+        // If context is suspended (autoplay blocked), we can't play yet
+        if (audioCtx.state === 'suspended') {
+          await audioCtx.resume();
+        }
         
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        
-        osc.start(startTime);
-        osc.stop(startTime + duration);
-      };
+        const playTone = (freq, startTime, duration) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, startTime);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.01, startTime + duration);
+          
+          gain.gain.setValueAtTime(0, startTime);
+          gain.gain.linearRampToValueAtTime(0.1, startTime + 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+          
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          
+          osc.start(startTime);
+          osc.stop(startTime + duration);
+        };
 
-      // Play a harmonious chord (A major chord tones)
-      const now = audioCtx.currentTime;
-      playTone(440, now, 1);      // A4
-      playTone(554.37, now + 0.1, 0.9); // C#5
-      playTone(659.25, now + 0.2, 0.8); // E5
+        const now = audioCtx.currentTime;
+        playTone(440, now, 1);      // A4
+        playTone(554.37, now + 0.1, 0.9); // C#5
+        playTone(659.25, now + 0.2, 0.8); // E5
+      } catch (e) {
+        console.error("Audio failed:", e);
+      }
     };
 
     const timer = setTimeout(() => {
@@ -185,15 +192,13 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         window.removeEventListener('scroll', tryPlay);
       };
 
-      // Most browsers require user interaction to play audio.
-      // We attempt to play, and if blocked (or context suspended), we wait for interaction.
-      try {
-        playMysticalChime();
-      } catch (e) {
-        window.addEventListener('click', tryPlay);
-        window.addEventListener('touchstart', tryPlay);
-        window.addEventListener('scroll', tryPlay);
-      }
+      // To be safe, we always listen for first interaction and play if 3s have passed
+      window.addEventListener('click', tryPlay);
+      window.addEventListener('touchstart', tryPlay);
+      window.addEventListener('scroll', tryPlay);
+      
+      // Also try to play immediately (might work if user already interacted)
+      playMysticalChime();
     }, 3000);
 
     const lenis = new Lenis({
