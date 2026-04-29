@@ -29,6 +29,7 @@
   --font-mulish: "Mulish", sans-serif;
 
   --animate-marquee: marquee 60s linear infinite;
+  --animate-marquee-ltr: marquee-ltr 60s linear infinite;
 
   @keyframes marquee {
     0% {
@@ -36,6 +37,15 @@
     }
     100% {
       transform: translateX(-100%);
+    }
+  }
+
+  @keyframes marquee-ltr {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
     }
   }
 }
