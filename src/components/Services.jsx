@@ -3,10 +3,10 @@ import { useTheme } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
 import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass, GraduationCap, Home, HandCoins, Plane } from 'lucide-react';
 
-const DoubleHeart = ({ size, strokeWidth }) => (
-    <div className="relative">
-        <Heart size={size * 0.8} strokeWidth={strokeWidth} className="relative -top-2 -left-2 opacity-50" />
-        <Heart size={size * 0.8} strokeWidth={strokeWidth} className="absolute top-2 left-2" />
+const DoubleHeart = ({ className, strokeWidth }) => (
+    <div className={`relative ${className}`}>
+        <Heart className="absolute w-[70%] h-[70%] -top-[15%] -left-[15%] opacity-50" strokeWidth={strokeWidth} />
+        <Heart className="absolute w-[70%] h-[70%] top-[15%] left-[15%]" strokeWidth={strokeWidth} />
     </div>
 );
 
