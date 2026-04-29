@@ -73,8 +73,6 @@ export default function Testimonials() {
             <p className={`text-sm md:text-base font-mulish opacity-80 leading-relaxed italic relative z-10 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                 "{t.text}"
             </p>
-
-            <div className={`absolute bottom-0 left-0 right-0 h-1 rounded-b-[2rem] transition-all duration-500 scale-x-0 group-hover:scale-x-100 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`} />
         </div>
     );
 
