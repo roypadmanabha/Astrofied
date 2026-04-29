@@ -24,7 +24,7 @@ const services = [
     },
     {
         id: 3,
-        title: 'Relationship Reading',
+        title: 'Relationship',
         desc: 'Deep dive into your personal dynamics and love life',
         price: '₹ 10095',
         duration: '40 Min',
