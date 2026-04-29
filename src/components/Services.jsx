@@ -3,8 +3,6 @@ import { useTheme } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
 import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass, GraduationCap, Home, HandCoins, Plane, MessageCircleHeart } from 'lucide-react';
 
-
-
 const services = [
     {
         id: 1,
@@ -115,39 +113,6 @@ const services = [
         color: 'bg-blue-100 text-blue-600',
     },
 ];
-
-export default function Services() {
-    const { isDarkMode } = useTheme();
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 768);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
-    return (
-        <section id="services" className={`py-24 relative ${isDarkMode ? 'bg-transparent' : 'bg-[#F5F5DC]/70'}`}>
-            <div className="container mx-auto px-10 sm:px-6">
-                <motion.h2
-                    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4"
-                    style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
-                >
-                    What We Cover
-                </motion.h2>
-                <motion.p
-                    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
-                    className={`text-center mb-16 max-w-4xl mx-auto text-base md:text-lg opacity-80 font-mulish ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}
-                >
-                    Here's what we cover in a single online consultation based on the questions you ask.
-                </motion.p>
 
 const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
     const [isExpanded, setIsExpanded] = useState(false);
