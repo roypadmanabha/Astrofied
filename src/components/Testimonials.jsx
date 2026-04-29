@@ -85,7 +85,6 @@ export default function Testimonials() {
                 >
                     Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4B0082]'}>Trust</span>
                 </h2>
-                <div className={`h-1 w-24 mx-auto mt-4 rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`} />
             </div>
 
             <div 
