@@ -47,7 +47,7 @@ export default function Testimonials() {
                     : 'border-[#4B0082]/20 hover:border-[#4B0082]/40 text-black'}
             `}
         >
-            <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-10 transition-opacity group-hover:opacity-20 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
+            <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-10 transition-opacity group-hover:opacity-20 hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
             
             <div className="flex items-center gap-4">
                 <div className={`relative p-0.5 rounded-full ${isDarkMode ? 'bg-gold/30' : 'bg-[#4B0082]/20'}`}>
@@ -71,7 +71,7 @@ export default function Testimonials() {
             </div>
 
             <p className={`text-sm md:text-base font-mulish opacity-80 leading-relaxed italic relative z-10 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                "{t.text}"
+                {t.text}
             </p>
         </div>
     );
