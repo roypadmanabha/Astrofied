@@ -134,11 +134,20 @@ export default function Services() {
                     initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16"
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4"
                     style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                 >
                     What We Cover
                 </motion.h2>
+                <motion.p
+                    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                    className={`text-center mb-16 max-w-2xl mx-auto text-base md:text-lg opacity-80 font-mulish ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}
+                >
+                    Here's what we cover in a single online consultation based on the questions you ask.
+                </motion.p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
                     {services.map((service, index) => (
