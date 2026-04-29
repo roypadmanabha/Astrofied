@@ -41,20 +41,20 @@ export default function Testimonials() {
     const TestimonialCard = ({ t, idPrefix }) => (
         <div
             key={`${idPrefix}-${t.id}`}
-            className={`group relative flex flex-col gap-4 mx-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border border-opacity-20 glass backdrop-blur-xl transition-all duration-500 min-w-[280px] sm:min-w-[320px] md:min-w-[420px] whitespace-normal
+            className={`group relative flex flex-col gap-4 mx-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border glass backdrop-blur-xl transition-all duration-500 min-w-[280px] sm:min-w-[320px] md:min-w-[420px] whitespace-normal
                 ${isDarkMode 
-                    ? 'border-gold/30 hover:border-gold/60 text-white' 
-                    : 'border-[#4B0082]/20 hover:border-[#4B0082]/40 text-black'}
+                    ? 'border-gold/50 hover:border-gold text-white' 
+                    : 'border-[#4B0082]/40 hover:border-[#4B0082] text-black'}
             `}
         >
             <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-10 transition-opacity group-hover:opacity-20 hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
             
             <div className="flex items-center gap-4">
-                <div className={`relative p-0.5 rounded-full ${isDarkMode ? 'bg-gold/30' : 'bg-[#4B0082]/20'}`}>
+                <div className={`relative p-0.5 rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}>
                     <img
                         src={t.img}
                         alt={t.name}
-                        className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover select-none pointer-events-none border-2 border-transparent"
+                        className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover select-none pointer-events-none border-2 border-white/10"
                         draggable={false}
                     />
                 </div>
