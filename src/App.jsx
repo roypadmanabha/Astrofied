@@ -144,6 +144,58 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     }
     window.scrollTo(0, 0);
 
+    // Mystical Chime Effect
+    const playMysticalChime = () => {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+
+      const audioCtx = new AudioContext();
+      
+      const playTone = (freq, startTime, duration) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, startTime);
+        // Add a bit of frequency slide for "mystical" feel
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.01, startTime + duration);
+        
+        gain.gain.setValueAtTime(0, startTime);
+        gain.gain.linearRampToValueAtTime(0.1, startTime + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start(startTime);
+        osc.stop(startTime + duration);
+      };
+
+      // Play a harmonious chord (A major chord tones)
+      const now = audioCtx.currentTime;
+      playTone(440, now, 1);      // A4
+      playTone(554.37, now + 0.1, 0.9); // C#5
+      playTone(659.25, now + 0.2, 0.8); // E5
+    };
+
+    const timer = setTimeout(() => {
+      const tryPlay = () => {
+        playMysticalChime();
+        window.removeEventListener('click', tryPlay);
+        window.removeEventListener('touchstart', tryPlay);
+        window.removeEventListener('scroll', tryPlay);
+      };
+
+      // Most browsers require user interaction to play audio.
+      // We attempt to play, and if blocked (or context suspended), we wait for interaction.
+      try {
+        playMysticalChime();
+      } catch (e) {
+        window.addEventListener('click', tryPlay);
+        window.addEventListener('touchstart', tryPlay);
+        window.addEventListener('scroll', tryPlay);
+      }
+    }, 3000);
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
