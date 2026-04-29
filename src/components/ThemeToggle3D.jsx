@@ -1,83 +1,46 @@
-import { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import { useTheme } from '../context/ThemeContext';
-import { motion } from 'framer-motion';
-
-function Scene() {
-    const { isDarkMode } = useTheme();
-    const sphereRef = useRef();
-
-    useFrame((state) => {
-        const time = state.clock.getElapsedTime();
-        if (sphereRef.current) {
-            sphereRef.current.rotation.y = time * 0.5;
-        }
-    });
-
-    return (
-        <>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1} />
-            <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-                <Sphere ref={sphereRef} args={[1, 64, 64]}>
-                    <MeshDistortMaterial
-                        color={isDarkMode ? '#D4AF37' : '#4B0082'}
-                        attach="material"
-                        distort={0.4}
-                        speed={2}
-                        roughness={0.2}
-                        metalness={0.8}
-                    />
-                </Sphere>
-            </Float>
-        </>
-    );
-}
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sun, Moon } from 'lucide-react';
 
 export default function ThemeToggle3D() {
     const { isDarkMode, toggleTheme } = useTheme();
 
     return (
-        <div 
-            className="fixed bottom-8 right-8 z-50 w-24 h-24 cursor-pointer group" 
+        <motion.button
             onClick={toggleTheme}
+            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.9 }}
+            className={`fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[100] w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-2xl backdrop-blur-xl border-2 transition-all duration-500 overflow-hidden ${
+                isDarkMode 
+                    ? 'bg-black/40 border-gold/40 text-gold shadow-gold/20' 
+                    : 'bg-white/60 border-purple-600/20 text-[#4B0082] shadow-purple-600/10'
+            }`}
+            aria-label="Toggle Theme"
         >
-            {/* Background Blob/Circle */}
-            <motion.div
-                initial={false}
-                animate={{
-                    backgroundColor: isDarkMode ? '#4169E1' : '#4B0082',
-                    scale: [1, 1.05, 1],
-                    borderRadius: isDarkMode 
-                        ? ["40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 60% 30% 70% 40%", "40% 60% 70% 30% / 40% 50% 60% 50%"]
-                        : ["50%", "55% 45% 50% 50% / 45% 55% 50% 50%", "50%"],
-                }}
-                transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                }}
-                className={`absolute inset-0 shadow-2xl transition-colors duration-500 ${
-                    isDarkMode 
-                        ? 'bg-gradient-to-br from-[#002366] via-[#4169E1] to-[#002366] shadow-blue-500/20' 
-                        : 'bg-gradient-to-br from-[#4B0082] via-[#6A0DAD] to-[#4B0082] shadow-purple-500/20'
-                }`}
-            />
-
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} className="relative z-10">
-                <Scene />
-            </Canvas>
-            <motion.div
-                initial={false}
-                animate={{ 
-                    rotate: isDarkMode ? 0 : 180,
-                    scale: isDarkMode ? 1 : 1.1
-                }}
-                className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
-            >
-                <span className="text-3xl drop-shadow-lg">{isDarkMode ? '🌙' : '☀️'}</span>
-            </motion.div>
-        </div>
+            <div className="relative w-full h-full flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={isDarkMode ? 'dark' : 'light'}
+                        initial={{ y: 20, opacity: 0, rotate: -45 }}
+                        animate={{ y: 0, opacity: 1, rotate: 0 }}
+                        exit={{ y: -20, opacity: 0, rotate: 45 }}
+                        transition={{ duration: 0.3, ease: "backOut" }}
+                    >
+                        {isDarkMode ? (
+                            <Moon className="w-6 h-6 md:w-7 md:h-7 fill-gold" />
+                        ) : (
+                            <Sun className="w-6 h-6 md:w-7 md:h-7 fill-current" />
+                        )}
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+            
+            {/* Dynamic Glow Effect */}
+            <div className={`absolute inset-0 opacity-20 -z-10 blur-xl transition-colors duration-500 ${
+                isDarkMode ? 'bg-gold' : 'bg-purple-600'
+            }`} />
+        </motion.button>
     );
 }
