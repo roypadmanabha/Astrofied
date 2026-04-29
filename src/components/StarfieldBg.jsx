@@ -20,7 +20,8 @@ export default function StarfieldBg() {
     const scrollYRef = useRef(0);
     const { isDarkMode } = useTheme();
 
-    const STAR_COUNT_BASE = 350; // base for desktop
+    const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 1024;
+    const STAR_COUNT_BASE = isMobileDevice ? 100 : 350; // heavily reduced for mobile
 
     const createStars = useCallback((width, height) => {
         // Scale star count based on viewport area
@@ -83,7 +84,7 @@ export default function StarfieldBg() {
         let width, height;
 
         const resize = () => {
-            const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap at 2x for perf
+            const dpr = isMobileDevice ? 1 : Math.min(window.devicePixelRatio || 1, 2); // cap at 1x for mobile perf
             width = window.innerWidth;
             height = window.innerHeight;
             canvas.width = width * dpr;
@@ -121,25 +122,27 @@ export default function StarfieldBg() {
             ctx.fillStyle = bgGrad;
             ctx.fillRect(0, 0, width, height);
 
-            // Subtle nebula washes
-            const time = frameCount * 0.002;
-            const nebulaX1 = width * (0.2 + Math.sin(time * 0.3) * 0.05);
-            const nebulaY1 = height * (0.3 + Math.cos(time * 0.2) * 0.05);
-            const nebula1 = ctx.createRadialGradient(nebulaX1, nebulaY1, 0, nebulaX1, nebulaY1, width * 0.4);
-            nebula1.addColorStop(0, 'rgba(75, 0, 130, 0.06)');
-            nebula1.addColorStop(0.5, 'rgba(75, 0, 130, 0.02)');
-            nebula1.addColorStop(1, 'transparent');
-            ctx.fillStyle = nebula1;
-            ctx.fillRect(0, 0, width, height);
+            // Only draw nebula on desktop
+            if (!isMobileDevice) {
+                const time = frameCount * 0.002;
+                const nebulaX1 = width * (0.2 + Math.sin(time * 0.3) * 0.05);
+                const nebulaY1 = height * (0.3 + Math.cos(time * 0.2) * 0.05);
+                const nebula1 = ctx.createRadialGradient(nebulaX1, nebulaY1, 0, nebulaX1, nebulaY1, width * 0.4);
+                nebula1.addColorStop(0, 'rgba(75, 0, 130, 0.06)');
+                nebula1.addColorStop(0.5, 'rgba(75, 0, 130, 0.02)');
+                nebula1.addColorStop(1, 'transparent');
+                ctx.fillStyle = nebula1;
+                ctx.fillRect(0, 0, width, height);
 
-            const nebulaX2 = width * (0.8 + Math.cos(time * 0.25) * 0.05);
-            const nebulaY2 = height * (0.7 + Math.sin(time * 0.35) * 0.05);
-            const nebula2 = ctx.createRadialGradient(nebulaX2, nebulaY2, 0, nebulaX2, nebulaY2, width * 0.35);
-            nebula2.addColorStop(0, 'rgba(212, 175, 55, 0.04)');
-            nebula2.addColorStop(0.5, 'rgba(212, 175, 55, 0.01)');
-            nebula2.addColorStop(1, 'transparent');
-            ctx.fillStyle = nebula2;
-            ctx.fillRect(0, 0, width, height);
+                const nebulaX2 = width * (0.8 + Math.cos(time * 0.25) * 0.05);
+                const nebulaY2 = height * (0.7 + Math.sin(time * 0.35) * 0.05);
+                const nebula2 = ctx.createRadialGradient(nebulaX2, nebulaY2, 0, nebulaX2, nebulaY2, width * 0.35);
+                nebula2.addColorStop(0, 'rgba(212, 175, 55, 0.04)');
+                nebula2.addColorStop(0.5, 'rgba(212, 175, 55, 0.01)');
+                nebula2.addColorStop(1, 'transparent');
+                ctx.fillStyle = nebula2;
+                ctx.fillRect(0, 0, width, height);
+            }
 
             // Draw stars with scroll parallax
             const scrollOffset = scrollYRef.current;
@@ -155,8 +158,8 @@ export default function StarfieldBg() {
 
                 if (currentOpacity <= 0) continue;
 
-                // Parallax: near stars move more with scroll
-                const parallaxFactor = 0.02 + star.layer * 0.08;
+                // Parallax: only on desktop
+                const parallaxFactor = isMobileDevice ? 0 : (0.02 + star.layer * 0.08);
                 const drawY = ((star.y - scrollOffset * parallaxFactor) % (height * 3));
                 const finalY = drawY < -10 ? drawY + height * 3 : drawY;
 

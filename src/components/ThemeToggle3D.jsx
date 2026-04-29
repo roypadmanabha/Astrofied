@@ -20,7 +20,7 @@ function Scene() {
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
             <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-                <Sphere ref={sphereRef} args={[1, 64, 64]}>
+                <Sphere ref={sphereRef} args={[1, 32, 32]}>
                     <MeshDistortMaterial
                         color={isDarkMode ? '#D4AF37' : '#4B0082'}
                         attach="material"
