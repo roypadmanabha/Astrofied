@@ -1,14 +1,9 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
-import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass, GraduationCap, Home, HandCoins, Plane } from 'lucide-react';
+import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass, GraduationCap, Home, HandCoins, Plane, MessageCircleHeart } from 'lucide-react';
 
-const DoubleHeart = ({ className, strokeWidth }) => (
-    <div className={`relative ${className}`}>
-        <Heart className="absolute w-[70%] h-[70%] -top-[15%] -left-[15%] opacity-50" strokeWidth={strokeWidth} />
-        <Heart className="absolute w-[70%] h-[70%] top-[15%] left-[15%]" strokeWidth={strokeWidth} />
-    </div>
-);
+
 
 const services = [
     {
@@ -26,7 +21,7 @@ const services = [
         desc: 'Find the right time and harmony for marital bliss',
         price: '₹ 10095',
         duration: '40 Min',
-        icon: DoubleHeart,
+        icon: Heart,
         color: 'bg-red-100 text-red-600',
     },
     {
@@ -44,7 +39,7 @@ const services = [
         desc: 'Deep dive into your personal dynamics and love life',
         price: '₹ 10095',
         duration: '40 Min',
-        icon: Heart,
+        icon: MessageCircleHeart,
         color: 'bg-pink-100 text-pink-600',
     },
     {
