@@ -42,15 +42,15 @@ export default function Testimonials() {
         <div
             key={`${idPrefix}-${t.id}`}
             className={`group relative flex flex-col gap-4 mx-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border glass backdrop-blur-xl transition-all duration-500 min-w-[280px] sm:min-w-[320px] md:min-w-[420px] whitespace-normal
-                ${isDarkMode 
-                    ? 'border-gold/50 hover:border-gold text-white' 
+                ${isDarkMode
+                    ? 'border-gold/50 hover:border-gold text-white'
                     : 'border-[#4B0082]/40 hover:border-[#4B0082] text-black'}
             `}
         >
             <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-10 transition-opacity group-hover:opacity-20 hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
-            
+
             <div className="flex items-center gap-4">
-                <div className={`relative p-[1px] rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}>
+                <div className={`relative p-[2px] rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}>
                     <img
                         src={t.img}
                         alt={t.name}
@@ -87,12 +87,8 @@ export default function Testimonials() {
                 </h2>
             </div>
 
-            <div 
+            <div
                 className="relative flex overflow-x-hidden group py-4"
-                style={{ 
-                    WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
-                    maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
-                }}
             >
                 <div className="flex animate-marquee group-hover:pause active:pause">
                     {testimonials.map((t) => (
