@@ -36,20 +36,70 @@ const Kundali = () => {
         if (!chartRef.current) return;
         setDownloading(true);
         try {
-            const canvas = await html2canvas(chartRef.current, {
-                scale: 3, // High resolution
-                backgroundColor: '#ffffff',
-                useCORS: true,
-                logging: false,
-            });
-            const link = document.createElement('a');
-            link.download = `${formData.name || 'Astrofied'}_Kundali.png`;
-            link.href = canvas.toDataURL('image/png', 1.0);
-            link.click();
+            const svgElement = chartRef.current.querySelector('svg');
+            if (!svgElement) throw new Error("SVG not found");
+
+            // Clone SVG to modify it
+            const clonedSvg = svgElement.cloneNode(true);
+            
+            // Add explicit dimensions based on viewBox
+            const viewBox = svgElement.viewBox.baseVal;
+            const width = viewBox.width || 500;
+            const height = viewBox.height || 500;
+            clonedSvg.setAttribute('width', width);
+            clonedSvg.setAttribute('height', height);
+
+            // Embed styles directly into the cloned SVG
+            const styleElement = document.createElementNS("http://www.w3.org/2000/svg", "style");
+            styleElement.textContent = `
+                svg path, svg line, svg polygon, svg rect, svg circle { stroke-width: 1.5px !important; stroke: #4B0082 !important; fill: none !important; }
+                svg text { fill: #4B0082 !important; font-family: 'Mulish', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
+                rect[fill="white"] { fill: white !important; }
+            `;
+            clonedSvg.prepend(styleElement);
+
+            const svgData = new XMLSerializer().serializeToString(clonedSvg);
+            const canvas = document.createElement('canvas');
+            const scale = 3; // High res
+            canvas.width = width * scale;
+            canvas.height = height * scale;
+            const ctx = canvas.getContext('2d');
+            
+            const img = new Image();
+            const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(svgBlob);
+
+            img.onload = () => {
+                // Background
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw SVG
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // Download
+                const pngUrl = canvas.toDataURL('image/png', 1.0);
+                const downloadLink = document.createElement('a');
+                downloadLink.download = `${formData.name || 'Astrofied'}_Kundali.png`;
+                downloadLink.href = pngUrl;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                URL.revokeObjectURL(url);
+                setDownloading(false);
+            };
+            
+            img.onerror = () => {
+                setDownloading(false);
+                alert("Could not generate image. Please try again.");
+            };
+
+            img.src = url;
         } catch (err) {
             console.error('Download error:', err);
-        } finally {
             setDownloading(false);
+            alert("Download failed. Please try again.");
         }
     };
 
@@ -319,25 +369,24 @@ const Kundali = () => {
                                     </div>
                                 </div>
                                 <div className={`flex-1 flex flex-col items-center justify-center p-6 md:p-12 ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-purple-600/5'}`}>
-                                    <div 
+                                    <div
                                         ref={chartRef}
-                                        className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-purple-600/10 shadow-lg rounded-[2rem] flex items-center justify-center`} 
-                                        dangerouslySetInnerHTML={{ __html: chartSvg }} 
+                                        className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-purple-600/10 shadow-lg rounded-[2rem] flex items-center justify-center`}
+                                        dangerouslySetInnerHTML={{ __html: chartSvg }}
                                     />
-                                    
+
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={handleDownload}
                                         disabled={downloading}
-                                        className={`mt-8 px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all shadow-xl disabled:opacity-50 ${
-                                            isDarkMode 
-                                                ? 'bg-gold text-black hover:bg-white' 
+                                        className={`mt-8 px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all shadow-xl disabled:opacity-50 ${isDarkMode
+                                                ? 'bg-gold text-black hover:bg-white'
                                                 : 'bg-[#4B0082] text-white hover:bg-purple-700'
-                                        }`}
+                                            }`}
                                     >
                                         {downloading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
-                                        {downloading ? 'Processing...' : 'Download as PNG'}
+                                        {downloading ? 'Processing...' : 'Download'}
                                     </motion.button>
                                 </div>
                             </div>
