@@ -43,6 +43,14 @@ const faqs = [
 export default function FAQs() {
     const { isDarkMode } = useTheme();
     const [openIndex, setOpenIndex] = useState(0); // First one open by default
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const toggleFAQ = (index) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -52,10 +60,9 @@ export default function FAQs() {
         <section id="faqs" className={`py-24 relative overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
             <div className="container mx-auto px-6 max-w-4xl">
                 <motion.h2
-                    initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
-                    whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
                     className="text-3xl md:text-5xl font-bold text-center mb-12 font-mulish"
                     style={{ color: isDarkMode ? '#FFFFFF' : '#4B0082' }}
                 >
@@ -69,10 +76,10 @@ export default function FAQs() {
                         return (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
-                                whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+                                initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-100px" }}
+                                transition={{ delay: index * 0.1 }}
                                 className={`border-2 rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
                                     ? isActive
                                         ? 'border-[#D4AF37] bg-[#4B0082]/30 shadow-[#D4AF37]/10'

@@ -10,6 +10,15 @@ import html2canvas from 'html2canvas';
 const Kundali = () => {
     const { isDarkMode } = useTheme();
     const chartRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const [formData, setFormData] = useState({
         name: '',
         dob: '',
@@ -168,10 +177,9 @@ const Kundali = () => {
                     {/* Left Side: Heading */}
                     <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6 md:space-y-8">
                         <motion.div
-                            initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
-                            whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
                             className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm ${isDarkMode ? 'border-gold/30 text-gold bg-gold/5' : 'border-purple-600/20 text-[#4B0082] bg-purple-600/5'
                                 }`}
                         >
@@ -180,10 +188,9 @@ const Kundali = () => {
                         </motion.div>
 
                         <motion.h2
-                            initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
-                            whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+                            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
                             className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4B0082]'
                                 }`}
                         >
@@ -192,10 +199,9 @@ const Kundali = () => {
                         </motion.h2>
 
                         <motion.p
-                            initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
-                            whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
                             className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]/70'
                                 }`}
                         >
@@ -206,10 +212,9 @@ const Kundali = () => {
                     {/* Right Side: Compact Form Container */}
                     <div className="w-full lg:w-2/5 max-w-md mx-auto lg:mx-0">
                         <motion.div
-                            initial={{ opacity: 0, filter: 'blur(10px)', y: 30 }}
-                            whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
                             className={`p-6 md:p-10 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 aspect-[3/4] flex flex-col justify-center relative ${isDarkMode
                                 ? 'border-gold bg-[#0f0a1f]/80'
                                 : 'border-[#D4AF37]/20 bg-[#F5F5DC]'
