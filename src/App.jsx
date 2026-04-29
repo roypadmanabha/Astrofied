@@ -10,7 +10,6 @@ import Feedback from './components/Feedback';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
-import Connect from './components/Connect';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
@@ -363,10 +362,6 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
       {/* FAQs Section */}
       <FAQs />
-
-      {/* Connect Section */}
-      <Connect />
-
       <Footer onOpenLegal={openLegalModal} />
       <LegalModal
         isOpen={legalModal.isOpen}
