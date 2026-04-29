@@ -60,9 +60,10 @@ export default function FAQs() {
         <section id="faqs" className={`py-24 relative overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
             <div className="container mx-auto px-6 max-w-4xl">
                 <motion.h2
-                    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    initial={{ opacity: 0.8, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                     className="text-3xl md:text-5xl font-bold text-center mb-12 font-mulish"
                     style={{ color: isDarkMode ? '#FFFFFF' : '#4B0082' }}
                 >
@@ -76,10 +77,10 @@ export default function FAQs() {
                         return (
                             <motion.div
                                 key={index}
-                                initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                                initial={{ opacity: 0.8, y: 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{ delay: index * 0.1 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.4, ease: "easeOut" }}
                                 className={`border-2 rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
                                     ? isActive
                                         ? 'border-[#D4AF37] bg-[#4B0082]/30 shadow-[#D4AF37]/10'
