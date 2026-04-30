@@ -49,8 +49,9 @@ const Pricing = () => {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
-            Best Prices
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
+            <span style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>Best</span>{' '}
+            <span style={{ color: isDarkMode ? '#FFFFFF' : '#4B0082' }}>Prices</span>
           </h2>
           <p className={`text-lg md:text-xl font-mulish opacity-70 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
             High-quality astrological guidance made affordable for everyone.
