@@ -88,8 +88,8 @@ const ExploreModal = ({ isOpen, onClose }) => {
                             <img 
                                 src={logo} 
                                 alt="" 
-                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] md:w-2/5 opacity-[0.04] pointer-events-none select-none" 
-                                style={{ filter: isDarkMode ? 'brightness(2)' : 'none' }}
+                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] md:w-1/2 opacity-[0.1] pointer-events-none select-none" 
+                                style={{ filter: isDarkMode ? 'brightness(1.5)' : 'none' }}
                             />
                             {/* Refraction Shine */}
                             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
