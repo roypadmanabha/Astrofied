@@ -128,7 +128,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                         `}>
                                             {index + 1}
                                         </span>
-                                        <p className="text-[3.4vw] sm:text-base md:text-lg leading-relaxed opacity-90 font-mulish font-medium">
+                                        <p className="text-[3.4vw] sm:text-base md:text-lg leading-relaxed opacity-90 font-mulish font-medium text-justify">
                                             {text}
                                         </p>
                                     </motion.div>
@@ -142,7 +142,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 transition={{ delay: 1.5 }}
                                 className="mt-10 md:mt-16 text-center"
                             >
-                                <p className={`text-base md:text-3xl font-black italic tracking-tight font-mulish
+                                <p className={`text-base md:text-3xl font-black italic tracking-tight font-mulish text-justify
                                     ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}
                                 `}>
                                     What are you waiting for? Book your online consultation now and clear all your doubts!
