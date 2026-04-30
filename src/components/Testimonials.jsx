@@ -90,13 +90,13 @@ export default function Testimonials() {
             <div
                 className="relative flex overflow-x-hidden group py-4"
             >
-                <div className="flex animate-marquee-ltr group-hover:pause active:pause">
+                <div className="flex animate-marquee group-hover:pause active:pause">
                     {testimonials.map((t) => (
                         <TestimonialCard key={`first-${t.id}`} t={t} idPrefix="first" />
                     ))}
                 </div>
 
-                <div className="flex animate-marquee-ltr group-hover:pause active:pause" aria-hidden="true">
+                <div className="flex animate-marquee group-hover:pause active:pause" aria-hidden="true">
                     {testimonials.map((t) => (
                         <TestimonialCard key={`second-${t.id}`} t={t} idPrefix="second" />
                     ))}
