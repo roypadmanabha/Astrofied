@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import logo from '../assets/logo.png';
+import ganesha from '../assets/ganesha.png';
 
 const ExploreModal = ({ isOpen, onClose }) => {
     const { isDarkMode } = useTheme();
@@ -113,6 +114,32 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                     >
                                         Astrofied: Astrologically Verified
                                     </h2>
+                                </div>
+
+                                {/* Ganesha Section */}
+                                <div className="flex flex-col items-center justify-center mb-10 md:mb-14">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.4, duration: 0.8 }}
+                                        className="relative group"
+                                    >
+                                        <img 
+                                            src={ganesha} 
+                                            alt="Lord Ganesha" 
+                                            className="w-40 md:w-56 lg:w-64 h-auto object-contain drop-shadow-[0_10px_20px_rgba(212,175,55,0.3)] group-hover:drop-shadow-[0_15px_30px_rgba(212,175,55,0.5)] transition-all duration-500"
+                                        />
+                                        <div className="mt-4 text-center">
+                                            <p className={`text-lg md:text-2xl font-black tracking-widest drop-shadow-sm ${
+                                                isDarkMode ? 'text-gold' : 'text-[#4B0082]'
+                                            }`}>
+                                                ॐ श्री गणेशाय नमः
+                                            </p>
+                                            <div className={`h-0.5 w-24 mx-auto mt-2 rounded-full blur-[1px] ${
+                                                isDarkMode ? 'bg-gold/40' : 'bg-[#4B0082]/30'
+                                            }`} />
+                                        </div>
+                                    </motion.div>
                                 </div>
 
                                 <div className="space-y-5 md:space-y-8">
