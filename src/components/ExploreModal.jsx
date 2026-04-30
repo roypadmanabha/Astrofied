@@ -84,8 +84,14 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 className={`absolute bottom-0 right-0 w-full h-full opacity-20 blur-[100px]
                                     ${isDarkMode ? 'bg-[#4B0082]' : 'bg-gold'}`}
                             />
-                            {/* Branded Watermark - Fixed in center */}
-                            <div className="absolute inset-0 flex items-center justify-center opacity-[0.12] pointer-events-none select-none">
+                            {/* Refraction Shine */}
+                            <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+                        </div>
+
+                        {/* Main Body - Logo is centered here */}
+                        <div className="flex-1 relative overflow-hidden">
+                            {/* Branded Watermark - Fixed in center of content area */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-[0.12] pointer-events-none select-none z-0">
                                 <img 
                                     src={logo} 
                                     alt="" 
@@ -93,16 +99,13 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                     style={{ filter: isDarkMode ? 'brightness(1.5)' : 'none' }}
                                 />
                             </div>
-                            {/* Refraction Shine */}
-                            <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
-                        </div>
 
-                        {/* Content Area - Scrollable */}
-                        <div className="flex-1 overflow-y-auto custom-scrollbar p-5 md:p-10" data-lenis-prevent>
+                            {/* Content Area - Scrollable */}
+                            <div className="absolute inset-0 overflow-y-auto custom-scrollbar p-5 md:p-10 z-10" data-lenis-prevent>
                             <div className="flex items-center justify-center mb-6 md:mb-8">
                                 <h2 className={`text-[4.5vw] sm:text-2xl md:text-4xl font-black tracking-tight font-mulish whitespace-nowrap overflow-hidden bg-clip-text text-transparent
-                                    ${isDarkMode 
-                                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFFFFF]' 
+                                    ${isDarkMode
+                                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFFFFF]'
                                         : 'bg-gradient-to-r from-[#000000] to-[#FF0000]'}
                                 `}>
                                     Astrofied: Astrologically Verified
@@ -111,7 +114,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
 
                             <div className="space-y-5 md:space-y-8">
                                 {points.map((text, index) => (
-                                    <motion.div 
+                                    <motion.div
                                         key={index}
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
@@ -119,8 +122,8 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                         className="flex gap-3 md:gap-4 items-start group"
                                     >
                                         <span className={`flex-shrink-0 w-7 h-7 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center font-black text-[10px] md:text-base transition-colors
-                                            ${isDarkMode 
-                                                ? 'border-gold text-gold group-hover:bg-gold group-hover:text-black' 
+                                            ${isDarkMode
+                                                ? 'border-gold text-gold group-hover:bg-gold group-hover:text-black'
                                                 : 'border-[#4B0082] text-[#4B0082] group-hover:bg-[#4B0082] group-hover:text-white'}
                                         `}>
                                             {index + 1}
@@ -145,17 +148,18 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                     What are you waiting for? Book your online consultation now and clear all your doubts!
                                 </p>
                             </motion.div>
+                            </div>
                         </div>
 
                         {/* Footer - Close Button */}
-                        <div className={`p-4 md:p-6 border-t backdrop-blur-xl
+                        <div className={`p-4 md:p-6 border-t backdrop-blur-xl relative z-20
                             ${isDarkMode ? 'border-gold/20 bg-black/40' : 'border-[#4B0082]/10 bg-white/40'}
                         `}>
                             <button
                                 onClick={onClose}
                                 className={`w-full py-3 md:py-4 rounded-xl md:rounded-2xl font-black text-sm md:text-lg tracking-widest uppercase transition-all shadow-xl active:scale-95
-                                    ${isDarkMode 
-                                        ? 'bg-gold text-black hover:bg-white shadow-gold/20' 
+                                    ${isDarkMode
+                                        ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                                         : 'bg-[#4B0082] text-white hover:bg-black shadow-[#4B0082]/20'}
                                 `}
                             >
