@@ -134,7 +134,7 @@ export default function Testimonials() {
                         <button
                             onClick={() => scroll('right')}
                             disabled={!canScrollRight}
-                            className={`p-3 md:p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg
+                            className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg
                                 ${isDarkMode 
                                     ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] hover:bg-[#FFF8E1] hover:text-[#D4AF37] hover:scale-105 active:scale-95' 
                                     : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] hover:bg-purple-100 hover:text-[#4B0082] hover:scale-105 active:scale-95'}
@@ -175,7 +175,7 @@ export default function Testimonials() {
                 <button
                     onClick={() => scroll('right')}
                     disabled={!canScrollRight}
-                    className={`p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
+                    className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
                         ${isDarkMode 
                             ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] hover:bg-[#FFF8E1] hover:text-[#D4AF37] active:scale-90' 
                             : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] hover:bg-purple-100 hover:text-[#4B0082] active:scale-90'}
