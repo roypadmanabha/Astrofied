@@ -5,9 +5,8 @@ import zodiacBg from '../assets/zodiac-wheel.png';
 import { useState } from 'react';
 import ExploreModal from './ExploreModal';
 
-export default function Hero({ onOpenConsultation }) {
+export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDetailsModalOpen }) {
     const { isDarkMode } = useTheme();
-    const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-28 pb-12 md:pb-20 overflow-hidden">

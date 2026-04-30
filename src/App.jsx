@@ -28,6 +28,7 @@ function MainContent() {
   const [showFullWhySj, setShowFullWhySj] = useState(false);
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -134,8 +135,13 @@ If you have any questions regarding this Privacy Policy or how your data is hand
   const isModalOpenRef = useRef(false);
   
   useEffect(() => {
-    isModalOpenRef.current = legalModal.isOpen;
-  }, [legalModal.isOpen]);
+    isModalOpenRef.current = legalModal.isOpen || isDetailsModalOpen;
+    if (isModalOpenRef.current) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [legalModal.isOpen, isDetailsModalOpen]);
 
   useEffect(() => {
     // Force scroll to top on refresh
@@ -189,7 +195,11 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       />
       <ThemeToggle3D />
 
-      <Hero onOpenConsultation={handleBookConsultation} />
+      <Hero 
+        onOpenConsultation={handleBookConsultation} 
+        isDetailsModalOpen={isDetailsModalOpen}
+        setIsDetailsModalOpen={setIsDetailsModalOpen}
+      />
 
       {/* Why Astrofied Section */}
       <section id="why-astrofied" className={`py-24 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>

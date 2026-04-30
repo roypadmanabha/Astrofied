@@ -6,6 +6,18 @@ import { useTheme } from '../context/ThemeContext';
 const ExploreModal = ({ isOpen, onClose }) => {
     const { isDarkMode } = useTheme();
 
+    // Prevent body scroll when modal is open
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     const points = [
         "Astrofied, a renowned astrological epicenter founded in 2019 by astrologer Shri Prasanta Chakraborty, has been a beacon of clarity and guidance for thousands seeking cosmic insight.",
         "Our mission is to guide individuals toward the right path and align them with their true destiny through precise astrological analysis.",
@@ -37,15 +49,15 @@ const ExploreModal = ({ isOpen, onClose }) => {
                         initial={{ opacity: 0, scale: 0.9, y: 30, rotateX: 15 }}
                         animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 30, rotateX: -15 }}
-                        transition={{ 
-                            type: "spring", 
-                            damping: 25, 
+                        transition={{
+                            type: "spring",
+                            damping: 25,
                             stiffness: 300,
-                            duration: 0.6 
+                            duration: 0.6
                         }}
                         className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col
-                            ${isDarkMode 
-                                ? 'bg-[#0a0218]/80 border-gold/30 text-white' 
+                            ${isDarkMode
+                                ? 'bg-[#0a0218]/80 border-gold/30 text-white'
                                 : 'bg-white/80 border-[#4B0082]/30 text-black'}
                         `}
                     >
@@ -92,7 +104,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
 
                             <div className="space-y-6 md:space-y-8">
                                 {points.map((text, index) => (
-                                    <motion.div 
+                                    <motion.div
                                         key={index}
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
@@ -100,8 +112,8 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                         className="flex gap-4 items-start group"
                                     >
                                         <span className={`flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center font-black text-sm md:text-base transition-colors
-                                            ${isDarkMode 
-                                                ? 'border-gold text-gold group-hover:bg-gold group-hover:text-black' 
+                                            ${isDarkMode
+                                                ? 'border-gold text-gold group-hover:bg-gold group-hover:text-black'
                                                 : 'border-[#4B0082] text-[#4B0082] group-hover:bg-[#4B0082] group-hover:text-white'}
                                         `}>
                                             {index + 1}
@@ -135,8 +147,8 @@ const ExploreModal = ({ isOpen, onClose }) => {
                             <button
                                 onClick={onClose}
                                 className={`w-full py-4 rounded-2xl font-black text-lg tracking-widest uppercase transition-all shadow-xl active:scale-95
-                                    ${isDarkMode 
-                                        ? 'bg-gold text-black hover:bg-white shadow-gold/20' 
+                                    ${isDarkMode
+                                        ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                                         : 'bg-[#4B0082] text-white hover:bg-black shadow-[#4B0082]/20'}
                                 `}
                             >
@@ -145,7 +157,8 @@ const ExploreModal = ({ isOpen, onClose }) => {
                         </div>
                     </motion.div>
 
-                    <style dangerouslySetInnerHTML={{ __html: `
+                    <style dangerouslySetInnerHTML={{
+                        __html: `
                         .custom-scrollbar::-webkit-scrollbar {
                             width: 6px;
                         }
