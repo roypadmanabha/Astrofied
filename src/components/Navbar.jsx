@@ -74,7 +74,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                             onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                         >
                             <span
-                                className={`text-3xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r ${
+                                className={`text-3xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
                                     isDarkMode 
                                         ? 'from-[#D4AF37] via-[#F1C40F] to-white' 
                                         : 'from-black via-gray-900 to-[#DC2626]'
@@ -168,15 +168,21 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         </button>
                     </div>
 
-                    {/* Brand Name with Gradient */}
+                    {/* Brand Logo (Desktop) & Name (All) */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         className="flex items-center gap-0 cursor-pointer"
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
+                        <img
+                            src={logo}
+                            alt="Astrofied Logo"
+                            className="hidden md:block w-12 h-12 md:w-14 md:h-14 object-contain"
+                            style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-4px' }}
+                        />
                         <span
-                            className={`text-2xl md:text-3xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r ${
+                            className={`text-2xl md:text-4xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
                                 isDarkMode 
                                     ? 'from-[#D4AF37] via-[#F1C40F] to-white' 
                                     : 'from-black via-gray-900 to-[#DC2626]'
