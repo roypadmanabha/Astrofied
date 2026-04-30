@@ -18,6 +18,10 @@ import somnath from '../assets/testimonials/somnath.jpg';
 import suman from '../assets/testimonials/suman.jpg';
 
 const testimonials = [
+    { id: 8, name: "Pralay Majumder", img: pralay, text: "Astrofied provides clarity when life feels uncertain. A great mentor." },
+    { id: 9, name: "Prasenjit Chakraborty", img: prasenjit, text: "Highly impressed with the accuracy. It's more than just predictions, it's guidance." },
+    { id: 13, name: "Sibani Bhattacharya", img: sibani, text: "Incredible depth of analysis. Every session brings new clarity and peace of mind." },
+    { id: 14, name: "Somnath Chakraborty", img: somnath, text: "Great support for family and health concerns. The suggestions work wonder." },
     { id: 1, name: "Amjad Hossain", img: amjad, text: "The career guidance was incredibly accurate. Astrofied helped me find my true path." },
     { id: 2, name: "Aritrika Chakraborty", img: aritrika, text: "Excellent insights into my personal relationship issues. Highly recommended!" },
     { id: 3, name: "Debadrita Datta", img: debadrita, text: "A truly professional experience. The remedies provided were practical and effective." },
@@ -25,13 +29,9 @@ const testimonials = [
     { id: 5, name: "Madhumita Chakraborty", img: madhumita, text: "The birth chart analysis was precise and helped me prepare for future challenges." },
     { id: 6, name: "Poulami Chakraborty", img: poulami1, text: "Warm and supportive guidance. Felt very comfortable discussing my life problems." },
     { id: 7, name: "Poulami Saha", img: poulami2, text: "Exceptional service! The predictions about my business growth were spot on." },
-    { id: 8, name: "Pralay Majumder", img: pralay, text: "Astrofied provides clarity when life feels uncertain. A great mentor." },
-    { id: 9, name: "Prasenjit Chakraborty", img: prasenjit, text: "Highly impressed with the accuracy. It's more than just predictions, it's guidance." },
     { id: 10, name: "Purnima Debnath", img: purnima, text: "Helped me understand my strengths and weaknesses through my horoscope." },
     { id: 11, name: "Riya Chakraborty", img: riya, text: "The best place for authentic astrological consultations. Very satisfied!" },
     { id: 12, name: "Rupan Bhattacharjee", img: rupan, text: "Scientific approach to astrology. No superstitions, just pure logic and calculations." },
-    { id: 13, name: "Sibani Bhattacharya", img: sibani, text: "Incredible depth of analysis. Every session brings new clarity and peace of mind." },
-    { id: 14, name: "Somnath Chakraborty", img: somnath, text: "Great support for family and health concerns. The suggestions work wonder." },
     { id: 15, name: "Suman Saha", img: suman, text: "Transformative experience! Astrofied changed my perspective towards traditional wisdom." },
 ];
 
