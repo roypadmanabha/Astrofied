@@ -70,18 +70,15 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
 
                         {/* Mobile Menu Header */}
                         <div 
-                            className="absolute top-6 left-6 flex items-center gap-0 cursor-pointer"
+                            className="absolute top-10 left-8 flex items-center gap-0 cursor-pointer"
                             onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                         >
-                            <img
-                                src={logo}
-                                alt="Astrofied Logo"
-                                className="w-16 h-16 object-contain"
-                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-6px' }}
-                            />
                             <span
-                                className="text-2xl md:text-3xl font-bold tracking-tighter"
-                                style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                                className={`text-3xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r ${
+                                    isDarkMode 
+                                        ? 'from-[#D4AF37] via-[#F1C40F] to-white' 
+                                        : 'from-black via-gray-900 to-[#DC2626]'
+                                }`}
                             >
                                 Astrofied
                             </span>
@@ -171,22 +168,19 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         </button>
                     </div>
 
-                    {/* Brand Logo & Name */}
+                    {/* Brand Name with Gradient */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         className="flex items-center gap-0 cursor-pointer"
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
-                        <img
-                            src={logo}
-                            alt="Astrofied Logo"
-                            className="w-12 h-12 md:w-14 md:h-14 object-contain"
-                            style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-4px' }}
-                        />
                         <span
-                            className="text-lg md:text-xl font-bold tracking-tighter"
-                            style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                            className={`text-2xl md:text-3xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r ${
+                                isDarkMode 
+                                    ? 'from-[#D4AF37] via-[#F1C40F] to-white' 
+                                    : 'from-black via-gray-900 to-[#DC2626]'
+                            }`}
                         >
                             Astrofied
                         </span>
