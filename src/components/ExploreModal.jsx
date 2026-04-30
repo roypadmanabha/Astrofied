@@ -88,7 +88,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                         </div>
 
                         {/* Content Area - Scrollable */}
-                        <div className="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-10">
+                        <div className="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-10" data-lenis-prevent>
                             <div className="flex items-center gap-3 mb-8">
                                 <h2 className="text-2xl md:text-4xl font-black tracking-tight font-mulish">
                                     Astrofied: Astrologically Verified

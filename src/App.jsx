@@ -166,10 +166,11 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       infinite: false,
     });
 
+    // Store lenis on window for easy access if needed, or just keep it in scope
+    window.lenis = lenis;
+
     function raf(time) {
-      if (!isModalOpenRef.current) {
-        lenis.raf(time);
-      }
+      lenis.raf(time);
       requestAnimationFrame(raf);
     }
 
@@ -177,8 +178,21 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
     return () => {
       lenis.destroy();
+      window.lenis = null;
     };
   }, []);
+
+  // Control Lenis when modal state changes
+  useEffect(() => {
+    if (window.lenis) {
+      if (isDetailsModalOpen || legalModal.isOpen) {
+        window.lenis.stop();
+      } else {
+        window.lenis.start();
+      }
+    }
+  }, [isDetailsModalOpen, legalModal.isOpen]);
+
 
   return (
     <div
