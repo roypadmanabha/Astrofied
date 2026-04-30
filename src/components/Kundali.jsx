@@ -375,15 +375,19 @@ const Kundali = () => {
                                 ${isDarkMode ? 'bg-[#0a0218]/90 border-gold/30 text-white' : 'bg-white/90 border-[#4B0082]/30 text-black'}
                             `}
                         >
-                            {/* Cute Sparkles/Icons */}
-                            <div className="flex justify-center gap-3 mb-6">
-                                <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-gold">
-                                    <Sparkles size={32} />
-                                </motion.div>
+                            {/* Astrofied Logo */}
+                            <div className="flex justify-center mb-6">
+                                <img 
+                                    src={logo} 
+                                    alt="Astrofied" 
+                                    className="w-16 h-16 object-contain"
+                                    style={{ filter: isDarkMode ? 'none' : 'multiply' }}
+                                />
                             </div>
 
-                            <h3 className={`text-2xl md:text-3xl font-black mb-4 font-nunito ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
-                                Notice
+                            <h3 className={`text-2xl md:text-3xl font-black mb-4 font-nunito flex items-center justify-center gap-3 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                                <span className="text-red-500">Error</span>
+                                <X className="text-red-500 border-2 border-red-500 rounded-full p-1" size={24} strokeWidth={3} />
                             </h3>
                             
                             <p className="text-base md:text-lg leading-relaxed font-mulish font-medium opacity-90 mb-8">
