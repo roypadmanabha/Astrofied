@@ -92,62 +92,49 @@ const ExploreModal = ({ isOpen, onClose }) => {
                         <div className="flex-1 relative overflow-hidden flex flex-col">
                             {/* Branded Watermark - Fixed in center of content area */}
                             <div className="absolute inset-0 flex items-center justify-center opacity-[0.12] pointer-events-none select-none z-0">
-                                <img 
-                                    src={logo} 
-                                    alt="" 
-                                    className="w-[80%] md:w-1/2 h-auto object-contain" 
+                                <img
+                                    src={logo}
+                                    alt=""
+                                    className="w-[80%] md:w-1/2 h-auto object-contain"
                                     style={{ filter: isDarkMode ? 'brightness(1.5)' : 'none' }}
                                 />
                             </div>
 
                             {/* Content Area - Scrollable */}
                             <div className="flex-1 overflow-y-auto custom-scrollbar p-5 md:p-10 z-10" data-lenis-prevent>
-                            <div className="flex items-center justify-center mb-6 md:mb-8">
-                                <h2 className={`text-[4.5vw] sm:text-2xl md:text-4xl font-black tracking-tight font-mulish whitespace-nowrap overflow-hidden bg-clip-text text-transparent
+                                <div className="flex items-center justify-center mb-6 md:mb-8">
+                                    <h2 className={`text-[4.5vw] sm:text-2xl md:text-4xl font-black tracking-tight font-mulish whitespace-nowrap overflow-hidden bg-clip-text text-transparent
                                     ${isDarkMode
-                                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFFFFF]'
-                                        : 'bg-gradient-to-r from-[#000000] to-[#FF0000]'}
+                                            ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFFFFF]'
+                                            : 'bg-gradient-to-r from-[#000000] to-[#FF0000]'}
                                 `}>
-                                    Astrofied: Astrologically Verified
-                                </h2>
-                            </div>
+                                        Astrofied: Astrologically Verified
+                                    </h2>
+                                </div>
 
-                            <div className="space-y-5 md:space-y-8">
-                                {points.map((text, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.3 + index * 0.1 }}
-                                        className="flex gap-3 md:gap-4 items-start group"
-                                    >
-                                        <span className={`flex-shrink-0 w-7 h-7 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center font-black text-[10px] md:text-base transition-colors
+                                <div className="space-y-5 md:space-y-8">
+                                    {points.map((text, index) => (
+                                        <motion.div
+                                            key={index}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.3 + index * 0.1 }}
+                                            className="flex gap-3 md:gap-4 items-start group"
+                                        >
+                                            <span className={`flex-shrink-0 w-7 h-7 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center font-black text-[10px] md:text-base transition-colors
                                             ${isDarkMode
-                                                ? 'border-gold text-gold group-hover:bg-gold group-hover:text-black'
-                                                : 'border-[#4B0082] text-[#4B0082] group-hover:bg-[#4B0082] group-hover:text-white'}
+                                                    ? 'border-gold text-gold group-hover:bg-gold group-hover:text-black'
+                                                    : 'border-[#4B0082] text-[#4B0082] group-hover:bg-[#4B0082] group-hover:text-white'}
                                         `}>
-                                            {index + 1}
-                                        </span>
-                                        <p className="text-[3.4vw] sm:text-base md:text-lg leading-relaxed opacity-90 font-mulish font-medium text-justify">
-                                            {text}
-                                        </p>
-                                    </motion.div>
-                                ))}
-                            </div>
+                                                {index + 1}
+                                            </span>
+                                            <p className="text-[3.4vw] sm:text-base md:text-lg leading-relaxed opacity-90 font-mulish font-medium text-justify">
+                                                {text}
+                                            </p>
+                                        </motion.div>
+                                    ))}
+                                </div>
 
-                            {/* Ending Line */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.5 }}
-                                className="mt-10 md:mt-16 text-center"
-                            >
-                                <p className={`text-base md:text-3xl font-black italic tracking-tight font-mulish text-justify
-                                    ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}
-                                `}>
-                                    What are you waiting for? Book your online consultation now and clear all your doubts!
-                                </p>
-                            </motion.div>
                             </div>
                         </div>
 
