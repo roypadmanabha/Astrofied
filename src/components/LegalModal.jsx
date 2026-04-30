@@ -37,7 +37,7 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
                     initial={{ scale: 0.9, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                    className={`relative w-[90vw] md:w-full md:max-w-2xl aspect-square md:aspect-auto rounded-[2.5rem] shadow-2xl border overflow-hidden flex flex-col ${isDarkMode
+                    className={`relative w-[90vw] md:w-full md:max-w-2xl aspect-[3/4] md:aspect-auto rounded-[2.5rem] shadow-2xl border overflow-hidden flex flex-col ${isDarkMode
                             ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-gold/30 text-white'
                             : 'bg-[#FCF9F2] border-[#D4AF37]/30 text-[#0A1931]'
                         }`}
