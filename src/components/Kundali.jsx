@@ -372,7 +372,7 @@ const Kundali = () => {
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 20 }}
                             className={`relative w-full max-w-lg p-8 md:p-12 rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] text-center overflow-hidden
-                                ${isDarkMode ? 'bg-[#0a0218]/90 border-gold/30 text-white' : 'bg-white/90 border-[#4B0082]/30 text-black'}
+                                ${isDarkMode ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-gold/30 text-white' : 'bg-white/90 border-[#4B0082]/30 text-black'}
                             `}
                         >
                             {/* Astrofied Logo */}
