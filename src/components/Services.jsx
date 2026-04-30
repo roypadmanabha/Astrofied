@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
-import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass, GraduationCap, Home, HandCoins, Plane, MessageCircleHeart } from 'lucide-react';
+import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass, GraduationCap, Home, HandCoins, Plane, MessageCircleHeart, Landmark } from 'lucide-react';
 
 const services = [
     {
@@ -64,7 +64,7 @@ const services = [
         desc: 'Astrological solutions for debt clearance and financial recovery',
         price: '₹ 9000',
         duration: '40 Mins',
-        icon: HandCoins,
+        icon: Landmark,
         color: 'bg-rose-100 text-rose-600',
     },
     {
