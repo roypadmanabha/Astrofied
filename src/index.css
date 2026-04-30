@@ -76,7 +76,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Mulish', sans-serif !important;
+  font-family: 'Mulish', sans-serif;
 }
 
 body {
@@ -185,7 +185,7 @@ body.light {
   h4,
   h5,
   h6 {
-    font-family: 'Mulish', sans-serif !important;
+    font-family: 'Mulish', sans-serif;
     @apply font-bold tracking-tight;
   }
 
