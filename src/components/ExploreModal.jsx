@@ -89,7 +89,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                         </div>
 
                         {/* Main Body - Logo is centered here */}
-                        <div className="flex-1 relative overflow-hidden">
+                        <div className="flex-1 relative overflow-hidden flex flex-col">
                             {/* Branded Watermark - Fixed in center of content area */}
                             <div className="absolute inset-0 flex items-center justify-center opacity-[0.12] pointer-events-none select-none z-0">
                                 <img 
@@ -101,7 +101,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                             </div>
 
                             {/* Content Area - Scrollable */}
-                            <div className="relative h-full overflow-y-auto custom-scrollbar p-5 md:p-10 z-10" data-lenis-prevent>
+                            <div className="flex-1 overflow-y-auto custom-scrollbar p-5 md:p-10 z-10" data-lenis-prevent>
                             <div className="flex items-center justify-center mb-6 md:mb-8">
                                 <h2 className={`text-[4.5vw] sm:text-2xl md:text-4xl font-black tracking-tight font-mulish whitespace-nowrap overflow-hidden bg-clip-text text-transparent
                                     ${isDarkMode
