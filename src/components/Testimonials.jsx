@@ -67,7 +67,7 @@ export default function Testimonials() {
 
     const TestimonialCard = ({ t }) => (
         <div
-            className={`group relative flex flex-col gap-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border glass backdrop-blur-xl transition-all duration-500 min-w-[300px] sm:min-w-[380px] md:min-w-[450px] shrink-0 whitespace-normal h-full
+            className={`group relative flex flex-col gap-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border glass backdrop-blur-xl transition-all duration-500 min-w-[300px] sm:min-w-[380px] md:min-w-[450px] h-full whitespace-normal
                 ${isDarkMode
                     ? 'border-gold/30 bg-[#17202A]/40 text-white'
                     : 'border-[#4B0082]/20 bg-white/40 text-black'}
@@ -96,7 +96,7 @@ export default function Testimonials() {
                 </div>
             </div>
 
-            <p className={`text-sm md:text-lg font-mulish opacity-90 leading-relaxed italic relative z-10 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <p className={`text-sm md:text-lg font-mulish opacity-90 leading-relaxed italic relative z-10 flex-grow ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                 {t.text}
             </p>
         </div>
@@ -153,7 +153,7 @@ export default function Testimonials() {
                 className="flex items-stretch overflow-x-auto gap-6 px-6 md:px-[calc((100vw-min(1280px,100vw-48px))/2)] no-scrollbar snap-x snap-mandatory py-4 cursor-grab active:cursor-grabbing"
             >
                 {testimonials.map((t) => (
-                    <div key={t.id} className="snap-center flex">
+                    <div key={t.id} className="snap-center flex shrink-0">
                         <TestimonialCard t={t} />
                     </div>
                 ))}
