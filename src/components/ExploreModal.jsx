@@ -20,7 +20,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
     }, [isOpen]);
 
     const points = [
-        "Astrofied, a renowned astrological epicenter founded in 2019 by astrologer Shri Prasanta Chakraborty, has been a beacon of clarity and guidance for thousands seeking cosmic insight.",
+        "Astrofied, a renowned astrological hub founded in 2019 by astrologer Shri Prasanta Chakraborty, has been a beacon of clarity and guidance for thousands seeking cosmic insight.",
         "Our mission is to guide individuals toward the right path and align them with their true destiny through precise astrological analysis.",
         "By 2025, we have consulted over 5,000 clients facing various life challenges, helping them align their karma with their destiny. We look forward to continuing this journey across India and beyond.",
         "Our lead astrologer is an expert in Vedic, KP, Jaimini, Nakshatra Nadi, and Bhrigu Nandi Nadi (BNN), utilizing a meticulously calculative approach to deliver accurate predictions.",
@@ -103,7 +103,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                             {/* Content Area - Scrollable */}
                             <div className="flex-1 overflow-y-auto custom-scrollbar p-5 md:p-10 z-10" data-lenis-prevent>
                                 <div className="flex items-center justify-center mb-6 md:mb-8">
-                                    <h2 
+                                    <h2
                                         className={`text-[4.5vw] sm:text-2xl md:text-4xl font-bold tracking-tight font-nunito whitespace-nowrap overflow-hidden bg-clip-text text-transparent
                                         ${isDarkMode
                                                 ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFFFFF]'
