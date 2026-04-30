@@ -1,10 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { X } from 'lucide-react';
 import astrologer from '../assets/hero-astrologer.png';
 import zodiacBg from '../assets/zodiac-wheel.png';
-import astrofiedDetails from '../assets/astrofied-details.png';
 import { useState } from 'react';
+import ExploreModal from './ExploreModal';
 
 export default function Hero({ onOpenConsultation }) {
     const { isDarkMode } = useTheme();
@@ -161,36 +160,11 @@ export default function Hero({ onOpenConsultation }) {
                 </div>
             </div>
 
-            {/* Details Modal */}
-            <AnimatePresence>
-                {isDetailsModalOpen && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setIsDetailsModalOpen(false)}
-                            className={`absolute inset-0 backdrop-blur-md ${isDarkMode ? 'bg-black/80' : 'bg-white/80'}`}
-                        />
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className={`relative w-full max-w-5xl rounded-[2rem] border shadow-2xl ${isDarkMode ? 'bg-[#121212] border-gold/20' : 'bg-white border-[#4B0082]/20'
-                                }`}
-                        >
-                            <div className="p-2 md:p-4">
-                                <img
-                                    src={astrofiedDetails}
-                                    alt="Astrofied Details"
-                                    className="w-full h-auto rounded-xl object-contain"
-                                />
-                            </div>
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
+            {/* Explore Modal */}
+            <ExploreModal 
+                isOpen={isDetailsModalOpen} 
+                onClose={() => setIsDetailsModalOpen(false)} 
+            />
         </section>
     );
 }
-
