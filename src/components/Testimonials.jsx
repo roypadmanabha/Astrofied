@@ -118,8 +118,8 @@ export default function Testimonials() {
                         </p>
                     </div>
 
-                    {/* Navigation Buttons */}
-                    <div className="flex items-center justify-center gap-4">
+                    {/* Desktop Navigation Buttons (Hidden on mobile) */}
+                    <div className="hidden md:flex items-center justify-center gap-4">
                         <button
                             onClick={() => scroll('left')}
                             disabled={!canScrollLeft}
@@ -157,6 +157,32 @@ export default function Testimonials() {
                         <TestimonialCard t={t} />
                     </div>
                 ))}
+            </div>
+
+            {/* Mobile Navigation Buttons (Visible only on mobile) */}
+            <div className="flex md:hidden items-center justify-center gap-6 mt-8">
+                <button
+                    onClick={() => scroll('left')}
+                    disabled={!canScrollLeft}
+                    className={`p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
+                        ${isDarkMode 
+                            ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5' 
+                            : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
+                    `}
+                >
+                    <ChevronLeft size={20} strokeWidth={4} />
+                </button>
+                <button
+                    onClick={() => scroll('right')}
+                    disabled={!canScrollRight}
+                    className={`p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
+                        ${isDarkMode 
+                            ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5' 
+                            : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
+                    `}
+                >
+                    <ChevronRight size={20} strokeWidth={4} />
+                </button>
             </div>
 
             <style jsx>{`
