@@ -1,6 +1,7 @@
-import { motion } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Quote, Star } from 'lucide-react';
+import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import amjad from '../assets/testimonials/amjad.jpg';
 import aritrika from '../assets/testimonials/aritrika.jpg';
 import debadrita from '../assets/testimonials/debadrita.jpg';
@@ -37,17 +38,42 @@ const testimonials = [
 
 export default function Testimonials() {
     const { isDarkMode } = useTheme();
+    const scrollRef = useRef(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(true);
 
-    const TestimonialCard = ({ t, idPrefix }) => (
+    const checkScroll = () => {
+        if (scrollRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+            setCanScrollLeft(scrollLeft > 0);
+            setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
+        }
+    };
+
+    useEffect(() => {
+        checkScroll();
+        window.addEventListener('resize', checkScroll);
+        return () => window.removeEventListener('resize', checkScroll);
+    }, []);
+
+    const scroll = (direction) => {
+        if (scrollRef.current) {
+            const { clientWidth } = scrollRef.current;
+            const scrollAmount = direction === 'left' ? -clientWidth * 0.8 : clientWidth * 0.8;
+            scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            setTimeout(checkScroll, 500);
+        }
+    };
+
+    const TestimonialCard = ({ t }) => (
         <div
-            key={`${idPrefix}-${t.id}`}
-            className={`group relative flex flex-col gap-4 mx-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border glass backdrop-blur-xl transition-all duration-500 min-w-[280px] sm:min-w-[320px] md:min-w-[420px] whitespace-normal
+            className={`group relative flex flex-col gap-4 mx-3 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border glass backdrop-blur-xl transition-all duration-500 min-w-[300px] sm:min-w-[380px] md:min-w-[450px] shrink-0 whitespace-normal
                 ${isDarkMode
-                    ? 'border-gold/50 hover:border-gold text-white'
-                    : 'border-[#4B0082]/40 hover:border-[#4B0082] text-black'}
+                    ? 'border-gold/30 bg-[#17202A]/40 text-white'
+                    : 'border-[#4B0082]/20 bg-white/40 text-black'}
             `}
         >
-            <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-100 transition-opacity hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
+            <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-20 hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
 
             <div className="flex items-center gap-4">
                 <div className={`relative p-[2px] rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}>
@@ -70,38 +96,78 @@ export default function Testimonials() {
                 </div>
             </div>
 
-            <p className={`text-sm md:text-base font-mulish opacity-80 leading-relaxed italic relative z-10 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <p className={`text-sm md:text-lg font-mulish opacity-90 leading-relaxed italic relative z-10 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                 {t.text}
             </p>
         </div>
     );
 
     return (
-        <section id="testimonials" className={`py-12 md:py-20 overflow-hidden relative ${isDarkMode ? '' : 'bg-white'}`} style={{ background: isDarkMode ? 'transparent' : 'white' }}>
-            <div className="container mx-auto px-6 mb-12 md:mb-16 text-center">
-                <h2
-                    className="text-3xl md:text-5xl lg:text-6xl font-black font-mulish tracking-tight"
-                    style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
-                >
-                    Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4B0082]'}>Trust</span>
-                </h2>
+        <section id="testimonials" className={`py-12 md:py-24 overflow-hidden relative ${isDarkMode ? '' : 'bg-white'}`} style={{ background: isDarkMode ? 'transparent' : 'white' }}>
+            <div className="container mx-auto px-6 mb-12 md:mb-16">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div className="text-center md:text-left">
+                        <h2
+                            className="text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-4"
+                            style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                        >
+                            Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4B0082]'}>Trust</span>
+                        </h2>
+                        <p className={`text-sm md:text-xl opacity-70 font-mulish ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]'}`}>
+                            Hear from our clients who found their cosmic alignment.
+                        </p>
+                    </div>
+
+                    {/* Navigation Buttons */}
+                    <div className="flex items-center justify-center gap-4">
+                        <button
+                            onClick={() => scroll('left')}
+                            disabled={!canScrollLeft}
+                            className={`p-3 md:p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
+                                ${isDarkMode 
+                                    ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5' 
+                                    : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
+                            `}
+                        >
+                            <ChevronLeft size={24} strokeWidth={3} />
+                        </button>
+                        <button
+                            onClick={() => scroll('right')}
+                            disabled={!canScrollRight}
+                            className={`p-3 md:p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
+                                ${isDarkMode 
+                                    ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5' 
+                                    : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
+                            `}
+                        >
+                            <ChevronRight size={24} strokeWidth={3} />
+                        </button>
+                    </div>
+                </div>
             </div>
 
+            {/* Carousel Container */}
             <div
-                className="relative flex overflow-x-hidden group py-4"
+                ref={scrollRef}
+                onScroll={checkScroll}
+                className="flex overflow-x-auto gap-0 px-6 md:px-[10vw] no-scrollbar snap-x snap-mandatory py-4 cursor-grab active:cursor-grabbing"
             >
-                <div className="flex animate-marquee group-hover:pause active:pause">
-                    {testimonials.map((t) => (
-                        <TestimonialCard key={`first-${t.id}`} t={t} idPrefix="first" />
-                    ))}
-                </div>
-
-                <div className="flex animate-marquee group-hover:pause active:pause" aria-hidden="true">
-                    {testimonials.map((t) => (
-                        <TestimonialCard key={`second-${t.id}`} t={t} idPrefix="second" />
-                    ))}
-                </div>
+                {testimonials.map((t) => (
+                    <div key={t.id} className="snap-center">
+                        <TestimonialCard t={t} />
+                    </div>
+                ))}
             </div>
+
+            <style jsx>{`
+                .no-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+                .no-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            `}</style>
         </section>
     );
 }
