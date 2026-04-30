@@ -132,11 +132,13 @@ const Kundali = () => {
         setSuggestions([]);
     };
 
+    const [showNotice, setShowNotice] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        // High volume alert requested by user
-        alert("We are currently experiencing a high volume of chart requests! Please try again in a few moments.");
+        // Custom high volume modal requested by user
+        setShowNotice(true);
         return;
 
         if (!formData.lat || !formData.lon) {
@@ -353,6 +355,53 @@ const Kundali = () => {
                     </div>
                 </div>
             </div>
+
+            {/* High Volume Notice Modal */}
+            <AnimatePresence>
+                {showNotice && (
+                    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setShowNotice(false)}
+                            className="absolute inset-0 bg-black/60 backdrop-blur-md"
+                        />
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                            className={`relative w-full max-w-lg p-8 md:p-12 rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] text-center overflow-hidden
+                                ${isDarkMode ? 'bg-[#0a0218]/90 border-gold/30 text-white' : 'bg-white/90 border-[#4B0082]/30 text-black'}
+                            `}
+                        >
+                            {/* Cute Sparkles/Icons */}
+                            <div className="flex justify-center gap-3 mb-6">
+                                <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-gold">
+                                    <Sparkles size={32} />
+                                </motion.div>
+                            </div>
+
+                            <h3 className={`text-2xl md:text-3xl font-black mb-4 font-nunito ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
+                                Notice
+                            </h3>
+                            
+                            <p className="text-base md:text-lg leading-relaxed font-mulish font-medium opacity-90 mb-8">
+                                We are currently experiencing a high volume of chart requests! Please try again in a few moments.
+                            </p>
+
+                            <button
+                                onClick={() => setShowNotice(false)}
+                                className={`w-full py-4 rounded-xl font-black text-sm tracking-widest uppercase transition-all active:scale-95 shadow-xl
+                                    ${isDarkMode ? 'bg-gold text-black hover:bg-white' : 'bg-[#4B0082] text-white hover:bg-black'}
+                                `}
+                            >
+                                Understood
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
 
             {/* Modal for Chart */}
             <AnimatePresence>
