@@ -116,7 +116,7 @@ export default function FAQs() {
                                             exit={{ height: 0, opacity: 0 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                         >
-                                            <div className={`px-6 pb-6 pt-1 text-sm md:text-base leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-black'
+                                            <div className={`px-6 pb-6 pt-1 text-sm md:text-base leading-relaxed text-justify ${isDarkMode ? 'text-gray-300' : 'text-black'
                                                 }`}>
                                                 {faq.answer}
                                             </div>
