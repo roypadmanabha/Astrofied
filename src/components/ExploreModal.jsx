@@ -57,13 +57,13 @@ const ExploreModal = ({ isOpen, onClose }) => {
                             duration: 0.6
                         }}
                         className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col
-                            ${isDarkMode ? 'border-gold/30 text-white' : 'border-[#4B0082]/30 text-black'}
+                            ${isDarkMode
+                                ? 'bg-[#0a0218]/80 border-gold/30 text-white'
+                                : 'bg-white/80 border-[#4B0082]/30 text-black'}
                         `}
                     >
                         {/* Water/Shining Effect Background */}
-                        <div className={`absolute inset-0 -z-10 overflow-hidden pointer-events-none 
-                            ${isDarkMode ? 'bg-[#0a0218]/85' : 'bg-white/85'}
-                        `}>
+                        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
                             <motion.div
                                 animate={{
                                     scale: [1, 1.2, 1],
@@ -84,13 +84,15 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 className={`absolute bottom-0 right-0 w-full h-full opacity-20 blur-[100px]
                                     ${isDarkMode ? 'bg-[#4B0082]' : 'bg-gold'}`}
                             />
-                            {/* Branded Watermark */}
-                            <img 
-                                src={logo} 
-                                alt="" 
-                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] md:w-1/2 opacity-[0.1] pointer-events-none select-none" 
-                                style={{ filter: isDarkMode ? 'brightness(1.5)' : 'none' }}
-                            />
+                            {/* Branded Watermark - Fixed in center */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-[0.12] pointer-events-none select-none">
+                                <img 
+                                    src={logo} 
+                                    alt="" 
+                                    className="w-[80%] md:w-1/2 h-auto object-contain" 
+                                    style={{ filter: isDarkMode ? 'brightness(1.5)' : 'none' }}
+                                />
+                            </div>
                             {/* Refraction Shine */}
                             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
                         </div>
