@@ -122,14 +122,53 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.4, duration: 0.8 }}
-                                        className="relative group"
+                                        className="relative group flex items-center justify-center"
                                     >
+                                        {/* Left Banana Leaf */}
+                                        <motion.div 
+                                            initial={{ opacity: 0, x: 20, rotate: -20 }}
+                                            animate={{ opacity: 0.6, x: 0, rotate: -15 }}
+                                            transition={{ delay: 0.6, duration: 1 }}
+                                            className="absolute -left-16 md:-left-24 lg:-left-32 top-0 pointer-events-none"
+                                        >
+                                            <svg width="80" height="160" viewBox="0 0 100 200" className="w-16 md:w-24 lg:w-32 h-auto">
+                                                <path 
+                                                    d="M50,200 C50,200 10,150 10,80 C10,30 50,0 50,0 C50,0 90,30 90,80 C90,150 50,200 50,200 Z" 
+                                                    fill="#228B22" 
+                                                    fillOpacity="0.8"
+                                                />
+                                                <path d="M50,0 L50,200" stroke="#1B4D1B" strokeWidth="2" fill="none" />
+                                                <path d="M50,40 L20,60 M50,80 L15,110 M50,120 L25,160" stroke="#1B4D1B" strokeWidth="1.5" fill="none" />
+                                                <path d="M50,40 L80,60 M50,80 L85,110 M50,120 L75,160" stroke="#1B4D1B" strokeWidth="1.5" fill="none" />
+                                            </svg>
+                                        </motion.div>
+
                                         <img 
                                             src={ganesha} 
                                             alt="Lord Ganesha" 
-                                            className="w-40 md:w-56 lg:w-64 h-auto object-contain drop-shadow-[0_10px_20px_rgba(212,175,55,0.3)] group-hover:drop-shadow-[0_15px_30px_rgba(212,175,55,0.5)] transition-all duration-500"
+                                            className="w-40 md:w-56 lg:w-64 h-auto object-contain drop-shadow-[0_10px_20px_rgba(212,175,55,0.3)] group-hover:drop-shadow-[0_15px_30px_rgba(212,175,55,0.5)] transition-all duration-500 z-10"
                                         />
-                                        <div className="mt-4 text-center">
+
+                                        {/* Right Banana Leaf */}
+                                        <motion.div 
+                                            initial={{ opacity: 0, x: -20, rotate: 20 }}
+                                            animate={{ opacity: 0.6, x: 0, rotate: 15 }}
+                                            transition={{ delay: 0.6, duration: 1 }}
+                                            className="absolute -right-16 md:-right-24 lg:-right-32 top-0 pointer-events-none scale-x-[-1]"
+                                        >
+                                            <svg width="80" height="160" viewBox="0 0 100 200" className="w-16 md:w-24 lg:w-32 h-auto">
+                                                <path 
+                                                    d="M50,200 C50,200 10,150 10,80 C10,30 50,0 50,0 C50,0 90,30 90,80 C90,150 50,200 50,200 Z" 
+                                                    fill="#228B22" 
+                                                    fillOpacity="0.8"
+                                                />
+                                                <path d="M50,0 L50,200" stroke="#1B4D1B" strokeWidth="2" fill="none" />
+                                                <path d="M50,40 L20,60 M50,80 L15,110 M50,120 L25,160" stroke="#1B4D1B" strokeWidth="1.5" fill="none" />
+                                                <path d="M50,40 L80,60 M50,80 L85,110 M50,120 L75,160" stroke="#1B4D1B" strokeWidth="1.5" fill="none" />
+                                            </svg>
+                                        </motion.div>
+
+                                        <div className="absolute top-[105%] left-0 right-0 text-center">
                                             <p className={`text-lg md:text-2xl font-black tracking-widest drop-shadow-sm ${
                                                 isDarkMode ? 'text-gold' : 'text-[#4B0082]'
                                             }`}>
