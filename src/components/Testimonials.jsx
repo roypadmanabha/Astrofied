@@ -107,17 +107,15 @@ export default function Testimonials() {
             <div className="container mx-auto px-6 mb-12 md:mb-16">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="text-center md:text-left flex flex-col items-center md:items-start">
-                        <div className="w-fit">
-                            <h2
-                                className="text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-2 md:mb-4"
-                                style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
-                            >
-                                Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4B0082]'}>Trust</span>
-                            </h2>
-                            <p className={`text-sm md:text-xl opacity-70 font-mulish leading-snug ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]'}`}>
-                                Hear from our clients who found their cosmic alignment.
-                            </p>
-                        </div>
+                        <h2
+                            className="text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-2 md:mb-4"
+                            style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                        >
+                            Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4B0082]'}>Trust</span>
+                        </h2>
+                        <p className={`text-sm md:text-xl opacity-70 font-mulish leading-snug max-w-[280px] sm:max-w-xs md:max-w-md lg:max-w-lg ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]'}`}>
+                            Hear from our clients who found their cosmic alignment.
+                        </p>
                     </div>
 
                     {/* Desktop Navigation Buttons (Hidden on mobile) */}
