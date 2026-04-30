@@ -196,34 +196,30 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         onClick={toggleTheme}
                         whileHover={{ scale: 1.1, rotate: 15 }}
                         whileTap={{ scale: 0.9 }}
-                        className={`p-2 rounded-xl border transition-all duration-300 ${
-                            isDarkMode 
-                                ? 'bg-gold/10 border-gold/30 text-gold shadow-[0_0_15px_rgba(212,175,55,0.2)]' 
-                                : 'bg-[#4B0082]/5 border-[#4B0082]/10 text-[#4B0082]'
+                        className={`p-1.5 transition-all duration-300 bg-transparent border-none ${
+                            isDarkMode ? 'text-gold' : 'text-[#4B0082]'
                         }`}
                     >
-                        {isDarkMode ? <Sun size={20} strokeWidth={2.5} /> : <Moon size={20} strokeWidth={2.5} />}
+                        {isDarkMode ? <Sun size={18} strokeWidth={2.5} /> : <Moon size={18} strokeWidth={2.5} />}
                     </motion.button>
                 </div>
 
                 {/* Mobile Menu Toggle & Theme Toggle */}
-                <div className="md:hidden flex items-center gap-4">
+                <div className="md:hidden flex items-center gap-1.5">
                     {/* Mobile Theme Toggle */}
                     <motion.button
                         onClick={toggleTheme}
                         whileTap={{ scale: 0.9 }}
-                        className={`p-2 rounded-xl border transition-all duration-300 ${
-                            isDarkMode 
-                                ? 'bg-gold/10 border-gold/30 text-gold shadow-[0_0_10px_rgba(212,175,55,0.1)]' 
-                                : 'bg-[#4B0082]/5 border-[#4B0082]/10 text-[#4B0082]'
+                        className={`p-1.5 transition-all duration-300 bg-transparent border-none ${
+                            isDarkMode ? 'text-gold' : 'text-[#4B0082]'
                         }`}
                     >
-                        {isDarkMode ? <Sun size={20} strokeWidth={2.5} /> : <Moon size={20} strokeWidth={2.5} />}
+                        {isDarkMode ? <Sun size={18} strokeWidth={2.5} /> : <Moon size={18} strokeWidth={2.5} />}
                     </motion.button>
 
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="flex flex-col justify-center items-center w-8 h-8 gap-1 focus:outline-none transition-all duration-300 bg-transparent border-none"
+                        className="flex flex-col justify-center items-center w-10 h-10 gap-1 focus:outline-none transition-all duration-300 bg-transparent border-none"
                     >
                         <motion.span
                             animate={isOpen ? { rotate: 45, y: 5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}
