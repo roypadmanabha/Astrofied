@@ -64,10 +64,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Force Mulish on all elements as default */
-* {
-  font-family: 'Mulish', sans-serif;
-}
 
 /* Force Mulish on all headings and big texts */
 h1,
