@@ -28,8 +28,8 @@
 
   --font-mulish: "Mulish", sans-serif;
 
-  --animate-marquee: marquee 60s linear infinite;
-  --animate-marquee-ltr: marquee-ltr 60s linear infinite;
+  --animate-marquee: marquee 100s linear infinite;
+  --animate-marquee-ltr: marquee-ltr 100s linear infinite;
 
   @keyframes marquee {
     0% {
