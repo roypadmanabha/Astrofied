@@ -97,18 +97,14 @@ const ExploreModal = ({ isOpen, onClose }) => {
 
                         {/* Content Area - Scrollable */}
                         <div className="flex-1 overflow-y-auto custom-scrollbar p-5 md:p-10" data-lenis-prevent>
-                            <div className="flex items-center justify-between gap-2 mb-6 md:mb-8">
-                                <h2 className="text-[4.5vw] sm:text-2xl md:text-4xl font-black tracking-tight font-mulish whitespace-nowrap overflow-hidden">
+                            <div className="flex items-center justify-center mb-6 md:mb-8">
+                                <h2 className={`text-[4.5vw] sm:text-2xl md:text-4xl font-black tracking-tight font-mulish whitespace-nowrap overflow-hidden bg-clip-text text-transparent
+                                    ${isDarkMode 
+                                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFFFFF]' 
+                                        : 'bg-gradient-to-r from-[#000000] to-[#FF0000]'}
+                                `}>
                                     Astrofied: Astrologically Verified
                                 </h2>
-                                <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ delay: 0.5, type: "spring" }}
-                                    className="flex-shrink-0"
-                                >
-                                    <CheckCircle2 className="w-5 h-5 md:w-10 md:h-10 text-blue-500 fill-blue-500/10" />
-                                </motion.div>
                             </div>
 
                             <div className="space-y-5 md:space-y-8">
