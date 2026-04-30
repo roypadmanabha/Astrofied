@@ -106,15 +106,15 @@ export default function Testimonials() {
         <section id="testimonials" className={`py-12 md:py-24 overflow-hidden relative ${isDarkMode ? '' : 'bg-white'}`} style={{ background: isDarkMode ? 'transparent' : 'white' }}>
             <div className="container mx-auto px-6 mb-12 md:mb-16">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div className="text-center md:text-left flex flex-col items-center md:items-start">
+                    <div className="text-center md:text-left">
                         <h2
-                            className="text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-2 md:mb-4"
+                            className="text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-4"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                         >
                             Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4B0082]'}>Trust</span>
                         </h2>
-                        <p className={`text-sm md:text-xl opacity-70 font-mulish leading-snug max-w-[280px] sm:max-w-xs md:max-w-md lg:max-w-lg ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]'}`}>
-                            Hear from our clients who found their cosmic alignment.
+                        <p className={`text-sm md:text-xl opacity-70 font-mulish ml-1 md:ml-1.5 ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]'}`}>
+                            Hear from our clients who found clarity.
                         </p>
                     </div>
 
@@ -124,8 +124,8 @@ export default function Testimonials() {
                             onClick={() => scroll('left')}
                             disabled={!canScrollLeft}
                             className={`p-3 md:p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
-                                ${isDarkMode 
-                                    ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5' 
+                                ${isDarkMode
+                                    ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5'
                                     : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
                             `}
                         >
@@ -135,8 +135,8 @@ export default function Testimonials() {
                             onClick={() => scroll('right')}
                             disabled={!canScrollRight}
                             className={`p-3 md:p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
-                                ${isDarkMode 
-                                    ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5' 
+                                ${isDarkMode
+                                    ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5'
                                     : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
                             `}
                         >
@@ -165,8 +165,8 @@ export default function Testimonials() {
                     onClick={() => scroll('left')}
                     disabled={!canScrollLeft}
                     className={`p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
-                        ${isDarkMode 
-                            ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5' 
+                        ${isDarkMode
+                            ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5'
                             : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
                     `}
                 >
@@ -176,8 +176,8 @@ export default function Testimonials() {
                     onClick={() => scroll('right')}
                     disabled={!canScrollRight}
                     className={`p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
-                        ${isDarkMode 
-                            ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5' 
+                        ${isDarkMode
+                            ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5'
                             : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
                     `}
                 >
