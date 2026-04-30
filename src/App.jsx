@@ -3,7 +3,6 @@ import Lenis from 'lenis';
 import { motion } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Navbar from './components/Navbar';
-import ThemeToggle3D from './components/ThemeToggle3D';
 import Services from './components/Services';
 import Footer from './components/Footer';
 import Feedback from './components/Feedback';
@@ -207,7 +206,6 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         onOpenLegal={openLegalModal} 
         onOpenConsultation={handleBookConsultation} 
       />
-      <ThemeToggle3D />
 
       <Hero 
         onOpenConsultation={handleBookConsultation} 

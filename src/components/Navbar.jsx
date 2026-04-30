@@ -28,7 +28,7 @@ const mobileNavLinks = [
 export default function Navbar({ onOpenLegal, onOpenConsultation }) {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const { isDarkMode } = useTheme();
+    const { isDarkMode, toggleTheme } = useTheme();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -168,8 +168,8 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                     </span>
                 </motion.div>
 
-                {/* Desktop Links */}
-                <div className="hidden md:flex gap-8">
+                {/* Desktop Links & Theme Toggle */}
+                <div className="hidden md:flex items-center gap-8">
                     {desktopNavLinks.map((link) => (
                         <motion.button
                             key={link.name}
@@ -190,10 +190,37 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                             }`} />
                         </motion.button>
                     ))}
+
+                    {/* Desktop Theme Toggle */}
+                    <motion.button
+                        onClick={toggleTheme}
+                        whileHover={{ scale: 1.1, rotate: 15 }}
+                        whileTap={{ scale: 0.9 }}
+                        className={`p-2 rounded-xl border transition-all duration-300 ${
+                            isDarkMode 
+                                ? 'bg-gold/10 border-gold/30 text-gold shadow-[0_0_15px_rgba(212,175,55,0.2)]' 
+                                : 'bg-[#4B0082]/5 border-[#4B0082]/10 text-[#4B0082]'
+                        }`}
+                    >
+                        {isDarkMode ? <Sun size={20} strokeWidth={2.5} /> : <Moon size={20} strokeWidth={2.5} />}
+                    </motion.button>
                 </div>
 
-                {/* Mobile Menu Toggle */}
-                <div className="md:hidden">
+                {/* Mobile Menu Toggle & Theme Toggle */}
+                <div className="md:hidden flex items-center gap-4">
+                    {/* Mobile Theme Toggle */}
+                    <motion.button
+                        onClick={toggleTheme}
+                        whileTap={{ scale: 0.9 }}
+                        className={`p-2 rounded-xl border transition-all duration-300 ${
+                            isDarkMode 
+                                ? 'bg-gold/10 border-gold/30 text-gold shadow-[0_0_10px_rgba(212,175,55,0.1)]' 
+                                : 'bg-[#4B0082]/5 border-[#4B0082]/10 text-[#4B0082]'
+                        }`}
+                    >
+                        {isDarkMode ? <Sun size={20} strokeWidth={2.5} /> : <Moon size={20} strokeWidth={2.5} />}
+                    </motion.button>
+
                     <button
                         onClick={() => setIsOpen(!isOpen)}
                         className="flex flex-col justify-center items-center w-8 h-8 gap-1 focus:outline-none transition-all duration-300 bg-transparent border-none"
