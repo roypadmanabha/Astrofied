@@ -1,7 +1,6 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import logo from '../assets/logo.png';
 
 const ExploreModal = ({ isOpen, onClose }) => {
     const { isDarkMode } = useTheme();
@@ -83,42 +82,50 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 className={`absolute bottom-0 right-0 w-full h-full opacity-20 blur-[100px]
                                     ${isDarkMode ? 'bg-[#4B0082]' : 'bg-gold'}`}
                             />
+                            {/* Branded Watermark */}
+                            <img 
+                                src={logo} 
+                                alt="" 
+                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] md:w-2/5 opacity-[0.04] pointer-events-none select-none" 
+                                style={{ filter: isDarkMode ? 'brightness(2)' : 'none' }}
+                            />
                             {/* Refraction Shine */}
                             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
                         </div>
 
                         {/* Content Area - Scrollable */}
-                        <div className="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-10" data-lenis-prevent>
-                            <div className="flex items-center gap-3 mb-8">
-                                <h2 className="text-2xl md:text-4xl font-black tracking-tight font-mulish">
+                        <div className="flex-1 overflow-y-auto custom-scrollbar p-5 md:p-10" data-lenis-prevent>
+                            <div className="flex items-center justify-between gap-2 mb-6 md:mb-8">
+                                <h2 className="text-[4.5vw] sm:text-2xl md:text-4xl font-black tracking-tight font-mulish whitespace-nowrap overflow-hidden">
                                     Astrofied: Astrologically Verified
                                 </h2>
                                 <motion.div
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
                                     transition={{ delay: 0.5, type: "spring" }}
+                                    className="flex-shrink-0"
                                 >
-                                    <CheckCircle2 className="w-8 h-8 md:w-10 md:h-10 text-blue-500 fill-blue-500/10" />
+                                    <CheckCircle2 className="w-5 h-5 md:w-10 md:h-10 text-blue-500 fill-blue-500/10" />
                                 </motion.div>
                             </div>
 
-                            <div className="space-y-6 md:space-y-8">
+                            <div className="space-y-5 md:space-y-8">
                                 {points.map((text, index) => (
-                                    <motion.div
+                                    <motion.div 
                                         key={index}
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.3 + index * 0.1 }}
-                                        className="flex gap-4 items-start group"
+                                        className="flex gap-3 md:gap-4 items-start group"
                                     >
-                                        <span className={`flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center font-black text-sm md:text-base transition-colors
-                                            ${isDarkMode
-                                                ? 'border-gold text-gold group-hover:bg-gold group-hover:text-black'
+                                        <span className={`flex-shrink-0 w-7 h-7 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center font-black text-[10px] md:text-base transition-colors
+                                            ${isDarkMode 
+                                                ? 'border-gold text-gold group-hover:bg-gold group-hover:text-black' 
                                                 : 'border-[#4B0082] text-[#4B0082] group-hover:bg-[#4B0082] group-hover:text-white'}
                                         `}>
                                             {index + 1}
                                         </span>
-                                        <p className="text-sm md:text-lg leading-relaxed opacity-90 font-mulish font-medium">
+                                        <p className="text-[3.4vw] sm:text-base md:text-lg leading-relaxed opacity-90 font-mulish font-medium">
                                             {text}
                                         </p>
                                     </motion.div>
@@ -130,9 +137,9 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.5 }}
-                                className="mt-12 md:mt-16 text-center"
+                                className="mt-10 md:mt-16 text-center"
                             >
-                                <p className={`text-xl md:text-3xl font-black italic tracking-tight font-mulish
+                                <p className={`text-base md:text-3xl font-black italic tracking-tight font-mulish
                                     ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}
                                 `}>
                                     What are you waiting for? Book your online consultation now and clear all your doubts!
@@ -141,14 +148,14 @@ const ExploreModal = ({ isOpen, onClose }) => {
                         </div>
 
                         {/* Footer - Close Button */}
-                        <div className={`p-6 border-t backdrop-blur-xl
+                        <div className={`p-4 md:p-6 border-t backdrop-blur-xl
                             ${isDarkMode ? 'border-gold/20 bg-black/40' : 'border-[#4B0082]/10 bg-white/40'}
                         `}>
                             <button
                                 onClick={onClose}
-                                className={`w-full py-4 rounded-2xl font-black text-lg tracking-widest uppercase transition-all shadow-xl active:scale-95
-                                    ${isDarkMode
-                                        ? 'bg-gold text-black hover:bg-white shadow-gold/20'
+                                className={`w-full py-3 md:py-4 rounded-xl md:rounded-2xl font-black text-sm md:text-lg tracking-widest uppercase transition-all shadow-xl active:scale-95
+                                    ${isDarkMode 
+                                        ? 'bg-gold text-black hover:bg-white shadow-gold/20' 
                                         : 'bg-[#4B0082] text-white hover:bg-black shadow-[#4B0082]/20'}
                                 `}
                             >
