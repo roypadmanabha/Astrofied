@@ -123,10 +123,10 @@ export default function Testimonials() {
                         <button
                             onClick={() => scroll('left')}
                             disabled={!canScrollLeft}
-                            className={`p-3 md:p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
-                                ${isDarkMode
-                                    ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5'
-                                    : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
+                            className={`p-3 md:p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg
+                                ${isDarkMode 
+                                    ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] hover:scale-105 active:scale-95' 
+                                    : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] hover:scale-105 active:scale-95'}
                             `}
                         >
                             <ChevronLeft size={24} strokeWidth={3} />
@@ -134,10 +134,10 @@ export default function Testimonials() {
                         <button
                             onClick={() => scroll('right')}
                             disabled={!canScrollRight}
-                            className={`p-3 md:p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
-                                ${isDarkMode
-                                    ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5'
-                                    : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
+                            className={`p-3 md:p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg
+                                ${isDarkMode 
+                                    ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] hover:scale-105 active:scale-95' 
+                                    : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] hover:scale-105 active:scale-95'}
                             `}
                         >
                             <ChevronRight size={24} strokeWidth={3} />
@@ -164,10 +164,10 @@ export default function Testimonials() {
                 <button
                     onClick={() => scroll('left')}
                     disabled={!canScrollLeft}
-                    className={`p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
-                        ${isDarkMode
-                            ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5'
-                            : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
+                    className={`p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
+                        ${isDarkMode 
+                            ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] active:scale-90' 
+                            : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] active:scale-90'}
                     `}
                 >
                     <ChevronLeft size={20} strokeWidth={4} />
@@ -175,10 +175,10 @@ export default function Testimonials() {
                 <button
                     onClick={() => scroll('right')}
                     disabled={!canScrollRight}
-                    className={`p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed
-                        ${isDarkMode
-                            ? 'border-gold/30 text-gold hover:bg-gold hover:text-black bg-gold/5'
-                            : 'border-[#4B0082]/20 text-[#4B0082] hover:bg-[#4B0082] hover:text-white bg-[#4B0082]/5'}
+                    className={`p-4 rounded-full border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
+                        ${isDarkMode 
+                            ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] active:scale-90' 
+                            : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] active:scale-90'}
                     `}
                 >
                     <ChevronRight size={20} strokeWidth={4} />
