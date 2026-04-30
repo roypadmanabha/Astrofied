@@ -57,13 +57,13 @@ const ExploreModal = ({ isOpen, onClose }) => {
                             duration: 0.6
                         }}
                         className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col
-                            ${isDarkMode
-                                ? 'bg-[#0a0218]/80 border-gold/30 text-white'
-                                : 'bg-white/80 border-[#4B0082]/30 text-black'}
+                            ${isDarkMode ? 'border-gold/30 text-white' : 'border-[#4B0082]/30 text-black'}
                         `}
                     >
                         {/* Water/Shining Effect Background */}
-                        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+                        <div className={`absolute inset-0 -z-10 overflow-hidden pointer-events-none 
+                            ${isDarkMode ? 'bg-[#0a0218]/85' : 'bg-white/85'}
+                        `}>
                             <motion.div
                                 animate={{
                                     scale: [1, 1.2, 1],
