@@ -134,6 +134,11 @@ const Kundali = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // High volume alert requested by user
+        alert("We are currently experiencing a high volume of chart requests! Please try again in a few moments.");
+        return;
+
         if (!formData.lat || !formData.lon) {
             setError("Please select a city from the suggestions.");
             return;
