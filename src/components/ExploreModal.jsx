@@ -58,7 +58,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                         }}
                         className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col
                             ${isDarkMode
-                                ? 'bg-[#0a0218]/80 border-gold/30 text-white'
+                                ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-gold/30 text-white'
                                 : 'bg-white/80 border-[#4B0082]/30 text-black'}
                         `}
                     >
