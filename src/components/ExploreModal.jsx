@@ -4,6 +4,7 @@ import { CheckCircle2 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import logo from '../assets/logo.png';
 import ganesha from '../assets/ganesha.png';
+import mouse from '../assets/mouse.png';
 
 const ExploreModal = ({ isOpen, onClose }) => {
     const { isDarkMode } = useTheme();
@@ -117,36 +118,62 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 </div>
 
                                 {/* Ganesha Section */}
-                                <div className="flex flex-col items-center justify-center mb-10 md:mb-14">
+                                <div className="flex flex-col items-center justify-center mb-10 md:mb-14 relative">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.4, duration: 0.8 }}
                                         className="relative group"
                                     >
-                                        {/* Dreamy Golden Ray Effect */}
-                                        <div className="absolute inset-0 flex items-center justify-center -z-10">
-                                            {/* Core Glow */}
-                                            <div className={`absolute w-48 h-48 md:w-64 md:h-64 rounded-full blur-[40px] opacity-60 animate-pulse ${
-                                                isDarkMode ? 'bg-gold/40' : 'bg-gold/30'
-                                            }`} />
-                                            
-                                            {/* Rotating Rays */}
-                                            <motion.div 
-                                                animate={{ rotate: 360 }}
-                                                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                                                className="absolute w-[200%] h-[200%] opacity-20 blur-[2px]"
-                                                style={{
-                                                    background: `conic-gradient(from 0deg, transparent 0deg, #D4AF37 5deg, transparent 10deg, transparent 20deg, #D4AF37 25deg, transparent 30deg, transparent 40deg, #D4AF37 45deg, transparent 50deg, transparent 60deg, #D4AF37 65deg, transparent 70deg, transparent 80deg, #D4AF37 85deg, transparent 90deg, transparent 100deg, #D4AF37 105deg, transparent 110deg, transparent 120deg, #D4AF37 125deg, transparent 130deg, transparent 140deg, #D4AF37 145deg, transparent 150deg, transparent 160deg, #D4AF37 165deg, transparent 170deg, transparent 180deg, #D4AF37 185deg, transparent 190deg, transparent 200deg, #D4AF37 205deg, transparent 210deg, transparent 220deg, #D4AF37 225deg, transparent 230deg, transparent 240deg, #D4AF37 245deg, transparent 250deg, transparent 260deg, #D4AF37 265deg, transparent 270deg, transparent 280deg, #D4AF37 285deg, transparent 290deg, transparent 300deg, #D4AF37 305deg, transparent 310deg, transparent 320deg, #D4AF37 325deg, transparent 330deg, transparent 340deg, #D4AF37 345deg, transparent 350deg, transparent 360deg)`
-                                                }}
-                                            />
-                                        </div>
-
                                         <img 
                                             src={ganesha} 
                                             alt="Lord Ganesha" 
-                                            className="w-40 md:w-56 lg:w-64 h-auto object-contain relative z-10 drop-shadow-[0_15px_30px_rgba(212,175,55,0.4)] group-hover:scale-105 transition-all duration-700"
+                                            className="w-40 md:w-56 lg:w-64 h-auto object-contain drop-shadow-[0_10px_20px_rgba(212,175,55,0.3)] group-hover:drop-shadow-[0_15px_30px_rgba(212,175,55,0.5)] transition-all duration-500"
                                         />
+
+                                        {/* Animated Mouse (Musak) */}
+                                        <motion.div
+                                            className="absolute bottom-[15%] right-[-150%] w-8 md:w-12 h-auto z-20 pointer-events-none"
+                                            animate={{
+                                                x: ['0%', '-240%', '-240%', '-500%'],
+                                                opacity: [0, 1, 1, 0],
+                                            }}
+                                            transition={{
+                                                duration: 10,
+                                                times: [0, 0.4, 0.6, 1],
+                                                repeat: Infinity,
+                                                repeatDelay: 4,
+                                                ease: "linear"
+                                            }}
+                                        >
+                                            <div className="relative">
+                                                <img 
+                                                    src={mouse} 
+                                                    alt="Mouse" 
+                                                    className="w-full h-auto object-contain transform -scale-x-100" 
+                                                    style={{ mixBlendMode: isDarkMode ? 'screen' : 'multiply', filter: isDarkMode ? 'brightness(1.2)' : 'none' }}
+                                                />
+                                                {/* Eating Modak Animation */}
+                                                <motion.div
+                                                    className="absolute -top-1 -left-1 w-3 h-3 md:w-4 md:h-4"
+                                                    animate={{
+                                                        scale: [0, 0, 1, 1, 0],
+                                                        opacity: [0, 0, 1, 1, 0]
+                                                    }}
+                                                    transition={{
+                                                        duration: 10,
+                                                        times: [0, 0.4, 0.45, 0.55, 0.6],
+                                                        repeat: Infinity,
+                                                        repeatDelay: 4
+                                                    }}
+                                                >
+                                                    <svg viewBox="0 0 24 24" fill="#D4AF37" className="w-full h-full drop-shadow-sm">
+                                                        <path d="M12 2C12 2 7 8 7 14C7 16.7614 9.23858 19 12 19C14.7614 19 17 16.7614 17 14C17 8 12 2 12 2Z" />
+                                                    </svg>
+                                                </motion.div>
+                                            </div>
+                                        </motion.div>
+
                                         <div className="mt-4 text-center">
                                             <p className={`text-lg md:text-2xl font-black tracking-widest drop-shadow-sm ${
                                                 isDarkMode ? 'text-gold' : 'text-[#4B0082]'
