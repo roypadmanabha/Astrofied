@@ -37,8 +37,8 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
                     initial={{ scale: 0.9, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                    className={`relative w-[90vw] md:w-full md:max-w-2xl aspect-square md:aspect-auto bg-modal-bg rounded-[2.5rem] shadow-2xl border overflow-hidden flex flex-col ${isDarkMode
-                            ? 'bg-[#0f0a1f] border-gold/30 text-white'
+                    className={`relative w-[90vw] md:w-full md:max-w-2xl aspect-square md:aspect-auto rounded-[2.5rem] shadow-2xl border overflow-hidden flex flex-col ${isDarkMode
+                            ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-gold/30 text-white'
                             : 'bg-[#FCF9F2] border-[#D4AF37]/30 text-[#0A1931]'
                         }`}
                     style={{ maxHeight: '90vh' }}
@@ -77,7 +77,7 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
 
                     {/* Footer / Fade effect */}
                     <div className={`h-8 pointer-events-none absolute bottom-0 left-0 right-0 ${isDarkMode
-                            ? 'bg-gradient-to-t from-[#0f0a1f] to-transparent'
+                            ? 'bg-gradient-to-t from-black to-transparent'
                             : 'bg-gradient-to-t from-[#FCF9F2] to-transparent'
                         }`} />
                 </motion.div>
