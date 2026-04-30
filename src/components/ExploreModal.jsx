@@ -4,7 +4,6 @@ import { CheckCircle2 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import logo from '../assets/logo.png';
 import ganesha from '../assets/ganesha.png';
-import mouse from '../assets/mouse.png';
 
 const ExploreModal = ({ isOpen, onClose }) => {
     const { isDarkMode } = useTheme();
@@ -118,7 +117,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 </div>
 
                                 {/* Ganesha Section */}
-                                <div className="flex flex-col items-center justify-center mb-10 md:mb-14 relative">
+                                <div className="flex flex-col items-center justify-center mb-10 md:mb-14">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -130,50 +129,6 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                             alt="Lord Ganesha" 
                                             className="w-40 md:w-56 lg:w-64 h-auto object-contain drop-shadow-[0_10px_20px_rgba(212,175,55,0.3)] group-hover:drop-shadow-[0_15px_30px_rgba(212,175,55,0.5)] transition-all duration-500"
                                         />
-
-                                        {/* Animated Mouse (Musak) */}
-                                        <motion.div
-                                            className="absolute bottom-[15%] right-[-150%] w-8 md:w-12 h-auto z-20 pointer-events-none"
-                                            animate={{
-                                                x: ['0%', '-240%', '-240%', '-500%'],
-                                                opacity: [0, 1, 1, 0],
-                                            }}
-                                            transition={{
-                                                duration: 10,
-                                                times: [0, 0.4, 0.6, 1],
-                                                repeat: Infinity,
-                                                repeatDelay: 4,
-                                                ease: "linear"
-                                            }}
-                                        >
-                                            <div className="relative">
-                                                <img 
-                                                    src={mouse} 
-                                                    alt="Mouse" 
-                                                    className="w-full h-auto object-contain transform -scale-x-100" 
-                                                    style={{ mixBlendMode: isDarkMode ? 'screen' : 'multiply', filter: isDarkMode ? 'brightness(1.2)' : 'none' }}
-                                                />
-                                                {/* Eating Modak Animation */}
-                                                <motion.div
-                                                    className="absolute -top-1 -left-1 w-3 h-3 md:w-4 md:h-4"
-                                                    animate={{
-                                                        scale: [0, 0, 1, 1, 0],
-                                                        opacity: [0, 0, 1, 1, 0]
-                                                    }}
-                                                    transition={{
-                                                        duration: 10,
-                                                        times: [0, 0.4, 0.45, 0.55, 0.6],
-                                                        repeat: Infinity,
-                                                        repeatDelay: 4
-                                                    }}
-                                                >
-                                                    <svg viewBox="0 0 24 24" fill="#D4AF37" className="w-full h-full drop-shadow-sm">
-                                                        <path d="M12 2C12 2 7 8 7 14C7 16.7614 9.23858 19 12 19C14.7614 19 17 16.7614 17 14C17 8 12 2 12 2Z" />
-                                                    </svg>
-                                                </motion.div>
-                                            </div>
-                                        </motion.div>
-
                                         <div className="mt-4 text-center">
                                             <p className={`text-lg md:text-2xl font-black tracking-widest drop-shadow-sm ${
                                                 isDarkMode ? 'text-gold' : 'text-[#4B0082]'
