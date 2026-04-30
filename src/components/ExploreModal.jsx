@@ -23,12 +23,12 @@ const ExploreModal = ({ isOpen, onClose }) => {
         "Astrofied, a renowned astrological hub founded in 2019 by astrologer Shri Prasanta Chakraborty, has been a beacon of clarity and guidance for thousands seeking cosmic insight.",
         "Our mission is to guide individuals toward the right path and align them with their true destiny through precise astrological analysis.",
         "By 2025, we have consulted over 5,000 clients facing various life challenges, helping them align their karma with their destiny. We look forward to continuing this journey across India and beyond.",
-        "Our lead astrologer is an expert in Vedic, KP, Jaimini, Nakshatra Nadi, and Bhrigu Nandi Nadi (BNN), utilizing a meticulously calculative approach to deliver accurate predictions.",
+        "Our lead astrologer is an expert in Vedic, KP, Jaimini, Nakshatra Nadi, and Bhrigu Nandi Nadi (BNN), utilising a meticulously calculative approach to deliver accurate predictions.",
         "We offer a wide range of online services at affordable and competitive rates, ensuring that everyone can access professional guidance to align their actions with their destiny.",
         "In an era dominated by technology and AI, many are misguided by platforms that lack authenticity or are prohibitively expensive. Astrofied stands apart by maintaining full transparency and upholding the integrity of traditional, calculative astrology.",
         "While astrology can provide remarkably accurate predictions, it cannot change destiny. Every individual is born with a \"karmic debt\" and lives according to their Prarabdha and Sanchit Karma.",
         "The reason to choose Astrofied is as clear as freshwater. You will gain a lucid vision of your future, helping you validate past decisions and evaluate upcoming choices to determine what is truly best for your journey.",
-        "Astrofied guarantees the quality of our predictions through 1:1 transparency. We do not rely on AI; your future is analyzed strictly by our expert astrologer to ensure personalized and authentic guidance.",
+        "Astrofied guarantees the quality of our predictions through 1:1 transparency. We do not rely on AI, your future is analysed strictly by our expert astrologer to ensure personalised and authentic guidance.",
         "We provide continuous astrological insights across our social media platforms, allowing you to understand your cosmic identity with a single tap. It is the most accessible way to learn astrology with zero prerequisites."
     ];
 
