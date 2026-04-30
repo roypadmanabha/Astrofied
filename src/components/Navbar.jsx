@@ -148,10 +148,32 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                 }`}
             >
             <div className="container mx-auto px-6 flex justify-between items-center">
+                {/* Mobile Menu Toggle (Left on mobile, Hidden on desktop) */}
+                <div className="md:hidden order-1">
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="flex flex-col justify-center items-center w-10 h-10 gap-1 focus:outline-none transition-all duration-300 bg-transparent border-none"
+                    >
+                        <motion.span
+                            animate={isOpen ? { rotate: 45, y: 5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}
+                            className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}
+                        />
+                        <motion.span
+                            animate={isOpen ? { opacity: 0, scale: 0 } : { opacity: 1, scale: 1 }}
+                            className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}
+                        />
+                        <motion.span
+                            animate={isOpen ? { rotate: -45, y: -5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}
+                            className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}
+                        />
+                    </button>
+                </div>
+
+                {/* Brand Logo & Name */}
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center gap-0 cursor-pointer"
+                    className="flex items-center gap-0 cursor-pointer order-2 md:order-1"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
                     <img
@@ -169,7 +191,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                 </motion.div>
 
                 {/* Desktop Links & Theme Toggle */}
-                <div className="hidden md:flex items-center gap-8">
+                <div className="hidden md:flex items-center gap-8 order-2">
                     {desktopNavLinks.map((link) => (
                         <motion.button
                             key={link.name}
@@ -204,9 +226,8 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                     </motion.button>
                 </div>
 
-                {/* Mobile Menu Toggle & Theme Toggle */}
-                <div className="md:hidden flex items-center gap-1.5">
-                    {/* Mobile Theme Toggle */}
+                {/* Mobile Theme Toggle (Right on mobile, Hidden on desktop) */}
+                <div className="md:hidden order-3">
                     <motion.button
                         onClick={toggleTheme}
                         whileTap={{ scale: 0.9 }}
@@ -216,24 +237,6 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                     >
                         {isDarkMode ? <Sun size={18} strokeWidth={2.5} /> : <Moon size={18} strokeWidth={2.5} />}
                     </motion.button>
-
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="flex flex-col justify-center items-center w-10 h-10 gap-1 focus:outline-none transition-all duration-300 bg-transparent border-none"
-                    >
-                        <motion.span
-                            animate={isOpen ? { rotate: 45, y: 5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}
-                            className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}
-                        />
-                        <motion.span
-                            animate={isOpen ? { opacity: 0, scale: 0 } : { opacity: 1, scale: 1 }}
-                            className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}
-                        />
-                        <motion.span
-                            animate={isOpen ? { rotate: -45, y: -5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}
-                            className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}
-                        />
-                    </button>
                 </div>
             </div>
         </nav>
