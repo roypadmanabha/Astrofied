@@ -138,7 +138,7 @@ export default function Feedback() {
                                 onChange={handleChange}
                                 required
                                 placeholder="Your Name"
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all ${isDarkMode ? 'border-gray-700 text-white placeholder-gray-500' : 'border-gray-300 text-gray-900 placeholder-gray-400'
+                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all ${isDarkMode ? 'border-gray-700 text-white placeholder-gray-500' : 'border-black text-gray-900 placeholder-black'
                                     }`}
                             />
                             <input
@@ -148,7 +148,7 @@ export default function Feedback() {
                                 onChange={handleChange}
                                 required
                                 placeholder="Your Mail Id"
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all ${isDarkMode ? 'border-gray-700 text-white placeholder-gray-500' : 'border-gray-300 text-gray-900 placeholder-gray-400'
+                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all ${isDarkMode ? 'border-gray-700 text-white placeholder-gray-500' : 'border-black text-gray-900 placeholder-black'
                                     }`}
                             />
                             <textarea
@@ -158,7 +158,7 @@ export default function Feedback() {
                                 required
                                 rows={4}
                                 placeholder="Write your feedback..."
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all overflow-hidden resize-none ${isDarkMode ? 'border-gray-700 text-white placeholder-gray-500' : 'border-gray-300 text-gray-900 placeholder-gray-400'
+                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all overflow-hidden resize-none ${isDarkMode ? 'border-gray-700 text-white placeholder-gray-500' : 'border-black text-gray-900 placeholder-black'
                                     }`}
                             ></textarea>
 
