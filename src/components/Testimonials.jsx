@@ -73,7 +73,7 @@ export default function Testimonials() {
                     : 'glass border-[#4B0082]/20 bg-white/40 text-black'}
             `}
         >
-            <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-20 hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
+            <Quote className={`absolute top-6 right-8 w-8 h-8 hidden md:block ${isDarkMode ? 'text-gold opacity-100' : 'text-[#4B0082] opacity-20'}`} />
 
             <div className="flex items-center gap-4">
                 <div className={`relative p-[2px] rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}>
