@@ -68,7 +68,7 @@ export default function Feedback() {
     };
 
     return (
-        <section id="feedback" className="py-24 relative overflow-hidden">
+        <section id="feedback" className={`py-24 relative overflow-hidden ${isDarkMode ? '' : 'bg-[#F8F0FF]'}`}>
             <div className="container mx-auto px-6 max-w-6xl">
                 <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start justify-between">
                     {/* Left Side: Content */}
