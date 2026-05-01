@@ -97,7 +97,7 @@ export default function Feedback() {
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                         className={`w-full lg:w-6/12 glass rounded-3xl p-8 md:p-10 shadow-2xl border relative ${
-                            isDarkMode ? 'border-gray-800 bg-black/40' : 'border-[#4B0082]/20 bg-[#F3E8FF]/90'
+                            isDarkMode ? 'border-white/20 bg-[#17202A]' : 'border-[#4B0082]/20 bg-[#F3E8FF]/90'
                         }`}
                     >
                         {status === 'duplicate' && (
@@ -138,7 +138,7 @@ export default function Feedback() {
                                 onChange={handleChange}
                                 required
                                 placeholder="Your Name"
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all ${isDarkMode ? 'border-gray-700 text-white placeholder-gray-500' : 'border-black text-gray-900 placeholder-black'
+                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all ${isDarkMode ? 'border-white text-white placeholder-white' : 'border-black text-gray-900 placeholder-black'
                                     }`}
                             />
                             <input
@@ -148,7 +148,7 @@ export default function Feedback() {
                                 onChange={handleChange}
                                 required
                                 placeholder="Your Mail Id"
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all ${isDarkMode ? 'border-gray-700 text-white placeholder-gray-500' : 'border-black text-gray-900 placeholder-black'
+                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all ${isDarkMode ? 'border-white text-white placeholder-white' : 'border-black text-gray-900 placeholder-black'
                                     }`}
                             />
                             <textarea
@@ -158,7 +158,7 @@ export default function Feedback() {
                                 required
                                 rows={4}
                                 placeholder="Write your feedback..."
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all overflow-hidden resize-none ${isDarkMode ? 'border-gray-700 text-white placeholder-gray-500' : 'border-black text-gray-900 placeholder-black'
+                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gold bg-transparent transition-all overflow-hidden resize-none ${isDarkMode ? 'border-white text-white placeholder-white' : 'border-black text-gray-900 placeholder-black'
                                     }`}
                             ></textarea>
 
