@@ -97,7 +97,7 @@ export default function Feedback() {
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                         className={`w-full lg:w-6/12 rounded-3xl p-8 md:p-10 shadow-2xl border relative ${
-                            isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 bg-[#F3E8FF]/90'
+                            isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
                         }`}
                     >
                         {status === 'duplicate' && (

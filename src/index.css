@@ -145,8 +145,8 @@ body.light {
 }
 
 .light .glass {
-  background: rgba(243, 232, 255, 0.8);
-  border: 1px solid rgba(75, 0, 130, 0.15);
+  background: rgba(245, 245, 220, 0.7);
+  border: 1px solid rgba(75, 0, 130, 0.2);
 }
 
 /* Custom Scrollbar */
