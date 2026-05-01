@@ -67,10 +67,10 @@ export default function Testimonials() {
 
     const TestimonialCard = ({ t }) => (
         <div
-            className={`group relative flex flex-col gap-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border glass backdrop-blur-xl transition-all duration-500 min-w-[300px] sm:min-w-[380px] md:min-w-[450px] shrink-0 whitespace-normal
+            className={`group relative flex flex-col gap-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border backdrop-blur-xl transition-all duration-500 min-w-[300px] sm:min-w-[380px] md:min-w-[450px] shrink-0 whitespace-normal
                 ${isDarkMode
-                    ? 'border-gold/20 bg-gradient-to-br from-black via-[#08002e] to-black text-white shadow-[0_0_20px_rgba(8,0,46,0.5)]'
-                    : 'border-[#4B0082]/20 bg-white/40 text-black'}
+                    ? 'border-gold/20 !bg-gradient-to-br from-black via-[#08002e] to-black text-white shadow-[0_0_20px_rgba(8,0,46,0.5)]'
+                    : 'glass border-[#4B0082]/20 bg-white/40 text-black'}
             `}
         >
             <Quote className={`absolute top-6 right-8 w-8 h-8 opacity-20 hidden md:block ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
