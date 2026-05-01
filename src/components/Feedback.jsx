@@ -68,7 +68,7 @@ export default function Feedback() {
     };
 
     return (
-        <section id="feedback" className={`py-24 relative overflow-hidden ${isDarkMode ? '' : 'bg-[#F8F0FF]'}`}>
+        <section id="feedback" className="py-24 relative overflow-hidden">
             <div className="container mx-auto px-6 max-w-6xl">
                 <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start justify-between">
                     {/* Left Side: Content */}
@@ -97,7 +97,7 @@ export default function Feedback() {
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                         className={`w-full lg:w-6/12 glass rounded-3xl p-8 md:p-10 shadow-2xl border relative ${
-                            isDarkMode ? 'border-gray-800 bg-black/40' : 'border-gray-200 bg-white/70'
+                            isDarkMode ? 'border-gray-800 bg-black/40' : 'border-[#4B0082]/20 bg-[#F3E8FF]/90'
                         }`}
                     >
                         {status === 'duplicate' && (
