@@ -8,6 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  assetsInclude: ['**/*.aiff'],
   // Relative base path ensures compatibility across all hosting platforms (Netlify, GH Pages, etc.)
   base: './',
 })
