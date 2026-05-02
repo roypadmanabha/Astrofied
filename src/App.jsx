@@ -372,7 +372,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleBookConsultation}
-          className={`relative z-10 px-6 py-3 sm:px-8 sm:py-4 md:px-12 md:py-5 rounded-full border-2 text-sm sm:text-base md:text-xl font-bold tracking-widest transition-all shadow-xl font-mulish ${isDarkMode
+          className={`relative z-10 px-6 py-3 sm:px-8 sm:py-4 md:px-12 md:py-5 rounded-[15px] border-2 text-sm sm:text-base md:text-xl font-bold tracking-widest transition-all shadow-xl font-mulish ${isDarkMode
             ? 'bg-transparent border-gold text-gold hover:bg-gold hover:text-black shadow-gold/20'
             : 'bg-[#4B0082] border-[#4B0082] text-white hover:bg-transparent hover:text-[#4B0082] shadow-[#4B0082]/20'
             }`}
