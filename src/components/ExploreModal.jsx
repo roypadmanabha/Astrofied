@@ -8,6 +8,14 @@ import ganesha from '../assets/ganesha.png';
 const ExploreModal = ({ isOpen, onClose }) => {
     const { isDarkMode } = useTheme();
 
+    const [isMobile, setIsMobile] = React.useState(false);
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     // Prevent body scroll when modal is open
     React.useEffect(() => {
         if (isOpen) {
@@ -39,19 +47,20 @@ const ExploreModal = ({ isOpen, onClose }) => {
                 <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 md:p-6 overflow-hidden">
                     {/* Backdrop */}
                     <motion.div
-                        initial={{ opacity: 0 }}
+                        initial={isMobile ? { opacity: 1 } : { opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        exit={isMobile ? { opacity: 1 } : { opacity: 0 }}
+                        transition={isMobile ? { duration: 0 } : { duration: 0.3 }}
                         onClick={onClose}
                         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                     />
 
                     {/* Modal Container */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 30, rotateX: 15 }}
+                        initial={isMobile ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.9, y: 30, rotateX: 15 }}
                         animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 30, rotateX: -15 }}
-                        transition={{
+                        exit={isMobile ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.9, y: 30, rotateX: -15 }}
+                        transition={isMobile ? { duration: 0 } : {
                             type: "spring",
                             damping: 25,
                             stiffness: 300,
@@ -146,9 +155,9 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                     {points.map((text, index) => (
                                         <motion.div
                                             key={index}
-                                            initial={{ opacity: 0, x: -20 }}
+                                            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.3 + index * 0.1 }}
+                                            transition={isMobile ? { duration: 0 } : { delay: 0.3 + index * 0.1 }}
                                             className="flex gap-3 md:gap-4 items-start group"
                                         >
                                             <span className={`flex-shrink-0 w-7 h-7 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center font-black text-[10px] md:text-base transition-colors
