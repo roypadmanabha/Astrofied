@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
