@@ -252,12 +252,25 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   Why <span className="text-gold">Astrofied?</span>
                 </h1>
               </div>
-              <p className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish">
-                {showFullWhySj ? WHY_SJ_TEXT : `${WHY_SJ_TEXT.slice(0, 350)}...`}
-              </p>
+              <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">
+                <p>{WHY_SJ_TEXT.slice(0, 350)} {!showFullWhySj && '...'}</p>
+                <AnimatePresence>
+                  {showFullWhySj && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
+                      className="overflow-hidden"
+                    >
+                      <p>{WHY_SJ_TEXT.slice(350)}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
               <button
                 onClick={() => setShowFullWhySj(!showFullWhySj)}
-                className="mt-4 text-gold font-bold transition-all flex items-center gap-2"
+                className="mt-4 text-gold font-bold transition-all flex items-center gap-2 hover:translate-x-1"
               >
                 {showFullWhySj ? 'Read Less' : 'Read More'}
               </button>
@@ -343,21 +356,36 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
                 About Us
               </h2>
-              <p className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish">
-                {showFullAbout ? (
-                  ABOUT_US_TEXT.split('Prasanta Chakraborty').map((part, i, arr) => (
-                    <span key={i}>
-                      {part}
-                      {i < arr.length - 1 && <span className={`font-bold ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>Prasanta Chakraborty</span>}
-                    </span>
-                  ))
-                ) : (
-                  `${ABOUT_US_TEXT.slice(0, 400)}...`
-                )}
-              </p>
+              <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">
+                <p>
+                  {showFullAbout 
+                    ? ABOUT_US_TEXT.slice(0, 400) 
+                    : `${ABOUT_US_TEXT.slice(0, 400)}...`}
+                </p>
+                <AnimatePresence>
+                  {showFullAbout && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
+                      className="overflow-hidden"
+                    >
+                      <p>
+                        {ABOUT_US_TEXT.slice(400).split('Prasanta Chakraborty').map((part, i, arr) => (
+                          <span key={i}>
+                            {part}
+                            {i < arr.length - 1 && <span className={`font-bold ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>Prasanta Chakraborty</span>}
+                          </span>
+                        ))}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
               <button
                 onClick={() => setShowFullAbout(!showFullAbout)}
-                className="mt-4 text-gold font-bold transition-all"
+                className="mt-4 text-gold font-bold transition-all hover:translate-x-1"
               >
                 {showFullAbout ? 'Read Less' : 'Read More'}
               </button>
