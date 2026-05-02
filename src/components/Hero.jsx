@@ -56,7 +56,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             </button>
                              <button
                                 onClick={() => {
-                                    new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3').play().catch(e => console.log('Audio play blocked'));
+                                    new Audio('https://assets.mixkit.co/active_storage/sfx/2012/2012-preview.mp3').play().catch(e => console.log('Audio play blocked'));
                                     setIsDetailsModalOpen(true);
                                 }}
                                 className={`px-10 py-4 rounded-xl font-bold text-lg transition-all border glass hover:scale-105 active:scale-95 cursor-pointer ${isDarkMode
