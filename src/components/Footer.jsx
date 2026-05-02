@@ -58,8 +58,11 @@ export default function Footer({ onOpenLegal }) {
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-6px' }}
                             />
                             <h4
-                                className="text-xl md:text-xl lg:text-3xl font-bold"
-                                style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                                className={`text-xl md:text-xl lg:text-3xl font-bold ${
+                                    isDarkMode 
+                                        ? 'bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-yellow-500' 
+                                        : 'text-[#4B0082]'
+                                }`}
                             >
                                 Astrofied
                             </h4>

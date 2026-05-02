@@ -76,7 +76,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                             <span
                                 className={`text-3xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
                                     isDarkMode 
-                                        ? 'from-[#D4AF37] via-[#F1C40F] to-white' 
+                                        ? 'from-red-600 to-yellow-500' 
                                         : 'from-black via-gray-900 to-[#DC2626]'
                                 }`}
                             >
@@ -184,7 +184,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         <span
                             className={`text-2xl md:text-4xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
                                 isDarkMode 
-                                    ? 'from-[#D4AF37] via-[#F1C40F] to-white' 
+                                    ? 'from-red-600 to-yellow-500' 
                                     : 'from-black via-gray-900 to-[#DC2626]'
                             }`}
                         >

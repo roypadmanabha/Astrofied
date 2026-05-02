@@ -116,7 +116,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                     <h2
                                         className={`text-[4.5vw] sm:text-2xl md:text-4xl font-bold tracking-tight font-nunito whitespace-nowrap overflow-hidden bg-clip-text text-transparent
                                         ${isDarkMode
-                                                ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFFFFF]'
+                                                ? 'bg-gradient-to-r from-red-600 to-yellow-500'
                                                 : 'bg-gradient-to-r from-[#000000] to-[#FF0000]'}
                                     `}
                                         style={{ fontFamily: "'Nunito', sans-serif" }}
@@ -133,20 +133,18 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                         transition={isMobile ? { duration: 0 } : { delay: 0.4, duration: 0.8 }}
                                         className="relative group"
                                     >
-                                        <img 
-                                            src={ganesha} 
-                                            alt="Lord Ganesha" 
+                                        <img
+                                            src={ganesha}
+                                            alt="Lord Ganesha"
                                             className="w-40 md:w-56 lg:w-64 h-auto object-contain drop-shadow-[0_10px_20px_rgba(212,175,55,0.3)] group-hover:drop-shadow-[0_15px_30px_rgba(212,175,55,0.5)] transition-all duration-500"
                                         />
                                         <div className="mt-4 text-center">
-                                            <p className={`text-lg md:text-2xl font-black tracking-widest drop-shadow-sm ${
-                                                isDarkMode ? 'text-gold' : 'text-[#4B0082]'
-                                            }`}>
+                                            <p className={`text-lg md:text-2xl font-black tracking-widest drop-shadow-sm ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'
+                                                }`}>
                                                 ॐ श्री गणेशाय नमः
                                             </p>
-                                            <div className={`h-0.5 w-24 mx-auto mt-2 rounded-full blur-[1px] ${
-                                                isDarkMode ? 'bg-gold/40' : 'bg-[#4B0082]/30'
-                                            }`} />
+                                            <div className={`h-0.5 w-24 mx-auto mt-2 rounded-full blur-[1px] ${isDarkMode ? 'bg-gold/40' : 'bg-[#4B0082]/30'
+                                                }`} />
                                         </div>
                                     </motion.div>
                                 </div>
