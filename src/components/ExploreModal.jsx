@@ -128,9 +128,9 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 {/* Ganesha Section */}
                                 <div className="flex flex-col items-center justify-center mb-10 md:mb-14">
                                     <motion.div
-                                        initial={{ opacity: 0, y: 20 }}
+                                        initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.4, duration: 0.8 }}
+                                        transition={isMobile ? { duration: 0 } : { delay: 0.4, duration: 0.8 }}
                                         className="relative group"
                                     >
                                         <img 
