@@ -14,6 +14,7 @@ import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
+import AdSense from './components/AdSense';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -212,6 +213,8 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         isDetailsModalOpen={isDetailsModalOpen}
         setIsDetailsModalOpen={setIsDetailsModalOpen}
       />
+
+      <AdSense slot="1234567890" />
 
       {/* Why Astrofied Section */}
       <section id="why-astrofied" className={`py-24 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
@@ -413,6 +416,8 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <Feedback />
 
       <Testimonials />
+
+      <AdSense slot="0987654321" />
 
       {/* FAQs Section */}
       <FAQs />
