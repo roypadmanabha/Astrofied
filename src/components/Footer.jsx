@@ -58,11 +58,10 @@ export default function Footer({ onOpenLegal }) {
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-6px' }}
                             />
                             <h4
-                                className={`text-xl md:text-xl lg:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${
-                                    isDarkMode 
-                                        ? 'from-red-600 to-yellow-500' 
-                                        : 'from-black to-red-600'
-                                }`}
+                                className={`text-xl md:text-xl lg:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode
+                                    ? 'from-red-600 to-yellow-500'
+                                    : 'from-black to-red-600'
+                                    }`}
                             >
                                 Astrofied
                             </h4>
@@ -137,8 +136,8 @@ export default function Footer({ onOpenLegal }) {
                         >
                             Address
                         </h4>
-                        <button 
-                            onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')} 
+                        <button
+                            onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')}
                             className="flex items-start gap-3 hover:text-gold transition-colors block bg-transparent border-none p-0 cursor-pointer text-left"
                         >
                             <MapPin className="w-4 h-4 md:w-5 md:h-5 text-gold mt-1 shrink-0" />
@@ -168,7 +167,7 @@ export default function Footer({ onOpenLegal }) {
                 </div>
 
                 <div className="border-t border-gold/20 pt-4 md:pt-8 text-center text-[10px] md:text-sm text-gray-500">
-                    © {new Date().getFullYear()} Astrofied. All rights reserved. | <span className="opacity-60">Made by Vignette</span>
+                    © {new Date().getFullYear()} Astrofied. All rights reserved | <span className="opacity-90">Made by Vignette</span>
                 </div>
             </div>
         </footer>
