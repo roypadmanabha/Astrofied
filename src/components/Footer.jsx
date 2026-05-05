@@ -168,7 +168,7 @@ export default function Footer({ onOpenLegal }) {
                 </div>
 
                 <div className="border-t border-gold/20 pt-4 md:pt-8 text-center text-[10px] md:text-sm text-gray-500">
-                    © {new Date().getFullYear()} Astrofied. All rights reserved. | <span className="opacity-60 italic">Made with ✨ by Vignette</span>
+                    © {new Date().getFullYear()} Astrofied. All rights reserved. | <span className="opacity-60">Made by Vignette</span>
                 </div>
             </div>
         </footer>
