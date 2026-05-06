@@ -401,7 +401,7 @@ export default function Feedback() {
     return (
         <section id="feedback" className="py-24 relative overflow-hidden">
             <div className="container mx-auto px-6 max-w-6xl">
-                <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start justify-between">
+                <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start lg:items-center justify-between">
                     <motion.div
                         initial={{ opacity: 0.8, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -410,12 +410,12 @@ export default function Feedback() {
                         className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
                     >
                         <h2
-                            className="text-4xl md:text-5xl font-bold mb-6 font-mulish leading-tight"
+                            className="text-4xl md:text-5xl lg:text-7xl font-black mb-8 font-mulish leading-[1.1]"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                         >
                             We Value Your <br className="hidden lg:block" /> Feedback
                         </h2>
-                        <p className={`text-lg md:text-xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        <p className={`text-lg md:text-xl lg:text-2xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                             Your insights help us improve and serve you better. Share your experience with Astrofied!
                         </p>
                     </motion.div>
