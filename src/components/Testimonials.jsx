@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Quote, Star, ChevronLeft, ChevronRight, Smile } from 'lucide-react';
 import amjad from '../assets/testimonials/amjad.jpg';
 import aritrika from '../assets/testimonials/aritrika.jpg';
 import debadrita from '../assets/testimonials/debadrita.jpg';
@@ -18,7 +18,7 @@ import sibani from '../assets/testimonials/sibani.jpg';
 import somnath from '../assets/testimonials/somnath.jpg';
 import suman from '../assets/testimonials/suman.jpg';
 
-const testimonials = [
+export const initialTestimonials = [
     { id: 8, name: "Pralay Majumder", img: pralay, text: "Astrofied provides clarity when life feels uncertain. A great mentor." },
     { id: 9, name: "Prasenjit Chakraborty", img: prasenjit, text: "Highly impressed with the accuracy. It's more than just predictions, it's guidance." },
     { id: 13, name: "Sibani Bhattacharya", img: sibani, text: "Incredible depth of analysis. Every session brings new clarity and peace of mind." },
@@ -36,7 +36,7 @@ const testimonials = [
     { id: 15, name: "Suman Saha", img: suman, text: "Transformative experience! Astrofied changed my perspective towards traditional wisdom." },
 ];
 
-export default function Testimonials() {
+export default function Testimonials({ data = initialTestimonials }) {
     const { isDarkMode } = useTheme();
     const scrollRef = useRef(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -54,7 +54,7 @@ export default function Testimonials() {
         checkScroll();
         window.addEventListener('resize', checkScroll);
         return () => window.removeEventListener('resize', checkScroll);
-    }, []);
+    }, [data]);
 
     const scroll = (direction) => {
         if (scrollRef.current) {
@@ -77,12 +77,18 @@ export default function Testimonials() {
 
             <div className="flex items-center gap-4">
                 <div className={`relative p-[2px] rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}>
-                    <img
-                        src={t.img}
-                        alt={t.name}
-                        className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover select-none pointer-events-none"
-                        draggable={false}
-                    />
+                    {typeof t.img === 'string' ? (
+                        <img
+                            src={t.img}
+                            alt={t.name}
+                            className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover select-none pointer-events-none"
+                            draggable={false}
+                        />
+                    ) : (
+                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-white/10">
+                            <t.img className={`w-8 h-8 md:w-10 md:h-10 ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`} />
+                        </div>
+                    )}
                 </div>
                 <div className="flex flex-col">
                     <span className="font-bold text-base md:text-lg font-mulish tracking-tight" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
@@ -152,7 +158,7 @@ export default function Testimonials() {
                 onScroll={checkScroll}
                 className="flex overflow-x-auto gap-6 px-6 md:px-[calc((100vw-min(1280px,100vw-48px))/2)] no-scrollbar snap-x snap-mandatory py-4 cursor-grab active:cursor-grabbing"
             >
-                {testimonials.map((t) => (
+                {data.map((t) => (
                     <div key={t.id} className="snap-center">
                         <TestimonialCard t={t} />
                     </div>

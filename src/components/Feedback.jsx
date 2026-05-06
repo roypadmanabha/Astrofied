@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, Smile } from 'lucide-react';
 
-export default function Feedback() {
+export default function Feedback({ onSuccess }) {
     const { isDarkMode } = useTheme();
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate
@@ -53,6 +53,14 @@ export default function Feedback() {
                 localStorage.setItem('astrofied_feedback_emails', JSON.stringify(sentEmails));
 
                 setStatus('success');
+                if (onSuccess) {
+                    onSuccess({
+                        id: Date.now(),
+                        name: formData.name,
+                        img: Smile,
+                        text: formData.message
+                    });
+                }
                 setFormData({ name: '', email: '', message: '' });
 
                 // Reset success state after 5 seconds

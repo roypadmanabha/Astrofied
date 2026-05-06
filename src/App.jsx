@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 import Feedback from './components/Feedback';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
-import Testimonials from './components/Testimonials';
+import Testimonials, { initialTestimonials } from './components/Testimonials';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
@@ -28,6 +28,7 @@ function MainContent() {
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [testimonialsList, setTestimonialsList] = useState(initialTestimonials);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -39,6 +40,10 @@ function MainContent() {
 
   const handleBookConsultation = () => {
     window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20online%20consultation.', '_blank');
+  };
+  
+  const handleAddTestimonial = (newTestimonial) => {
+    setTestimonialsList(prev => [newTestimonial, ...prev]);
   };
 
   const openLegalModal = (type) => {
@@ -410,9 +415,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       </section>
 
       {/* Feedback Section */}
-      <Feedback />
+      <Feedback onSuccess={handleAddTestimonial} />
 
-      <Testimonials />
+      <Testimonials data={testimonialsList} />
 
       {/* FAQs Section */}
       <FAQs />
