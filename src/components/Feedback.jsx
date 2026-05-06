@@ -352,7 +352,7 @@ export default function Feedback() {
         setStatus('loading');
 
         try {
-            const response = await fetch("https://formsubmit.co/ajax/sj.astrologyservices@gmail.com", {
+            const response = await fetch("https://formsubmit.co/ajax/contact.astrofied@gmail.com", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
