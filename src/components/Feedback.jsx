@@ -32,11 +32,34 @@ export default function Feedback() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === 'message' && value.length > 87) return;
+        if (name === 'mobile') {
+            // Only allow digits and max 10
+            const digits = value.replace(/\D/g, '').slice(0, 10);
+            setFormData({ ...formData, [name]: digits });
+            return;
+        }
         setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Mobile Number Validation
+        const mobile = formData.mobile;
+        const sequential = "1234567890";
+        const reverseSequential = "0987654321";
+        const altReverseSequential = "9876543210";
+        const repetitive = /^(\d)\1{9}$/;
+
+        if (mobile.length !== 10) {
+            setStatus('invalid_mobile');
+            return;
+        }
+
+        if (mobile === sequential || mobile === reverseSequential || mobile === altReverseSequential || repetitive.test(mobile)) {
+            setStatus('invalid_pattern');
+            return;
+        }
 
         // 1. Check for Duplicate Email using LocalStorage
         const sentEmails = JSON.parse(localStorage.getItem('astrofied_feedback_emails')) || [];
@@ -124,6 +147,26 @@ export default function Feedback() {
                             isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
                         }`}
                     >
+                        {status === 'invalid_mobile' && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+                                className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3"
+                            >
+                                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                <span className="text-sm font-medium">Please enter a valid 10-digit mobile number.</span>
+                            </motion.div>
+                        )}
+
+                        {status === 'invalid_pattern' && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+                                className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3"
+                            >
+                                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                <span className="text-sm font-medium">This number pattern is invalid. Please enter a real mobile number.</span>
+                            </motion.div>
+                        )}
+
                         {status === 'duplicate' && (
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
@@ -203,6 +246,7 @@ export default function Feedback() {
                                     value={formData.mobile}
                                     onChange={handleChange}
                                     required
+                                    maxLength={10}
                                     placeholder="Mobile Number"
                                     className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
                                         ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
