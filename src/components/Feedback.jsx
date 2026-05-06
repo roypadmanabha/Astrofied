@@ -21,7 +21,7 @@ export default function Feedback() {
         switch (name) {
             case 'firstName':
                 if (!nameRegex.test(value)) error = "Alphabets only allowed";
-                else if (value.length > 0 && value.length < 3) error = "Min 3 characters required";
+                else if (value.length > 0 && value.length < 2) error = "Min 2 characters required";
                 else if (value.length === 0) error = "Required";
                 break;
             case 'lastName':
@@ -37,7 +37,9 @@ export default function Feedback() {
                 else if (value.length === 0) error = "Required";
                 break;
             case 'message':
-                if (value.length === 0) error = "Required";
+                const messageRegex = /^[A-Za-z\s,.-]*$/;
+                if (!messageRegex.test(value)) error = "Only alphabets, spaces and , . - allowed";
+                else if (value.length === 0) error = "Required";
                 break;
             default:
                 break;
@@ -245,14 +247,14 @@ export default function Feedback() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === 'message' && value.length > 87) return;
-        
+
         let processedValue = value;
         if (name === 'mobile') {
             processedValue = value.replace(/\D/g, '').slice(0, 10);
         }
-        
+
         setFormData({ ...formData, [name]: processedValue });
-        
+
         const error = validateField(name, processedValue);
         setErrors(prev => ({ ...prev, [name]: error }));
     };
@@ -298,7 +300,7 @@ export default function Feedback() {
         // 2. Generate and Send OTP
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         setGeneratedOtp(otp);
-        
+
         try {
             setStep('verify');
             setStatus('otp_sent');
@@ -328,7 +330,7 @@ export default function Feedback() {
 
     const handleVerifyOtp = async (e) => {
         e.preventDefault();
-        
+
         if (userOtp !== generatedOtp) {
             setStatus('otp_error');
             setTimeout(() => {
@@ -382,7 +384,7 @@ export default function Feedback() {
         <section id="feedback" className="py-24 relative overflow-hidden">
             <div className="container mx-auto px-6 max-w-6xl">
                 <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start justify-between">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0.8, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
@@ -400,14 +402,13 @@ export default function Feedback() {
                         </p>
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0.8, x: 10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className={`w-full lg:w-6/12 rounded-3xl p-8 md:p-10 shadow-2xl border relative ${
-                            isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
-                        }`}
+                        className={`w-full lg:w-6/12 rounded-3xl p-8 md:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
+                            }`}
                     >
                         <AnimatePresence mode="wait">
                             {status === 'duplicate' && (
@@ -447,8 +448,8 @@ export default function Feedback() {
                                             onChange={handleChange}
                                             required
                                             placeholder="First Name"
-                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 } ${errors.firstName ? 'border-red-500' : ''}`}
                                         />
@@ -462,15 +463,15 @@ export default function Feedback() {
                                             onChange={handleChange}
                                             required
                                             placeholder="Last Name"
-                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 } ${errors.lastName ? 'border-red-500' : ''}`}
                                         />
                                         {errors.lastName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.lastName}</span>}
                                     </div>
                                 </div>
-                                
+
                                 <div className="flex flex-col gap-1">
                                     <input
                                         type="email"
@@ -479,8 +480,8 @@ export default function Feedback() {
                                         onChange={handleChange}
                                         required
                                         placeholder="Your Mail Id"
-                                        className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                        className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
                                             : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                             } ${errors.email ? 'border-red-500' : ''}`}
                                     />
@@ -493,8 +494,8 @@ export default function Feedback() {
                                             name="countryCode"
                                             value={formData.countryCode}
                                             onChange={handleChange}
-                                            className={`w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode 
-                                                ? 'border-white text-white bg-black focus:ring-white focus:border-white' 
+                                            className={`w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode
+                                                ? 'border-white text-white bg-black focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 }`}
                                         >
@@ -512,8 +513,8 @@ export default function Feedback() {
                                             required
                                             maxLength={10}
                                             placeholder="Mobile Number"
-                                            className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 } ${errors.mobile ? 'border-red-500' : ''}`}
                                         />
@@ -531,8 +532,8 @@ export default function Feedback() {
                                             rows={4}
                                             maxLength={87}
                                             placeholder="Write your feedback..."
-                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode 
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 } ${errors.message ? 'border-red-500' : ''}`}
                                         ></textarea>
@@ -548,8 +549,7 @@ export default function Feedback() {
                                     whileTap={!Object.values(errors).some(e => e) ? { scale: 0.98 } : {}}
                                     disabled={status === 'loading' || Object.values(errors).some(e => e)}
                                     type="submit"
-                                    className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${
-                                        (status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
+                                    className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${(status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
                                         } ${isDarkMode
                                             ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
                                             : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
@@ -572,8 +572,8 @@ export default function Feedback() {
                                     onChange={(e) => setUserOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
                                     required
                                     placeholder="Enter 6-digit OTP"
-                                    className={`w-full text-center text-2xl tracking-[0.5em] font-bold px-5 py-4 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                        ? 'border-white text-white placeholder-white/30 focus:ring-white focus:border-white' 
+                                    className={`w-full text-center text-2xl tracking-[0.5em] font-bold px-5 py-4 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                        ? 'border-white text-white placeholder-white/30 focus:ring-white focus:border-white'
                                         : 'border-black text-gray-900 placeholder-black/30 focus:ring-[#4B0082] focus:border-[#4B0082]'
                                         }`}
                                 />
@@ -586,7 +586,7 @@ export default function Feedback() {
                                         className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${isDarkMode
                                             ? 'bg-gold text-black hover:bg-yellow-500'
                                             : 'bg-[#4B0082] text-white hover:bg-[#3A0066]'
-                                        }`}
+                                            }`}
                                     >
                                         {status === 'loading' ? 'Verifying...' : 'Verify & Share Feedback'}
                                         {status !== 'loading' && <CheckCircle className="w-5 h-5" />}
