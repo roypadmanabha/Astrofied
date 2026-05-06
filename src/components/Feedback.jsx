@@ -38,7 +38,7 @@ export default function Feedback({ onSuccess }) {
             // Using your EmailJS Service ID and Template ID
             await emailjs.send(
                 "service_g7j8tmb", 
-                "template_fk1x5ub", 
+                "template_737ii74", 
                 {
                     to_name: formData.name,
                     to_email: formData.email,
