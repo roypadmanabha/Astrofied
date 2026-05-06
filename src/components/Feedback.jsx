@@ -6,8 +6,8 @@ import emailjs from '@emailjs/browser';
 
 export default function Feedback() {
     const { isDarkMode } = useTheme();
-    const [formData, setFormData] = useState({ name: '', email: '', mobile: '', countryCode: '+91', message: '' });
-    const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate, invalid_mobile, invalid_pattern, otp_sent, otp_error
+    const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
+    const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate, invalid_mobile, invalid_pattern, otp_sent, otp_error, invalid_firstname, invalid_lastname
     const [step, setStep] = useState('form'); // form, verify
     const [generatedOtp, setGeneratedOtp] = useState('');
     const [userOtp, setUserOtp] = useState('');
@@ -224,6 +224,19 @@ export default function Feedback() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Name Validation
+        const nameRegex = /^[A-Za-z]+$/;
+        
+        if (!nameRegex.test(formData.firstName) || formData.firstName.length < 3) {
+            setStatus('invalid_firstname');
+            return;
+        }
+
+        if (!nameRegex.test(formData.lastName) || formData.lastName.length < 1) {
+            setStatus('invalid_lastname');
+            return;
+        }
+
         // Mobile Number Validation
         const mobile = formData.mobile;
         const sequential = "1234567890";
@@ -270,7 +283,7 @@ export default function Feedback() {
                 'service_g7j8tmb',
                 'vnqid2a',
                 {
-                    to_name: formData.name,
+                    to_name: `${formData.firstName} ${formData.lastName}`,
                     to_email: formData.email,
                     passcode: otp,
                     time: expirationTime
@@ -310,12 +323,12 @@ export default function Feedback() {
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: formData.name,
+                    name: `${formData.firstName} ${formData.lastName}`,
                     email: formData.email,
                     mobile: `${formData.countryCode} ${formData.mobile}`,
                     message: formData.message,
                     _replyto: formData.email,
-                    _subject: `Verified Feedback from ${formData.name} - Astrofied`,
+                    _subject: `Verified Feedback from ${formData.firstName} ${formData.lastName} - Astrofied`,
                     _captcha: "false",
                     _template: "table"
                 })
@@ -328,7 +341,7 @@ export default function Feedback() {
 
                 setStatus('success');
                 setStep('form');
-                setFormData({ name: '', email: '', mobile: '', countryCode: '+91', message: '' });
+                setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
                 setUserOtp('');
                 setGeneratedOtp('');
             } else {
@@ -372,6 +385,18 @@ export default function Feedback() {
                         }`}
                     >
                         <AnimatePresence mode="wait">
+                            {status === 'invalid_firstname' && (
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
+                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">First Name must be at least 3 letters (alphabets only).</span>
+                                </motion.div>
+                            )}
+                            {status === 'invalid_lastname' && (
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
+                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">Last Name must contain alphabets only.</span>
+                                </motion.div>
+                            )}
                             {status === 'invalid_mobile' && (
                                 <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
                                     <AlertCircle className="w-5 h-5 flex-shrink-0" />
@@ -412,18 +437,32 @@ export default function Feedback() {
 
                         {step === 'form' ? (
                             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    required
-                                    placeholder="Your Name"
-                                    className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                        ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                        : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                        }`}
-                                />
+                                <div className="flex flex-col sm:flex-row gap-5">
+                                    <input
+                                        type="text"
+                                        name="firstName"
+                                        value={formData.firstName}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="First Name"
+                                        className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            }`}
+                                    />
+                                    <input
+                                        type="text"
+                                        name="lastName"
+                                        value={formData.lastName}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Last Name"
+                                        className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            }`}
+                                    />
+                                </div>
                                 <input
                                     type="email"
                                     name="email"
