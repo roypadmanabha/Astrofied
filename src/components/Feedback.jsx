@@ -391,36 +391,59 @@ export default function Feedback() {
     };
 
     return (
-        <section id="feedback" className="py-24 relative overflow-hidden">
-            <div className="container mx-auto px-6 max-w-6xl">
-                <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start justify-between">
+        <section id="feedback" className="py-24 relative overflow-hidden bg-transparent">
+            {/* Decorative Background Elements */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+                <div className={`absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] opacity-20 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}></div>
+                <div className={`absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#4B0082]' : 'bg-gold'}`}></div>
+            </div>
+
+            <div className="container mx-auto px-6 max-w-6xl relative z-10">
+                <div className="flex flex-col lg:flex-row gap-x-20 gap-y-16 items-center justify-between">
                     <motion.div
-                        initial={{ opacity: 0.8, x: -10 }}
+                        initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                        className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="w-full lg:w-5/12 text-center lg:text-left"
                     >
+                        <motion.span 
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className={`inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6 ${
+                                isDarkMode ? 'bg-gold/10 text-gold border border-gold/20' : 'bg-[#4B0082]/10 text-[#4B0082] border border-[#4B0082]/20'
+                            }`}
+                        >
+                            Get In Touch
+                        </motion.span>
                         <h2
-                            className="text-4xl md:text-5xl font-bold mb-6 font-mulish leading-tight"
+                            className="text-5xl md:text-6xl font-black mb-8 font-mulish leading-[1.1] tracking-tight"
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                         >
-                            We Value Your <br className="hidden lg:block" /> Feedback
+                            We Value Your <br className="hidden lg:block" /> <span className={isDarkMode ? 'text-white' : 'text-black opacity-90'}>Insights</span>
                         </h2>
-                        <p className={`text-lg md:text-xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                            Your insights help us improve and serve you better. Share your experience with Astrofied!
+                        <p className={`text-xl md:text-2xl leading-relaxed font-light ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Your perspective drives our excellence. Join the circle of verified voices at Astrofied.
                         </p>
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0.8, x: 10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                        className={`w-full lg:w-6/12 rounded-3xl p-8 md:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
-                            }`}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, ease: "circOut" }}
+                        className={`w-full lg:w-6/12 rounded-[2.5rem] p-1 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative group`}
                     >
-                        <AnimatePresence mode="wait">
+                        {/* Gradient Border Trick */}
+                        <div className={`absolute inset-0 rounded-[2.5rem] p-[1px] -z-10 ${
+                            isDarkMode ? 'bg-gradient-to-br from-gold/50 via-white/5 to-purple-500/50' : 'bg-gradient-to-br from-[#4B0082]/50 via-white/5 to-gold/50'
+                        }`}></div>
+                        
+                        <div className={`rounded-[2.45rem] p-8 md:p-12 h-full w-full backdrop-blur-2xl ${
+                            isDarkMode ? 'bg-[#17202A]/90' : 'bg-white/80'
+                        }`}>
+                            <AnimatePresence mode="wait">
                             {status === 'duplicate' && (
                                 <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
                                     <AlertCircle className="w-5 h-5 flex-shrink-0" />
@@ -450,63 +473,67 @@ export default function Feedback() {
                         {step === 'form' ? (
                             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                                 <div className="flex flex-col sm:flex-row gap-5">
-                                    <div className="flex-[1.4] flex flex-col gap-1">
+                                    <div className="flex-[1.4] flex flex-col gap-2">
+                                        <label className={`text-xs font-bold uppercase tracking-wider ml-2 ${isDarkMode ? 'text-gold/60' : 'text-[#4B0082]/60'}`}>First Name</label>
                                         <input
                                             type="text"
                                             name="firstName"
                                             value={formData.firstName}
                                             onChange={handleChange}
                                             required
-                                            placeholder="First Name"
-                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                                } ${errors.firstName ? 'border-red-500' : ''}`}
+                                            placeholder="John"
+                                            className={`w-full px-6 py-4 rounded-2xl border-2 focus:outline-none focus:ring-4 bg-transparent transition-all font-medium ${isDarkMode
+                                                ? 'border-white/10 text-white placeholder-white/20 focus:ring-gold/10 focus:border-gold'
+                                                : 'border-black/5 text-gray-900 placeholder-black/20 focus:ring-[#4B0082]/5 focus:border-[#4B0082]'
+                                                } ${errors.firstName ? 'border-red-500/50' : ''}`}
                                         />
-                                        {errors.firstName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.firstName}</span>}
+                                        {errors.firstName && <span className="text-[10px] text-red-500 font-bold ml-2 uppercase tracking-tighter">{errors.firstName}</span>}
                                     </div>
-                                    <div className="flex-1 flex flex-col gap-1">
+                                    <div className="flex-1 flex flex-col gap-2">
+                                        <label className={`text-xs font-bold uppercase tracking-wider ml-2 ${isDarkMode ? 'text-gold/60' : 'text-[#4B0082]/60'}`}>Last Name</label>
                                         <input
                                             type="text"
                                             name="lastName"
                                             value={formData.lastName}
                                             onChange={handleChange}
                                             required
-                                            placeholder="Last Name"
-                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                                } ${errors.lastName ? 'border-red-500' : ''}`}
+                                            placeholder="Doe"
+                                            className={`w-full px-6 py-4 rounded-2xl border-2 focus:outline-none focus:ring-4 bg-transparent transition-all font-medium ${isDarkMode
+                                                ? 'border-white/10 text-white placeholder-white/20 focus:ring-gold/10 focus:border-gold'
+                                                : 'border-black/5 text-gray-900 placeholder-black/20 focus:ring-[#4B0082]/5 focus:border-[#4B0082]'
+                                                } ${errors.lastName ? 'border-red-500/50' : ''}`}
                                         />
-                                        {errors.lastName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.lastName}</span>}
+                                        {errors.lastName && <span className="text-[10px] text-red-500 font-bold ml-2 uppercase tracking-tighter">{errors.lastName}</span>}
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col gap-1">
+                                <div className="flex flex-col gap-2">
+                                    <label className={`text-xs font-bold uppercase tracking-wider ml-2 ${isDarkMode ? 'text-gold/60' : 'text-[#4B0082]/60'}`}>Email Address</label>
                                     <input
                                         type="email"
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
-                                        placeholder="Your Mail Id"
-                                        className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                            } ${errors.email ? 'border-red-500' : ''}`}
+                                        placeholder="john@example.com"
+                                        className={`w-full px-6 py-4 rounded-2xl border-2 focus:outline-none focus:ring-4 bg-transparent transition-all font-medium ${isDarkMode
+                                            ? 'border-white/10 text-white placeholder-white/20 focus:ring-gold/10 focus:border-gold'
+                                            : 'border-black/5 text-gray-900 placeholder-black/20 focus:ring-[#4B0082]/5 focus:border-[#4B0082]'
+                                            } ${errors.email ? 'border-red-500/50' : ''}`}
                                     />
-                                    {errors.email && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.email}</span>}
+                                    {errors.email && <span className="text-[10px] text-red-500 font-bold ml-2 uppercase tracking-tighter">{errors.email}</span>}
                                 </div>
 
-                                <div className="flex flex-col gap-1">
+                                <div className="flex flex-col gap-2">
+                                    <label className={`text-xs font-bold uppercase tracking-wider ml-2 ${isDarkMode ? 'text-gold/60' : 'text-[#4B0082]/60'}`}>Mobile Number</label>
                                     <div className="flex gap-2">
                                         <select
                                             name="countryCode"
                                             value={formData.countryCode}
                                             onChange={handleChange}
-                                            className={`w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode
-                                                ? 'border-white text-white bg-black focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            className={`px-3 py-4 rounded-2xl border-2 focus:outline-none bg-transparent transition-all font-medium ${isDarkMode
+                                                ? 'border-white/10 text-white focus:border-gold'
+                                                : 'border-black/5 text-gray-900 focus:border-[#4B0082]'
                                                 }`}
                                         >
                                             {countryCodes.map((c) => (
@@ -522,17 +549,18 @@ export default function Feedback() {
                                             onChange={handleChange}
                                             required
                                             maxLength={10}
-                                            placeholder="Mobile Number"
-                                            className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                                } ${errors.mobile ? 'border-red-500' : ''}`}
+                                            placeholder="1234567890"
+                                            className={`flex-1 px-6 py-4 rounded-2xl border-2 focus:outline-none focus:ring-4 bg-transparent transition-all font-medium ${isDarkMode
+                                                ? 'border-white/10 text-white placeholder-white/20 focus:ring-gold/10 focus:border-gold'
+                                                : 'border-black/5 text-gray-900 placeholder-black/20 focus:ring-[#4B0082]/5 focus:border-[#4B0082]'
+                                                } ${errors.mobile ? 'border-red-500/50' : ''}`}
                                         />
                                     </div>
-                                    {errors.mobile && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.mobile}</span>}
+                                    {errors.mobile && <span className="text-[10px] text-red-500 font-bold ml-2 uppercase tracking-tighter">{errors.mobile}</span>}
                                 </div>
 
-                                <div className="flex flex-col gap-1">
+                                <div className="flex flex-col gap-2">
+                                    <label className={`text-xs font-bold uppercase tracking-wider ml-2 ${isDarkMode ? 'text-gold/60' : 'text-[#4B0082]/60'}`}>Your Message</label>
                                     <div className="relative">
                                         <textarea
                                             name="message"
@@ -541,31 +569,31 @@ export default function Feedback() {
                                             required
                                             rows={4}
                                             maxLength={87}
-                                            placeholder="Write your feedback..."
-                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                                } ${errors.message ? 'border-red-500' : ''}`}
+                                            placeholder="Share your experience..."
+                                            className={`w-full px-6 py-4 rounded-2xl border-2 focus:outline-none focus:ring-4 bg-transparent transition-all overflow-hidden resize-none font-medium ${isDarkMode
+                                                ? 'border-white/10 text-white placeholder-white/20 focus:ring-gold/10 focus:border-gold'
+                                                : 'border-black/5 text-gray-900 placeholder-black/20 focus:ring-[#4B0082]/5 focus:border-[#4B0082]'
+                                                } ${errors.message ? 'border-red-500/50' : ''}`}
                                         ></textarea>
-                                        <div className={`absolute bottom-2 right-4 text-[10px] font-bold ${isDarkMode ? 'text-white/40' : 'text-[#4B0082]/40'}`}>
-                                            {formData.message.length}/87
+                                        <div className={`absolute bottom-3 right-4 text-[10px] font-bold uppercase tracking-widest ${isDarkMode ? 'text-white/30' : 'text-[#4B0082]/30'}`}>
+                                            {formData.message.length} / 87
                                         </div>
                                     </div>
-                                    {errors.message && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.message}</span>}
+                                    {errors.message && <span className="text-[10px] text-red-500 font-bold ml-2 uppercase tracking-tighter">{errors.message}</span>}
                                 </div>
 
                                 <motion.button
-                                    whileHover={!Object.values(errors).some(e => e) ? { scale: 1.02 } : {}}
+                                    whileHover={!Object.values(errors).some(e => e) ? { scale: 1.02, y: -2 } : {}}
                                     whileTap={!Object.values(errors).some(e => e) ? { scale: 0.98 } : {}}
                                     disabled={status === 'loading' || Object.values(errors).some(e => e)}
                                     type="submit"
-                                    className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${(status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
+                                    className={`w-full py-5 rounded-2xl font-black text-lg uppercase tracking-widest flex justify-center items-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:shadow-xl ${(status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
                                         } ${isDarkMode
-                                            ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
-                                            : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
+                                            ? 'bg-gradient-to-r from-gold via-yellow-400 to-gold text-black shadow-gold/20'
+                                            : 'bg-gradient-to-r from-[#4B0082] via-[#6A0DAD] to-[#4B0082] text-white shadow-[#4B0082]/30'
                                         }`}
                                 >
-                                    {status === 'loading' ? 'Processing...' : 'Send Feedback'}
+                                    {status === 'loading' ? 'Processing...' : 'Verify Now'}
                                     {status !== 'loading' && <Send className="w-5 h-5" />}
                                 </motion.button>
                             </form>
