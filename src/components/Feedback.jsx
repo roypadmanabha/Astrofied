@@ -175,13 +175,13 @@ export default function Feedback({ onSuccess }) {
                                         : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
                                         }`}
                                 >
-                                    <option value="+91" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+91 (IN)</option>
-                                    <option value="+1" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+1 (US/CA)</option>
-                                    <option value="+44" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+44 (UK)</option>
-                                    <option value="+61" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+61 (AU)</option>
-                                    <option value="+971" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+971 (UAE)</option>
-                                    <option value="+880" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+880 (BD)</option>
-                                    <option value="+65" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+65 (SG)</option>
+                                    <option value="+91" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇮🇳 +91</option>
+                                    <option value="+1" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇺🇸 +1</option>
+                                    <option value="+44" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇬🇧 +44</option>
+                                    <option value="+61" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇦🇺 +61</option>
+                                    <option value="+971" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇦🇪 +971</option>
+                                    <option value="+880" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇧🇩 +880</option>
+                                    <option value="+65" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇸🇬 +65</option>
                                 </select>
                                 <input
                                     type="tel"
