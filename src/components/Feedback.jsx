@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Send, CheckCircle, AlertCircle, Smile } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { supabase } from '../lib/supabase';
 
 export default function Feedback({ onSuccess }) {
     const { isDarkMode } = useTheme();
@@ -109,9 +110,17 @@ export default function Feedback({ onSuccess }) {
             const data = await response.json();
 
             if (response.ok) {
-                // Save the email to local storage to prevent duplicates
-                sentEmails.push(normalizedEmail);
-                localStorage.setItem('astrofied_feedback_emails', JSON.stringify(sentEmails));
+                // 2. Save to Supabase for global persistence
+                const { error: sbError } = await supabase
+                    .from('testimonials')
+                    .insert([
+                        { name: formData.name, message: formData.message }
+                    ]);
+
+                if (sbError) {
+                    console.error("Supabase Save Error:", sbError);
+                    // We still show success since the email went through, but log the error
+                }
 
                 setStatus('success');
                 if (onSuccess) {

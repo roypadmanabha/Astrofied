@@ -14,6 +14,8 @@ import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
+import { supabase } from './lib/supabase';
+import { Smile } from 'lucide-react';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -28,23 +30,30 @@ function MainContent() {
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const [testimonialsList, setTestimonialsList] = useState(() => {
-    const saved = localStorage.getItem('astrofied_testimonials');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        // We need to restore the Smile icon component for saved items
-        return [...initialTestimonials, ...parsed.map(item => ({
-          ...item,
-          img: item.isDynamic ? Smile : item.img
-        }))];
-      } catch (e) {
-        return initialTestimonials;
-      }
-    }
-    return initialTestimonials;
-  });
+  const [testimonialsList, setTestimonialsList] = useState(initialTestimonials);
   const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      const { data, error } = await supabase
+        .from('testimonials')
+        .select('*')
+        .order('created_at', { ascending: true });
+
+      if (data && !error) {
+        const dynamicTestimonials = data.map(item => ({
+          id: item.id,
+          name: item.name,
+          text: item.message,
+          img: Smile, // Use the Smile icon for all dynamic testimonials
+          isDynamic: true
+        }));
+        setTestimonialsList([...initialTestimonials, ...dynamicTestimonials]);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -58,16 +67,7 @@ function MainContent() {
   };
   
   const handleAddTestimonial = (newTestimonial) => {
-    setTestimonialsList(prev => {
-      const updated = [...prev, { ...newTestimonial, isDynamic: true }];
-      // Only save the dynamic ones to localStorage to avoid duplicating initial ones
-      const dynamicOnly = updated.filter(t => t.isDynamic).map(t => ({
-        ...t,
-        img: null // Can't stringify components
-      }));
-      localStorage.setItem('astrofied_testimonials', JSON.stringify(dynamicOnly));
-      return updated;
-    });
+    setTestimonialsList(prev => [...prev, { ...newTestimonial, isDynamic: true }]);
   };
 
   const openLegalModal = (type) => {
