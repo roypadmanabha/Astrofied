@@ -10,8 +10,9 @@ export default function Feedback() {
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate, otp_sent, otp_error
     const [step, setStep] = useState('form'); // form, verify
-    const [generatedOtp, setGeneratedOtp] = useState('');
     const [userOtp, setUserOtp] = useState('');
+    const [generatedOtp, setGeneratedOtp] = useState('');
+    const otpRefs = useRef([]);
 
     const validateField = (name, value) => {
         let error = "";
@@ -271,7 +272,6 @@ export default function Feedback() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Final Validation Check
         const newErrors = {};
         Object.keys(formData).forEach(key => {
             const error = validateField(key, formData[key]);
@@ -283,7 +283,6 @@ export default function Feedback() {
             return;
         }
 
-        // Mobile Pattern Check (Advanced)
         const mobile = formData.mobile;
         const sequential = "1234567890";
         const reverseSequential = "0987654321";
@@ -297,7 +296,6 @@ export default function Feedback() {
 
         setStatus('loading');
 
-        // 2. Generate and Send OTP
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         setGeneratedOtp(otp);
 
@@ -558,47 +556,87 @@ export default function Feedback() {
                                 </motion.button>
                             </form>
                         ) : (
-                            <form onSubmit={handleVerifyOtp} className="flex flex-col gap-6 py-4">
-                                <div className="text-center mb-4">
-                                    <ShieldCheck className={`w-16 h-16 mx-auto mb-4 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
-                                    <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Verify Email</h3>
-                                    <p className={`text-sm mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>We've sent a 6-digit code to your inbox.</p>
+                            <motion.form
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                onSubmit={handleVerifyOtp}
+                                className="flex flex-col gap-6"
+                            >
+                                <div className="text-center mb-2">
+                                    <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Verify your Email</h3>
+                                    <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Enter the 6-digit code sent to your mail</p>
                                 </div>
-                                <input
-                                    type="text"
-                                    value={userOtp}
-                                    onChange={(e) => setUserOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                    required
-                                    placeholder="Enter 6-digit OTP"
-                                    className={`w-full text-center text-2xl tracking-[0.5em] font-bold px-5 py-4 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                        ? 'border-white text-white placeholder-white/30 focus:ring-white focus:border-white'
-                                        : 'border-black text-gray-900 placeholder-black/30 focus:ring-[#4B0082] focus:border-[#4B0082]'
+
+                                <div className="flex justify-center gap-2 sm:gap-3">
+                                    {[0, 1, 2, 3, 4, 5].map((index) => (
+                                        <input
+                                            key={index}
+                                            ref={(el) => (otpRefs.current[index] = el)}
+                                            type="text"
+                                            maxLength={1}
+                                            value={userOtp[index] || ''}
+                                            onChange={(e) => {
+                                                const val = e.target.value.replace(/\D/g, '');
+                                                if (val) {
+                                                    const newOtp = userOtp.split('');
+                                                    newOtp[index] = val;
+                                                    const finalOtp = newOtp.join('').slice(0, 6);
+                                                    setUserOtp(finalOtp);
+                                                    if (index < 5) otpRefs.current[index + 1].focus();
+                                                }
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Backspace' && !userOtp[index] && index > 0) {
+                                                    otpRefs.current[index - 1].focus();
+                                                }
+                                            }}
+                                            onPaste={(e) => {
+                                                e.preventDefault();
+                                                const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+                                                if (pastedData) {
+                                                    setUserOtp(pastedData);
+                                                    const nextIndex = Math.min(pastedData.length, 5);
+                                                    otpRefs.current[nextIndex].focus();
+                                                }
+                                            }}
+                                            className={`w-10 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                ? 'border-white text-white focus:ring-white focus:border-white'
+                                                : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                }`}
+                                        />
+                                    ))}
+                                </div>
+
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    type="submit"
+                                    disabled={userOtp.length !== 6 || status === 'loading'}
+                                    className={`w-full py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed ${isDarkMode
+                                        ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
+                                        : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
                                         }`}
-                                />
-                                <div className="flex flex-col gap-3">
-                                    <motion.button
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        disabled={status === 'loading'}
-                                        type="submit"
-                                        className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${isDarkMode
-                                            ? 'bg-gold text-black hover:bg-yellow-500'
-                                            : 'bg-[#4B0082] text-white hover:bg-[#3A0066]'
-                                            }`}
-                                    >
-                                        {status === 'loading' ? 'Verifying...' : 'Verify & Share Feedback'}
-                                        {status !== 'loading' && <CheckCircle className="w-5 h-5" />}
-                                    </motion.button>
+                                >
+                                    {status === 'loading' ? 'Verifying...' : 'Verify OTP'}
+                                    {status !== 'loading' && <CheckCircle className="w-5 h-5" />}
+                                </motion.button>
+
+                                <div className="text-center">
                                     <button
                                         type="button"
-                                        onClick={() => { setStep('form'); setStatus('idle'); }}
-                                        className={`text-sm font-bold flex items-center justify-center gap-2 bg-transparent border-none py-2 ${isDarkMode ? 'text-gold/60 hover:text-gold' : 'text-[#4B0082]/60 hover:text-[#4B0082]'}`}
+                                        onClick={() => {
+                                            setStep('form');
+                                            setUserOtp('');
+                                            setStatus('idle');
+                                        }}
+                                        className={`text-sm font-bold flex items-center justify-center gap-2 transition-colors ${isDarkMode ? 'text-gold/60 hover:text-gold' : 'text-[#4B0082]/60 hover:text-[#4B0082]'
+                                            }`}
                                     >
                                         <RefreshCw className="w-4 h-4" />
                                         Back to Edit
                                     </button>
                                 </div>
-                            </form>
+                            </motion.form>
                         )}
                     </motion.div>
                 </div>
