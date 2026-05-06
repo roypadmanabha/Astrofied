@@ -268,13 +268,11 @@ export default function Feedback() {
                     to_email: formData.email,
                     otp: otp,
                 },
-                'p_8W-67J56B6-6B-6' // This needs to be replaced with your actual Public Key
+                'wOEMDGNTN7YJ4O9rb'
             ).then((res) => {
                 console.log("EmailJS Success:", res);
             }).catch((err) => {
-                console.error("EmailJS Error (Please check your Public Key):", err);
-                // We keep them on the verify screen so they can at least test the logic
-                // but we can show a subtle warning if needed.
+                console.error("EmailJS Error:", err);
             });
         } catch (error) {
             console.error("Submission Error:", error);
