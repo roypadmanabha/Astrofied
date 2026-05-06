@@ -449,7 +449,7 @@ export default function Feedback() {
                         {step === 'form' ? (
                             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                                 <div className="flex flex-col sm:flex-row gap-5">
-                                    <div className="flex-1 flex flex-col gap-1">
+                                    <div className="flex-[1.4] flex flex-col gap-1">
                                         <input
                                             type="text"
                                             name="firstName"
