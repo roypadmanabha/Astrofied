@@ -264,13 +264,16 @@ export default function Feedback() {
             setStep('verify');
             setStatus('otp_sent');
 
+            const expirationTime = new Date(Date.now() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
             emailjs.send(
                 'service_g7j8tmb',
-                'template_737ii74',
+                'vnqid2a',
                 {
                     to_name: formData.name,
                     to_email: formData.email,
-                    otp: otp,
+                    passcode: otp,
+                    time: expirationTime
                 }
             ).then((res) => {
                 console.log("EmailJS Success:", res);
