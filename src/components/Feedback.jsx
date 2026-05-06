@@ -457,7 +457,9 @@ export default function Feedback() {
 
                         {step === 'form' ? (
                             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                                <div className="flex flex-col sm:flex-row gap-5">
+                                <div className="flex flex-col gap-2">
+                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Full Name</label>
+                                    <div className="flex flex-col sm:flex-row gap-5">
                                     <div className="flex-1 sm:flex-[1.4] flex flex-col gap-1">
                                         <input
                                             type="text"
@@ -489,9 +491,12 @@ export default function Feedback() {
                                         {errors.lastName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.lastName}</span>}
                                     </div>
                                 </div>
+                                </div>
 
-                                <div className="flex flex-col gap-1">
-                                    <input
+                                <div className="flex flex-col gap-2">
+                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Email</label>
+                                    <div className="flex flex-col gap-1">
+                                        <input
                                         type="email"
                                         name="email"
                                         value={formData.email}
@@ -506,8 +511,10 @@ export default function Feedback() {
                                     {errors.email && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.email}</span>}
                                 </div>
 
-                                <div className="flex flex-col gap-1">
-                                    <div className="flex gap-2">
+                                <div className="flex flex-col gap-2">
+                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Phone Number</label>
+                                    <div className="flex flex-col gap-1">
+                                        <div className="flex gap-2">
                                         <select
                                             name="countryCode"
                                             value={formData.countryCode}
@@ -540,8 +547,10 @@ export default function Feedback() {
                                     {errors.mobile && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.mobile}</span>}
                                 </div>
 
-                                <div className="flex flex-col gap-1">
-                                    <div className="relative">
+                                <div className="flex flex-col gap-2">
+                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Comments</label>
+                                    <div className="flex flex-col gap-1">
+                                        <div className="relative">
                                         <textarea
                                             name="message"
                                             value={formData.message}
