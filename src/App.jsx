@@ -43,7 +43,7 @@ function MainContent() {
   };
   
   const handleAddTestimonial = (newTestimonial) => {
-    setTestimonialsList(prev => [newTestimonial, ...prev]);
+    setTestimonialsList(prev => [...prev, newTestimonial]);
   };
 
   const openLegalModal = (type) => {
