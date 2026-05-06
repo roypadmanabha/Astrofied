@@ -696,7 +696,6 @@ export default function Feedback() {
                                 </div>
                             </motion.form>
                         )}
-                        </AnimatePresence>
                         </div>
                     </motion.div>
                 </div>
