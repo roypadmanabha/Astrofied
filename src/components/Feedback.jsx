@@ -42,7 +42,8 @@ export default function Feedback({ onSuccess }) {
                 {
                     to_name: formData.name,
                     to_email: formData.email,
-                    otp: newOtp,
+                    passcode: newOtp, // Changed from otp to passcode to match your template
+                    time: new Date(Date.now() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), // Matching your {{time}} tag
                     site_name: "Astrofied"
                 },
                 "wOEMDGNTN7YJ4O9rb" // Your Public Key
