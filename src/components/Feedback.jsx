@@ -163,18 +163,24 @@ export default function Feedback({ onSuccess }) {
                                     : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                     }`}
                             />
-                            <textarea
-                                name="message"
-                                value={formData.message}
-                                onChange={handleChange}
-                                required
-                                rows={4}
-                                placeholder="Write your feedback..."
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode 
-                                    ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                    : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                    }`}
-                            ></textarea>
+                            <div className="relative">
+                                <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    required
+                                    rows={4}
+                                    maxLength={87}
+                                    placeholder="Write your feedback..."
+                                    className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode 
+                                        ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                        : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                        }`}
+                                ></textarea>
+                                <div className={`absolute bottom-3 right-3 text-[10px] font-bold ${isDarkMode ? 'text-white/50' : 'text-black/50'}`}>
+                                    {formData.message.length}/87
+                                </div>
+                            </div>
 
                             <motion.button
                                 whileHover={{ scale: 1.02 }}
