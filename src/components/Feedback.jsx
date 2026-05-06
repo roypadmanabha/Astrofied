@@ -324,7 +324,6 @@ export default function Feedback() {
                 }
             ).then((res) => {
                 console.log("EmailJS Success:", res.status, res.text);
-                alert("OTP Send Success! Please check your mail.");
             }).catch((err) => {
                 console.error("EmailJS Error:", err);
                 alert("OTP Send Failed: " + JSON.stringify(err));
