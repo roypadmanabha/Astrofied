@@ -252,8 +252,11 @@ export default function Feedback() {
         if (name === 'mobile') {
             processedValue = value.replace(/\D/g, '').slice(0, 10);
         } else if (name === 'firstName' || name === 'lastName') {
-            if (value.length > 0) {
-                processedValue = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+            const noSpaces = value.replace(/\s/g, '');
+            if (noSpaces.length > 0) {
+                processedValue = noSpaces.charAt(0).toUpperCase() + noSpaces.slice(1).toLowerCase();
+            } else {
+                processedValue = '';
             }
         } else if (name === 'email') {
             processedValue = value.toLowerCase();
