@@ -35,10 +35,10 @@ export default function Feedback({ onSuccess }) {
         setOtp(newOtp);
 
         try {
-            // Using your EmailJS Service ID
+            // Using your EmailJS Service ID and Template ID
             await emailjs.send(
                 "service_g7j8tmb", 
-                "YOUR_TEMPLATE_ID", // Replace with your Template ID
+                "template_fk1x5ub", 
                 {
                     to_name: formData.name,
                     to_email: formData.email,
