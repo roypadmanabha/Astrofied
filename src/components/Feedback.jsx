@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Send, CheckCircle, AlertCircle, ShieldCheck, RefreshCw, User, Mail, Phone, MessageSquare } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, ShieldCheck, RefreshCw } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 export default function Feedback() {
@@ -417,7 +417,7 @@ export default function Feedback() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className={`w-full lg:w-6/12 rounded-3xl p-8 md:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
+                        className={`w-full lg:w-6/12 rounded-3xl p-5 md:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
                             }`}
                     >
                         <AnimatePresence mode="wait">
@@ -450,40 +450,34 @@ export default function Feedback() {
                         {step === 'form' ? (
                             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                                 <div className="flex flex-col sm:flex-row gap-5">
-                                    <div className="flex-[1.4] flex flex-col gap-1 relative">
-                                        <div className="relative">
-                                            <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${isDarkMode ? 'text-white/60' : 'text-gray-400'}`} />
-                                            <input
-                                                type="text"
-                                                name="firstName"
-                                                value={formData.firstName}
-                                                onChange={handleChange}
-                                                required
-                                                placeholder="First Name"
-                                                className={`w-full pl-12 pr-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                                    ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                    : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                                    } ${errors.firstName ? 'border-red-500' : ''}`}
-                                            />
-                                        </div>
+                                    <div className="flex-1 sm:flex-[1.4] flex flex-col gap-1">
+                                        <input
+                                            type="text"
+                                            name="firstName"
+                                            value={formData.firstName}
+                                            onChange={handleChange}
+                                            required
+                                            placeholder="First Name"
+                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                } ${errors.firstName ? 'border-red-500' : ''}`}
+                                        />
                                         {errors.firstName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.firstName}</span>}
                                     </div>
-                                    <div className="flex-1 flex flex-col gap-1 relative">
-                                        <div className="relative">
-                                            <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${isDarkMode ? 'text-white/60' : 'text-gray-400'}`} />
-                                            <input
-                                                type="text"
-                                                name="lastName"
-                                                value={formData.lastName}
-                                                onChange={handleChange}
-                                                required
-                                                placeholder="Last Name"
-                                                className={`w-full pl-12 pr-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                                    ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                    : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                                    } ${errors.lastName ? 'border-red-500' : ''}`}
-                                            />
-                                        </div>
+                                    <div className="flex-1 flex flex-col gap-1">
+                                        <input
+                                            type="text"
+                                            name="lastName"
+                                            value={formData.lastName}
+                                            onChange={handleChange}
+                                            required
+                                            placeholder="Last Name"
+                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                } ${errors.lastName ? 'border-red-500' : ''}`}
+                                        />
                                         {errors.lastName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.lastName}</span>}
                                     </div>
                                 </div>
@@ -587,7 +581,7 @@ export default function Feedback() {
                                     <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Enter the 6-digit code sent to your mail</p>
                                 </div>
 
-                                <div className="flex justify-center gap-2 sm:gap-3">
+                                <div className="flex justify-center gap-1.5 sm:gap-3">
                                     {[0, 1, 2, 3, 4, 5].map((index) => (
                                         <input
                                             key={index}
@@ -635,7 +629,7 @@ export default function Feedback() {
                                                     otpRefs.current[nextIndex].focus();
                                                 }
                                             }}
-                                            className={`w-10 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                            className={`w-9 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
                                                 ? 'border-white text-white focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 }`}
