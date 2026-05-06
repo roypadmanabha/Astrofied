@@ -315,7 +315,7 @@ export default function Feedback() {
 
             emailjs.send(
                 'service_zq8xq7z',
-                'template_1zipc5n',
+                'template_737ii74',
                 {
                     to_name: `${formData.firstName} ${formData.lastName}`,
                     to_email: formData.email,
