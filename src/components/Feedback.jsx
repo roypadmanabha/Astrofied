@@ -576,18 +576,34 @@ export default function Feedback() {
                                             maxLength={1}
                                             value={userOtp[index] || ''}
                                             onChange={(e) => {
-                                                const val = e.target.value.replace(/\D/g, '');
-                                                if (val) {
-                                                    const newOtp = userOtp.split('');
-                                                    newOtp[index] = val;
-                                                    const finalOtp = newOtp.join('').slice(0, 6);
-                                                    setUserOtp(finalOtp);
-                                                    if (index < 5) otpRefs.current[index + 1].focus();
+                                                const val = e.target.value.replace(/\D/g, '').slice(-1);
+                                                const newOtp = userOtp.padEnd(6, ' ').split('');
+                                                newOtp[index] = val || ' ';
+                                                const finalOtp = newOtp.join('').replace(/\s/g, ' ').trimEnd();
+                                                // Simplified:
+                                                const currentOtpArr = userOtp.split('');
+                                                currentOtpArr[index] = val;
+                                                const updatedOtp = currentOtpArr.join('');
+                                                
+                                                // Robust way:
+                                                const otpArray = ['', '', '', '', '', ''];
+                                                for(let i=0; i<6; i++) {
+                                                    if(i === index) otpArray[i] = val;
+                                                    else otpArray[i] = userOtp[i] || '';
                                                 }
+                                                setUserOtp(otpArray.join(''));
+                                                
+                                                if (val && index < 5) otpRefs.current[index + 1].focus();
                                             }}
                                             onKeyDown={(e) => {
-                                                if (e.key === 'Backspace' && !userOtp[index] && index > 0) {
+                                                if (e.key === 'Backspace') {
+                                                    if (!userOtp[index] && index > 0) {
+                                                        otpRefs.current[index - 1].focus();
+                                                    }
+                                                } else if (e.key === 'ArrowLeft' && index > 0) {
                                                     otpRefs.current[index - 1].focus();
+                                                } else if (e.key === 'ArrowRight' && index < 5) {
+                                                    otpRefs.current[index + 1].focus();
                                                 }
                                             }}
                                             onPaste={(e) => {
