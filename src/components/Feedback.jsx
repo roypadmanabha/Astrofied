@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Send, CheckCircle, AlertCircle, Smile } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export default function Feedback({ onSuccess }) {
     const { isDarkMode } = useTheme();
@@ -23,7 +24,6 @@ export default function Feedback({ onSuccess }) {
     const handleSendOtp = async (e) => {
         e.preventDefault();
         
-        // Basic validation
         if (!formData.name || !formData.email || !formData.phone) {
             alert("Please fill in your name, email, and mobile number first.");
             return;
@@ -35,24 +35,27 @@ export default function Feedback({ onSuccess }) {
         setOtp(newOtp);
 
         try {
-            // In a real scenario, you would use EmailJS or a backend to send this OTP.
-            // For now, we simulate the sending process. 
-            // TO IMPLEMENT REAL EMAIL: Use emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", { to_email: formData.email, otp: newOtp })
-            
-            console.log(`[DEBUG] OTP for ${formData.email}: ${newOtp}`);
-            
-            // Simulating a small delay for the "sending" feel
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // Using your EmailJS Service ID
+            await emailjs.send(
+                "service_g7j8tmb", 
+                "YOUR_TEMPLATE_ID", // Replace with your Template ID
+                {
+                    to_name: formData.name,
+                    to_email: formData.email,
+                    otp: newOtp,
+                    site_name: "Astrofied"
+                },
+                "YOUR_PUBLIC_KEY" // Replace with your Public Key
+            );
 
             setIsOtpSent(true);
             setStatus('otp_sent');
-            
-            // For demo purposes and so you can test it immediately:
-            alert(`For testing: Your OTP is ${newOtp}. (In production, this will be sent only to your email)`);
+            console.log(`[DEBUG] OTP sent to ${formData.email}`);
 
         } catch (error) {
-            console.error("OTP Error:", error);
+            console.error("EmailJS Error:", error);
             setStatus('otp_error');
+            alert("Failed to send OTP. Please check your EmailJS configuration.");
         }
     };
 
