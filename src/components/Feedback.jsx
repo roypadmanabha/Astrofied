@@ -48,7 +48,7 @@ export default function Feedback() {
     };
 
     useEffect(() => {
-        emailjs.init('bJsmmV0zYiuV6Syl6etek');
+        emailjs.init('wOEMDGNTN7YJ4O9rb');
     }, []);
 
     const countryCodes = [
@@ -316,7 +316,7 @@ export default function Feedback() {
                     passcode: otp,
                     time: expirationTime
                 },
-                'bJsmmV0zYiuV6Syl6etek'
+                'wOEMDGNTN7YJ4O9rb'
             ).then((res) => {
                 console.log("EmailJS Success:", res.status, res.text);
             }).catch((err) => {
