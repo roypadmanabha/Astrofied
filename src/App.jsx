@@ -8,13 +8,12 @@ import Footer from './components/Footer';
 import Feedback from './components/Feedback';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
-import Testimonials, { initialTestimonials } from './components/Testimonials';
+import Testimonials from './components/Testimonials';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
 import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
-import { Smile } from 'lucide-react';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -29,7 +28,6 @@ function MainContent() {
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const [testimonialsList, setTestimonialsList] = useState(initialTestimonials);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -41,10 +39,6 @@ function MainContent() {
 
   const handleBookConsultation = () => {
     window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20online%20consultation.', '_blank');
-  };
-  
-  const handleAddTestimonial = (newTestimonial) => {
-    setTestimonialsList(prev => [...prev, { ...newTestimonial, isDynamic: true }]);
   };
 
   const openLegalModal = (type) => {
@@ -416,9 +410,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       </section>
 
       {/* Feedback Section */}
-      <Feedback onSuccess={handleAddTestimonial} />
+      <Feedback />
 
-      <Testimonials data={testimonialsList} />
+      <Testimonials />
 
       {/* FAQs Section */}
       <FAQs />
