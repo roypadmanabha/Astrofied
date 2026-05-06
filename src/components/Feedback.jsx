@@ -251,6 +251,12 @@ export default function Feedback() {
         let processedValue = value;
         if (name === 'mobile') {
             processedValue = value.replace(/\D/g, '').slice(0, 10);
+        } else if (name === 'firstName' || name === 'lastName') {
+            if (value.length > 0) {
+                processedValue = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+            }
+        } else if (name === 'email') {
+            processedValue = value.toLowerCase();
         }
 
         setFormData({ ...formData, [name]: processedValue });
@@ -334,6 +340,7 @@ export default function Feedback() {
         e.preventDefault();
 
         if (userOtp !== generatedOtp) {
+            alert("You have entered a wrong OTP. Try again!");
             setStatus('otp_error');
             setTimeout(() => {
                 window.location.href = window.location.origin + window.location.pathname + "#feedback";
