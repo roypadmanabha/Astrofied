@@ -5,7 +5,7 @@ import { Send, CheckCircle, AlertCircle, Smile } from 'lucide-react';
 
 export default function Feedback({ onSuccess }) {
     const { isDarkMode } = useTheme();
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
     const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate
 
     const handleChange = (e) => {
@@ -37,6 +37,7 @@ export default function Feedback({ onSuccess }) {
                 body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
+                    phone: formData.phone,
                     message: formData.message,
                     _replyto: formData.email,
                     _subject: `Feedback from ${formData.name} - Astrofied`,
@@ -61,7 +62,7 @@ export default function Feedback({ onSuccess }) {
                         text: formData.message
                     });
                 }
-                setFormData({ name: '', email: '', message: '' });
+                setFormData({ name: '', email: '', phone: '', message: '' });
 
                 // Reset success state after 5 seconds
                 setTimeout(() => setStatus('idle'), 5000);
@@ -158,6 +159,18 @@ export default function Feedback({ onSuccess }) {
                                 onChange={handleChange}
                                 required
                                 placeholder="Your Mail Id"
+                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                    ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                    : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                    }`}
+                            />
+                            <input
+                                type="tel"
+                                name="phone"
+                                value={formData.phone || ''}
+                                onChange={handleChange}
+                                required
+                                placeholder="Mobile Number"
                                 className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
                                     ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
                                     : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
