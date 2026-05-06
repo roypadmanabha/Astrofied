@@ -1,12 +1,16 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, ShieldCheck, RefreshCw } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export default function Feedback() {
     const { isDarkMode } = useTheme();
     const [formData, setFormData] = useState({ name: '', email: '', mobile: '', countryCode: '+91', message: '' });
-    const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate
+    const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate, invalid_mobile, invalid_pattern, otp_sent, otp_error
+    const [step, setStep] = useState('form'); // form, verify
+    const [generatedOtp, setGeneratedOtp] = useState('');
+    const [userOtp, setUserOtp] = useState('');
 
     const countryCodes = [
         { code: '+93', flag: '🇦🇫', name: 'Afghanistan' },
@@ -244,8 +248,46 @@ export default function Feedback() {
 
         setStatus('loading');
 
+        // 2. Generate and Send OTP via EmailJS
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        setGeneratedOtp(otp);
+
         try {
-            // Using FormSubmit.co for reliable cross-domain mail delivery
+            await emailjs.send(
+                'service_g7j8tmb',
+                'template_737ii74',
+                {
+                    to_name: formData.name,
+                    to_email: formData.email,
+                    otp: otp,
+                },
+                'p_8W-67J56B6-6B-6'
+            );
+            
+            setStatus('otp_sent');
+            setStep('verify');
+        } catch (error) {
+            console.error("EmailJS Error:", error);
+            setStatus('error');
+        }
+    };
+
+    const handleVerifyOtp = async (e) => {
+        e.preventDefault();
+        
+        if (userOtp !== generatedOtp) {
+            setStatus('otp_error');
+            setTimeout(() => {
+                window.location.href = window.location.origin + window.location.pathname + "#feedback";
+                window.location.reload();
+            }, 3000);
+            return;
+        }
+
+        setStatus('loading');
+
+        try {
+            // 3. Final submission via FormSubmit
             const response = await fetch("https://formsubmit.co/ajax/contact.astrofied@gmail.com", {
                 method: "POST",
                 headers: {
@@ -258,26 +300,23 @@ export default function Feedback() {
                     mobile: `${formData.countryCode} ${formData.mobile}`,
                     message: formData.message,
                     _replyto: formData.email,
-                    _subject: `Feedback from ${formData.name} - Astrofied`,
+                    _subject: `Verified Feedback from ${formData.name} - Astrofied`,
                     _captcha: "false",
                     _template: "table"
                 })
             });
 
-            const data = await response.json();
-
             if (response.ok) {
-                // Save the email to local storage to prevent duplicates
-                sentEmails.push(normalizedEmail);
+                const sentEmails = JSON.parse(localStorage.getItem('astrofied_feedback_emails')) || [];
+                sentEmails.push(formData.email.toLowerCase().trim());
                 localStorage.setItem('astrofied_feedback_emails', JSON.stringify(sentEmails));
 
                 setStatus('success');
+                setStep('form');
                 setFormData({ name: '', email: '', mobile: '', countryCode: '+91', message: '' });
-
-                // Reset success state after 5 seconds
-                setTimeout(() => setStatus('idle'), 5000);
+                setUserOtp('');
+                setGeneratedOtp('');
             } else {
-                console.error("FormSubmit Error:", data);
                 setStatus('error');
             }
         } catch (error) {
@@ -290,7 +329,6 @@ export default function Feedback() {
         <section id="feedback" className="py-24 relative overflow-hidden">
             <div className="container mx-auto px-6 max-w-6xl">
                 <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start justify-between">
-                    {/* Left Side: Content */}
                     <motion.div 
                         initial={{ opacity: 0.8, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -309,7 +347,6 @@ export default function Feedback() {
                         </p>
                     </motion.div>
 
-                    {/* Right Side: Form in its own Glass Card */}
                     <motion.div 
                         initial={{ opacity: 0.8, x: 10 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -319,150 +356,180 @@ export default function Feedback() {
                             isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
                         }`}
                     >
-                        {status === 'invalid_mobile' && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                                className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3"
-                            >
-                                <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                <span className="text-sm font-medium">Please enter a valid 10-digit mobile number.</span>
-                            </motion.div>
-                        )}
+                        <AnimatePresence mode="wait">
+                            {status === 'invalid_mobile' && (
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
+                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">Please enter a valid 10-digit mobile number.</span>
+                                </motion.div>
+                            )}
+                            {status === 'invalid_pattern' && (
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
+                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">This number pattern is invalid. Please enter a real mobile number.</span>
+                                </motion.div>
+                            )}
+                            {status === 'duplicate' && (
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
+                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">Feedback already sent with this email. Try another one.</span>
+                                </motion.div>
+                            )}
+                            {status === 'otp_error' && (
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
+                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">Wrong OTP! Refreshing the page...</span>
+                                </motion.div>
+                            )}
+                            {status === 'success' && (
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-green-100 border border-green-200 text-green-700 flex items-center gap-3">
+                                    <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">Thank you! Your verified feedback has been shared successfully.</span>
+                                </motion.div>
+                            )}
+                            {status === 'otp_sent' && step === 'verify' && (
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-blue-100 border border-blue-200 text-blue-700 flex items-center gap-3">
+                                    <ShieldCheck className="w-5 h-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">An OTP has been sent to {formData.email}. Please verify to proceed.</span>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
 
-                        {status === 'invalid_pattern' && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                                className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3"
-                            >
-                                <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                <span className="text-sm font-medium">This number pattern is invalid. Please enter a real mobile number.</span>
-                            </motion.div>
-                        )}
-
-                        {status === 'duplicate' && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                                className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3"
-                            >
-                                <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                <span className="text-sm font-medium">Feedback with your mail id was already sent. Try with a new mail id.</span>
-                            </motion.div>
-                        )}
-
-                        {status === 'success' && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                                className="mb-6 p-4 rounded-xl bg-green-100 border border-green-200 text-green-700 flex items-center gap-3"
-                            >
-                                <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                                <span className="text-sm font-medium">Thank you! Your feedback has been sent successfully.</span>
-                            </motion.div>
-                        )}
-
-                        {status === 'error' && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                                className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3"
-                            >
-                                <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                <span className="text-sm font-medium">Something went wrong. Please try again later.</span>
-                            </motion.div>
-                        )}
-
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                                placeholder="Your Name"
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                    ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                    : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                    }`}
-                            />
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                                placeholder="Your Mail Id"
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                    ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                    : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                    }`}
-                            />
-
-                            {/* Mobile Number with Country Code */}
-                            <div className="flex gap-2">
-                                <select
-                                    name="countryCode"
-                                    value={formData.countryCode}
-                                    onChange={handleChange}
-                                    className={`w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode 
-                                        ? 'border-white text-white bg-black focus:ring-white focus:border-white' 
-                                        : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                        }`}
-                                >
-                                    {countryCodes.map((c) => (
-                                        <option key={c.code + c.flag} value={c.code} className="text-black">
-                                            {c.flag} {c.code}
-                                        </option>
-                                    ))}
-                                </select>
+                        {step === 'form' ? (
+                            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                                 <input
-                                    type="tel"
-                                    name="mobile"
-                                    value={formData.mobile}
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
                                     onChange={handleChange}
                                     required
-                                    maxLength={10}
-                                    placeholder="Mobile Number"
-                                    className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                    placeholder="Your Name"
+                                    className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
                                         ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
                                         : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                         }`}
                                 />
-                            </div>
-
-                            <div className="relative">
-                                <textarea
-                                    name="message"
-                                    value={formData.message}
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
                                     onChange={handleChange}
                                     required
-                                    rows={4}
-                                    maxLength={87}
-                                    placeholder="Write your feedback..."
-                                    className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode 
+                                    placeholder="Your Mail Id"
+                                    className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
                                         ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
                                         : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                         }`}
-                                ></textarea>
-                                <div className={`absolute bottom-2 right-4 text-[10px] font-bold ${isDarkMode ? 'text-white/40' : 'text-[#4B0082]/40'}`}>
-                                    {formData.message.length}/87
+                                />
+
+                                <div className="flex gap-2">
+                                    <select
+                                        name="countryCode"
+                                        value={formData.countryCode}
+                                        onChange={handleChange}
+                                        className={`w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode 
+                                            ? 'border-white text-white bg-black focus:ring-white focus:border-white' 
+                                            : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            }`}
+                                    >
+                                        {countryCodes.map((c) => (
+                                            <option key={c.code + c.name} value={c.code} className="text-black">
+                                                {c.flag} {c.code}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <input
+                                        type="tel"
+                                        name="mobile"
+                                        value={formData.mobile}
+                                        onChange={handleChange}
+                                        required
+                                        maxLength={10}
+                                        placeholder="Mobile Number"
+                                        className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            }`}
+                                    />
                                 </div>
-                            </div>
 
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                disabled={status === 'loading'}
-                                type="submit"
-                                className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''
-                                    } ${isDarkMode
-                                        ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
-                                        : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
-                                    }`}
-                            >
-                                {status === 'loading' ? 'Sending...' : 'Send Feedback'}
-                                {status !== 'loading' && <Send className="w-5 h-5" />}
-                            </motion.button>
+                                <div className="relative">
+                                    <textarea
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        required
+                                        rows={4}
+                                        maxLength={87}
+                                        placeholder="Write your feedback..."
+                                        className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode 
+                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            }`}
+                                    ></textarea>
+                                    <div className={`absolute bottom-2 right-4 text-[10px] font-bold ${isDarkMode ? 'text-white/40' : 'text-[#4B0082]/40'}`}>
+                                        {formData.message.length}/87
+                                    </div>
+                                </div>
 
-
-                        </form>
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    disabled={status === 'loading'}
+                                    type="submit"
+                                    className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''
+                                        } ${isDarkMode
+                                            ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
+                                            : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
+                                        }`}
+                                >
+                                    {status === 'loading' ? 'Processing...' : 'Send Feedback'}
+                                    {status !== 'loading' && <Send className="w-5 h-5" />}
+                                </motion.button>
+                            </form>
+                        ) : (
+                            <form onSubmit={handleVerifyOtp} className="flex flex-col gap-6 py-4">
+                                <div className="text-center mb-4">
+                                    <ShieldCheck className={`w-16 h-16 mx-auto mb-4 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`} />
+                                    <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Verify Email</h3>
+                                    <p className={`text-sm mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>We've sent a 6-digit code to your inbox.</p>
+                                </div>
+                                <input
+                                    type="text"
+                                    value={userOtp}
+                                    onChange={(e) => setUserOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                    required
+                                    placeholder="Enter 6-digit OTP"
+                                    className={`w-full text-center text-2xl tracking-[0.5em] font-bold px-5 py-4 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                        ? 'border-white text-white placeholder-white/30 focus:ring-white focus:border-white' 
+                                        : 'border-black text-gray-900 placeholder-black/30 focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                        }`}
+                                />
+                                <div className="flex flex-col gap-3">
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        disabled={status === 'loading'}
+                                        type="submit"
+                                        className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${isDarkMode
+                                            ? 'bg-gold text-black hover:bg-yellow-500'
+                                            : 'bg-[#4B0082] text-white hover:bg-[#3A0066]'
+                                        }`}
+                                    >
+                                        {status === 'loading' ? 'Verifying...' : 'Verify & Share Feedback'}
+                                        {status !== 'loading' && <CheckCircle className="w-5 h-5" />}
+                                    </motion.button>
+                                    <button
+                                        type="button"
+                                        onClick={() => { setStep('form'); setStatus('idle'); }}
+                                        className={`text-sm font-bold flex items-center justify-center gap-2 bg-transparent border-none py-2 ${isDarkMode ? 'text-gold/60 hover:text-gold' : 'text-[#4B0082]/60 hover:text-[#4B0082]'}`}
+                                    >
+                                        <RefreshCw className="w-4 h-4" />
+                                        Back to Edit
+                                    </button>
+                                </div>
+                            </form>
+                        )}
                     </motion.div>
                 </div>
             </div>
