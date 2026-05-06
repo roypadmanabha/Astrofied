@@ -45,7 +45,7 @@ export default function Feedback({ onSuccess }) {
                     otp: newOtp,
                     site_name: "Astrofied"
                 },
-                "YOUR_PUBLIC_KEY" // Replace with your Public Key
+                "wOEMDGNTN7YJ4O9rb" // Your Public Key
             );
 
             setIsOtpSent(true);
