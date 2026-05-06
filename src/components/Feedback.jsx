@@ -308,7 +308,7 @@ export default function Feedback() {
             const expirationTime = new Date(Date.now() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             emailjs.send(
-                'service_g7j8tmb',
+                'service_zq8xq7z',
                 'template_1zipc5n',
                 {
                     to_name: `${formData.firstName} ${formData.lastName}`,
