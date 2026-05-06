@@ -321,6 +321,7 @@ export default function Feedback() {
                 'template_737ii74',
                 {
                     to_name: `${formData.firstName} ${formData.lastName}`,
+                    first_name: formData.firstName,
                     to_email: formData.email,
                     passcode: otp,
                     time: expirationTime
