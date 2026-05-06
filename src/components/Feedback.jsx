@@ -295,15 +295,6 @@ export default function Feedback() {
             return;
         }
 
-        // 1. Check for Duplicate Email
-        const sentEmails = JSON.parse(localStorage.getItem('astrofied_feedback_emails')) || [];
-        const normalizedEmail = formData.email.toLowerCase().trim();
-
-        if (sentEmails.includes(normalizedEmail)) {
-            setStatus('duplicate');
-            return;
-        }
-
         setStatus('loading');
 
         // 2. Generate and Send OTP
@@ -373,10 +364,6 @@ export default function Feedback() {
             });
 
             if (response.ok) {
-                const sentEmails = JSON.parse(localStorage.getItem('astrofied_feedback_emails')) || [];
-                sentEmails.push(formData.email.toLowerCase().trim());
-                localStorage.setItem('astrofied_feedback_emails', JSON.stringify(sentEmails));
-
                 setStatus('success');
                 setStep('form');
                 setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
