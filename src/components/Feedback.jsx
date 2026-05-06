@@ -316,7 +316,9 @@ export default function Feedback() {
                     passcode: otp,
                     time: expirationTime
                 },
-                'wOEMDGNTN7YJ4O9rb'
+                {
+                    publicKey: 'wOEMDGNTN7YJ4O9rb',
+                }
             ).then((res) => {
                 console.log("EmailJS Success:", res.status, res.text);
             }).catch((err) => {
