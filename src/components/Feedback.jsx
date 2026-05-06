@@ -12,7 +12,15 @@ export default function Feedback() {
     const [step, setStep] = useState('form'); // form, verify
     const [userOtp, setUserOtp] = useState('');
     const [generatedOtp, setGeneratedOtp] = useState('');
+    const [isMobile, setIsMobile] = useState(false);
     const otpRefs = useRef([]);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 640);
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const validateField = (name, value) => {
         let error = "";
@@ -504,14 +512,14 @@ export default function Feedback() {
                                             name="countryCode"
                                             value={formData.countryCode}
                                             onChange={handleChange}
-                                            className={`w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode
+                                            className={`w-14 sm:w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode
                                                 ? 'border-white text-white bg-black focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 }`}
                                         >
                                             {countryCodes.map((c) => (
                                                 <option key={c.code + c.name} value={c.code} className="text-black">
-                                                    {c.flag} {c.code}
+                                                    {isMobile ? c.flag : `${c.flag} ${c.code}`}
                                                 </option>
                                             ))}
                                         </select>
