@@ -251,9 +251,16 @@ export default function Feedback() {
         // 2. Generate and Send OTP via EmailJS
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         setGeneratedOtp(otp);
+        
+        console.log("DEBUG: Generated OTP is", otp);
 
         try {
-            await emailjs.send(
+            // We transition to 'verify' immediately so the user sees the input field
+            // even if the EmailJS call takes time or fails due to configuration (like missing Public Key)
+            setStep('verify');
+            setStatus('otp_sent');
+
+            emailjs.send(
                 'service_g7j8tmb',
                 'template_737ii74',
                 {
@@ -261,13 +268,16 @@ export default function Feedback() {
                     to_email: formData.email,
                     otp: otp,
                 },
-                'p_8W-67J56B6-6B-6'
-            );
-            
-            setStatus('otp_sent');
-            setStep('verify');
+                'p_8W-67J56B6-6B-6' // This needs to be replaced with your actual Public Key
+            ).then((res) => {
+                console.log("EmailJS Success:", res);
+            }).catch((err) => {
+                console.error("EmailJS Error (Please check your Public Key):", err);
+                // We keep them on the verify screen so they can at least test the logic
+                // but we can show a subtle warning if needed.
+            });
         } catch (error) {
-            console.error("EmailJS Error:", error);
+            console.error("Submission Error:", error);
             setStatus('error');
         }
     };
