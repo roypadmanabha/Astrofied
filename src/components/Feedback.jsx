@@ -5,7 +5,7 @@ import { Send, CheckCircle, AlertCircle, Smile } from 'lucide-react';
 
 export default function Feedback({ onSuccess }) {
     const { isDarkMode } = useTheme();
-    const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', countryCode: '+91', phone: '', message: '' });
     const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate
 
     const handleChange = (e) => {
@@ -37,7 +37,7 @@ export default function Feedback({ onSuccess }) {
                 body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
-                    phone: formData.phone,
+                    phone: `${formData.countryCode} ${formData.phone}`,
                     message: formData.message,
                     _replyto: formData.email,
                     _subject: `Feedback from ${formData.name} - Astrofied`,
@@ -62,7 +62,7 @@ export default function Feedback({ onSuccess }) {
                         text: formData.message
                     });
                 }
-                setFormData({ name: '', email: '', phone: '', message: '' });
+                setFormData({ name: '', email: '', countryCode: '+91', phone: '', message: '' });
 
                 // Reset success state after 5 seconds
                 setTimeout(() => setStatus('idle'), 5000);
@@ -164,18 +164,38 @@ export default function Feedback({ onSuccess }) {
                                     : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                     }`}
                             />
-                            <input
-                                type="tel"
-                                name="phone"
-                                value={formData.phone || ''}
-                                onChange={handleChange}
-                                required
-                                placeholder="Mobile Number"
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                    ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                    : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                    }`}
-                            />
+                            <div className="flex gap-2">
+                                <select
+                                    name="countryCode"
+                                    value={formData.countryCode}
+                                    onChange={handleChange}
+                                    required
+                                    className={`w-28 px-3 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode 
+                                        ? 'border-white text-white focus:ring-white focus:border-white [color-scheme:dark]' 
+                                        : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                        }`}
+                                >
+                                    <option value="+91" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+91 (IN)</option>
+                                    <option value="+1" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+1 (US/CA)</option>
+                                    <option value="+44" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+44 (UK)</option>
+                                    <option value="+61" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+61 (AU)</option>
+                                    <option value="+971" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+971 (UAE)</option>
+                                    <option value="+880" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+880 (BD)</option>
+                                    <option value="+65" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>+65 (SG)</option>
+                                </select>
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    value={formData.phone || ''}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Mobile Number"
+                                    className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                        ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                        : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                        }`}
+                                />
+                            </div>
                             <div className="relative">
                                 <textarea
                                     name="message"
