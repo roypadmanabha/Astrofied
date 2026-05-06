@@ -13,7 +13,7 @@ export default function Feedback() {
     const [userOtp, setUserOtp] = useState('');
 
     useEffect(() => {
-        emailjs.init('wOEMDGNTN7YJ4O9rb');
+        emailjs.init('bJsmmV0zYiuV6Syl6etek');
     }, []);
 
     const countryCodes = [
@@ -274,9 +274,10 @@ export default function Feedback() {
                     to_email: formData.email,
                     passcode: otp,
                     time: expirationTime
-                }
+                },
+                'bJsmmV0zYiuV6Syl6etek'
             ).then((res) => {
-                console.log("EmailJS Success:", res);
+                console.log("EmailJS Success:", res.status, res.text);
             }).catch((err) => {
                 console.error("EmailJS Error:", err);
             });
