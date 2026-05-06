@@ -28,7 +28,22 @@ function MainContent() {
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const [testimonialsList, setTestimonialsList] = useState(initialTestimonials);
+  const [testimonialsList, setTestimonialsList] = useState(() => {
+    const saved = localStorage.getItem('astrofied_testimonials');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // We need to restore the Smile icon component for saved items
+        return [...initialTestimonials, ...parsed.map(item => ({
+          ...item,
+          img: item.isDynamic ? Smile : item.img
+        }))];
+      } catch (e) {
+        return initialTestimonials;
+      }
+    }
+    return initialTestimonials;
+  });
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -43,7 +58,16 @@ function MainContent() {
   };
   
   const handleAddTestimonial = (newTestimonial) => {
-    setTestimonialsList(prev => [...prev, newTestimonial]);
+    setTestimonialsList(prev => {
+      const updated = [...prev, { ...newTestimonial, isDynamic: true }];
+      // Only save the dynamic ones to localStorage to avoid duplicating initial ones
+      const dynamicOnly = updated.filter(t => t.isDynamic).map(t => ({
+        ...t,
+        img: null // Can't stringify components
+      }));
+      localStorage.setItem('astrofied_testimonials', JSON.stringify(dynamicOnly));
+      return updated;
+    });
   };
 
   const openLegalModal = (type) => {
