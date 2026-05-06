@@ -12,6 +12,10 @@ export default function Feedback() {
     const [generatedOtp, setGeneratedOtp] = useState('');
     const [userOtp, setUserOtp] = useState('');
 
+    useEffect(() => {
+        emailjs.init('wOEMDGNTN7YJ4O9rb');
+    }, []);
+
     const countryCodes = [
         { code: '+93', flag: '🇦🇫', name: 'Afghanistan' },
         { code: '+355', flag: '🇦🇱', name: 'Albania' },
@@ -267,8 +271,7 @@ export default function Feedback() {
                     to_name: formData.name,
                     to_email: formData.email,
                     otp: otp,
-                },
-                'wOEMDGNTN7YJ4O9rb'
+                }
             ).then((res) => {
                 console.log("EmailJS Success:", res);
             }).catch((err) => {
