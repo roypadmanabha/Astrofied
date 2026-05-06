@@ -510,6 +510,7 @@ export default function Feedback() {
                                     />
                                     {errors.email && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.email}</span>}
                                 </div>
+                                </div>
 
                                 <div className="flex flex-col gap-2">
                                     <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Phone Number</label>
@@ -546,6 +547,7 @@ export default function Feedback() {
                                     </div>
                                     {errors.mobile && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.mobile}</span>}
                                 </div>
+                                </div>
 
                                 <div className="flex flex-col gap-2">
                                     <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Comments</label>
@@ -569,6 +571,7 @@ export default function Feedback() {
                                         </div>
                                     </div>
                                     {errors.message && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.message}</span>}
+                                </div>
                                 </div>
 
                                 <motion.button
