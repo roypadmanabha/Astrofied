@@ -53,9 +53,10 @@ export default function Feedback({ onSuccess }) {
             console.log(`[DEBUG] OTP sent to ${formData.email}`);
 
         } catch (error) {
-            console.error("EmailJS Error:", error);
+            console.error("EmailJS Error Full:", error);
             setStatus('otp_error');
-            alert("Failed to send OTP. Please check your EmailJS configuration.");
+            const errorMsg = error?.text || error?.message || "Check console for details";
+            alert(`Failed to send OTP. Error: ${errorMsg}`);
         }
     };
 
