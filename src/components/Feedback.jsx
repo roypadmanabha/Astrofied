@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Send, CheckCircle, AlertCircle, Smile } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import { supabase } from '../lib/supabase';
 
 export default function Feedback({ onSuccess }) {
     const { isDarkMode } = useTheme();
@@ -110,16 +109,17 @@ export default function Feedback({ onSuccess }) {
             const data = await response.json();
 
             if (response.ok) {
-                // 2. Save to Supabase for global persistence
-                const { error: sbError } = await supabase
-                    .from('testimonials')
-                    .insert([
-                        { name: formData.name, message: formData.message }
-                    ]);
-
-                if (sbError) {
-                    console.error("Supabase Save Error:", sbError);
-                    // We still show success since the email went through, but log the error
+                // 2. Automatically add as manual code in Testimonials.jsx via GitHub API
+                try {
+                    await fetch('/.netlify/functions/add-testimonial', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            name: formData.name,
+                            text: formData.message
+                        })
+                    });
+                } catch (err) {
+                    console.error("Auto-commit failed:", err);
                 }
 
                 setStatus('success');
