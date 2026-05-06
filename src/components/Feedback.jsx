@@ -321,14 +321,13 @@ export default function Feedback() {
                     to_email: formData.email,
                     passcode: otp,
                     time: expirationTime
-                },
-                {
-                    publicKey: 'wOEMDGNTN7YJ4O9rb',
                 }
             ).then((res) => {
                 console.log("EmailJS Success:", res.status, res.text);
+                alert("OTP Send Success! Please check your mail.");
             }).catch((err) => {
                 console.error("EmailJS Error:", err);
+                alert("OTP Send Failed: " + JSON.stringify(err));
             });
         } catch (error) {
             console.error("Submission Error:", error);
