@@ -6,14 +6,69 @@ import { Send, CheckCircle, AlertCircle, Smile } from 'lucide-react';
 export default function Feedback({ onSuccess }) {
     const { isDarkMode } = useTheme();
     const [formData, setFormData] = useState({ name: '', email: '', countryCode: '+91', phone: '', message: '' });
-    const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate
+    const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate, otp_sent, otp_error
+    const [otp, setOtp] = useState('');
+    const [userOtp, setUserOtp] = useState('');
+    const [isOtpSent, setIsOtpSent] = useState(false);
+    const [isVerified, setIsVerified] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const generateOtp = () => {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+    };
+
+    const handleSendOtp = async (e) => {
+        e.preventDefault();
+        
+        // Basic validation
+        if (!formData.name || !formData.email || !formData.phone) {
+            alert("Please fill in your name, email, and mobile number first.");
+            return;
+        }
+
+        setStatus('loading');
+
+        const newOtp = generateOtp();
+        setOtp(newOtp);
+
+        try {
+            // In a real scenario, you would use EmailJS or a backend to send this OTP.
+            // For now, we simulate the sending process. 
+            // TO IMPLEMENT REAL EMAIL: Use emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", { to_email: formData.email, otp: newOtp })
+            
+            console.log(`[DEBUG] OTP for ${formData.email}: ${newOtp}`);
+            
+            // Simulating a small delay for the "sending" feel
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            setIsOtpSent(true);
+            setStatus('otp_sent');
+            
+            // For demo purposes and so you can test it immediately:
+            alert(`For testing: Your OTP is ${newOtp}. (In production, this will be sent only to your email)`);
+
+        } catch (error) {
+            console.error("OTP Error:", error);
+            setStatus('otp_error');
+        }
+    };
+
+    const handleVerifyOtp = (e) => {
+        e.preventDefault();
+        if (userOtp === otp) {
+            setIsVerified(true);
+            setStatus('idle');
+        } else {
+            alert("Invalid OTP. Please try again.");
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!isVerified) return;
 
         // 1. Check for Duplicate Email using LocalStorage
         const sentEmails = JSON.parse(localStorage.getItem('astrofied_feedback_emails')) || [];
@@ -40,7 +95,7 @@ export default function Feedback({ onSuccess }) {
                     phone: `${formData.countryCode} ${formData.phone}`,
                     message: formData.message,
                     _replyto: formData.email,
-                    _subject: `Feedback from ${formData.name} - Astrofied`,
+                    _subject: `Feedback from ${formData.name} - Astrofied (Verified)`,
                     _captcha: "false",
                     _template: "table"
                 })
@@ -62,7 +117,12 @@ export default function Feedback({ onSuccess }) {
                         text: formData.message
                     });
                 }
+                // Reset everything
                 setFormData({ name: '', email: '', countryCode: '+91', phone: '', message: '' });
+                setIsVerified(false);
+                setIsOtpSent(false);
+                setOtp('');
+                setUserOtp('');
 
                 // Reset success state after 5 seconds
                 setTimeout(() => setStatus('idle'), 5000);
@@ -139,63 +199,101 @@ export default function Feedback({ onSuccess }) {
                             </motion.div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                                placeholder="Your Name"
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                    ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                    : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                    }`}
-                            />
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                                placeholder="Your Mail Id"
-                                className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                    ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                    : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                    }`}
-                            />
-                            <div className="flex gap-2">
-                                <select
-                                    name="countryCode"
-                                    value={formData.countryCode}
-                                    onChange={handleChange}
-                                    required
-                                    className={`w-28 px-3 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode 
-                                        ? 'border-white text-white focus:ring-white focus:border-white [color-scheme:dark]' 
-                                        : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                        }`}
-                                >
-                                    <option value="+91" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇮🇳 +91</option>
-                                    <option value="+1" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇺🇸 +1</option>
-                                    <option value="+44" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇬🇧 +44</option>
-                                    <option value="+61" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇦🇺 +61</option>
-                                    <option value="+971" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇦🇪 +971</option>
-                                    <option value="+880" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇧🇩 +880</option>
-                                    <option value="+65" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇸🇬 +65</option>
-                                </select>
+                        <form onSubmit={isVerified ? handleSubmit : (isOtpSent ? handleVerifyOtp : handleSendOtp)} className="flex flex-col gap-5">
+                            <div className={`space-y-5 transition-all duration-500 ${isOtpSent && !isVerified ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
                                 <input
-                                    type="tel"
-                                    name="phone"
-                                    value={formData.phone || ''}
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
                                     onChange={handleChange}
                                     required
-                                    placeholder="Mobile Number"
-                                    className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                    placeholder="Your Name"
+                                    className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
                                         ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
                                         : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                         }`}
                                 />
+                                <div className="relative">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Your Mail Id"
+                                        className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            }`}
+                                    />
+                                    {isVerified && <CheckCircle className="absolute right-4 top-1/2 -translate-y-1/2 text-green-500 w-5 h-5" />}
+                                </div>
+                                <div className="flex gap-2">
+                                    <select
+                                        name="countryCode"
+                                        value={formData.countryCode}
+                                        onChange={handleChange}
+                                        required
+                                        className={`w-28 px-3 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode 
+                                            ? 'border-white text-white focus:ring-white focus:border-white [color-scheme:dark]' 
+                                            : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            }`}
+                                    >
+                                        <option value="+91" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇮🇳 +91</option>
+                                        <option value="+1" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇺🇸 +1</option>
+                                        <option value="+44" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇬🇧 +44</option>
+                                        <option value="+61" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇦🇺 +61</option>
+                                        <option value="+971" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇦🇪 +971</option>
+                                        <option value="+880" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇧🇩 +880</option>
+                                        <option value="+65" className={isDarkMode ? 'bg-gray-900' : 'bg-white'}>🇸🇬 +65</option>
+                                    </select>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone || ''}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Mobile Number"
+                                        className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            }`}
+                                    />
+                                </div>
                             </div>
+
+                            {isOtpSent && !isVerified && (
+                                <motion.div 
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="space-y-4"
+                                >
+                                    <div className="flex flex-col gap-2">
+                                        <label className={`text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-gold/80' : 'text-[#4B0082]/80'}`}>
+                                            Enter 6-Digit OTP sent to your Email
+                                        </label>
+                                        <input
+                                            type="text"
+                                            maxLength={6}
+                                            value={userOtp}
+                                            onChange={(e) => setUserOtp(e.target.value.replace(/\D/g, ''))}
+                                            placeholder="XXXXXX"
+                                            className={`w-full px-5 py-4 text-center text-2xl tracking-[1em] font-bold rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                                ? 'border-gold text-white focus:ring-gold' 
+                                                : 'border-[#4B0082] text-gray-900 focus:ring-[#4B0082]'
+                                            }`}
+                                        />
+                                    </div>
+                                    <button 
+                                        type="button"
+                                        onClick={() => { setIsOtpSent(false); setStatus('idle'); }}
+                                        className={`text-sm font-bold underline ${isDarkMode ? 'text-white/60' : 'text-black/60'}`}
+                                    >
+                                        Change Email/Phone?
+                                    </button>
+                                </motion.div>
+                            )}
+
                             <div className="relative">
                                 <textarea
                                     name="message"
@@ -226,7 +324,9 @@ export default function Feedback({ onSuccess }) {
                                         : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
                                     }`}
                             >
-                                {status === 'loading' ? 'Sending...' : 'Send Feedback'}
+                                {status === 'loading' ? 'Processing...' : (
+                                    !isOtpSent ? 'Send OTP to Email' : (isVerified ? 'Submit Feedback' : 'Verify OTP & Submit')
+                                )}
                                 {status !== 'loading' && <Send className="w-5 h-5" />}
                             </motion.button>
 
