@@ -7,10 +7,43 @@ import emailjs from '@emailjs/browser';
 export default function Feedback() {
     const { isDarkMode } = useTheme();
     const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
-    const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate, invalid_mobile, invalid_pattern, otp_sent, otp_error, invalid_firstname, invalid_lastname
+    const [errors, setErrors] = useState({});
+    const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate, otp_sent, otp_error
     const [step, setStep] = useState('form'); // form, verify
     const [generatedOtp, setGeneratedOtp] = useState('');
     const [userOtp, setUserOtp] = useState('');
+
+    const validateField = (name, value) => {
+        let error = "";
+        const nameRegex = /^[A-Za-z]*$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        switch (name) {
+            case 'firstName':
+                if (!nameRegex.test(value)) error = "Alphabets only allowed";
+                else if (value.length > 0 && value.length < 3) error = "Min 3 characters required";
+                else if (value.length === 0) error = "Required";
+                break;
+            case 'lastName':
+                if (!nameRegex.test(value)) error = "Alphabets only allowed";
+                else if (value.length === 0) error = "Required";
+                break;
+            case 'email':
+                if (value.length > 0 && !emailRegex.test(value)) error = "Invalid email format";
+                else if (value.length === 0) error = "Required";
+                break;
+            case 'mobile':
+                if (value.length > 0 && value.length < 10) error = "Exactly 10 digits required";
+                else if (value.length === 0) error = "Required";
+                break;
+            case 'message':
+                if (value.length === 0) error = "Required";
+                break;
+            default:
+                break;
+        }
+        return error;
+    };
 
     useEffect(() => {
         emailjs.init('bJsmmV0zYiuV6Syl6etek');
@@ -134,7 +167,7 @@ export default function Feedback() {
         { code: '+95', flag: '🇲🇲', name: 'Myanmar' },
         { code: '+264', flag: '🇳🇦', name: 'Namibia' },
         { code: '+674', flag: '🇳🇷', name: 'Nauru' },
-        { code: '+977', flag: '🇳🇵', name: 'Nepal' },
+        { code: '+976', flag: '🇳🇵', name: 'Nepal' },
         { code: '+31', flag: '🇳🇱', name: 'Netherlands' },
         { code: '+64', flag: '🇳🇿', name: 'New Zealand' },
         { code: '+505', flag: '🇳🇮', name: 'Nicaragua' },
@@ -212,49 +245,46 @@ export default function Feedback() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === 'message' && value.length > 87) return;
+        
+        let processedValue = value;
         if (name === 'mobile') {
-            // Only allow digits and max 10
-            const digits = value.replace(/\D/g, '').slice(0, 10);
-            setFormData({ ...formData, [name]: digits });
-            return;
+            processedValue = value.replace(/\D/g, '').slice(0, 10);
         }
-        setFormData({ ...formData, [name]: value });
+        
+        setFormData({ ...formData, [name]: processedValue });
+        
+        const error = validateField(name, processedValue);
+        setErrors(prev => ({ ...prev, [name]: error }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Name Validation
-        const nameRegex = /^[A-Za-z]+$/;
-        
-        if (!nameRegex.test(formData.firstName) || formData.firstName.length < 3) {
-            setStatus('invalid_firstname');
+        // Final Validation Check
+        const newErrors = {};
+        Object.keys(formData).forEach(key => {
+            const error = validateField(key, formData[key]);
+            if (error) newErrors[key] = error;
+        });
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
             return;
         }
 
-        if (!nameRegex.test(formData.lastName) || formData.lastName.length < 1) {
-            setStatus('invalid_lastname');
-            return;
-        }
-
-        // Mobile Number Validation
+        // Mobile Pattern Check (Advanced)
         const mobile = formData.mobile;
         const sequential = "1234567890";
         const reverseSequential = "0987654321";
         const altReverseSequential = "9876543210";
         const repetitive = /^(\d)\1{9}$/;
 
-        if (mobile.length !== 10) {
-            setStatus('invalid_mobile');
-            return;
-        }
-
         if (mobile === sequential || mobile === reverseSequential || mobile === altReverseSequential || repetitive.test(mobile)) {
-            setStatus('invalid_pattern');
+            setErrors(prev => ({ ...prev, mobile: "Invalid number pattern" }));
             return;
         }
 
-        // 1. Check for Duplicate Email using LocalStorage
+        // 1. Check for Duplicate Email
         const sentEmails = JSON.parse(localStorage.getItem('astrofied_feedback_emails')) || [];
         const normalizedEmail = formData.email.toLowerCase().trim();
 
@@ -265,15 +295,11 @@ export default function Feedback() {
 
         setStatus('loading');
 
-        // 2. Generate and Send OTP via EmailJS
+        // 2. Generate and Send OTP
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         setGeneratedOtp(otp);
         
-        console.log("DEBUG: Generated OTP is", otp);
-
         try {
-            // We transition to 'verify' immediately so the user sees the input field
-            // even if the EmailJS call takes time or fails due to configuration (like missing Public Key)
             setStep('verify');
             setStatus('otp_sent');
 
@@ -315,7 +341,6 @@ export default function Feedback() {
         setStatus('loading');
 
         try {
-            // 3. Final submission via FormSubmit
             const response = await fetch("https://formsubmit.co/ajax/contact.astrofied@gmail.com", {
                 method: "POST",
                 headers: {
@@ -385,30 +410,6 @@ export default function Feedback() {
                         }`}
                     >
                         <AnimatePresence mode="wait">
-                            {status === 'invalid_firstname' && (
-                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
-                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                    <span className="text-sm font-medium">First Name must be at least 3 letters (alphabets only).</span>
-                                </motion.div>
-                            )}
-                            {status === 'invalid_lastname' && (
-                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
-                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                    <span className="text-sm font-medium">Last Name must contain alphabets only.</span>
-                                </motion.div>
-                            )}
-                            {status === 'invalid_mobile' && (
-                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
-                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                    <span className="text-sm font-medium">Please enter a valid 10-digit mobile number.</span>
-                                </motion.div>
-                            )}
-                            {status === 'invalid_pattern' && (
-                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
-                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                    <span className="text-sm font-medium">This number pattern is invalid. Please enter a real mobile number.</span>
-                                </motion.div>
-                            )}
                             {status === 'duplicate' && (
                                 <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
                                     <AlertCircle className="w-5 h-5 flex-shrink-0" />
@@ -438,100 +439,117 @@ export default function Feedback() {
                         {step === 'form' ? (
                             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                                 <div className="flex flex-col sm:flex-row gap-5">
-                                    <input
-                                        type="text"
-                                        name="firstName"
-                                        value={formData.firstName}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="First Name"
-                                        className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                            }`}
-                                    />
-                                    <input
-                                        type="text"
-                                        name="lastName"
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="Last Name"
-                                        className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                            }`}
-                                    />
-                                </div>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                    placeholder="Your Mail Id"
-                                    className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                        ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                        : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                        }`}
-                                />
-
-                                <div className="flex gap-2">
-                                    <select
-                                        name="countryCode"
-                                        value={formData.countryCode}
-                                        onChange={handleChange}
-                                        className={`w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode 
-                                            ? 'border-white text-white bg-black focus:ring-white focus:border-white' 
-                                            : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                            }`}
-                                    >
-                                        {countryCodes.map((c) => (
-                                            <option key={c.code + c.name} value={c.code} className="text-black">
-                                                {c.flag} {c.code}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    <input
-                                        type="tel"
-                                        name="mobile"
-                                        value={formData.mobile}
-                                        onChange={handleChange}
-                                        required
-                                        maxLength={10}
-                                        placeholder="Mobile Number"
-                                        className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
-                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                            }`}
-                                    />
-                                </div>
-
-                                <div className="relative">
-                                    <textarea
-                                        name="message"
-                                        value={formData.message}
-                                        onChange={handleChange}
-                                        required
-                                        rows={4}
-                                        maxLength={87}
-                                        placeholder="Write your feedback..."
-                                        className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode 
-                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
-                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                            }`}
-                                    ></textarea>
-                                    <div className={`absolute bottom-2 right-4 text-[10px] font-bold ${isDarkMode ? 'text-white/40' : 'text-[#4B0082]/40'}`}>
-                                        {formData.message.length}/87
+                                    <div className="flex-1 flex flex-col gap-1">
+                                        <input
+                                            type="text"
+                                            name="firstName"
+                                            value={formData.firstName}
+                                            onChange={handleChange}
+                                            required
+                                            placeholder="First Name"
+                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                } ${errors.firstName ? 'border-red-500' : ''}`}
+                                        />
+                                        {errors.firstName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.firstName}</span>}
                                     </div>
+                                    <div className="flex-1 flex flex-col gap-1">
+                                        <input
+                                            type="text"
+                                            name="lastName"
+                                            value={formData.lastName}
+                                            onChange={handleChange}
+                                            required
+                                            placeholder="Last Name"
+                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                } ${errors.lastName ? 'border-red-500' : ''}`}
+                                        />
+                                        {errors.lastName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.lastName}</span>}
+                                    </div>
+                                </div>
+                                
+                                <div className="flex flex-col gap-1">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Your Mail Id"
+                                        className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            } ${errors.email ? 'border-red-500' : ''}`}
+                                    />
+                                    {errors.email && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.email}</span>}
+                                </div>
+
+                                <div className="flex flex-col gap-1">
+                                    <div className="flex gap-2">
+                                        <select
+                                            name="countryCode"
+                                            value={formData.countryCode}
+                                            onChange={handleChange}
+                                            className={`w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode 
+                                                ? 'border-white text-white bg-black focus:ring-white focus:border-white' 
+                                                : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                }`}
+                                        >
+                                            {countryCodes.map((c) => (
+                                                <option key={c.code + c.name} value={c.code} className="text-black">
+                                                    {c.flag} {c.code}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <input
+                                            type="tel"
+                                            name="mobile"
+                                            value={formData.mobile}
+                                            onChange={handleChange}
+                                            required
+                                            maxLength={10}
+                                            placeholder="Mobile Number"
+                                            className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode 
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                } ${errors.mobile ? 'border-red-500' : ''}`}
+                                        />
+                                    </div>
+                                    {errors.mobile && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.mobile}</span>}
+                                </div>
+
+                                <div className="flex flex-col gap-1">
+                                    <div className="relative">
+                                        <textarea
+                                            name="message"
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            required
+                                            rows={4}
+                                            maxLength={87}
+                                            placeholder="Write your feedback..."
+                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode 
+                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white' 
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                } ${errors.message ? 'border-red-500' : ''}`}
+                                        ></textarea>
+                                        <div className={`absolute bottom-2 right-4 text-[10px] font-bold ${isDarkMode ? 'text-white/40' : 'text-[#4B0082]/40'}`}>
+                                            {formData.message.length}/87
+                                        </div>
+                                    </div>
+                                    {errors.message && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.message}</span>}
                                 </div>
 
                                 <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    disabled={status === 'loading'}
+                                    whileHover={!Object.values(errors).some(e => e) ? { scale: 1.02 } : {}}
+                                    whileTap={!Object.values(errors).some(e => e) ? { scale: 0.98 } : {}}
+                                    disabled={status === 'loading' || Object.values(errors).some(e => e)}
                                     type="submit"
-                                    className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''
+                                    className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${
+                                        (status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
                                         } ${isDarkMode
                                             ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
                                             : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
