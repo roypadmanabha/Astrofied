@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Send, CheckCircle, AlertCircle, ShieldCheck, RefreshCw } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+emailjs.init('wOEMDGNTN7YJ4O9rb');
 
 export default function Feedback() {
     const { isDarkMode } = useTheme();
@@ -56,9 +57,6 @@ export default function Feedback() {
         return error;
     };
 
-    useEffect(() => {
-        emailjs.init('wOEMDGNTN7YJ4O9rb');
-    }, []);
 
     const countryCodes = [
         { code: '+93', flag: '🇦🇫', name: 'Afghanistan' },
@@ -321,14 +319,17 @@ export default function Feedback() {
                 passcode: otp,
                 code: otp,
                 otp: otp,
+                otp_code: otp,
+                message: otp,
                 time: expirationTime
             };
+
+            alert("DEBUG: Sending to EmailJS -> " + JSON.stringify(templateParams));
 
             emailjs.send(
                 'service_zq8xq7z',
                 'template_737ii74',
-                templateParams,
-                'wOEMDGNTN7YJ4O9rb'
+                templateParams
             ).then((res) => {
                 console.log("EmailJS Success:", res.status, res.text);
             }).catch((err) => {
