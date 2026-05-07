@@ -312,19 +312,15 @@ export default function Feedback() {
             const expirationTime = new Date(Date.now() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             const templateParams = {
-                to_name: `${formData.firstName} ${formData.lastName}`,
-                first_name: formData.firstName,
-                user_name: formData.firstName,
-                to_email: formData.email.trim(),
-                passcode: otp,
-                code: otp,
-                otp: otp,
-                otp_code: otp,
-                message: otp,
-                time: expirationTime
+                first_name: String(formData.firstName),
+                passcode: String(otp),
+                time: String(expirationTime),
+                to_email: String(formData.email.trim()),
+                to_name: String(`${formData.firstName} ${formData.lastName}`),
+                user_name: String(formData.firstName),
+                otp_code: String(otp),
+                message: String(otp)
             };
-
-            alert("DEBUG: Sending to EmailJS -> " + JSON.stringify(templateParams));
 
             emailjs.send(
                 'service_zq8xq7z',
