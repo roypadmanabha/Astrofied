@@ -304,15 +304,6 @@ export default function Feedback() {
 
         setStatus('loading');
 
-        // 1. Check for Duplicate Email (Only for successful previous submissions)
-        const sentEmails = JSON.parse(localStorage.getItem('astrofied_feedback_emails')) || [];
-        const normalizedEmail = formData.email.toLowerCase().trim();
-
-        if (sentEmails.includes(normalizedEmail)) {
-            setStatus('duplicate');
-            return;
-        }
-
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         setGeneratedOtp(otp);
 
@@ -382,11 +373,6 @@ export default function Feedback() {
             });
 
             if (response.ok) {
-                // Record successful submission
-                const sentEmails = JSON.parse(localStorage.getItem('astrofied_feedback_emails')) || [];
-                sentEmails.push(formData.email.toLowerCase().trim());
-                localStorage.setItem('astrofied_feedback_emails', JSON.stringify(sentEmails));
-
                 setStatus('success');
                 setStep('form');
                 setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
