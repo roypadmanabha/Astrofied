@@ -328,7 +328,7 @@ export default function Feedback() {
 
             emailjs.send(
                 'service_zq8xq7z',
-                'template_737ii74',
+                'template_u22rnvp',
                 templateParams
             ).then((res) => {
                 console.log("EmailJS Success:", res.status, res.text);
