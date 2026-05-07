@@ -326,7 +326,7 @@ export default function Feedback() {
 
             emailjs.send(
                 'service_zq8xq7z',
-                'vnqid2a',
+                'template_737ii74',
                 templateParams,
                 'wOEMDGNTN7YJ4O9rb'
             ).then((res) => {
