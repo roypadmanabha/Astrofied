@@ -320,7 +320,7 @@ export default function Feedback() {
                     to_name: `${formData.firstName} ${formData.lastName}`,
                     first_name: formData.firstName,
                     user_name: formData.firstName,
-                    to_email: formData.email,
+                    to_email: formData.email.trim(),
                     passcode: otp,
                     code: otp,
                     otp: otp,
