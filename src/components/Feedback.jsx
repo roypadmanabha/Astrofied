@@ -313,19 +313,22 @@ export default function Feedback() {
 
             const expirationTime = new Date(Date.now() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+            const templateParams = {
+                to_name: `${formData.firstName} ${formData.lastName}`,
+                first_name: formData.firstName,
+                user_name: formData.firstName,
+                to_email: formData.email.trim(),
+                passcode: otp,
+                code: otp,
+                otp: otp,
+                time: expirationTime
+            };
+
             emailjs.send(
                 'service_zq8xq7z',
                 'template_737ii74',
-                {
-                    to_name: `${formData.firstName} ${formData.lastName}`,
-                    first_name: formData.firstName,
-                    user_name: formData.firstName,
-                    to_email: formData.email.trim(),
-                    passcode: otp,
-                    code: otp,
-                    otp: otp,
-                    time: expirationTime
-                }
+                templateParams,
+                'wOEMDGNTN7YJ4O9rb'
             ).then((res) => {
                 console.log("EmailJS Success:", res.status, res.text);
             }).catch((err) => {
