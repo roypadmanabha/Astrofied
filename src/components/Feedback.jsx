@@ -509,14 +509,14 @@ export default function Feedback() {
                                             name="countryCode"
                                             value={formData.countryCode}
                                             onChange={handleChange}
-                                            className={`w-14 sm:w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode
+                                            className={`w-16 sm:w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode
                                                 ? 'border-white text-white bg-black focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 }`}
                                         >
                                             {countryCodes.map((c) => (
                                                 <option key={c.code + c.name} value={c.code} className="text-black">
-                                                    {isMobile ? c.flag : `${c.flag} ${c.code}`}
+                                                    {isMobile ? c.code : `${c.flag} ${c.code}`}
                                                 </option>
                                             ))}
                                         </select>
