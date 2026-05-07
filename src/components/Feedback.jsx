@@ -259,7 +259,10 @@ export default function Feedback() {
         if (name === 'mobile') {
             processedValue = value.replace(/\D/g, '').slice(0, 10);
         } else if (name === 'firstName' || name === 'lastName') {
-            processedValue = value.replace(/\s/g, '');
+            const noSpaces = value.replace(/\s/g, '');
+            processedValue = noSpaces.charAt(0).toUpperCase() + noSpaces.slice(1);
+        } else if (name === 'message') {
+            processedValue = value.charAt(0).toUpperCase() + value.slice(1);
         } else if (name === 'email') {
             processedValue = value.toLowerCase();
         }
