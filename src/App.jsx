@@ -132,7 +132,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
 
   const isModalOpenRef = useRef(false);
-  
+
   useEffect(() => {
     isModalOpenRef.current = legalModal.isOpen || isDetailsModalOpen;
     if (isModalOpenRef.current) {
@@ -202,13 +202,13 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <StarfieldBg />
 
 
-      <Navbar 
-        onOpenLegal={openLegalModal} 
-        onOpenConsultation={handleBookConsultation} 
+      <Navbar
+        onOpenLegal={openLegalModal}
+        onOpenConsultation={handleBookConsultation}
       />
 
-      <Hero 
-        onOpenConsultation={handleBookConsultation} 
+      <Hero
+        onOpenConsultation={handleBookConsultation}
         isDetailsModalOpen={isDetailsModalOpen}
         setIsDetailsModalOpen={setIsDetailsModalOpen}
       />
@@ -253,7 +253,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 </h1>
               </div>
               <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">
-                <p>{WHY_SJ_TEXT.slice(0, 350)} {!showFullWhySj && '...'}</p>
+                <p>{WHY_SJ_TEXT.slice(0, 301)} {!showFullWhySj && '...'}</p>
                 <AnimatePresence>
                   {showFullWhySj && (
                     <motion.div
@@ -263,7 +263,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                       transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
                       className="overflow-hidden"
                     >
-                      <p>{WHY_SJ_TEXT.slice(350)}</p>
+                      <p>{WHY_SJ_TEXT.slice(301)}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -305,12 +305,12 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   alt="Prasanta Chakraborty"
                   className="w-full h-auto max-w-full drop-shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-transform duration-700"
                   style={{
-                    filter: isDarkMode 
-                      ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))' 
+                    filter: isDarkMode
+                      ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))'
                       : 'drop-shadow(0 0 20px rgba(75, 0, 130, 0.1))'
                   }}
                 />
-                
+
                 {/* Destiny Label */}
                 <div className="absolute -bottom-2 md:bottom-0 left-0 right-0 z-20 flex justify-center px-2">
                   <motion.div
@@ -320,8 +320,8 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                     transition={{ duration: 0.3, ease: "easeOut" }}
                     className="bg-[#4B0082] py-2 md:py-2.5 rounded-xl shadow-2xl border border-gold/30 w-full max-w-[420px] overflow-hidden flex items-center justify-center"
                   >
-                    <svg 
-                      viewBox="0 0 350 25" 
+                    <svg
+                      viewBox="0 0 350 25"
                       className="w-[95%] h-auto max-h-[1.5rem]"
                       preserveAspectRatio="xMidYMid meet"
                     >
@@ -358,9 +358,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </h2>
               <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">
                 <p>
-                  {showFullAbout 
-                    ? ABOUT_US_TEXT.slice(0, 400) 
-                    : `${ABOUT_US_TEXT.slice(0, 400)}...`}
+                  {showFullAbout
+                    ? ABOUT_US_TEXT.slice(0, 432)
+                    : `${ABOUT_US_TEXT.slice(0, 432)}...`}
                 </p>
                 <AnimatePresence>
                   {showFullAbout && (
@@ -372,7 +372,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                       className="overflow-hidden"
                     >
                       <p>
-                        {ABOUT_US_TEXT.slice(400).split('Prasanta Chakraborty').map((part, i, arr) => (
+                        {ABOUT_US_TEXT.slice(432).split('Prasanta Chakraborty').map((part, i, arr) => (
                           <span key={i}>
                             {part}
                             {i < arr.length - 1 && <span className={`font-bold ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>Prasanta Chakraborty</span>}
