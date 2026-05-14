@@ -371,6 +371,23 @@ export default function Feedback() {
             });
 
             if (response.ok) {
+                // Send Auto-Reply via EmailJS
+                const autoReplyParams = {
+                    first_name: formData.firstName,
+                    last_name: formData.lastName,
+                    email: formData.email
+                };
+
+                emailjs.send(
+                    'service_zq8xq7z',
+                    'template_0r8nxcz',
+                    autoReplyParams
+                ).then((res) => {
+                    console.log("Auto-reply sent:", res.status, res.text);
+                }).catch((err) => {
+                    console.error("Auto-reply failed:", err);
+                });
+
                 setStatus('success');
                 setStep('form');
                 setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });

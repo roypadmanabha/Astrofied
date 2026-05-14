@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
-import { Sparkles, MapPin, Calendar, Clock, User, Loader2, X, Download } from 'lucide-react';
+import { Sparkles, MapPin, Calendar, Clock, User, Loader2, X, Download, ShieldCheck } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import logo from '../assets/logo.png';
 import { useTheme } from '../context/ThemeContext';
 
@@ -40,6 +41,14 @@ const Kundali = () => {
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [downloading, setDownloading] = useState(false);
+    
+    // OTP States
+    const [showOtpModal, setShowOtpModal] = useState(false);
+    const [otpInputs, setOtpInputs] = useState(['', '', '', '', '', '']);
+    const [generatedOtp, setGeneratedOtp] = useState('');
+    const [otpLoading, setOtpLoading] = useState(false);
+    const [otpError, setOtpError] = useState('');
+    const otpRefs = useRef([]);
 
     // Brand Colors
     const brandGold = "#D4AF37";
@@ -174,6 +183,104 @@ const Kundali = () => {
 
     const [showNotice, setShowNotice] = useState(false);
 
+    const generateOtp = () => {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+    };
+
+    const sendOtp = async (userData, otp) => {
+        setOtpLoading(true);
+        const templateParams = {
+            first_name: userData.firstName,
+            last_name: userData.lastName,
+            email: userData.email,
+            passcode: otp,
+            time: new Date(Date.now() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+
+        try {
+            await emailjs.send(
+                'service_zoki18i',
+                'template_rkgjfst',
+                templateParams,
+                'BS0KCxakf6y8wGFx-'
+            );
+            setShowOtpModal(true);
+            setOtpError('');
+        } catch (err) {
+            console.error('EmailJS Error:', err);
+            setError("Failed to send verification code. Please try again.");
+        } finally {
+            setOtpLoading(false);
+        }
+    };
+
+    const sendToGoogleSheet = async () => {
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyzw6F0g25xoT0eAcbZbrarrt9autYIZQC8z5YTVW_EpggHG3bh9EfnN9ITJUyzYQvd5Q/exec";
+        try {
+            fetch(GOOGLE_SHEET_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    name: `${formData.firstName} ${formData.lastName}`.trim()
+                }),
+            });
+            console.log("Data sent to Google Sheets");
+        } catch (err) {
+            console.error("Error sending to Google Sheets:", err);
+        }
+    };
+
+    const handleOtpChange = (index, value) => {
+        if (!/^\d*$/.test(value)) return;
+        
+        const newOtp = [...otpInputs];
+        newOtp[index] = value.slice(-1);
+        setOtpInputs(newOtp);
+
+        if (value && index < 5) {
+            otpRefs.current[index + 1].focus();
+        }
+    };
+
+    const handleOtpKeyDown = (index, e) => {
+        if (e.key === 'Backspace' && !otpInputs[index] && index > 0) {
+            otpRefs.current[index - 1].focus();
+        }
+    };
+
+    const handleOtpPaste = (e) => {
+        e.preventDefault();
+        const pasteData = e.clipboardData.getData('text').slice(0, 6).split('');
+        if (pasteData.length > 0) {
+            const newOtp = [...otpInputs];
+            pasteData.forEach((char, i) => {
+                if (/^\d$/.test(char) && i < 6) newOtp[i] = char;
+            });
+            setOtpInputs(newOtp);
+            otpRefs.current[Math.min(pasteData.length, 5)].focus();
+        }
+    };
+
+    const handleOtpVerify = async () => {
+        const enteredOtp = otpInputs.join('');
+        if (enteredOtp.length < 6) return;
+
+        if (enteredOtp === generatedOtp) {
+            setOtpLoading(true);
+            await sendToGoogleSheet();
+            setOtpLoading(false);
+            setShowOtpModal(false);
+            setShowNotice(true); // Show high volume error notice
+        } else {
+            setOtpError("Wrong OTP! Auto-refreshing...");
+            setTimeout(() => {
+                window.location.reload();
+            }, 2500);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -199,66 +306,9 @@ const Kundali = () => {
             return;
         }
 
-        // --- GOOGLE SHEETS INTEGRATION ---
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyzw6F0g25xoT0eAcbZbrarrt9autYIZQC8z5YTVW_EpggHG3bh9EfnN9ITJUyzYQvd5Q/exec";
-        
-        try {
-            // We use fetch with no-cors if needed, but since it's a simple POST, 
-            // the Apps Script will receive it. We don't necessarily need to wait for a response
-            // to show the notice to the user, but it's better to try.
-            fetch(GOOGLE_SHEET_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Important for Google Apps Script redirects
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ...formData,
-                    name: `${formData.firstName} ${formData.lastName}`.trim()
-                }),
-            });
-            console.log("Data sent to Google Sheets");
-        } catch (err) {
-            console.error("Error sending to Google Sheets:", err);
-        }
-        // ---------------------------------
-
-        // Custom high volume notice
-        setShowNotice(true);
-        return;
-
-        setLoading(true);
-        setError(null);
-
-        const selectedDate = new Date(formData.dob);
-        const today = new Date();
-        if (selectedDate > today) {
-            setError("Astrology charts are for past/present dates only.");
-            setLoading(false);
-            return;
-        }
-
-        try {
-            const isLocal = window.location.hostname === 'localhost';
-            const API_URL = isLocal
-                ? 'http://localhost:5001/api/kundali'
-                : 'https://astrofied-production.up.railway.app/api/kundali';
-
-            const payload = {
-                ...formData,
-                name: `${formData.firstName} ${formData.lastName}`.trim()
-            };
-
-            const res = await axios.post(API_URL, payload);
-            setChartSvg(res.data);
-            setIsModalOpen(true);
-        } catch (err) {
-            console.error('API Error:', err);
-            const serverError = err.response?.data?.error || 'Failed to fetch your data.';
-            setError(serverError);
-        } finally {
-            setLoading(false);
-        }
+        const otp = generateOtp();
+        setGeneratedOtp(otp);
+        await sendOtp(formData, otp);
     };
 
     return (
@@ -305,13 +355,13 @@ const Kundali = () => {
                     </div>
 
                     {/* Right Side: Compact Form Container */}
-                    <div className="w-full lg:w-2/5 max-w-md mx-auto lg:mx-0">
+                    <div className="w-full lg:w-[45%] max-w-lg mx-auto lg:mx-0">
                         <motion.div
                             initial={{ opacity: 0.8, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`p-6 md:p-10 rounded-[15px] border shadow-2xl backdrop-blur-3xl transition-all duration-500 flex flex-col justify-center relative aspect-[3/4] ${isDarkMode
+                            className={`p-6 md:p-10 rounded-[15px] border shadow-2xl backdrop-blur-3xl transition-all duration-500 flex flex-col justify-center relative aspect-[3/4] lg:aspect-[4/5] ${isDarkMode
                                 ? 'border-gold !bg-[#17202A]'
                                 : 'border-[#4B0082] bg-[#F5F5DC]'
                                 }`}
@@ -416,7 +466,7 @@ const Kundali = () => {
                                             type="date"
                                             name="dob"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
+                                            className={`w-full border-b bg-transparent px-0 py-1 text-[10px] sm:text-xs md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold'
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                                 }`}
@@ -432,7 +482,7 @@ const Kundali = () => {
                                             type="time"
                                             name="tob"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
+                                            className={`w-full border-b bg-transparent px-0 py-1 text-[10px] sm:text-xs md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold'
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                                 }`}
@@ -447,7 +497,7 @@ const Kundali = () => {
                                         <select
                                             name="gender"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
+                                            className={`w-full border-b bg-transparent px-0 py-1 text-[10px] sm:text-xs md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold'
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                                 }`}
@@ -514,11 +564,11 @@ const Kundali = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
-                                    disabled={loading}
+                                    disabled={loading || otpLoading}
                                     className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white shadow-xl'
                                         }`}
                                 >
-                                    {loading ? <Loader2 className="animate-spin" size={18} /> : (
+                                    {(loading || otpLoading) ? <Loader2 className="animate-spin" size={18} /> : (
                                         <><Sparkles size={16} /> Generate</>
                                     )}
                                 </motion.button>
@@ -527,6 +577,87 @@ const Kundali = () => {
                     </div>
                 </div>
             </div>
+
+            {/* OTP Modal */}
+            <AnimatePresence>
+                {showOtpModal && (
+                    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+                        />
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0, y: 30 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 30 }}
+                            className={`relative w-full max-w-md p-8 md:p-10 rounded-[2.5rem] border shadow-2xl text-center
+                                ${isDarkMode ? 'bg-[#0f0a1f] border-gold/30 text-white' : 'bg-white border-purple-600/30 text-black'}
+                            `}
+                        >
+                            <div className="flex justify-center mb-6">
+                                <div className={`p-4 rounded-full ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-purple-600/10 text-[#4B0082]'}`}>
+                                    <ShieldCheck size={32} />
+                                </div>
+                            </div>
+                            <h3 className="text-2xl font-black mb-2">Verify OTP</h3>
+                            <p className="text-sm opacity-70 mb-8">
+                                Enter the 6-digit code sent to <br />
+                                <span className="font-bold text-gold">{formData.email}</span>
+                            </p>
+
+                            <div className="flex justify-between gap-2 mb-8" onPaste={handleOtpPaste}>
+                                {otpInputs.map((digit, idx) => (
+                                    <input
+                                        key={idx}
+                                        ref={el => otpRefs.current[idx] = el}
+                                        type="text"
+                                        maxLength={1}
+                                        value={digit}
+                                        onChange={(e) => handleOtpChange(idx, e.target.value)}
+                                        onKeyDown={(e) => handleOtpKeyDown(idx, e)}
+                                        className={`w-12 h-14 md:w-14 md:h-16 text-2xl font-black text-center rounded-xl border-2 transition-all outline-none
+                                            ${isDarkMode 
+                                                ? 'bg-white/5 border-white/10 focus:border-gold focus:bg-gold/5' 
+                                                : 'bg-black/5 border-black/10 focus:border-[#4B0082] focus:bg-[#4B0082]/5'}
+                                            ${otpError && 'border-red-500 bg-red-500/5'}
+                                        `}
+                                    />
+                                ))}
+                            </div>
+
+                            {otpError && (
+                                <motion.p 
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="text-red-500 text-xs font-bold mb-6 flex items-center justify-center gap-2"
+                                >
+                                    <X size={14} className="border border-red-500 rounded-full" />
+                                    {otpError}
+                                </motion.p>
+                            )}
+
+                            <button
+                                onClick={handleOtpVerify}
+                                disabled={otpLoading || otpInputs.some(d => !d)}
+                                className={`w-full py-4 rounded-2xl font-black text-xs tracking-widest uppercase transition-all shadow-xl disabled:opacity-50 flex items-center justify-center gap-3
+                                    ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white'}
+                                `}
+                            >
+                                {otpLoading ? <Loader2 size={18} className="animate-spin" /> : 'Verify & Generate'}
+                            </button>
+
+                            <button 
+                                onClick={() => window.location.reload()}
+                                className="mt-6 text-[10px] font-bold uppercase tracking-widest opacity-50 hover:opacity-100 transition-all"
+                            >
+                                Cancel & Go Back
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
 
             {/* High Volume Notice Modal */}
             <AnimatePresence>
