@@ -353,9 +353,8 @@ export default function Feedback() {
 
         if (enteredOtp !== generatedOtp) {
             setStatus('otp_error');
-            setTimeout(() => {
-                window.location.reload();
-            }, 2500);
+            // Refresh on spot with no delay as requested
+            window.location.reload();
             return;
         }
 
@@ -364,23 +363,21 @@ export default function Feedback() {
         setStatus('success');
 
         try {
-            // 2. Send FormSubmit and EmailJS in parallel
-            const formSubmitPromise = fetch("https://formsubmit.co/ajax/contact.astrofied@gmail.com", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+            // 2. Parallelly send to Google Sheets and send Auto-Reply
+            const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyzw6F0g25xoT0eAcbZbrarrt9autYIZQC8z5YTVW_EpggHG3bh9EfnN9ITJUyzYQvd5Q/exec";
+            
+            const googleSheetPromise = fetch(GOOGLE_SHEET_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: `${formData.firstName} ${formData.lastName}`,
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
                     email: formData.email,
-                    mobile: `${formData.countryCode} ${formData.mobile}`,
-                    message: formData.message,
-                    _replyto: formData.email,
-                    _subject: `Verified Feedback from ${formData.firstName} ${formData.lastName} - Astrofied`,
-                    _captcha: "false",
-                    _template: "table"
-                })
+                    countryCode: formData.countryCode,
+                    mobile: formData.mobile,
+                    message: formData.message
+                }),
             });
 
             const emailJsPromise = emailjs.send(
@@ -393,10 +390,10 @@ export default function Feedback() {
                 }
             );
 
-            await Promise.all([formSubmitPromise, emailJsPromise]);
-            console.log("Feedback submitted and auto-reply sent.");
+            await Promise.all([googleSheetPromise, emailJsPromise]);
+            console.log("Feedback stored in Google Sheets and auto-reply sent.");
 
-            // After a delay, reset form
+            // Reset form after a delay to show success state
             setTimeout(() => {
                 setStep('form');
                 setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
