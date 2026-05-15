@@ -68,20 +68,20 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`relative group rounded-[3rem] p-5 border shadow-2xl transition-all duration-700 hover:-translate-y-4 ${item.glow} ${
+              className={`relative group rounded-[24px] p-5 border shadow-2xl transition-all duration-700 hover:-translate-y-4 ${item.glow} ${
                 isDarkMode
                   ? 'bg-white/[0.03] border-white/10 hover:bg-white/[0.05]'
                   : 'bg-white border-black/[0.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)]'
               }`}
             >
               {/* Animated Background Glow */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 rounded-[3rem]`} />
+              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 rounded-[24px]`} />
               
               {/* Card Decoration */}
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-current opacity-[0.02] rounded-full blur-3xl pointer-events-none" />
 
               {/* Image Container */}
-              <div className={`relative aspect-[16/10] rounded-[2.5rem] overflow-hidden mb-8 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] ${
+              <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] ${
                 isDarkMode ? 'bg-black/40' : 'bg-[#FAF9F6]'
               }`}>
                 <img
