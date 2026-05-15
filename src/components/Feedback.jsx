@@ -16,12 +16,7 @@ export default function Feedback() {
     const [isMobile, setIsMobile] = useState(false);
     const otpRefs = useRef([]);
 
-    // Auto-verify when all digits are entered
-    useEffect(() => {
-        if (userOtp.every(d => d !== '') && step === 'verify' && status !== 'loading' && status !== 'success') {
-            handleVerifyOtp();
-        }
-    }, [userOtp]);
+
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 640);
@@ -374,8 +369,7 @@ export default function Feedback() {
                     firstName: formData.firstName,
                     lastName: formData.lastName,
                     email: formData.email,
-                    countryCode: formData.countryCode,
-                    mobile: formData.mobile,
+                    mobile: formData.mobile, // Only 10-digit number
                     message: formData.message
                 }),
             });
@@ -393,14 +387,14 @@ export default function Feedback() {
             await Promise.all([googleSheetPromise, emailJsPromise]);
             console.log("Feedback stored in Google Sheets and auto-reply sent.");
 
-            // Reset form after a delay to show success state
+            // Reset form after 3 seconds to show success state
             setTimeout(() => {
                 setStep('form');
                 setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
                 setUserOtp(['', '', '', '', '', '']);
                 setGeneratedOtp('');
                 setStatus('idle');
-            }, 4000);
+            }, 3000);
 
         } catch (error) {
             console.error("Submission Error:", error);
