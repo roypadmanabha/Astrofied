@@ -361,7 +361,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`p-6 md:p-10 rounded-[15px] border shadow-2xl backdrop-blur-3xl transition-all duration-500 flex flex-col justify-between relative aspect-[3/4] lg:aspect-auto lg:min-h-[600px] ${isDarkMode
+                            className={`p-6 md:p-10 lg:p-12 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative ${isDarkMode
                                 ? 'border-gold !bg-[#17202A]'
                                 : 'border-[#4B0082] bg-[#F5F5DC]'
                                 }`}
@@ -372,7 +372,7 @@ const Kundali = () => {
                                 className="absolute top-2 right-2 md:top-4 md:right-4 w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain select-none pointer-events-none"
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                             />
-                            <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6 lg:space-y-8">
+                            <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
                                 {/* Name Grid */}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="space-y-1">
@@ -573,22 +573,9 @@ const Kundali = () => {
                                     )}
                                 </motion.button>
 
-                                <div className="space-y-4">
-                                    <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>
-                                        Note: We don't share or tamper your personal data
-                                    </p>
-
-                                    <div className={`hidden lg:flex items-center justify-center gap-6 pt-4 border-t ${isDarkMode ? 'border-white/5' : 'border-[#4B0082]/5'}`}>
-                                        <div className="flex items-center gap-2 opacity-40">
-                                            <ShieldCheck size={12} className={isDarkMode ? 'text-gold' : 'text-[#4B0082]'} />
-                                            <span className={`text-[9px] font-bold uppercase tracking-widest ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>Secure SSL</span>
-                                        </div>
-                                        <div className="flex items-center gap-2 opacity-40">
-                                            <Sparkles size={12} className={isDarkMode ? 'text-gold' : 'text-[#4B0082]'} />
-                                            <span className={`text-[9px] font-bold uppercase tracking-widest ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>Privacy First</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>
+                                    Note: We don't share or tamper your personal data
+                                </p>
                             </form>
                         </motion.div>
                     </div>
