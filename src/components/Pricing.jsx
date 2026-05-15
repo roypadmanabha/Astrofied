@@ -23,8 +23,8 @@ const Pricing = () => {
       image: pricingHoroscope,
       description: "Complete life roadmap and planetary guidance through ancient Vedic wisdom.",
       tag: "FEATURED",
-      color: "from-[#3B82F6]/20 via-transparent to-[#8B5CF6]/20",
-      glow: "group-hover:shadow-[0_0_50px_rgba(59,130,246,0.2)]",
+      color: "from-[#3B82F6] to-[#8B5CF6]",
+      glow: "shadow-[0_0_50px_rgba(59,130,246,0.3)]",
       accent: "#3B82F6"
     },
     {
@@ -34,8 +34,8 @@ const Pricing = () => {
       image: pricingKundali,
       description: "Deep compatibility analysis for a prosperous and harmonious lifelong union.",
       tag: "EXCLUSIVE",
-      color: "from-[#D4AF37]/20 via-transparent to-[#F59E0B]/20",
-      glow: "group-hover:shadow-[0_0_50px_rgba(212,175,55,0.2)]",
+      color: "from-[#D4AF37] to-[#F59E0B]",
+      glow: "shadow-[0_0_50px_rgba(212,175,55,0.3)]",
       accent: "#D4AF37",
       isKundali: true
     }
@@ -74,11 +74,13 @@ const Pricing = () => {
                   : 'bg-white border-black/[0.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)]'
               }`}
             >
-              {/* Theme Background Glow */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-60 dark:opacity-40 -z-10 rounded-[24px]`} />
+              {/* Permanent Opaque Background Gradient */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} transition-all duration-700 -z-10 rounded-[24px] opacity-100`} />
               
-              {/* Card Decoration */}
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-current opacity-[0.02] rounded-full blur-3xl pointer-events-none" />
+              {/* Glassmorphism Overlay to ensure text readability */}
+              <div className={`absolute inset-0 backdrop-blur-[2px] -z-10 rounded-[24px] ${
+                isDarkMode ? 'bg-black/40' : 'bg-white/40'
+              }`} />
 
               {/* Image Container */}
               <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] ${
