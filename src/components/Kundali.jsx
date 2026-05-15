@@ -573,9 +573,31 @@ const Kundali = () => {
                                     )}
                                 </motion.button>
 
-                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>
+                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 mb-6 ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>
                                     Note: We don't share or tamper your personal data
                                 </p>
+
+                                {/* Desktop Only Decoration/Trust Section */}
+                                <div className="hidden lg:grid grid-cols-3 gap-4 pt-4 border-t border-[#0A1931]/5 mt-4">
+                                    <div className="flex flex-col items-center text-center space-y-1">
+                                        <div className={`p-2 rounded-lg ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#4B0082]/5 text-[#4B0082]'}`}>
+                                            <ShieldCheck size={14} />
+                                        </div>
+                                        <span className={`text-[8px] font-black uppercase tracking-tighter opacity-70 ${isDarkMode ? 'text-white' : 'text-[#0A1931]'}`}>100% Private</span>
+                                    </div>
+                                    <div className="flex flex-col items-center text-center space-y-1">
+                                        <div className={`p-2 rounded-lg ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#4B0082]/5 text-[#4B0082]'}`}>
+                                            <Sparkles size={14} />
+                                        </div>
+                                        <span className={`text-[8px] font-black uppercase tracking-tighter opacity-70 ${isDarkMode ? 'text-white' : 'text-[#0A1931]'}`}>Vedic Precision</span>
+                                    </div>
+                                    <div className="flex flex-col items-center text-center space-y-1">
+                                        <div className={`p-2 rounded-lg ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#4B0082]/5 text-[#4B0082]'}`}>
+                                            <Download size={14} />
+                                        </div>
+                                        <span className={`text-[8px] font-black uppercase tracking-tighter opacity-70 ${isDarkMode ? 'text-white' : 'text-[#0A1931]'}`}>Instant PDF</span>
+                                    </div>
+                                </div>
                             </form>
                         </motion.div>
                     </div>
