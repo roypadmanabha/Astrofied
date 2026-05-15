@@ -364,7 +364,7 @@ export default function Feedback() {
 
         try {
             // 2. Parallelly send to Google Sheets and send Auto-Reply
-            const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyzw6F0g25xoT0eAcbZbrarrt9autYIZQC8z5YTVW_EpggHG3bh9EfnN9ITJUyzYQvd5Q/exec";
+            const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwhzlC8sga75cOl2p5rfY0G34foFIFpXwNwN1GpHvQf5HHxjFaVHiX1qmM6R47bU63B/exec";
             
             const googleSheetPromise = fetch(GOOGLE_SHEET_URL, {
                 method: 'POST',
