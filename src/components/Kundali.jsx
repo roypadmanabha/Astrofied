@@ -50,10 +50,6 @@ const Kundali = () => {
     const [otpError, setOtpError] = useState('');
     const otpRefs = useRef([]);
 
-    const [isGenderOpen, setIsGenderOpen] = useState(false);
-    const [isTimeOpen, setIsTimeOpen] = useState(false);
-    const [timeParts, setTimeParts] = useState({ hh: '12', mm: '00', ampm: 'AM' });
-
     // Brand Colors
     const brandGold = "#D4AF37";
     const brandPurple = "#4B0082";
@@ -104,21 +100,6 @@ const Kundali = () => {
         
         const fieldErr = validateField(name, value);
         setFieldErrors(prev => ({ ...prev, [name]: fieldErr }));
-    };
-
-    const updateTimeFromParts = (parts) => {
-        let { hh, mm, ampm } = parts;
-        let hours = parseInt(hh);
-        if (ampm === 'PM' && hours < 12) hours += 12;
-        if (ampm === 'AM' && hours === 12) hours = 0;
-        const time24 = `${hours.toString().padStart(2, '0')}:${mm}`;
-        setFormData(prev => ({ ...prev, tob: time24 }));
-    };
-
-    const handleTimePartChange = (part, value) => {
-        const newParts = { ...timeParts, [part]: value };
-        setTimeParts(newParts);
-        updateTimeFromParts(newParts);
     };
 
     const handleDownload = async () => {
@@ -380,7 +361,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`p-6 md:p-10 lg:p-12 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative lg:aspect-square flex flex-col justify-center ${isDarkMode
+                            className={`p-6 md:p-10 lg:p-12 rounded-[12px] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative lg:aspect-square flex flex-col justify-center ${isDarkMode
                                 ? 'border-gold !bg-[#17202A]'
                                 : 'border-[#4B0082] bg-[#F5F5DC]'
                                 }`}
@@ -493,82 +474,40 @@ const Kundali = () => {
                                             onChange={handleInputChange}
                                         />
                                     </div>
-                                    <div className="space-y-1 relative">
+                                    <div className="space-y-1">
                                         <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
                                             <Clock size={10} /> Time
                                         </label>
-                                        <div 
-                                            onClick={() => setIsTimeOpen(!isTimeOpen)}
-                                            className={`w-full border-b py-1 cursor-pointer flex items-center justify-between transition-all ${isDarkMode ? 'border-white/10' : 'border-[#0A1931]/10'}`}
-                                        >
-                                            <span className={`text-[10px] sm:text-xs md:text-base font-bold ${formData.tob ? (isDarkMode ? 'text-white' : 'text-black') : 'opacity-40'}`}>
-                                                {formData.tob ? `${timeParts.hh}:${timeParts.mm} ${timeParts.ampm}` : '--:-- --'}
-                                            </span>
-                                            <Clock size={12} className={isDarkMode ? 'text-gold' : 'text-[#4B0082]'} />
-                                        </div>
-                                        <AnimatePresence>
-                                            {isTimeOpen && (
-                                                <motion.div
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: 5 }}
-                                                    className={`absolute z-[60] w-48 mt-2 p-4 rounded-2xl border shadow-2xl backdrop-blur-2xl ${isDarkMode ? 'bg-[#1a1233]/95 border-white/10' : 'bg-white/95 border-purple-600/10'}`}
-                                                >
-                                                    <div className="grid grid-cols-3 gap-2">
-                                                        <div className="flex flex-col gap-1 max-h-32 overflow-y-auto custom-scrollbar">
-                                                            {Array.from({ length: 12 }, (_, i) => (i + 1).toString().padStart(2, '0')).map(h => (
-                                                                <button key={h} type="button" onClick={() => handleTimePartChange('hh', h)} className={`text-[10px] py-1 rounded hover:bg-gold/20 ${timeParts.hh === h ? 'bg-gold text-black' : (isDarkMode ? 'text-white' : 'text-black')}`}>{h}</button>
-                                                            ))}
-                                                        </div>
-                                                        <div className="flex flex-col gap-1 max-h-32 overflow-y-auto custom-scrollbar">
-                                                            {['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].map(m => (
-                                                                <button key={m} type="button" onClick={() => handleTimePartChange('mm', m)} className={`text-[10px] py-1 rounded hover:bg-gold/20 ${timeParts.mm === m ? 'bg-gold text-black' : (isDarkMode ? 'text-white' : 'text-black')}`}>{m}</button>
-                                                            ))}
-                                                        </div>
-                                                        <div className="flex flex-col gap-1">
-                                                            {['AM', 'PM'].map(p => (
-                                                                <button key={p} type="button" onClick={() => handleTimePartChange('ampm', p)} className={`text-[10px] py-1 rounded hover:bg-gold/20 ${timeParts.ampm === p ? 'bg-gold text-black' : (isDarkMode ? 'text-white' : 'text-black')}`}>{p}</button>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
+                                        <input
+                                            type="time"
+                                            name="tob"
+                                            required
+                                            className={`w-full border-b bg-transparent px-0 py-1 text-[10px] sm:text-xs md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
+                                                ? 'border-white/10 text-white focus:border-gold'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
+                                                }`}
+                                            value={formData.tob}
+                                            onChange={handleInputChange}
+                                        />
                                     </div>
-                                    <div className="space-y-1 relative">
+                                    <div className="space-y-1">
                                         <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
                                             Gender
                                         </label>
-                                        <div 
-                                            onClick={() => setIsGenderOpen(!isGenderOpen)}
-                                            className={`w-full border-b py-1 cursor-pointer flex items-center justify-between transition-all ${isDarkMode ? 'border-white/10' : 'border-[#0A1931]/10'}`}
+                                        <select
+                                            name="gender"
+                                            required
+                                            className={`w-full border-b bg-transparent px-0 py-1 text-[10px] sm:text-xs md:text-base font-bold focus:outline-none transition-all ${isDarkMode
+                                                ? 'border-white/10 text-white focus:border-gold'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
+                                                }`}
+                                            value={formData.gender}
+                                            onChange={handleInputChange}
                                         >
-                                            <span className={`text-[10px] sm:text-xs md:text-base font-bold capitalize ${formData.gender ? (isDarkMode ? 'text-white' : 'text-black') : 'opacity-40'}`}>
-                                                {formData.gender || 'Select'}
-                                            </span>
-                                            <User size={12} className={isDarkMode ? 'text-gold' : 'text-[#4B0082]'} />
-                                        </div>
-                                        <AnimatePresence>
-                                            {isGenderOpen && (
-                                                <motion.div
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: 5 }}
-                                                    className={`absolute z-[60] w-full mt-2 border rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl ${isDarkMode ? 'bg-[#1a1233]/95 border-white/10' : 'bg-white/95 border-purple-600/10'}`}
-                                                >
-                                                    {['male', 'female'].map(g => (
-                                                        <button
-                                                            key={g}
-                                                            type="button"
-                                                            onClick={() => { setFormData({ ...formData, gender: g }); setIsGenderOpen(false); }}
-                                                            className={`w-full text-left px-4 py-3 text-xs font-semibold capitalize transition-all border-b last:border-0 ${isDarkMode ? 'text-gray-300 hover:bg-gold/10 hover:text-gold border-white/5' : 'text-[#0A1931] hover:bg-purple-600/10 hover:text-[#4B0082] border-purple-600/5'}`}
-                                                        >
-                                                            {g}
-                                                        </button>
-                                                    ))}
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
+                                            <option value="" disabled className={isDarkMode ? 'bg-[#17202A]' : 'bg-white'}>Select</option>
+                                            <option value="male" className={isDarkMode ? 'bg-[#17202A]' : 'bg-white'}>Male</option>
+                                            <option value="female" className={isDarkMode ? 'bg-[#17202A]' : 'bg-white'}>Female</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -838,9 +777,6 @@ const Kundali = () => {
                 :global(svg path), :global(svg line), :global(svg polygon), :global(svg rect), :global(svg circle) { stroke-width: 1.5px !important; stroke: #4B0082 !important; }
                 :global(svg text) { fill: #4B0082 !important; font-family: 'Mulish', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
                 @media (max-width: 480px) { :global(svg text) { font-size: 20px !important; } }
-                .custom-scrollbar::-webkit-scrollbar { width: 3px; }
-                .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-                .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 10px; }
                 input::-webkit-calendar-picker-indicator { 
                     filter: ${isDarkMode ? 'brightness(0) invert(1)' : 'brightness(0)'}; 
                     cursor: pointer; 
