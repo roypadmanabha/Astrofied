@@ -572,6 +572,10 @@ const Kundali = () => {
                                         <><Sparkles size={16} /> Generate</>
                                     )}
                                 </motion.button>
+
+                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>
+                                    Note: We don't share or tamper your personal data
+                                </p>
                             </form>
                         </motion.div>
                     </div>
