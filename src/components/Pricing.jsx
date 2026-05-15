@@ -24,7 +24,7 @@ const Pricing = () => {
       description: "Complete life roadmap and planetary guidance through ancient Vedic wisdom.",
       tag: "FEATURED",
       color: "from-[#3B82F6]/20 via-transparent to-[#8B5CF6]/20",
-      glow: "group-hover:shadow-[0_0_50px_rgba(59,130,246,0.2)]",
+      glow: "shadow-[0_0_50px_rgba(59,130,246,0.15)]",
       accent: "#3B82F6"
     },
     {
@@ -35,7 +35,7 @@ const Pricing = () => {
       description: "Deep compatibility analysis for a prosperous and harmonious lifelong union.",
       tag: "EXCLUSIVE",
       color: "from-[#D4AF37]/20 via-transparent to-[#F59E0B]/20",
-      glow: "group-hover:shadow-[0_0_50px_rgba(212,175,55,0.2)]",
+      glow: "shadow-[0_0_50px_rgba(212,175,55,0.15)]",
       accent: "#D4AF37",
       isKundali: true
     }
@@ -70,12 +70,12 @@ const Pricing = () => {
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               className={`relative group rounded-[24px] p-5 border shadow-2xl transition-all duration-700 hover:-translate-y-4 ${item.glow} ${
                 isDarkMode
-                  ? 'bg-white/[0.03] border-white/10 hover:bg-white/[0.05]'
+                  ? 'bg-white/[0.05] border-white/10 hover:bg-white/[0.08]'
                   : 'bg-white border-black/[0.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)]'
               }`}
             >
-              {/* Animated Background Glow */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 rounded-[24px]`} />
+              {/* Animated Background Glow - Now Always Visible */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-100 transition-opacity duration-700 -z-10 rounded-[24px]`} />
               
               {/* Card Decoration */}
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-current opacity-[0.02] rounded-full blur-3xl pointer-events-none" />
