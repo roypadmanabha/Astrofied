@@ -132,7 +132,7 @@ const Pricing = () => {
                     }`}>Price</span>
                     <div className="flex items-baseline gap-1">
                       <span className={`text-sm font-bold ${isDarkMode ? 'text-white/50' : 'text-gray-400'}`}>₹</span>
-                      <span className={`text-3xl font-black tracking-tighter ${
+                      <span className={`text-3xl font-bold ${
                         isDarkMode ? 'text-white' : 'text-gray-900'
                       }`}>
                         {item.price}
