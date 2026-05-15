@@ -340,41 +340,35 @@ export default function Feedback() {
         e.preventDefault();
 
         if (userOtp.join('') !== generatedOtp) {
-            alert("You have entered a wrong OTP. Try again!");
             setStatus('otp_error');
-            // Remove automatic reload to allow user to try again
-            setUserOtp(['', '', '', '', '', '']);
-            otpRefs.current[0]?.focus();
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
             return;
         }
 
         setStatus('loading');
 
         try {
-            // Using the same Google Sheets script as Kundali.jsx for reliability
-            const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyzw6F0g25xoT0eAcbZbrarrt9autYIZQC8z5YTVW_EpggHG3bh9EfnN9ITJUyzYQvd5Q/exec";
-            
-            await fetch(GOOGLE_SHEET_URL, {
+            const response = await fetch("https://formsubmit.co/ajax/contact.astrofied@gmail.com", {
                 method: "POST",
-                mode: "no-cors", // Crucial: This avoids CORS 'Failed to fetch' issues
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    type: 'Verified Feedback',
                     name: `${formData.firstName} ${formData.lastName}`,
                     email: formData.email,
                     mobile: `${formData.countryCode} ${formData.mobile}`,
                     message: formData.message,
-                    timestamp: new Date().toISOString()
+                    _replyto: formData.email,
+                    _subject: `Verified Feedback from ${formData.firstName} ${formData.lastName} - Astrofied`,
+                    _captcha: "false",
+                    _template: "table"
                 })
             });
 
-            // With no-cors, we don't get a response object we can read, 
-            // but the request is sent. We proceed to success.
-            console.log("Feedback data sent to Google Sheets");
-            
-            // Send Auto-Reply via EmailJS (already working)
+            if (response.ok) {
                 // Send Auto-Reply via EmailJS
                 const autoReplyParams = {
                     first_name: formData.firstName,
@@ -397,11 +391,13 @@ export default function Feedback() {
                 setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
                 setUserOtp(['', '', '', '', '', '']);
                 setGeneratedOtp('');
-            } catch (error) {
-                console.error("Submission Error:", error);
-                alert("Submission failed. Please try again or check your connection.");
+            } else {
                 setStatus('error');
             }
+        } catch (error) {
+            console.error("Submission Error:", error);
+            setStatus('error');
+        }
     };
 
     return (
