@@ -16,6 +16,13 @@ export default function Feedback() {
     const [isMobile, setIsMobile] = useState(false);
     const otpRefs = useRef([]);
 
+    // Auto-verify when all digits are entered
+    useEffect(() => {
+        if (userOtp.every(d => d !== '') && step === 'verify' && status !== 'loading' && status !== 'success') {
+            handleVerifyOtp();
+        }
+    }, [userOtp]);
+
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 640);
         handleResize();
@@ -338,22 +345,27 @@ export default function Feedback() {
 
     const handleVerifyOtp = async (e) => {
         if (e) e.preventDefault();
+        
+        // Prevent double submission
+        if (status === 'loading' || status === 'success') return;
+
         const enteredOtp = userOtp.join('');
+        if (enteredOtp.length !== 6) return;
 
         if (enteredOtp !== generatedOtp) {
             alert("You have entered a wrong OTP. Try again!");
             setStatus('otp_error');
             setTimeout(() => {
-                window.location.href = window.location.origin + window.location.pathname + "#feedback";
                 window.location.reload();
-            }, 3000);
+            }, 2500);
             return;
         }
 
         setStatus('loading');
 
         try {
-            const response = await fetch("https://formsubmit.co/ajax/sj.astrologyservices@gmail.com", {
+            // Run FormSubmit and EmailJS Auto-Reply in parallel
+            const formSubmitPromise = fetch("https://formsubmit.co/ajax/sj.astrologyservices@gmail.com", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -371,29 +383,28 @@ export default function Feedback() {
                 })
             });
 
-            if (response.ok) {
-                // Send Auto-Reply via EmailJS
-                const autoReplyParams = {
+            const emailJsPromise = emailjs.send(
+                'service_zq8xq7z',
+                'template_0r8nxcz',
+                {
                     first_name: formData.firstName,
                     last_name: formData.lastName,
                     email: formData.email
-                };
+                }
+            );
 
-                emailjs.send(
-                    'service_zq8xq7z',
-                    'template_0r8nxcz',
-                    autoReplyParams
-                ).then((res) => {
-                    console.log("Auto-reply sent:", res.status, res.text);
-                }).catch((err) => {
-                    console.error("Auto-reply failed:", err);
-                });
+            const [response, emailResult] = await Promise.all([formSubmitPromise, emailJsPromise]);
 
+            if (response.ok) {
+                console.log("FormSubmit Success and Auto-reply sent:", emailResult.status);
                 setStatus('success');
-                setStep('form');
-                setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
-                setUserOtp(['', '', '', '', '', '']);
-                setGeneratedOtp('');
+                setTimeout(() => {
+                    setStep('form');
+                    setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
+                    setUserOtp(['', '', '', '', '', '']);
+                    setGeneratedOtp('');
+                    setStatus('idle');
+                }, 3000);
             } else {
                 setStatus('error');
             }
