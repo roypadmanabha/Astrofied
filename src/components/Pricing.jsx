@@ -21,9 +21,10 @@ const Pricing = () => {
       title: "Overall Horoscope Analysis",
       price: "750",
       image: pricingHoroscope,
-      description: "Complete life roadmap and planetary guidance.",
+      description: "Complete life roadmap and planetary guidance through ancient Vedic wisdom.",
       tag: "FEATURED",
-      color: "from-blue-500/20 to-purple-500/20",
+      color: "from-[#3B82F6]/20 via-transparent to-[#8B5CF6]/20",
+      glow: "group-hover:shadow-[0_0_50px_rgba(59,130,246,0.2)]",
       accent: "#3B82F6"
     },
     {
@@ -31,9 +32,10 @@ const Pricing = () => {
       title: "Horoscope Matching",
       price: "1500",
       image: pricingKundali,
-      description: "Deep compatibility analysis for a prosperous union.",
-      tag: "Exclusive",
-      color: "from-red-500/20 to-gold/20",
+      description: "Deep compatibility analysis for a prosperous and harmonious lifelong union.",
+      tag: "EXCLUSIVE",
+      color: "from-[#D4AF37]/20 via-transparent to-[#F59E0B]/20",
+      glow: "group-hover:shadow-[0_0_50px_rgba(212,175,55,0.2)]",
       accent: "#D4AF37",
       isKundali: true
     }
@@ -58,72 +60,103 @@ const Pricing = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
           {pricingData.map((item, idx) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0.8, y: 10 }}
+              initial={{ opacity: 0.8, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className={`relative group rounded-[2.5rem] p-4 border shadow-2xl overflow-hidden transition-all duration-500 ${isDarkMode
-                ? '!bg-[#17202A] border-white/10 hover:border-gold/30'
-                : 'bg-[#F5F5DC] border-black/5 hover:border-purple-600/30'
-                }`}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              className={`relative group rounded-[3rem] p-5 border shadow-2xl transition-all duration-700 hover:-translate-y-4 ${item.glow} ${
+                isDarkMode
+                  ? 'bg-white/[0.03] border-white/10 hover:bg-white/[0.05]'
+                  : 'bg-white border-black/[0.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)]'
+              }`}
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-30 -z-10`} />
+              {/* Animated Background Glow */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 rounded-[3rem]`} />
+              
+              {/* Card Decoration */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-current opacity-[0.02] rounded-full blur-3xl pointer-events-none" />
 
               {/* Image Container */}
-              <div className={`relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-8 ${isDarkMode ? 'bg-black/40' : 'bg-[#FAF9F6] shadow-inner'}`}>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.4 }}
-                  className="w-full h-full"
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className={`w-full h-full object-cover select-none pointer-events-none ${item.isKundali
-                      ? (isDarkMode ? '' : 'mix-blend-multiply')
-                      : ''
-                      }`}
-                    style={item.isKundali ? {
-                      mixBlendMode: isDarkMode ? 'screen' : 'multiply',
-                      filter: isDarkMode ? 'invert(1) brightness(0.9)' : 'none'
-                    } : {}}
-                  />
-                </motion.div>
-                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full z-10 shadow-lg">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-white">{item.tag}</span>
+              <div className={`relative aspect-[16/10] rounded-[2.5rem] overflow-hidden mb-8 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] ${
+                isDarkMode ? 'bg-black/40' : 'bg-[#FAF9F6]'
+              }`}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className={`w-full h-full object-cover select-none pointer-events-none transition-all duration-700 group-hover:scale-110 ${
+                    item.isKundali ? (isDarkMode ? '' : 'mix-blend-multiply') : ''
+                  }`}
+                  style={item.isKundali ? {
+                    mixBlendMode: isDarkMode ? 'screen' : 'multiply',
+                    filter: isDarkMode ? 'invert(1) brightness(0.9) contrast(1.1)' : 'none'
+                  } : {}}
+                />
+                
+                {/* Badge Overlay */}
+                <div className="absolute top-6 right-6">
+                  <div className="bg-black/30 backdrop-blur-xl border border-white/20 px-5 py-2 rounded-2xl shadow-2xl">
+                    <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white">
+                      {item.tag}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {/* Content */}
+              {/* Content Area */}
               <div className="px-4 pb-4">
-                <h3 className={`text-2xl md:text-3xl font-black mb-2 font-mulish ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>
-                  {item.title}
-                </h3>
-                <p className={`text-sm md:text-base font-mulish opacity-60 mb-6 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                  {item.description}
-                </p>
+                <div className="flex flex-col gap-3 mb-8">
+                  <h3 className={`text-3xl lg:text-4xl font-black font-mulish leading-tight ${
+                    isDarkMode ? 'text-white' : 'text-[#4B0082]'
+                  }`}>
+                    {item.title}
+                  </h3>
+                  <p className={`text-base font-mulish font-medium leading-relaxed opacity-60 ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
+                    {item.description}
+                  </p>
+                </div>
 
-                <div className="flex items-center justify-between mt-auto bg-black/5 dark:bg-white/5 p-4 rounded-2xl">
+                <div className={`flex items-center justify-between mt-auto p-6 rounded-[2rem] backdrop-blur-xl border transition-colors duration-500 ${
+                  isDarkMode 
+                    ? 'bg-white/5 border-white/5 group-hover:bg-white/[0.08]' 
+                    : 'bg-black/[0.02] border-black/[0.03] group-hover:bg-black/[0.04]'
+                }`}>
                   <div className="flex flex-col">
-                    <span className={`text-xs font-bold uppercase tracking-widest ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>Price</span>
-                    <span className={`text-2xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                      ₹ {item.price}
-                    </span>
+                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 ${
+                      isDarkMode ? 'text-gold' : 'text-purple-600'
+                    }`}>Investment</span>
+                    <div className="flex items-baseline gap-1">
+                      <span className={`text-sm font-bold ${isDarkMode ? 'text-white/50' : 'text-gray-400'}`}>₹</span>
+                      <span className={`text-3xl font-black tracking-tighter ${
+                        isDarkMode ? 'text-white' : 'text-gray-900'
+                      }`}>
+                        {item.price}
+                      </span>
+                    </div>
                   </div>
+
                   <motion.button
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.05, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
-                    className={`px-6 py-3 rounded-xl font-black text-xs tracking-widest uppercase shadow-lg transition-all ${isDarkMode
-                      ? 'bg-gold text-black hover:bg-white shadow-gold/20'
-                      : 'bg-[#4B0082] text-white hover:bg-black shadow-[#4B0082]/20'
-                      }`}
+                    className={`group/btn flex items-center gap-3 px-8 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ${
+                      isDarkMode
+                        ? 'bg-gold text-black hover:bg-white shadow-gold/20'
+                        : 'bg-[#4B0082] text-white hover:bg-black shadow-purple-900/20'
+                    }`}
                   >
                     Book Now
+                    <motion.span
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      →
+                    </motion.span>
                   </motion.button>
                 </div>
               </div>
