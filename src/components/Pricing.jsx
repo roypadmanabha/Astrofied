@@ -129,7 +129,7 @@ const Pricing = () => {
                   <div className="flex flex-col">
                     <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 ${
                       isDarkMode ? 'text-gold' : 'text-purple-600'
-                    }`}>Investment</span>
+                    }`}>Price</span>
                     <div className="flex items-baseline gap-1">
                       <span className={`text-sm font-bold ${isDarkMode ? 'text-white/50' : 'text-gray-400'}`}>₹</span>
                       <span className={`text-3xl font-black tracking-tighter ${
