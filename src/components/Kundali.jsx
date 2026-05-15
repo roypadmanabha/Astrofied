@@ -361,7 +361,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`p-6 md:p-10 lg:p-12 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative ${isDarkMode
+                            className={`p-6 md:p-10 lg:p-12 rounded-[2.5rem] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative lg:aspect-square flex flex-col justify-center ${isDarkMode
                                 ? 'border-gold !bg-[#17202A]'
                                 : 'border-[#4B0082] bg-[#F5F5DC]'
                                 }`}
