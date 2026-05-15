@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
-import { Sparkles, MapPin, Calendar, Clock, User, Loader2, X, Download, ShieldCheck } from 'lucide-react';
+import { Sparkles, MapPin, Calendar, Clock, User, Loader2, X, Download, ShieldCheck, RotateCcw } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import logo from '../assets/logo.png';
 import { useTheme } from '../context/ThemeContext';
@@ -33,6 +33,25 @@ const Kundali = () => {
         lon: '',
         tzo: '+05:30'
     });
+    
+    const handleReset = () => {
+        setFormData({
+            firstName: '',
+            lastName: '',
+            mobile: '',
+            email: '',
+            gender: '',
+            dob: '',
+            tob: '',
+            city: '',
+            lat: '',
+            lon: '',
+            tzo: '+05:30'
+        });
+        setFieldErrors({});
+        setSuggestions([]);
+        setError(null);
+    };
 
     const [fieldErrors, setFieldErrors] = useState({});
     const [suggestions, setSuggestions] = useState([]);
@@ -576,6 +595,14 @@ const Kundali = () => {
                                 <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>
                                     Note: We don't share or tamper your personal data
                                 </p>
+
+                                <button
+                                    type="button"
+                                    onClick={handleReset}
+                                    className={`mt-4 text-[10px] font-bold uppercase tracking-widest opacity-30 hover:opacity-100 transition-all flex items-center justify-center gap-2 mx-auto ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}
+                                >
+                                    <RotateCcw size={10} /> Reset Form
+                                </button>
                             </form>
                         </motion.div>
                     </div>
