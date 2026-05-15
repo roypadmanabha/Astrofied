@@ -425,7 +425,7 @@ const Kundali = () => {
                                                 type="tel"
                                                 name="mobile"
                                                 required
-                                                placeholder="10 Digits"
+                                                placeholder=""
                                                 className={`w-full bg-transparent py-1 text-sm md:text-base font-bold focus:outline-none ${isDarkMode
                                                     ? 'text-white placeholder:text-gray-700'
                                                     : 'text-black placeholder:text-gray-400'
@@ -444,7 +444,7 @@ const Kundali = () => {
                                             type="email"
                                             name="email"
                                             required
-                                            placeholder="your@email.com"
+                                            placeholder=""
                                             className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
