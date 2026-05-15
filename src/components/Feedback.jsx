@@ -634,10 +634,10 @@ export default function Feedback() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             required
-                                            rows={2}
+                                            rows={4}
                                             maxLength={87}
                                             placeholder="Write your feedback..."
-                                            className={`w-full px-5 py-2.5 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode
+                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode
                                                 ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 } ${errors.message ? 'border-red-500' : ''}`}

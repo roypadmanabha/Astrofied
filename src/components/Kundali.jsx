@@ -374,7 +374,7 @@ const Kundali = () => {
                     </div>
 
                     {/* Right Side: Compact Form Container */}
-                    <div className="w-full lg:w-[45%] max-w-lg mx-auto lg:mx-0">
+                    <div className="w-[87%] sm:w-full lg:w-[45%] max-w-lg mx-auto lg:mx-0">
                         <motion.div
                             initial={{ opacity: 0.8, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
