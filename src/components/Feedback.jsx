@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Send, CheckCircle, AlertCircle, ShieldCheck, RefreshCw } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, ShieldCheck, RefreshCw, Search, ChevronDown } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 emailjs.init('wOEMDGNTN7YJ4O9rb');
 
@@ -15,6 +15,9 @@ export default function Feedback() {
     const [generatedOtp, setGeneratedOtp] = useState('');
     const [isMobile, setIsMobile] = useState(false);
     const otpRefs = useRef([]);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const dropdownRef = useRef(null);
 
 
 
@@ -24,6 +27,21 @@ export default function Feedback() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const filteredCountryCodes = countryCodes.filter(c => 
+        c.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        c.code.includes(searchQuery)
+    );
 
     const validateField = (name, value) => {
         let error = "";
@@ -519,21 +537,74 @@ export default function Feedback() {
                                     <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Phone Number</label>
                                     <div className="flex flex-col gap-1">
                                         <div className="flex gap-2">
-                                        <select
-                                            name="countryCode"
-                                            value={formData.countryCode}
-                                            onChange={handleChange}
-                                            className={`w-16 sm:w-24 px-1 sm:px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer min-w-0 ${isDarkMode
-                                                ? 'border-white text-white bg-black focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                                }`}
-                                        >
-                                            {countryCodes.map((c) => (
-                                                <option key={c.code + c.name} value={c.code} className="text-black">
-                                                    {isMobile ? c.code : `${c.flag} ${c.code}`}
-                                                </option>
-                                            ))}
-                                        </select>
+                                        <div className="relative" ref={dropdownRef}>
+                                            <button
+                                                type="button"
+                                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                                className={`w-16 sm:w-32 px-2 sm:px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all flex items-center justify-between gap-1 sm:gap-2 ${isDarkMode
+                                                    ? 'border-white text-white focus:ring-white focus:border-white'
+                                                    : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                    }`}
+                                            >
+                                                <span className="truncate">{formData.countryCode}</span>
+                                                <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                                            </button>
+
+                                            <AnimatePresence>
+                                                {isDropdownOpen && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                        animate={{ opacity: 1, y: 5, scale: 1 }}
+                                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                        className={`absolute left-0 top-full z-50 w-64 sm:w-72 rounded-2xl border shadow-2xl overflow-hidden backdrop-blur-xl ${isDarkMode
+                                                            ? 'bg-[#1a1a1a] border-white/20 text-white'
+                                                            : 'bg-white border-black/10 text-gray-900'
+                                                            }`}
+                                                    >
+                                                        <div className={`p-3 border-b ${isDarkMode ? 'border-white/10' : 'border-black/5'}`}>
+                                                            <div className="relative">
+                                                                <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`} />
+                                                                <input
+                                                                    type="text"
+                                                                    placeholder="Search country..."
+                                                                    value={searchQuery}
+                                                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                                                    className={`w-full pl-9 pr-4 py-2 text-sm rounded-lg border-none focus:ring-1 focus:ring-gold outline-none ${isDarkMode
+                                                                        ? 'bg-white/5 text-white placeholder-white/40'
+                                                                        : 'bg-gray-100 text-gray-900 placeholder-gray-500'
+                                                                        }`}
+                                                                    onClick={(e) => e.stopPropagation()}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="max-h-60 overflow-y-auto custom-scrollbar">
+                                                            {filteredCountryCodes.map((c) => (
+                                                                <button
+                                                                    key={c.code + c.name}
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        setFormData({ ...formData, countryCode: c.code });
+                                                                        setIsDropdownOpen(false);
+                                                                        setSearchQuery('');
+                                                                    }}
+                                                                    className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 transition-colors ${isDarkMode
+                                                                        ? 'hover:bg-white/10'
+                                                                        : 'hover:bg-black/5'
+                                                                        } ${formData.countryCode === c.code ? (isDarkMode ? 'bg-white/10 text-gold' : 'bg-black/5 text-[#4B0082]') : ''}`}
+                                                                >
+                                                                    <span className="text-lg">{c.flag}</span>
+                                                                    <span className="flex-1 truncate">{c.name}</span>
+                                                                    <span className={`text-xs font-bold ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>{c.code}</span>
+                                                                </button>
+                                                            ))}
+                                                            {filteredCountryCodes.length === 0 && (
+                                                                <div className="p-4 text-center text-sm text-gray-500">No results found</div>
+                                                            )}
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
                                         <input
                                             type="tel"
                                             name="mobile"
