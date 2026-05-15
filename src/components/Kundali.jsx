@@ -269,25 +269,10 @@ const Kundali = () => {
 
         if (enteredOtp === generatedOtp) {
             setOtpLoading(true);
-            try {
-                // First: Send to Google Sheet
-                await sendToGoogleSheet();
-
-                // Second: Generate Kundali Chart via Railway Backend
-                const API_URL = "https://astrofied-production.up.railway.app/api/kundali";
-                const res = await axios.post(API_URL, formData);
-                
-                setChartSvg(res.data);
-                setOtpLoading(false);
-                setShowOtpModal(false);
-                setIsModalOpen(true); // Open the Kundali modal
-                setOtpError('');
-            } catch (err) {
-                console.error("Generation Error:", err);
-                const serverError = err.response?.data?.error || "Failed to generate chart. Please try again.";
-                setOtpError(serverError);
-                setOtpLoading(false);
-            }
+            await sendToGoogleSheet();
+            setOtpLoading(false);
+            setShowOtpModal(false);
+            setShowNotice(true); // Show high volume error notice
         } else {
             setOtpError("Wrong OTP! Auto-refreshing...");
             setTimeout(() => {
