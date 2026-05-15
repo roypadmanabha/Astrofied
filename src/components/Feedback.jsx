@@ -634,7 +634,7 @@ export default function Feedback() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             required
-                                            rows={4}
+                                            rows={isMobile ? 1 : 4}
                                             maxLength={87}
                                             placeholder="Write your feedback..."
                                             className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode
