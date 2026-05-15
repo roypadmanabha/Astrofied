@@ -393,10 +393,14 @@ export default function Feedback() {
                 setUserOtp(['', '', '', '', '', '']);
                 setGeneratedOtp('');
             } else {
+                const errorData = await response.json().catch(() => ({}));
+                console.error("FormSubmit Error:", errorData);
+                alert("Submission failed. Please check your internet or try again.");
                 setStatus('error');
             }
         } catch (error) {
             console.error("Submission Error:", error);
+            alert("Network error: " + error.message);
             setStatus('error');
         }
     };
@@ -454,6 +458,12 @@ export default function Feedback() {
                                 <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-blue-100 border border-blue-200 text-blue-700 flex items-center gap-3">
                                     <ShieldCheck className="w-5 h-5 flex-shrink-0" />
                                     <span className="text-sm font-medium">An OTP has been sent to {formData.email}. Please verify to proceed.</span>
+                                </motion.div>
+                            )}
+                            {status === 'error' && (
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
+                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                    <span className="text-sm font-medium">Something went wrong. Please try again later.</span>
                                 </motion.div>
                             )}
                         </AnimatePresence>
