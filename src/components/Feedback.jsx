@@ -346,14 +346,12 @@ export default function Feedback() {
     const handleVerifyOtp = async (e) => {
         if (e) e.preventDefault();
         
-        // Prevent double submission
         if (status === 'loading' || status === 'success') return;
 
         const enteredOtp = userOtp.join('');
         if (enteredOtp.length !== 6) return;
 
         if (enteredOtp !== generatedOtp) {
-            alert("You have entered a wrong OTP. Try again!");
             setStatus('otp_error');
             setTimeout(() => {
                 window.location.reload();
@@ -361,11 +359,13 @@ export default function Feedback() {
             return;
         }
 
-        setStatus('loading');
+        // Correct OTP sequence:
+        // 1. Show success status immediately
+        setStatus('success');
 
         try {
-            // Run FormSubmit and EmailJS Auto-Reply in parallel
-            const formSubmitPromise = fetch("https://formsubmit.co/ajax/sj.astrologyservices@gmail.com", {
+            // 2. Send FormSubmit and EmailJS in parallel
+            const formSubmitPromise = fetch("https://formsubmit.co/ajax/contact.astrofied@gmail.com", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -393,24 +393,20 @@ export default function Feedback() {
                 }
             );
 
-            const [response, emailResult] = await Promise.all([formSubmitPromise, emailJsPromise]);
+            await Promise.all([formSubmitPromise, emailJsPromise]);
+            console.log("Feedback submitted and auto-reply sent.");
 
-            if (response.ok) {
-                console.log("FormSubmit Success and Auto-reply sent:", emailResult.status);
-                setStatus('success');
-                setTimeout(() => {
-                    setStep('form');
-                    setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
-                    setUserOtp(['', '', '', '', '', '']);
-                    setGeneratedOtp('');
-                    setStatus('idle');
-                }, 3000);
-            } else {
-                setStatus('error');
-            }
+            // After a delay, reset form
+            setTimeout(() => {
+                setStep('form');
+                setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
+                setUserOtp(['', '', '', '', '', '']);
+                setGeneratedOtp('');
+                setStatus('idle');
+            }, 4000);
+
         } catch (error) {
             console.error("Submission Error:", error);
-            setStatus('error');
         }
     };
 
