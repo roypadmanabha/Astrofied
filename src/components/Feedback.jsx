@@ -652,7 +652,7 @@ export default function Feedback() {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     type="submit"
-                                    disabled={userOtp.some(d => !d) || status === 'loading'}
+                                    disabled={userOtp.some(d => !d) || status === 'loading' || status === 'success' || status === 'otp_error'}
                                     className={`w-full py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed ${isDarkMode
                                         ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
                                         : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
