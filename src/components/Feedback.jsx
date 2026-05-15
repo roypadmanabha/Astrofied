@@ -11,7 +11,7 @@ export default function Feedback() {
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate, otp_sent, otp_error
     const [step, setStep] = useState('form'); // form, verify
-    const [userOtp, setUserOtp] = useState('');
+    const [userOtp, setUserOtp] = useState(['', '', '', '', '', '']);
     const [generatedOtp, setGeneratedOtp] = useState('');
     const [isMobile, setIsMobile] = useState(false);
     const otpRefs = useRef([]);
@@ -339,13 +339,12 @@ export default function Feedback() {
     const handleVerifyOtp = async (e) => {
         e.preventDefault();
 
-        if (userOtp !== generatedOtp) {
+        if (userOtp.join('') !== generatedOtp) {
             alert("You have entered a wrong OTP. Try again!");
             setStatus('otp_error');
-            setTimeout(() => {
-                window.location.href = window.location.origin + window.location.pathname + "#feedback";
-                window.location.reload();
-            }, 3000);
+            // Remove automatic reload to allow user to try again
+            setUserOtp(['', '', '', '', '', '']);
+            otpRefs.current[0]?.focus();
             return;
         }
 
@@ -391,7 +390,7 @@ export default function Feedback() {
                 setStatus('success');
                 setStep('form');
                 setFormData({ firstName: '', lastName: '', email: '', mobile: '', countryCode: '+91', message: '' });
-                setUserOtp('');
+                setUserOtp(['', '', '', '', '', '']);
                 setGeneratedOtp('');
             } else {
                 setStatus('error');
@@ -612,26 +611,16 @@ export default function Feedback() {
                                             ref={(el) => (otpRefs.current[index] = el)}
                                             type="text"
                                             maxLength={1}
-                                            value={userOtp[index] || ''}
+                                            value={userOtp[index]}
                                             onChange={(e) => {
                                                 const val = e.target.value.replace(/\D/g, '').slice(-1);
-                                                const newOtp = userOtp.padEnd(6, ' ').split('');
-                                                newOtp[index] = val || ' ';
-                                                const finalOtp = newOtp.join('').replace(/\s/g, ' ').trimEnd();
-                                                // Simplified:
-                                                const currentOtpArr = userOtp.split('');
-                                                currentOtpArr[index] = val;
-                                                const updatedOtp = currentOtpArr.join('');
+                                                const newOtp = [...userOtp];
+                                                newOtp[index] = val;
+                                                setUserOtp(newOtp);
                                                 
-                                                // Robust way:
-                                                const otpArray = ['', '', '', '', '', ''];
-                                                for(let i=0; i<6; i++) {
-                                                    if(i === index) otpArray[i] = val;
-                                                    else otpArray[i] = userOtp[i] || '';
+                                                if (val && index < 5) {
+                                                    otpRefs.current[index + 1].focus();
                                                 }
-                                                setUserOtp(otpArray.join(''));
-                                                
-                                                if (val && index < 5) otpRefs.current[index + 1].focus();
                                             }}
                                             onKeyDown={(e) => {
                                                 if (e.key === 'Backspace') {
@@ -646,17 +635,21 @@ export default function Feedback() {
                                             }}
                                             onPaste={(e) => {
                                                 e.preventDefault();
-                                                const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
-                                                if (pastedData) {
-                                                    setUserOtp(pastedData);
-                                                    const nextIndex = Math.min(pastedData.length, 5);
-                                                    otpRefs.current[nextIndex].focus();
+                                                const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6).split('');
+                                                if (pastedData.length > 0) {
+                                                    const newOtp = [...userOtp];
+                                                    pastedData.forEach((char, i) => {
+                                                        if (i < 6) newOtp[i] = char;
+                                                    });
+                                                    setUserOtp(newOtp);
+                                                    const nextFocus = Math.min(pastedData.length, 5);
+                                                    otpRefs.current[nextFocus]?.focus();
                                                 }
                                             }}
                                             className={`w-9 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
                                                 ? 'border-white text-white focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
-                                                }`}
+                                                } ${status === 'otp_error' ? 'border-red-500' : ''}`}
                                         />
                                     ))}
                                 </div>
@@ -665,7 +658,7 @@ export default function Feedback() {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     type="submit"
-                                    disabled={userOtp.length !== 6 || status === 'loading'}
+                                    disabled={userOtp.some(d => !d) || status === 'loading'}
                                     className={`w-full py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed ${isDarkMode
                                         ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
                                         : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
@@ -680,7 +673,7 @@ export default function Feedback() {
                                         type="button"
                                         onClick={() => {
                                             setStep('form');
-                                            setUserOtp('');
+                                            setUserOtp(['', '', '', '', '', '']);
                                             setStatus('idle');
                                         }}
                                         className={`text-sm font-bold flex items-center justify-center gap-2 transition-colors ${isDarkMode ? 'text-gold/60 hover:text-gold' : 'text-[#4B0082]/60 hover:text-[#4B0082]'
