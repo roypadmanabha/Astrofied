@@ -403,7 +403,7 @@ export default function Feedback() {
 
     return (
         <section id="feedback" className="py-24 relative overflow-hidden">
-            <div className="container mx-auto px-6 max-w-6xl">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
                 <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start lg:items-center justify-between">
                     <motion.div
                         initial={{ opacity: 0.8, x: -10 }}
@@ -428,7 +428,7 @@ export default function Feedback() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className={`w-full lg:w-6/12 rounded-3xl p-5 md:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
+                        className={`w-full lg:w-6/12 rounded-3xl p-4 sm:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
                             }`}
                     >
                         <AnimatePresence mode="wait">
@@ -523,7 +523,7 @@ export default function Feedback() {
                                             name="countryCode"
                                             value={formData.countryCode}
                                             onChange={handleChange}
-                                            className={`w-16 sm:w-24 px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer ${isDarkMode
+                                            className={`w-16 sm:w-24 px-1 sm:px-2 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all cursor-pointer min-w-0 ${isDarkMode
                                                 ? 'border-white text-white bg-black focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 bg-[#F3E8FF] focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 }`}
@@ -542,7 +542,7 @@ export default function Feedback() {
                                             required
                                             maxLength={10}
                                             placeholder="Mobile Number"
-                                            className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                            className={`flex-1 min-w-0 px-3 sm:px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
                                                 ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
                                                 : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
                                                 } ${errors.mobile ? 'border-red-500' : ''}`}
