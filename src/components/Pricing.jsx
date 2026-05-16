@@ -42,20 +42,20 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className={`py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-[#FAF9F6]'}`}>
+    <section id="pricing" className={`py-16 md:py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-[#FAF9F6]'}`}>
       <div className="container mx-auto px-6 max-w-[1200px]">
         <motion.div
           initial={{ opacity: 0.8, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-tight">
             <span style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>Best</span>{' '}
             <span style={{ color: isDarkMode ? '#FFFFFF' : '#4B0082' }}>Prices</span>
           </h2>
-          <p className={`text-lg md:text-xl font-mulish opacity-70 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+          <p className={`text-base md:text-xl font-mulish opacity-70 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
             High-quality astrological guidance made affordable for everyone.
           </p>
         </motion.div>
@@ -68,7 +68,7 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`relative group rounded-[24px] p-5 border shadow-2xl transition-all duration-700 hover:-translate-y-4 ${item.glow} ${
+              className={`relative group rounded-[24px] p-4 sm:p-5 border shadow-2xl transition-all duration-700 hover:-translate-y-4 ${item.glow} ${
                 isDarkMode
                   ? 'bg-white/[0.03] border-white/10 hover:bg-white/[0.05]'
                   : 'bg-white border-black/[0.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)]'
@@ -109,19 +109,19 @@ const Pricing = () => {
               {/* Content Area */}
               <div className="px-4 pb-4">
                 <div className="flex flex-col gap-3 mb-8">
-                  <h3 className={`text-3xl lg:text-4xl font-black font-mulish leading-tight ${
+                  <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-black font-mulish leading-tight ${
                     isDarkMode ? 'text-white' : 'text-[#4B0082]'
                   }`}>
                     {item.title}
                   </h3>
-                  <p className={`text-base font-mulish font-medium leading-relaxed opacity-60 ${
+                  <p className={`text-sm sm:text-base font-mulish font-medium leading-relaxed opacity-60 ${
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   }`}>
                     {item.description}
                   </p>
                 </div>
 
-                <div className={`flex items-center justify-between mt-auto p-6 rounded-[24px] backdrop-blur-xl border transition-colors duration-500 ${
+                <div className={`flex items-center justify-between mt-auto p-4 sm:p-6 rounded-[24px] backdrop-blur-xl border transition-colors duration-500 ${
                   isDarkMode 
                     ? 'bg-white/5 border-white/5 group-hover:bg-white/[0.08]' 
                     : 'bg-black/[0.02] border-black/[0.03] group-hover:bg-black/[0.04]'
@@ -132,7 +132,7 @@ const Pricing = () => {
                     }`}>Price</span>
                     <div className="flex items-baseline gap-1">
                       <span className={`text-sm font-bold ${isDarkMode ? 'text-white/50' : 'text-gray-400'}`}>₹</span>
-                      <span className={`text-3xl font-bold ${
+                      <span className={`text-2xl sm:text-3xl font-bold ${
                         isDarkMode ? 'text-white' : 'text-gray-900'
                       }`}>
                         {item.price}
@@ -144,7 +144,7 @@ const Pricing = () => {
                     whileHover={{ scale: 1.05, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
-                    className={`group/btn flex items-center gap-3 px-8 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ${
+                    className={`group/btn flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[9px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ${
                       isDarkMode
                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                         : 'bg-[#4B0082] text-white hover:bg-black shadow-purple-900/20'
