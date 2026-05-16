@@ -121,7 +121,7 @@ const Pricing = () => {
                   </p>
                 </div>
 
-                <div className={`flex items-center justify-between mt-auto p-4 sm:p-6 rounded-[24px] backdrop-blur-xl border transition-colors duration-500 ${
+                <div className={`flex items-center justify-between mt-auto p-3 sm:p-6 rounded-[24px] backdrop-blur-xl border transition-colors duration-500 ${
                   isDarkMode 
                     ? 'bg-white/5 border-white/5 group-hover:bg-white/[0.08]' 
                     : 'bg-black/[0.02] border-black/[0.03] group-hover:bg-black/[0.04]'
@@ -132,7 +132,7 @@ const Pricing = () => {
                     }`}>Price</span>
                     <div className="flex items-baseline gap-1">
                       <span className={`text-sm font-bold ${isDarkMode ? 'text-white/50' : 'text-gray-400'}`}>₹</span>
-                      <span className={`text-2xl sm:text-3xl font-bold ${
+                      <span className={`text-xl sm:text-3xl font-bold ${
                         isDarkMode ? 'text-white' : 'text-gray-900'
                       }`}>
                         {item.price}
@@ -144,7 +144,7 @@ const Pricing = () => {
                     whileHover={{ scale: 1.05, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
-                    className={`group/btn flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[9px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ${
+                    className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 whitespace-nowrap ${
                       isDarkMode
                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                         : 'bg-[#4B0082] text-white hover:bg-black shadow-purple-900/20'
