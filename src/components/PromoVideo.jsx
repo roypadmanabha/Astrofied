@@ -58,7 +58,7 @@ const PromoVideo = () => {
                 className="absolute inset-0 flex items-center justify-center rounded-[5px] transition-colors hover:bg-black/10"
               >
                 <CirclePlay 
-                  className="text-[#fffb00] rounded-full transition-transform hover:scale-110" 
+                  className="text-[#9d00ff] rounded-full transition-transform hover:scale-110" 
                   size={80} 
                   strokeWidth={1.5} 
                 />
