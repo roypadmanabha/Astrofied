@@ -28,7 +28,7 @@ const PromoVideo = () => {
     <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-[#05010d]' : 'bg-[#FAF9F6]'}`}>
       <div className="container mx-auto max-w-[1200px] flex justify-center">
         <motion.div 
-          className="relative w-full max-w-4xl cursor-pointer rounded-[15px] shadow-2xl overflow-hidden"
+          className="relative w-full max-w-4xl cursor-pointer shadow-2xl overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 1.01 }}
@@ -40,7 +40,7 @@ const PromoVideo = () => {
           <video
             ref={videoRef}
             src={promoVideo}
-            className="w-full h-auto object-cover rounded-[15px]"
+            className="w-full h-auto object-cover"
             playsInline
             onEnded={handleVideoEnded}
             onPause={() => setIsPlaying(false)}
@@ -55,7 +55,7 @@ const PromoVideo = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3 }}
-                className="absolute inset-0 flex items-center justify-center rounded-[15px] transition-colors hover:bg-black/10"
+                className="absolute inset-0 flex items-center justify-center transition-colors hover:bg-black/10"
               >
                 <div className="w-16 h-16 md:w-20 md:h-20 bg-gold/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.4)]">
                   <Play className="text-black ml-1 md:ml-2" size={32} strokeWidth={2.5} />
