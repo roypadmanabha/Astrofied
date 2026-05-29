@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play } from 'lucide-react';
+import { CirclePlay } from 'lucide-react';
 import promoVideo from '../assets/astrofied_promo.mp4';
 import { useTheme } from '../context/ThemeContext';
 
@@ -57,9 +57,11 @@ const PromoVideo = () => {
                 transition={{ duration: 0.3 }}
                 className="absolute inset-0 flex items-center justify-center rounded-[5px] transition-colors hover:bg-black/10"
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-gold/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.4)]">
-                  <Play className="text-black translate-x-[2px]" size={32} strokeWidth={2.5} />
-                </div>
+                <CirclePlay 
+                  className="text-gold bg-black/40 backdrop-blur-md rounded-full shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-transform hover:scale-110" 
+                  size={80} 
+                  strokeWidth={1.5} 
+                />
               </motion.div>
             )}
           </AnimatePresence>
