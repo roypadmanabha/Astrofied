@@ -33,7 +33,7 @@ const Kundali = () => {
         lon: '',
         tzo: '+05:30'
     });
-    
+
     const handleReset = () => {
         setFormData({
             firstName: '',
@@ -60,7 +60,7 @@ const Kundali = () => {
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [downloading, setDownloading] = useState(false);
-    
+
     // OTP States
     const [showOtpModal, setShowOtpModal] = useState(false);
     const [otpInputs, setOtpInputs] = useState(['', '', '', '', '', '']);
@@ -104,7 +104,7 @@ const Kundali = () => {
 
     const handleInputChange = (e) => {
         let { name, value } = e.target;
-        
+
         // Prevent typing non-digits in mobile
         if (name === 'mobile' && !/^\d*$/.test(value)) return;
         // Limit mobile to 10
@@ -116,7 +116,7 @@ const Kundali = () => {
         }
 
         setFormData(prev => ({ ...prev, [name]: value }));
-        
+
         const fieldErr = validateField(name, value);
         setFieldErrors(prev => ({ ...prev, [name]: fieldErr }));
     };
@@ -149,7 +149,7 @@ const Kundali = () => {
             canvas.width = width * scale;
             canvas.height = height * scale;
             const ctx = canvas.getContext('2d');
-            
+
             const img = new Image();
             const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
             const url = URL.createObjectURL(svgBlob);
@@ -253,7 +253,7 @@ const Kundali = () => {
 
     const handleOtpChange = (index, value) => {
         if (!/^\d*$/.test(value)) return;
-        
+
         const newOtp = [...otpInputs];
         newOtp[index] = value.slice(-1);
         setOtpInputs(newOtp);
@@ -302,7 +302,7 @@ const Kundali = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Final validation check
         const errors = {};
         Object.keys(formData).forEach(key => {
@@ -601,7 +601,7 @@ const Kundali = () => {
                                     onClick={handleReset}
                                     className={`mt-4 text-[10px] font-bold uppercase tracking-widest opacity-30 hover:opacity-100 transition-all flex items-center justify-center gap-2 mx-auto ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}
                                 >
-                                    <RotateCcw size={10} /> Reset Form
+                                    <RotateCcw size={10} /> Reset
                                 </button>
                             </form>
                         </motion.div>
@@ -649,8 +649,8 @@ const Kundali = () => {
                                         onChange={(e) => handleOtpChange(idx, e.target.value)}
                                         onKeyDown={(e) => handleOtpKeyDown(idx, e)}
                                         className={`w-12 h-14 md:w-14 md:h-16 text-2xl font-black text-center rounded-xl border-2 transition-all outline-none
-                                            ${isDarkMode 
-                                                ? 'bg-white/5 border-white/10 focus:border-gold focus:bg-gold/5' 
+                                            ${isDarkMode
+                                                ? 'bg-white/5 border-white/10 focus:border-gold focus:bg-gold/5'
                                                 : 'bg-black/5 border-black/10 focus:border-[#4B0082] focus:bg-[#4B0082]/5'}
                                             ${otpError && 'border-red-500 bg-red-500/5'}
                                         `}
@@ -659,7 +659,7 @@ const Kundali = () => {
                             </div>
 
                             {otpError && (
-                                <motion.p 
+                                <motion.p
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     className="text-red-500 text-xs font-bold mb-6 flex items-center justify-center gap-2"
@@ -679,7 +679,7 @@ const Kundali = () => {
                                 {otpLoading ? <Loader2 size={18} className="animate-spin" /> : 'Verify & Generate'}
                             </button>
 
-                            <button 
+                            <button
                                 onClick={() => window.location.reload()}
                                 className="mt-6 text-[10px] font-bold uppercase tracking-widest opacity-50 hover:opacity-100 transition-all"
                             >
@@ -710,9 +710,9 @@ const Kundali = () => {
                             `}
                         >
                             <div className="flex justify-center mb-6">
-                                <img 
-                                    src={logo} 
-                                    alt="Astrofied" 
+                                <img
+                                    src={logo}
+                                    alt="Astrofied"
                                     className="w-16 h-16 object-contain"
                                     style={{ filter: isDarkMode ? 'none' : 'multiply' }}
                                 />
@@ -722,7 +722,7 @@ const Kundali = () => {
                                 <span className="text-red-500">Error</span>
                                 <X className="text-red-500 border-2 border-red-500 rounded-full p-1" size={24} strokeWidth={3} />
                             </h3>
-                            
+
                             <p className="text-base md:text-lg leading-relaxed font-mulish font-medium opacity-90 mb-8">
                                 We are currently experiencing a high volume of chart requests! Please try again in a few moments.
                             </p>
@@ -785,8 +785,8 @@ const Kundali = () => {
                                         onClick={handleDownload}
                                         disabled={downloading}
                                         className={`mt-8 px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all shadow-xl disabled:opacity-50 ${isDarkMode
-                                                ? 'bg-gold text-black hover:bg-white'
-                                                : 'bg-[#4B0082] text-white hover:bg-purple-700'
+                                            ? 'bg-gold text-black hover:bg-white'
+                                            : 'bg-[#4B0082] text-white hover:bg-purple-700'
                                             }`}
                                     >
                                         {downloading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}

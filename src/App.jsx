@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Services from './components/Services';
 import Footer from './components/Footer';
 import Feedback from './components/Feedback';
+import PromoVideo from './components/PromoVideo';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
@@ -411,6 +412,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
       {/* Feedback Section */}
       <Feedback />
+
+      {/* Promo Video Section */}
+      <PromoVideo />
 
       <Testimonials />
 
