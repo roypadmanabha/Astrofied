@@ -44,7 +44,7 @@ const AstrofiedJournals = () => {
           {/* Left Side - Image (and Desktop Title) */}
           <div className="w-full lg:w-1/2 flex flex-col items-center">
             {/* Desktop Only Title */}
-            <h2 className="hidden lg:block text-3xl lg:text-4xl font-extrabold mb-8 text-center drop-shadow-sm !font-['Nunito']">
+            <h2 className="hidden lg:block lg:text-[42px] xl:text-[50px] font-extrabold mb-6 text-center drop-shadow-sm !font-['Nunito'] w-[85%] leading-none tracking-tight">
               {titleContent}
             </h2>
             
