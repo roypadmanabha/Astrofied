@@ -36,7 +36,7 @@ const AstrofiedJournals = () => {
             <h2 className="text-[28px] sm:text-4xl md:text-5xl font-extrabold text-center drop-shadow-sm !font-['Nunito'] w-full overflow-hidden text-ellipsis">
               {titleContent}
             </h2>
-            <p className={`text-lg md:text-xl text-center leading-relaxed font-['Mulish'] px-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+            <p className={`text-lg md:text-xl text-center leading-relaxed font-['Nunito'] px-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
               {textContent}
             </p>
           </div>
@@ -44,7 +44,7 @@ const AstrofiedJournals = () => {
           {/* Left Side - Image (and Desktop Title) */}
           <div className="w-full lg:w-1/2 flex flex-col items-center">
             {/* Desktop Only Title */}
-            <h2 className="hidden lg:block text-4xl lg:text-5xl xl:text-6xl font-extrabold mb-8 text-center drop-shadow-sm !font-['Nunito']">
+            <h2 className="hidden lg:block text-3xl lg:text-4xl font-extrabold mb-8 text-center drop-shadow-sm !font-['Nunito']">
               {titleContent}
             </h2>
             
@@ -63,7 +63,7 @@ const AstrofiedJournals = () => {
           {/* Right Side - Buttons (and Desktop Text) */}
           <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-2 lg:pt-0">
             {/* Desktop Only Text */}
-            <p className={`hidden lg:block text-xl lg:text-2xl mb-12 text-center leading-relaxed font-['Mulish'] ${isDarkMode ? 'text-white' : 'text-black'}`}>
+            <p className={`hidden lg:block text-xl lg:text-2xl mb-12 text-center leading-relaxed font-['Nunito'] ${isDarkMode ? 'text-white' : 'text-black'}`}>
               {textContent}
             </p>
             
