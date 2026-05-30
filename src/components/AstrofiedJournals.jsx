@@ -75,7 +75,7 @@ const AstrofiedJournals = () => {
             {/* Buttons (Side-by-side on mobile, stacked on desktop) */}
             <div className="flex flex-row lg:flex-col gap-4 lg:gap-6 w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] mx-auto justify-center">
               <button 
-                className={`flex-1 lg:w-full py-3 lg:py-4 text-xl lg:text-2xl font-bold rounded-xl lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
+                className={`flex-1 lg:w-full py-2.5 lg:py-4 text-base md:text-lg lg:text-2xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode 
                     ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]' 
                     : 'bg-[#6200EA] text-white shadow-[#6200EA]/30 hover:bg-[#5000D0]'
@@ -85,7 +85,7 @@ const AstrofiedJournals = () => {
                 SIGN UP
               </button>
               <button 
-                className={`flex-1 lg:w-full py-3 lg:py-4 text-xl lg:text-2xl font-bold rounded-xl lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
+                className={`flex-1 lg:w-full py-2.5 lg:py-4 text-base md:text-lg lg:text-2xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode 
                     ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]' 
                     : 'bg-[#6200EA] text-white shadow-[#6200EA]/30 hover:bg-[#5000D0]'
