@@ -7,48 +7,50 @@ const AstrofiedJournals = () => {
   const { isDarkMode } = useTheme();
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-12 max-w-[1400px]">
+    <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6`}>
+      <div className="container mx-auto max-w-[1200px] flex justify-center">
         <motion.div 
-          className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-stretch"
-          initial={{ opacity: 0, y: 30 }}
+          className="flex flex-col lg:flex-row w-full gap-8 lg:gap-12 items-center lg:items-start"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           
           {/* Left Side - Title and Image */}
-          <div className="w-full lg:w-[45%] flex flex-col items-center lg:items-start">
-            <h2 className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-6 flex gap-3 text-center lg:text-left drop-shadow-sm">
-              <span className={isDarkMode ? 'text-red-600' : 'text-[#5C0000]'}>
+          <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 flex gap-2 text-center lg:text-left drop-shadow-sm font-['Mulish']">
+              <span className={isDarkMode ? 'text-red-600' : 'text-[#6b0000]'}>
                 Astrofied
               </span>
-              <span className={isDarkMode ? 'text-[#FFB800]' : 'text-red-600'}>
+              <span className={isDarkMode ? 'text-[#FFD700]' : 'text-red-600'}>
                 Journals
               </span>
             </h2>
             
-            <div className="w-full max-w-lg lg:max-w-none rounded-[15px] overflow-hidden shadow-2xl">
+            <div className="w-full max-w-md lg:max-w-full rounded-[15px] overflow-hidden shadow-2xl bg-transparent">
               <img 
                 src={journalsCollage} 
                 alt="Astrofied Journals Collage" 
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-contain"
               />
             </div>
           </div>
 
-          {/* Vertical/Horizontal Separator Line */}
-          <div className={`w-full lg:w-px h-px lg:h-auto self-stretch my-6 lg:my-0 ${isDarkMode ? 'bg-white/20' : 'bg-black/20'}`}></div>
+          {/* Vertical Separator Line (Hidden on mobile) */}
+          <div className={`hidden lg:block w-px h-auto self-stretch mx-4 ${isDarkMode ? 'bg-white/20' : 'bg-black/20'}`}></div>
+          {/* Horizontal Separator Line for Mobile */}
+          <div className={`block lg:hidden w-full max-w-md h-px my-4 ${isDarkMode ? 'bg-white/20' : 'bg-black/20'}`}></div>
 
           {/* Right Side - Text and Buttons */}
-          <div className="w-full lg:w-[45%] flex flex-col items-center lg:items-start justify-center pt-0 lg:pt-16">
-            <p className={`text-xl md:text-2xl lg:text-3xl font-semibold mb-12 text-center lg:text-left leading-[1.6] ${isDarkMode ? 'text-white' : 'text-black'}`}>
+          <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start justify-center h-full pt-4 lg:pt-16">
+            <p className={`text-lg md:text-xl lg:text-2xl font-bold mb-10 text-center lg:text-left leading-relaxed font-['Nunito'] ${isDarkMode ? 'text-white' : 'text-black'}`}>
               Read our articles, journals, predictions, analyses, and insights on planets, transits, and horoscopes.
             </p>
             
-            <div className="flex flex-col gap-6 w-full max-w-sm lg:ml-10">
+            <div className="flex flex-col gap-5 w-full max-w-[320px]">
               <button 
-                className={`w-full py-4 md:py-5 text-2xl md:text-3xl font-bold rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl
+                className={`w-full py-4 text-xl md:text-2xl font-bold rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode 
                     ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]' 
                     : 'bg-[#6200EA] text-white shadow-[#6200EA]/30 hover:bg-[#5000D0]'
@@ -58,7 +60,7 @@ const AstrofiedJournals = () => {
                 SIGN UP
               </button>
               <button 
-                className={`w-full py-4 md:py-5 text-2xl md:text-3xl font-bold rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl
+                className={`w-full py-4 text-xl md:text-2xl font-bold rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode 
                     ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]' 
                     : 'bg-[#6200EA] text-white shadow-[#6200EA]/30 hover:bg-[#5000D0]'
