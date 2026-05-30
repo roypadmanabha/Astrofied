@@ -227,7 +227,7 @@ const AstrofiedJournals = () => {
     </span>
   );
 
-  const textContent = "Read our articles, journals, predictions, analyses, and insights on planets, transits, and horoscopes.";
+  const textContent = "Astrofied Journals has made astrology simpler and more accessible by providing free astrological articles, updates, journals, and insights that can be read or downloaded in just one click. Our goal is to spread awareness of authentic and practical astrology in society by making reliable knowledge easy to understand and available to everyone. Through simplified explanations and valuable resources, Astrofied helps people learn astrology with clarity, convenience, and confidence.";
 
   // --- LOGGED IN STATE: Dashboard UI ---
   if (user) {
@@ -359,7 +359,7 @@ const AstrofiedJournals = () => {
             <h2 className="text-[28px] sm:text-4xl md:text-5xl nunito-custom text-center drop-shadow-sm w-full overflow-hidden text-ellipsis" style={{ fontFamily: '"Nunito", sans-serif' }}>
               {titleContent}
             </h2>
-            <p className={`text-lg md:text-xl text-center leading-relaxed font-['Nunito'] px-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+            <p className={`text-base md:text-lg text-justify leading-relaxed font-mulish font-medium px-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
               {textContent}
             </p>
           </div>
@@ -386,33 +386,22 @@ const AstrofiedJournals = () => {
           {/* Right Side - Buttons (and Desktop Text) */}
           <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-2 lg:pt-0">
             {/* Desktop Only Text */}
-            <p className={`hidden lg:block text-xl lg:text-2xl mb-12 text-center leading-relaxed font-['Nunito'] ${isDarkMode ? 'text-white' : 'text-black'}`}>
+            <p className={`hidden lg:block text-lg xl:text-xl mb-12 text-justify leading-relaxed font-mulish font-medium px-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
               {textContent}
             </p>
             
-            {/* Buttons (Side-by-side on mobile, stacked on desktop) */}
-            <div className="flex flex-row lg:flex-col gap-4 lg:gap-6 w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] mx-auto justify-center">
+            {/* Buttons (Single button now) */}
+            <div className="flex w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] mx-auto justify-center">
               <button 
                 onClick={handleLogin}
-                className={`flex-1 lg:w-full py-2.5 lg:py-4 text-base md:text-lg lg:text-2xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
+                className={`w-full py-3 lg:py-4 text-base md:text-lg lg:text-xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode 
                     ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]' 
                     : 'bg-[#6200EA] text-white shadow-[#6200EA]/30 hover:bg-[#5000D0]'
                   }
                 `}
               >
-                SIGN UP
-              </button>
-              <button 
-                onClick={handleLogin}
-                className={`flex-1 lg:w-full py-2.5 lg:py-4 text-base md:text-lg lg:text-2xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
-                  ${isDarkMode 
-                    ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]' 
-                    : 'bg-[#6200EA] text-white shadow-[#6200EA]/30 hover:bg-[#5000D0]'
-                  }
-                `}
-              >
-                LOGIN
+                Sign In to Explore
               </button>
             </div>
           </div>
