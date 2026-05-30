@@ -22,7 +22,7 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
 
     return (
         <AnimatePresence>
-            <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-12 overflow-hidden">
+            <div className="legal-modal-container fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-12 overflow-hidden">
                 {/* Backdrop */}
                 <motion.div
                     initial={{ opacity: 0 }}

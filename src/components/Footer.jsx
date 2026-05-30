@@ -3,8 +3,9 @@ import { useTheme } from '../context/ThemeContext';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import logo from '../assets/logo.png';
 
-export default function Footer({ onOpenLegal }) {
-    const { isDarkMode } = useTheme();
+export default function Footer({ onOpenLegal, forceLightMode = false }) {
+    const theme = useTheme();
+    const isDarkMode = forceLightMode ? false : theme.isDarkMode;
 
     const socialLinks = [
         {

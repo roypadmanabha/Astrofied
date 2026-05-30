@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journals-collage.jpg';
 import journalBg from '../assets/journal-bg.jpg';
 import logo from '../assets/logo.png';
+import Footer from './Footer';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
@@ -36,7 +37,7 @@ const AstrofiedJournals = () => {
       const style = document.createElement('style');
       style.id = 'astrofied-journals-lock';
       style.innerHTML = `
-        body.dashboard-active #root > div > *:not(.astrofied-journals-container) {
+        body.dashboard-active #root > div > *:not(.astrofied-journals-container):not(.legal-modal-container) {
           display: none !important;
         }
       `;
@@ -244,6 +245,7 @@ const AstrofiedJournals = () => {
              )}
            </div>
          </main>
+         <Footer forceLightMode={true} onOpenLegal={(type) => window.dispatchEvent(new CustomEvent('openLegalModal', { detail: type }))} />
       </div>
     );
   }

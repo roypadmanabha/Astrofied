@@ -36,7 +36,14 @@ function MainContent() {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    
+    const handleOpenLegalEvent = (e) => openLegalModal(e.detail);
+    window.addEventListener('openLegalModal', handleOpenLegalEvent);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('openLegalModal', handleOpenLegalEvent);
+    };
   }, []);
 
   const handleBookConsultation = () => {
