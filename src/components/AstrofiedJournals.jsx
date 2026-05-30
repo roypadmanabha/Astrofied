@@ -39,13 +39,13 @@ const AstrofiedJournals = () => {
         body.dashboard-active #root > div > *:not(.astrofied-journals-container) {
           display: none !important;
         }
-        html, body {
-          overflow: auto !important;
-          height: auto !important;
-        }
       `;
       document.head.appendChild(style);
-      if (window.lenis) window.lenis.start();
+      if (window.lenis) {
+        window.lenis.start();
+        // Force lenis to recalculate document height immediately after layout shift
+        setTimeout(() => window.lenis.resize(), 50); 
+      }
     }
     
     return () => {
