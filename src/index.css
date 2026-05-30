@@ -75,6 +75,13 @@ h6 {
   font-family: 'Mulish', sans-serif;
 }
 
+.nunito-custom {
+  font-family: "Nunito", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 625 !important;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   min-width: 320px;

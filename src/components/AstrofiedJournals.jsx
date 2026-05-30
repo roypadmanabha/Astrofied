@@ -33,7 +33,7 @@ const AstrofiedJournals = () => {
           
           {/* Mobile Only: Title & Text (Shown before Image) */}
           <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2">
-            <h2 className="text-[28px] sm:text-4xl md:text-5xl font-extrabold text-center drop-shadow-sm !font-['Nunito'] w-full overflow-hidden text-ellipsis">
+            <h2 className="text-[28px] sm:text-4xl md:text-5xl nunito-custom text-center drop-shadow-sm w-full overflow-hidden text-ellipsis">
               {titleContent}
             </h2>
             <p className={`text-lg md:text-xl text-center leading-relaxed font-['Nunito'] px-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
@@ -44,7 +44,7 @@ const AstrofiedJournals = () => {
           {/* Left Side - Image (and Desktop Title) */}
           <div className="w-full lg:w-1/2 flex flex-col items-center">
             {/* Desktop Only Title */}
-            <h2 className="hidden lg:block lg:text-[42px] xl:text-[50px] font-extrabold mb-6 text-center drop-shadow-sm !font-['Nunito'] w-[85%] leading-none tracking-tight">
+            <h2 className="hidden lg:block lg:text-[42px] xl:text-[50px] nunito-custom mb-6 text-center drop-shadow-sm w-[85%] leading-none tracking-tight">
               {titleContent}
             </h2>
             
