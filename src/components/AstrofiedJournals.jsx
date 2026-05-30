@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { House, LogOut } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journals-collage.jpg';
@@ -148,9 +149,15 @@ const AstrofiedJournals = () => {
                Astrofied Journals
              </h1>
            </div>
-           <div className="flex gap-4 md:gap-6 font-semibold">
-             <button onClick={() => setShowHomeModal(true)} className="hover:opacity-70 transition-opacity">Home</button>
-             <button onClick={handleLogout} className="text-[#D00000] hover:opacity-70 transition-opacity">Logout</button>
+           <div className="flex gap-4 md:gap-6 font-semibold items-center">
+             <button onClick={() => setShowHomeModal(true)} className="hover:opacity-70 transition-opacity flex items-center" aria-label="Home">
+                <span className="hidden md:inline">Home</span>
+                <House className="md:hidden w-6 h-6" />
+             </button>
+             <button onClick={handleLogout} className="text-[#D00000] hover:opacity-70 transition-opacity flex items-center" aria-label="Logout">
+                <span className="hidden md:inline">Logout</span>
+                <LogOut className="md:hidden w-6 h-6" />
+             </button>
            </div>
          </header>
 
