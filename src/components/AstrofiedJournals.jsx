@@ -203,7 +203,7 @@ const AstrofiedJournals = () => {
                journals.map((journal, idx) => (
                  <div key={journal.id || idx} className="flex flex-col gap-12 md:gap-20">
                    {/* Card */}
-                   <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                   <div className="flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
                      {/* Left Side: Title & Image */}
                      <div className="w-full md:w-[45%] flex flex-col items-center">
                        <h2 className="text-3xl md:text-4xl font-bold text-[#D00000] mb-8 text-center">{journal.title}</h2>
@@ -216,11 +216,11 @@ const AstrofiedJournals = () => {
                      <div className={`hidden md:block w-px self-stretch ${isDarkMode ? 'bg-white/30' : 'bg-black/30'}`}></div>
 
                      {/* Right Side: Description & Button */}
-                     <div className="w-full md:w-[55%] flex flex-col h-full md:pt-[4.5rem]">
+                     <div className="w-full md:w-[55%] flex flex-col justify-center h-full py-2">
                        <p className="text-sm md:text-base leading-relaxed text-justify mb-8 whitespace-pre-wrap">
                          {journal.description}
                        </p>
-                       <div className="flex justify-center md:justify-center mt-auto">
+                       <div className="flex justify-center md:justify-center">
                          <button 
                            onClick={() => handleDownload(journal.file_name)}
                            className="bg-[#6200EA] hover:bg-[#5000D0] text-white font-bold py-3.5 px-8 rounded-lg shadow-lg transition-transform hover:scale-105 active:scale-95 w-full md:w-auto min-w-[200px]"
