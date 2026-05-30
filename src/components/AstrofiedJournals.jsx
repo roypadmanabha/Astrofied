@@ -24,10 +24,10 @@ const AstrofiedJournals = () => {
     <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-4 md:px-6`}>
       {/* Astrology Journal Texture Background */}
       <div 
-        className={`absolute inset-0 z-0 opacity-50 dark:opacity-20 dark:invert pointer-events-none mix-blend-darken dark:mix-blend-screen`}
+        className={`absolute inset-0 z-0 opacity-100 dark:opacity-80 dark:invert pointer-events-none`}
         style={{ 
           backgroundImage: `url(${journalBg})`,
-          backgroundSize: '400px',
+          backgroundSize: '600px',
           backgroundRepeat: 'repeat'
         }}
       />
