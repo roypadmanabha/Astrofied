@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journals-collage.jpg';
 import journalBg from '../assets/journal-bg.jpg';
+import logo from '../assets/logo.png';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
@@ -26,10 +27,18 @@ const AstrofiedJournals = () => {
   const [user, setUser] = useState(null);
   const [journals, setJournals] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // Filter State
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [showHomeModal, setShowHomeModal] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [user]);
 
   useEffect(() => {
     // Check active session
@@ -88,12 +97,13 @@ const AstrofiedJournals = () => {
     }
   };
 
-  const filteredJournals = journals.filter(journal => {
-    const matchesSearch = (journal.title || '').toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          (journal.description || '').toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = activeCategory === 'All' || (journal.title || '').includes(activeCategory);
-    return matchesSearch && matchesCategory;
-  });
+  const handleQuit = async () => {
+    if (supabase) {
+      await supabase.auth.signOut();
+    }
+    setShowHomeModal(false);
+    window.location.reload();
+  };
 
   const titleContent = (
     <span className="whitespace-nowrap inline-flex items-center justify-center gap-3">
@@ -113,51 +123,69 @@ const AstrofiedJournals = () => {
     return (
       <div className={`fixed inset-0 z-50 overflow-y-auto font-['Nunito'] ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-[#F4F1E1] text-black'}`}>
          {/* Top Nav */}
-         <header className={`sticky top-0 z-10 px-6 py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/90' : 'bg-[#F4F1E1]/90'} backdrop-blur-md border-b ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
-           <h1 className="text-xl md:text-2xl font-bold text-[#D00000]">Astrofied Journals</h1>
+         <header className={`sticky top-0 z-10 px-8 md:px-12 py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/90' : 'bg-[#F4F1E1]/90'} backdrop-blur-md border-b ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
+           <div className="flex items-center">
+             <img src={logo} alt="Astrofied Logo" className="h-6 md:h-8 mr-4 md:mr-6 object-contain" />
+             <h1 className={`text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-white to-[#E50000]' : 'from-black to-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
+               Astrofied Journals
+             </h1>
+           </div>
            <div className="flex gap-4 md:gap-6 font-semibold">
-             <button onClick={() => window.location.reload()} className="hover:opacity-70 transition-opacity">Home</button>
+             <button onClick={() => setShowHomeModal(true)} className="hover:opacity-70 transition-opacity">Home</button>
              <button onClick={handleLogout} className="text-[#D00000] hover:opacity-70 transition-opacity">Logout</button>
            </div>
          </header>
 
+         {/* Home Modal */}
+         <AnimatePresence>
+           {showHomeModal && (
+             <motion.div 
+               initial={{ opacity: 0 }} 
+               animate={{ opacity: 1 }} 
+               exit={{ opacity: 0 }}
+               className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+             >
+               <motion.div 
+                 initial={{ scale: 0.9, opacity: 0 }}
+                 animate={{ scale: 1, opacity: 1 }}
+                 exit={{ scale: 0.9, opacity: 0 }}
+                 className={`w-full max-w-sm p-6 md:p-8 rounded-2xl shadow-2xl text-center ${isDarkMode ? 'bg-[#1a1a1a] text-white border border-white/10' : 'bg-white text-black'}`}
+               >
+                 <h3 className="text-xl md:text-2xl font-bold mb-8 font-['Nunito']">Are you sure you want to quit?</h3>
+                 <div className="flex justify-center gap-4">
+                   <button 
+                     onClick={handleQuit}
+                     className="flex-1 py-3 bg-[#D00000] hover:bg-red-700 text-white rounded-xl font-bold transition-colors"
+                   >
+                     Yes
+                   </button>
+                   <button 
+                     onClick={() => setShowHomeModal(false)}
+                     className={`flex-1 py-3 rounded-xl font-bold transition-colors ${isDarkMode ? 'bg-white/10 hover:bg-white/20' : 'bg-black/5 hover:bg-black/10'}`}
+                   >
+                     No
+                   </button>
+                 </div>
+               </motion.div>
+             </motion.div>
+           )}
+         </AnimatePresence>
+
          {/* Main Content */}
          <main className="max-w-4xl mx-auto px-4 md:px-8 py-8 md:py-12">
            {/* Intro Text */}
-           <p className="text-center text-sm md:text-base leading-relaxed mb-10 max-w-3xl mx-auto">
+           <p className="text-center text-sm md:text-base leading-relaxed mb-16 max-w-3xl mx-auto">
              Welcome to Astrofied Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
            </p>
-
-           {/* Search & Categories */}
-           <div className="flex flex-col md:flex-row gap-6 justify-between items-center mb-16">
-             <input 
-               type="text"
-               placeholder="Search journals..."
-               value={searchQuery}
-               onChange={(e) => setSearchQuery(e.target.value)}
-               className={`w-full md:w-64 px-4 py-2.5 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#D4AF37] ${isDarkMode ? 'bg-white/10 border-white/20' : 'bg-white border-black/20'}`}
-             />
-             <div className="flex flex-wrap justify-center gap-3">
-               {['All', 'House Series', 'Planet Series', 'Sign Series'].map(cat => (
-                 <button 
-                   key={cat}
-                   onClick={() => setActiveCategory(cat)}
-                   className={`px-5 py-2 rounded-full text-sm font-bold transition-colors border ${activeCategory === cat ? 'bg-[#D00000] text-white border-[#D00000]' : (isDarkMode ? 'border-white/20 hover:bg-white/10' : 'border-black/20 hover:bg-black/5')}`}
-                 >
-                   {cat}
-                 </button>
-               ))}
-             </div>
-           </div>
 
            {/* Journals List */}
            <div className="flex flex-col gap-12 md:gap-20">
              {loading ? (
                 <div className="text-center py-20 text-lg animate-pulse">Loading journals...</div>
-             ) : filteredJournals.length === 0 ? (
-                <div className="text-center py-20 opacity-70">No journals found matching your search.</div>
+             ) : journals.length === 0 ? (
+                <div className="text-center py-20 opacity-70">No journals found.</div>
              ) : (
-               filteredJournals.map((journal, idx) => (
+               journals.map((journal, idx) => (
                  <div key={journal.id || idx} className="flex flex-col gap-12 md:gap-20">
                    {/* Card */}
                    <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12">
@@ -189,8 +217,8 @@ const AstrofiedJournals = () => {
                    </div>
 
                    {/* Diamond Separator between items */}
-                   {idx < filteredJournals.length - 1 && (
-                     <div className="flex justify-center items-center gap-3 opacity-80">
+                   {idx < journals.length - 1 && (
+                     <div className="flex justify-center items-center gap-3 opacity-80 mt-4 md:mt-8">
                        <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
                        <div className="w-2.5 h-2.5 rotate-45 bg-[#D4AF37]"></div>
                        <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
