@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { House, LogOut } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
-import journalsCollage from '../assets/journals-collage.jpg';
+import journalsCollage from '../assets/journal-hero-new.jpg';
 import journalBg from '../assets/journal-bg.jpg';
 import logo from '../assets/logo.png';
 import Footer from './Footer';
