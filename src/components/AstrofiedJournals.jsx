@@ -7,7 +7,17 @@ import journalBg from '../assets/journal-bg.jpg';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+let supabase;
+try {
+  if (supabaseUrl && supabaseAnonKey) {
+    supabase = createClient(supabaseUrl, supabaseAnonKey);
+  } else {
+    console.warn("Supabase credentials missing. Please check your .env file and restart the Vite server.");
+  }
+} catch (error) {
+  console.error("Supabase initialization error:", error);
+}
 
 const AstrofiedJournals = () => {
   const { isDarkMode } = useTheme();
@@ -23,6 +33,11 @@ const AstrofiedJournals = () => {
 
   useEffect(() => {
     // Check active session
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) fetchJournals();
@@ -39,6 +54,7 @@ const AstrofiedJournals = () => {
   }, []);
 
   const fetchJournals = async () => {
+    if (!supabase) return;
     const { data, error } = await supabase
       .from('journals')
       .select('*')
@@ -50,17 +66,22 @@ const AstrofiedJournals = () => {
   };
 
   const handleLogin = async () => {
+    if (!supabase) {
+      alert("Supabase is not configured. Please check your .env file and restart the server.");
+      return;
+    }
     await supabase.auth.signInWithOAuth({
       provider: 'google',
     });
   };
 
   const handleLogout = async () => {
+    if (!supabase) return;
     await supabase.auth.signOut();
   };
 
   const handleDownload = async (fileName) => {
-    if (!fileName) return;
+    if (!fileName || !supabase) return;
     const { data } = supabase.storage.from('journal_pdfs').getPublicUrl(fileName);
     if (data?.publicUrl) {
       window.open(data.publicUrl, '_blank');
