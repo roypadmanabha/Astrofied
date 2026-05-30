@@ -119,6 +119,7 @@ const AstrofiedJournals = () => {
   
   // Auth & DB State
   const [user, setUser] = useState(null);
+  const [sessionExpired, setSessionExpired] = useState(false);
   const [journals, setJournals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showHomeModal, setShowHomeModal] = useState(false);
@@ -169,6 +170,22 @@ const AstrofiedJournals = () => {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  // 5 Minute Auto-Logout Timer
+  useEffect(() => {
+    let timeoutId;
+    if (user) {
+      timeoutId = setTimeout(async () => {
+        if (supabase) {
+          await supabase.auth.signOut();
+          setSessionExpired(true);
+        }
+      }, 300000); // 5 minutes in milliseconds
+    }
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [user]);
 
   const fetchJournals = async () => {
     if (!supabase) return;
@@ -323,7 +340,38 @@ const AstrofiedJournals = () => {
 
   // --- LOGGED OUT STATE: Original Landing Section ---
   return (
-    <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-4 md:px-6`}>
+    <>
+      {/* Session Expired Modal */}
+      <AnimatePresence>
+        {sessionExpired && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className={`w-full max-w-sm p-6 md:p-8 rounded-2xl shadow-2xl text-center ${isDarkMode ? 'bg-[#1a1a1a] text-white border border-white/10' : 'bg-white text-black'}`}
+            >
+              <h3 className="text-xl md:text-2xl font-bold mb-4 font-['Nunito']">Session Expired</h3>
+              <p className="mb-8 font-mulish opacity-90 text-sm md:text-base leading-relaxed">
+                For security reasons, your session has expired after 5 minutes. Please log in again to continue reading.
+              </p>
+              <button 
+                onClick={() => setSessionExpired(false)}
+                className={`w-full py-3 rounded-xl font-bold transition-colors font-['Nunito'] ${isDarkMode ? 'bg-[#FFF000] text-black hover:bg-[#FFE000]' : 'bg-[#6200EA] text-white hover:bg-[#5000D0]'}`}
+              >
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-4 md:px-6`}>
       {/* Decorative Background Orbs for Glassmorphism */}
       <div className={`absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#9d00ff]' : 'bg-[#FFE000]'}`}></div>
       <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 ${isDarkMode ? 'bg-[#FFD700]' : 'bg-[#6200EA]'}`}></div>
@@ -410,6 +458,7 @@ const AstrofiedJournals = () => {
         </motion.div>
       </div>
     </section>
+    </>
   );
 };
 
