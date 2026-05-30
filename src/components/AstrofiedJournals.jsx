@@ -1,11 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journals-collage.jpg';
 import journalBg from '../assets/journal-bg.jpg';
 
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 const AstrofiedJournals = () => {
   const { isDarkMode } = useTheme();
+  
+  // Auth & DB State
+  const [user, setUser] = useState(null);
+  const [journals, setJournals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  // Filter State
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  useEffect(() => {
+    // Check active session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      if (session?.user) fetchJournals();
+      setLoading(false);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      if (session?.user) fetchJournals();
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const fetchJournals = async () => {
+    const { data, error } = await supabase
+      .from('journals')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (!error && data) {
+      setJournals(data);
+    }
+  };
+
+  const handleLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
+  const handleDownload = async (fileName) => {
+    if (!fileName) return;
+    const { data } = supabase.storage.from('journal_pdfs').getPublicUrl(fileName);
+    if (data?.publicUrl) {
+      window.open(data.publicUrl, '_blank');
+    }
+  };
+
+  const filteredJournals = journals.filter(journal => {
+    const matchesSearch = (journal.title || '').toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          (journal.description || '').toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = activeCategory === 'All' || (journal.title || '').includes(activeCategory);
+    return matchesSearch && matchesCategory;
+  });
 
   const titleContent = (
     <span className="whitespace-nowrap inline-flex items-center justify-center gap-3">
@@ -20,6 +87,104 @@ const AstrofiedJournals = () => {
 
   const textContent = "Read our articles, journals, predictions, analyses, and insights on planets, transits, and horoscopes.";
 
+  // --- LOGGED IN STATE: Dashboard UI ---
+  if (user) {
+    return (
+      <div className={`fixed inset-0 z-50 overflow-y-auto font-['Nunito'] ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-[#F4F1E1] text-black'}`}>
+         {/* Top Nav */}
+         <header className={`sticky top-0 z-10 px-6 py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/90' : 'bg-[#F4F1E1]/90'} backdrop-blur-md border-b ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
+           <h1 className="text-xl md:text-2xl font-bold text-[#D00000]">Astrofied Journals</h1>
+           <div className="flex gap-4 md:gap-6 font-semibold">
+             <button onClick={() => window.location.reload()} className="hover:opacity-70 transition-opacity">Home</button>
+             <button onClick={handleLogout} className="text-[#D00000] hover:opacity-70 transition-opacity">Logout</button>
+           </div>
+         </header>
+
+         {/* Main Content */}
+         <main className="max-w-4xl mx-auto px-4 md:px-8 py-8 md:py-12">
+           {/* Intro Text */}
+           <p className="text-center text-sm md:text-base leading-relaxed mb-10 max-w-3xl mx-auto">
+             Welcome to Astrofied Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
+           </p>
+
+           {/* Search & Categories */}
+           <div className="flex flex-col md:flex-row gap-6 justify-between items-center mb-16">
+             <input 
+               type="text"
+               placeholder="Search journals..."
+               value={searchQuery}
+               onChange={(e) => setSearchQuery(e.target.value)}
+               className={`w-full md:w-64 px-4 py-2.5 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#D4AF37] ${isDarkMode ? 'bg-white/10 border-white/20' : 'bg-white border-black/20'}`}
+             />
+             <div className="flex flex-wrap justify-center gap-3">
+               {['All', 'House Series', 'Planet Series', 'Sign Series'].map(cat => (
+                 <button 
+                   key={cat}
+                   onClick={() => setActiveCategory(cat)}
+                   className={`px-5 py-2 rounded-full text-sm font-bold transition-colors border ${activeCategory === cat ? 'bg-[#D00000] text-white border-[#D00000]' : (isDarkMode ? 'border-white/20 hover:bg-white/10' : 'border-black/20 hover:bg-black/5')}`}
+                 >
+                   {cat}
+                 </button>
+               ))}
+             </div>
+           </div>
+
+           {/* Journals List */}
+           <div className="flex flex-col gap-12 md:gap-20">
+             {loading ? (
+                <div className="text-center py-20 text-lg animate-pulse">Loading journals...</div>
+             ) : filteredJournals.length === 0 ? (
+                <div className="text-center py-20 opacity-70">No journals found matching your search.</div>
+             ) : (
+               filteredJournals.map((journal, idx) => (
+                 <div key={journal.id || idx} className="flex flex-col gap-12 md:gap-20">
+                   {/* Card */}
+                   <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                     {/* Left Side: Title & Image */}
+                     <div className="w-full md:w-[45%] flex flex-col items-center">
+                       <h2 className="text-3xl md:text-4xl font-bold text-[#D00000] mb-8 text-center">{journal.title}</h2>
+                       <div className="w-full max-w-sm rounded-xl overflow-hidden shadow-xl border-[1.5px] border-[#D4AF37] bg-white">
+                          <img src={journal.image_url || journalsCollage} alt={journal.title} className="w-full h-auto object-cover" />
+                       </div>
+                     </div>
+
+                     {/* Divider line (Desktop) */}
+                     <div className={`hidden md:block w-px self-stretch ${isDarkMode ? 'bg-white/30' : 'bg-black/30'}`}></div>
+
+                     {/* Right Side: Description & Button */}
+                     <div className="w-full md:w-[55%] flex flex-col h-full md:pt-[4.5rem]">
+                       <p className="text-sm md:text-base leading-relaxed text-justify mb-8 whitespace-pre-wrap">
+                         {journal.description}
+                       </p>
+                       <div className="flex justify-center md:justify-center mt-auto">
+                         <button 
+                           onClick={() => handleDownload(journal.file_name)}
+                           className="bg-[#6200EA] hover:bg-[#5000D0] text-white font-bold py-3.5 px-8 rounded-lg shadow-lg transition-transform hover:scale-105 active:scale-95 w-full md:w-auto min-w-[200px]"
+                         >
+                           Download PDF
+                         </button>
+                       </div>
+                     </div>
+                   </div>
+
+                   {/* Diamond Separator between items */}
+                   {idx < filteredJournals.length - 1 && (
+                     <div className="flex justify-center items-center gap-3 opacity-80">
+                       <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
+                       <div className="w-2.5 h-2.5 rotate-45 bg-[#D4AF37]"></div>
+                       <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
+                     </div>
+                   )}
+                 </div>
+               ))
+             )}
+           </div>
+         </main>
+      </div>
+    );
+  }
+
+  // --- LOGGED OUT STATE: Original Landing Section ---
   return (
     <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-4 md:px-6`}>
       {/* Decorative Background Orbs for Glassmorphism */}
@@ -91,6 +256,7 @@ const AstrofiedJournals = () => {
             {/* Buttons (Side-by-side on mobile, stacked on desktop) */}
             <div className="flex flex-row lg:flex-col gap-4 lg:gap-6 w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] mx-auto justify-center">
               <button 
+                onClick={handleLogin}
                 className={`flex-1 lg:w-full py-2.5 lg:py-4 text-base md:text-lg lg:text-2xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode 
                     ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]' 
@@ -101,6 +267,7 @@ const AstrofiedJournals = () => {
                 SIGN UP
               </button>
               <button 
+                onClick={handleLogin}
                 className={`flex-1 lg:w-full py-2.5 lg:py-4 text-base md:text-lg lg:text-2xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode 
                     ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]' 
