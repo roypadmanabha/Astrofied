@@ -171,37 +171,19 @@ const AstrofiedJournals = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // 5 Minute Inactivity Auto-Logout Timer
+  // 5 Minute Strict Auto-Logout Timer
   useEffect(() => {
     let timeoutId;
-    
-    const resetTimer = () => {
-      if (timeoutId) clearTimeout(timeoutId);
-      if (user) {
-        timeoutId = setTimeout(async () => {
-          if (supabase) {
-            await supabase.auth.signOut();
-            setSessionExpired(true);
-          }
-        }, 300000); // 5 minutes of inactivity
-      }
-    };
-
     if (user) {
-      resetTimer();
-      // Listen for activity to reset the timer
-      window.addEventListener('mousemove', resetTimer);
-      window.addEventListener('keydown', resetTimer);
-      window.addEventListener('scroll', resetTimer);
-      window.addEventListener('click', resetTimer);
+      timeoutId = setTimeout(async () => {
+        if (supabase) {
+          await supabase.auth.signOut();
+          setSessionExpired(true);
+        }
+      }, 300000); // 5 minutes sharp
     }
-
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
-      window.removeEventListener('mousemove', resetTimer);
-      window.removeEventListener('keydown', resetTimer);
-      window.removeEventListener('scroll', resetTimer);
-      window.removeEventListener('click', resetTimer);
     };
   }, [user]);
 
@@ -225,7 +207,10 @@ const AstrofiedJournals = () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin
+        redirectTo: window.location.origin,
+        queryParams: {
+          prompt: 'select_account consent'
+        }
       }
     });
   };
