@@ -230,7 +230,7 @@ const AstrofiedJournals = () => {
     return (
       <div className={`astrofied-journals-container font-['Nunito'] min-h-screen w-full ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-[#F4F1E1] text-black'}`}>
          {/* Top Nav */}
-         <header className={`sticky top-0 z-50 px-8 md:px-12 py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/70' : 'bg-[#F4F1E1]/70'} backdrop-blur-lg border-b shadow-sm ${isDarkMode ? 'border-white/10 shadow-black/20' : 'border-black/10 shadow-black/5'} transition-all duration-300`}>
+         <header className={`fixed top-0 left-0 w-full z-50 px-8 md:px-12 py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/70' : 'bg-[#F4F1E1]/70'} backdrop-blur-lg border-b shadow-sm ${isDarkMode ? 'border-white/10 shadow-black/20' : 'border-black/10 shadow-black/5'} transition-all duration-300`}>
            <div className="flex items-center">
              <img src={logo} alt="Astrofied Logo" className="h-6 md:h-8 mr-4 md:mr-6 object-contain" />
              <h1 className={`text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-white to-[#E50000]' : 'from-black to-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
@@ -286,7 +286,7 @@ const AstrofiedJournals = () => {
          </AnimatePresence>
 
          {/* Main Content */}
-         <main className="max-w-4xl mx-auto px-4 md:px-8 py-8 md:py-12">
+         <main className="max-w-4xl mx-auto px-4 md:px-8 pt-28 pb-8 md:pt-36 md:pb-12">
            {/* Intro Text */}
            <p className="text-center text-sm md:text-base leading-relaxed mb-16 max-w-3xl mx-auto">
              Welcome to Astrofied Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
