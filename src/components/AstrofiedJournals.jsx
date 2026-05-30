@@ -22,6 +22,74 @@ try {
   console.error("Supabase initialization error:", error);
 }
 
+const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div className="flex flex-col gap-12 md:gap-20">
+      {/* Card */}
+      <div className="flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
+        {/* Left Side: Title & Image */}
+        <div className="w-full md:w-[45%] flex flex-col items-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#D00000] mb-8 text-center">{journal.title}</h2>
+          <div className="w-full max-w-sm rounded-xl overflow-hidden shadow-xl border-[1.5px] border-[#D4AF37] bg-white">
+            <img src={journal.image_url || journalsCollage} alt={journal.title} className="w-full h-auto object-cover" />
+          </div>
+        </div>
+
+        {/* Divider line (Desktop) */}
+        <div className={`hidden md:block w-px self-stretch ${isDarkMode ? 'bg-white/30' : 'bg-black/30'}`}></div>
+
+        {/* Right Side: Description & Button */}
+        <div className="w-full md:w-[55%] flex flex-col justify-center h-full py-2">
+          
+          {/* Mobile Text (Expandable) */}
+          <div className="block md:hidden mb-8">
+             <motion.div 
+               initial={false}
+               animate={{ height: isExpanded ? 'auto' : '1.3rem' }}
+               className="overflow-hidden"
+             >
+                <p className="text-sm leading-relaxed text-justify whitespace-pre-wrap">
+                  {journal.description}
+                </p>
+             </motion.div>
+             <button 
+               onClick={() => setIsExpanded(!isExpanded)} 
+               className="text-[#D4AF37] font-bold mt-2 hover:underline text-sm"
+             >
+               {isExpanded ? 'Read Less' : 'Read More..'}
+             </button>
+          </div>
+
+          {/* Desktop Text (Always full) */}
+          <p className="hidden md:block text-base leading-relaxed text-justify mb-8 whitespace-pre-wrap">
+            {journal.description}
+          </p>
+
+          <div className="flex justify-center md:justify-center">
+            <button 
+              onClick={() => handleDownload(journal.file_name)}
+              className="bg-[#6200EA] hover:bg-[#5000D0] text-white font-bold py-3.5 px-8 rounded-lg shadow-lg transition-transform hover:scale-105 active:scale-95 w-full md:w-auto min-w-[200px]"
+            >
+              Download PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Diamond Separator between items */}
+      {!isLast && (
+        <div className="flex justify-center items-center gap-3 opacity-80 mt-4 md:mt-8">
+          <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
+          <div className="w-2.5 h-2.5 rotate-45 bg-[#D4AF37]"></div>
+          <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const AstrofiedJournals = () => {
   const { isDarkMode } = useTheme();
   
@@ -212,45 +280,14 @@ const AstrofiedJournals = () => {
                 <div className="text-center py-20 opacity-70">No journals found.</div>
              ) : (
                journals.map((journal, idx) => (
-                 <div key={journal.id || idx} className="flex flex-col gap-12 md:gap-20">
-                   {/* Card */}
-                   <div className="flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
-                     {/* Left Side: Title & Image */}
-                     <div className="w-full md:w-[45%] flex flex-col items-center">
-                       <h2 className="text-3xl md:text-4xl font-bold text-[#D00000] mb-8 text-center">{journal.title}</h2>
-                       <div className="w-full max-w-sm rounded-xl overflow-hidden shadow-xl border-[1.5px] border-[#D4AF37] bg-white">
-                          <img src={journal.image_url || journalsCollage} alt={journal.title} className="w-full h-auto object-cover" />
-                       </div>
-                     </div>
-
-                     {/* Divider line (Desktop) */}
-                     <div className={`hidden md:block w-px self-stretch ${isDarkMode ? 'bg-white/30' : 'bg-black/30'}`}></div>
-
-                     {/* Right Side: Description & Button */}
-                     <div className="w-full md:w-[55%] flex flex-col justify-center h-full py-2">
-                       <p className="text-sm md:text-base leading-relaxed text-justify mb-8 whitespace-pre-wrap">
-                         {journal.description}
-                       </p>
-                       <div className="flex justify-center md:justify-center">
-                         <button 
-                           onClick={() => handleDownload(journal.file_name)}
-                           className="bg-[#6200EA] hover:bg-[#5000D0] text-white font-bold py-3.5 px-8 rounded-lg shadow-lg transition-transform hover:scale-105 active:scale-95 w-full md:w-auto min-w-[200px]"
-                         >
-                           Download PDF
-                         </button>
-                       </div>
-                     </div>
-                   </div>
-
-                   {/* Diamond Separator between items */}
-                   {idx < journals.length - 1 && (
-                     <div className="flex justify-center items-center gap-3 opacity-80 mt-4 md:mt-8">
-                       <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
-                       <div className="w-2.5 h-2.5 rotate-45 bg-[#D4AF37]"></div>
-                       <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
-                     </div>
-                   )}
-                 </div>
+                 <JournalCard 
+                   key={journal.id || idx} 
+                   journal={journal} 
+                   idx={idx} 
+                   isLast={idx === journals.length - 1} 
+                   isDarkMode={isDarkMode} 
+                   handleDownload={handleDownload} 
+                 />
                ))
              )}
            </div>
