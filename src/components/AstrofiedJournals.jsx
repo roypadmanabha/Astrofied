@@ -22,8 +22,8 @@ const AstrofiedJournals = () => {
   return (
     <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-4 md:px-6`}>
       {/* Decorative Background Orbs for Glassmorphism */}
-      <div className={`absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-[100px] opacity-60 ${isDarkMode ? 'bg-[#9d00ff]' : 'bg-[#FFE000]'}`}></div>
-      <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[128px] opacity-60 ${isDarkMode ? 'bg-[#FFD700]' : 'bg-[#6200EA]'}`}></div>
+      <div className={`absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#9d00ff]' : 'bg-[#FFE000]'}`}></div>
+      <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 ${isDarkMode ? 'bg-[#FFD700]' : 'bg-[#6200EA]'}`}></div>
       
       <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10">
         <motion.div 
