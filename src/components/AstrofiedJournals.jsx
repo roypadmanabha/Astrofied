@@ -8,6 +8,10 @@ import journalBg from '../assets/journal-bg.jpg';
 import logo from '../assets/logo.png';
 import Footer from './Footer';
 
+import houseSeriesImg from '../assets/journals/house-series.png';
+import planetSeriesImg from '../assets/journals/planet-series.jpg';
+import signSeriesImg from '../assets/journals/sign-series.jpg';
+
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
@@ -22,6 +26,15 @@ try {
   console.error("Supabase initialization error:", error);
 }
 
+const getJournalImage = (title, defaultUrl) => {
+  if (!title) return defaultUrl;
+  const t = title.toLowerCase();
+  if (t.includes('house')) return houseSeriesImg;
+  if (t.includes('planet')) return planetSeriesImg;
+  if (t.includes('sign')) return signSeriesImg;
+  return defaultUrl;
+};
+
 const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -33,7 +46,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
         <div className="w-full md:w-[45%] flex flex-col items-center">
           <h2 className="text-3xl md:text-4xl font-bold text-[#D00000] mb-8 text-center">{journal.title}</h2>
           <div className="w-full max-w-sm rounded-xl overflow-hidden shadow-xl border-[1.5px] border-[#D4AF37] bg-white">
-            <img src={journal.image_url || journalsCollage} alt={journal.title} className="w-full h-auto object-cover" />
+            <img src={getJournalImage(journal.title, journal.image_url) || journalsCollage} alt={journal.title} className="w-full h-auto object-cover" />
           </div>
         </div>
 
