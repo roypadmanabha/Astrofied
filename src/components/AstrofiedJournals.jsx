@@ -27,7 +27,7 @@ const AstrofiedJournals = () => {
           
           {/* Mobile Only: Title & Text (Shown before Image) */}
           <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2">
-            <h2 className="text-4xl md:text-5xl font-bold text-center drop-shadow-sm font-['Nunito']">
+            <h2 className="text-4xl md:text-5xl font-bold text-center drop-shadow-sm !font-['Nunito']">
               {titleContent}
             </h2>
             <p className={`text-lg md:text-xl text-center leading-relaxed font-['Mulish'] px-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
@@ -38,7 +38,7 @@ const AstrofiedJournals = () => {
           {/* Left Side - Image (and Desktop Title) */}
           <div className="w-full lg:w-1/2 flex flex-col items-center">
             {/* Desktop Only Title */}
-            <h2 className="hidden lg:block text-5xl xl:text-6xl font-bold mb-8 text-center drop-shadow-sm font-['Nunito']">
+            <h2 className="hidden lg:block text-5xl xl:text-6xl font-bold mb-8 text-center drop-shadow-sm !font-['Nunito']">
               {titleContent}
             </h2>
             
