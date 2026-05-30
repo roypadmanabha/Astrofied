@@ -28,7 +28,7 @@ const PromoVideo = () => {
     <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
       <div className="container mx-auto max-w-[1200px] flex justify-center">
         <motion.div 
-          className={`relative w-full max-w-4xl cursor-pointer rounded-[5px] border-[3px] transition-colors duration-500 ${isDarkMode ? 'border-gold shadow-[0_10px_40px_rgba(212,175,55,0.2)]' : 'border-[#4B0082] shadow-[0_10px_40px_rgba(75,0,130,0.2)]'}`}
+          className={`relative w-full max-w-4xl cursor-pointer rounded-[15px] overflow-hidden border-[3px] transition-colors duration-500 ${isDarkMode ? 'border-gold shadow-[0_10px_40px_rgba(212,175,55,0.2)]' : 'border-[#4B0082] shadow-[0_10px_40px_rgba(75,0,130,0.2)]'}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 1.01 }}
