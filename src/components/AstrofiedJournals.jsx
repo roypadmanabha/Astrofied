@@ -66,7 +66,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
                animate={{ height: isExpanded ? 'auto' : '1.3rem' }}
                className="overflow-hidden"
              >
-                <p className="text-sm leading-relaxed text-justify whitespace-pre-wrap">
+                <p className="text-sm leading-relaxed text-justify whitespace-pre-wrap font-mulish font-normal">
                   {journal.description}
                 </p>
              </motion.div>
@@ -79,7 +79,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
           </div>
 
           {/* Desktop Text (Always full) */}
-          <p className="hidden md:block text-base leading-relaxed text-justify mb-8 whitespace-pre-wrap">
+          <p className="hidden md:block text-base leading-relaxed text-justify mb-8 whitespace-pre-wrap font-mulish font-normal">
             {journal.description}
           </p>
 
