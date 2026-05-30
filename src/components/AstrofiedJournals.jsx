@@ -32,7 +32,6 @@ const AstrofiedJournals = () => {
 
   useEffect(() => {
     if (user) {
-      window.scrollTo(0, 0);
       document.body.classList.add('dashboard-active');
       const style = document.createElement('style');
       style.id = 'astrofied-journals-lock';
