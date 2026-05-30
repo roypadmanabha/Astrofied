@@ -31,17 +31,27 @@ const AstrofiedJournals = () => {
 
   useEffect(() => {
     if (user) {
+      window.scrollTo(0, 0);
+      document.body.classList.add('dashboard-active');
       const style = document.createElement('style');
       style.id = 'astrofied-journals-lock';
-      style.innerHTML = `html, body { overflow: hidden !important; }`;
+      style.innerHTML = `
+        body.dashboard-active #root > div > *:not(.astrofied-journals-container) {
+          display: none !important;
+        }
+        html, body {
+          overflow: auto !important;
+          height: auto !important;
+        }
+      `;
       document.head.appendChild(style);
-      if (window.lenis) window.lenis.stop();
+      if (window.lenis) window.lenis.start();
     }
     
     return () => {
+      document.body.classList.remove('dashboard-active');
       const styleEl = document.getElementById('astrofied-journals-lock');
       if (styleEl) styleEl.remove();
-      if (window.lenis) window.lenis.start();
     };
   }, [user]);
 
@@ -126,7 +136,7 @@ const AstrofiedJournals = () => {
   // --- LOGGED IN STATE: Dashboard UI ---
   if (user) {
     return (
-      <div className={`fixed inset-0 z-50 overflow-y-auto font-['Nunito'] ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-[#F4F1E1] text-black'}`}>
+      <div className={`astrofied-journals-container font-['Nunito'] min-h-screen w-full ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-[#F4F1E1] text-black'}`}>
          {/* Top Nav */}
          <header className={`sticky top-0 z-10 px-8 md:px-12 py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/90' : 'bg-[#F4F1E1]/90'} backdrop-blur-md border-b ${isDarkMode ? 'border-white/10' : 'border-black/10'}`}>
            <div className="flex items-center">
