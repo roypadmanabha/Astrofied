@@ -31,12 +31,17 @@ const AstrofiedJournals = () => {
 
   useEffect(() => {
     if (user) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
+      const style = document.createElement('style');
+      style.id = 'astrofied-journals-lock';
+      style.innerHTML = `html, body { overflow: hidden !important; }`;
+      document.head.appendChild(style);
+      if (window.lenis) window.lenis.stop();
     }
+    
     return () => {
-      document.body.style.overflow = 'auto';
+      const styleEl = document.getElementById('astrofied-journals-lock');
+      if (styleEl) styleEl.remove();
+      if (window.lenis) window.lenis.start();
     };
   }, [user]);
 
