@@ -12,6 +12,8 @@ import houseSeriesImg from '../assets/journals/house-series.png';
 import planetSeriesImg from '../assets/journals/planet-series.jpg';
 import signSeriesImg from '../assets/journals/sign-series.jpg';
 import malMaasImg from '../assets/journals/mal-maas.jpg';
+import jupiterImg from '../assets/journals/jupiter-cancer.jpg';
+import saturnImg from '../assets/journals/saturn-revati.jpg';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
@@ -34,6 +36,8 @@ const getJournalImage = (title, defaultUrl) => {
   if (t.includes('planet')) return planetSeriesImg;
   if (t.includes('sign')) return signSeriesImg;
   if (t.includes('maas') || t.includes('mal')) return malMaasImg;
+  if (t.includes('jupiter') || t.includes('cancer')) return jupiterImg;
+  if (t.includes('saturn') || t.includes('revati')) return saturnImg;
   return defaultUrl;
 };
 
