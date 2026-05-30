@@ -28,7 +28,7 @@ const PromoVideo = () => {
     <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
       <div className="container mx-auto max-w-[1200px] flex justify-center">
         <motion.div 
-          className={`relative w-full max-w-4xl cursor-pointer rounded-[5px] overflow-hidden border-[3px] transition-colors duration-500 ${isDarkMode ? 'border-gold shadow-[0_10px_40px_rgba(212,175,55,0.2)]' : 'border-[#4B0082] shadow-[0_10px_40px_rgba(75,0,130,0.2)]'}`}
+          className={`relative w-full max-w-4xl cursor-pointer rounded-[5px] border-[3px] transition-colors duration-500 ${isDarkMode ? 'border-gold shadow-[0_10px_40px_rgba(212,175,55,0.2)]' : 'border-[#4B0082] shadow-[0_10px_40px_rgba(75,0,130,0.2)]'}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 1.01 }}
@@ -40,7 +40,7 @@ const PromoVideo = () => {
           <video
             ref={videoRef}
             src={promoVideo}
-            className="w-full h-auto object-cover rounded-[5px]"
+            className="w-full h-auto object-cover rounded-none"
             playsInline
             onEnded={handleVideoEnded}
             onPause={() => setIsPlaying(false)}
@@ -55,7 +55,7 @@ const PromoVideo = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3 }}
-                className="absolute inset-0 flex items-center justify-center rounded-[5px] transition-colors hover:bg-black/10"
+                className="absolute inset-0 flex items-center justify-center transition-colors hover:bg-black/10"
               >
                 <CirclePlay 
                   className="text-[#9d00ff] rounded-full transition-transform hover:scale-110" 
