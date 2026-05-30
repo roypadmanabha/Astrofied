@@ -53,11 +53,11 @@ const AstrofiedJournals = () => {
               {titleContent}
             </h2>
             
-            <div className="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[28px] border-[1.5px] border-[#D4AF37] overflow-hidden shadow-2xl bg-transparent">
+            <div className="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[15px] overflow-hidden shadow-2xl bg-transparent border-[1.5px] border-[#D4AF37]">
               <img 
                 src={journalsCollage} 
                 alt="Astrofied Journals Collage" 
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain rounded-[15px]"
               />
             </div>
           </div>
