@@ -18,7 +18,7 @@ const AstrofiedJournals = () => {
     <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6`}>
       <div className="container mx-auto max-w-[1200px] flex justify-center">
         <motion.div 
-          className="flex flex-col lg:flex-row w-full gap-8 lg:gap-12 items-center"
+          className="flex flex-col lg:flex-row w-full gap-8 lg:gap-12 items-center lg:items-stretch"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -52,7 +52,7 @@ const AstrofiedJournals = () => {
           </div>
 
           {/* Vertical Separator Line (Hidden on mobile) */}
-          <div className={`hidden lg:block w-px h-64 self-center mx-4 ${isDarkMode ? 'bg-white/20' : 'bg-black/20'}`}></div>
+          <div className={`hidden lg:block w-px h-auto self-stretch mx-6 ${isDarkMode ? 'bg-white/20' : 'bg-black/20'}`}></div>
 
           {/* Right Side - Buttons (and Desktop Text) */}
           <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-2 lg:pt-0">
