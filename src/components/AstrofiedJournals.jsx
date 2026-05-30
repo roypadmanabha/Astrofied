@@ -7,8 +7,14 @@ const AstrofiedJournals = () => {
   const { isDarkMode } = useTheme();
 
   const titleContent = (
-    <span className={`whitespace-nowrap bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black via-[#7B0000] to-[#E50000]'}`}>
-      Astrofied Journals
+    <span className="whitespace-nowrap">
+      <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black via-[#7B0000] to-[#E50000]'}`}>
+        Astrofied
+      </span>
+      {' '}
+      <span className={`bg-clip-text text-transparent ${isDarkMode ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' : 'bg-[#E50000]'}`}>
+        Journals
+      </span>
     </span>
   );
 
@@ -33,7 +39,7 @@ const AstrofiedJournals = () => {
           
           {/* Mobile Only: Title & Text (Shown before Image) */}
           <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2">
-            <h2 className="text-[28px] sm:text-4xl md:text-5xl nunito-custom text-center drop-shadow-sm w-full overflow-hidden text-ellipsis">
+            <h2 className="text-[28px] sm:text-4xl md:text-5xl nunito-custom text-center drop-shadow-sm w-full overflow-hidden text-ellipsis" style={{ fontFamily: '"Nunito", sans-serif' }}>
               {titleContent}
             </h2>
             <p className={`text-lg md:text-xl text-center leading-relaxed font-['Nunito'] px-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
@@ -44,7 +50,7 @@ const AstrofiedJournals = () => {
           {/* Left Side - Image (and Desktop Title) */}
           <div className="w-full lg:w-1/2 flex flex-col items-center">
             {/* Desktop Only Title */}
-            <h2 className="hidden lg:block lg:text-[42px] xl:text-[50px] nunito-custom mb-6 text-center drop-shadow-sm w-[85%] leading-none tracking-tight">
+            <h2 className="hidden lg:block lg:text-[42px] xl:text-[50px] nunito-custom mb-6 text-center drop-shadow-sm w-[85%] leading-none tracking-tight" style={{ fontFamily: '"Nunito", sans-serif' }}>
               {titleContent}
             </h2>
             
