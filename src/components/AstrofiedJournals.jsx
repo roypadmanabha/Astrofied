@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import journalsCollage from '../assets/journals-collage.jpg';
-import journalBg from '../assets/journal-bg.png';
+import journalBg from '../assets/journal-bg.jpg';
 
 const AstrofiedJournals = () => {
   const { isDarkMode } = useTheme();
@@ -22,23 +22,13 @@ const AstrofiedJournals = () => {
 
   return (
     <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-4 md:px-6`}>
-      {/* Astrology Journal Texture Background */}
-      <div 
-        className={`absolute inset-0 z-0 opacity-100 dark:opacity-80 dark:invert pointer-events-none`}
-        style={{ 
-          backgroundImage: `url(${journalBg})`,
-          backgroundSize: '600px',
-          backgroundRepeat: 'repeat'
-        }}
-      />
-      
       {/* Decorative Background Orbs for Glassmorphism */}
       <div className={`absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#9d00ff]' : 'bg-[#FFE000]'}`}></div>
       <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 ${isDarkMode ? 'bg-[#FFD700]' : 'bg-[#6200EA]'}`}></div>
       
       <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10">
         <motion.div 
-          className={`flex flex-col lg:flex-row w-full gap-8 lg:gap-12 items-center lg:items-stretch p-6 md:p-10 lg:p-12 rounded-[30px] border shadow-2xl backdrop-blur-xl
+          className={`relative overflow-hidden flex flex-col lg:flex-row w-full gap-8 lg:gap-12 items-center lg:items-stretch p-6 md:p-10 lg:p-12 rounded-[30px] border shadow-2xl backdrop-blur-xl
             ${isDarkMode ? 'bg-white/5 border-white/10 shadow-black/50' : 'bg-white/40 border-white/40 shadow-gray-200/50'}
           `}
           initial={{ opacity: 0, y: 20 }}
@@ -46,6 +36,21 @@ const AstrofiedJournals = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
+          {/* Sketch Background Layer (Simulated Chroma Key via Mix-Blend) */}
+          <div 
+            className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-500
+              ${isDarkMode ? 'mix-blend-screen invert opacity-10' : 'mix-blend-multiply opacity-20'}
+            `}
+            style={{ 
+              backgroundImage: `url(${journalBg})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          />
+
+          {/* Wrapper to keep content above the absolute background */}
+          <div className="relative z-10 w-full flex flex-col lg:flex-row items-center lg:items-stretch gap-8 lg:gap-12">
           
           {/* Mobile Only: Title & Text (Shown before Image) */}
           <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2">
@@ -106,6 +111,7 @@ const AstrofiedJournals = () => {
                 LOGIN
               </button>
             </div>
+          </div>
           </div>
 
         </motion.div>
