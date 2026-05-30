@@ -44,7 +44,9 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
       <div className="flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
         {/* Left Side: Title & Image */}
         <div className="w-full md:w-[45%] flex flex-col items-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#D00000] mb-8 text-center">{journal.title}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#D00000] mb-8 text-center" style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
+            {journal.title}
+          </h2>
           <div 
             className="w-full rounded-xl overflow-hidden shadow-xl border-[1.5px] border-[#D4AF37] bg-white" 
             style={{ maxWidth: '923px', aspectRatio: '923/1024' }}
