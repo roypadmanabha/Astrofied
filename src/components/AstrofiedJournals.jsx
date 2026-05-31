@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { House, LogOut } from 'lucide-react';
+import { House, LogOut, Search } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journal-hero-new.jpg';
@@ -101,6 +101,12 @@ const AstrofiedJournals = () => {
   const [journals, setJournals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showHomeModal, setShowHomeModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredJournals = journals.filter(journal => 
+    journal.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    journal.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     if (user) {
@@ -294,19 +300,41 @@ const AstrofiedJournals = () => {
             Welcome to Astrofied Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
           </p>
 
+          {/* Search Bar */}
+          <div className="mb-12 flex justify-center w-full">
+            <div className="relative w-full max-w-lg">
+              <input
+                type="text"
+                placeholder="Search journals by topic or keyword..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className={`w-full py-3 px-6 pr-12 rounded-full border-2 outline-none transition-all shadow-md text-sm md:text-base font-mulish
+                  ${isDarkMode 
+                    ? 'bg-[#1a1a1a] border-[#D4AF37]/50 text-white placeholder-white/50 focus:border-[#D4AF37] focus:shadow-[0_0_15px_rgba(212,175,55,0.3)]' 
+                    : 'bg-white border-[#D00000]/40 text-black placeholder-black/50 focus:border-[#D00000] focus:shadow-[0_0_15px_rgba(208,0,0,0.2)]'
+                  }`}
+              />
+              <div className={`absolute right-5 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}`}>
+                <Search size={20} />
+              </div>
+            </div>
+          </div>
+
           {/* Journals List */}
           <div className="flex flex-col gap-12 md:gap-20">
             {loading ? (
               <div className="text-center py-20 text-lg animate-pulse">Loading journals...</div>
-            ) : journals.length === 0 ? (
-              <div className="text-center py-20 opacity-70">No journals found.</div>
+            ) : filteredJournals.length === 0 ? (
+              <div className="text-center py-20 opacity-80 font-mulish text-base md:text-lg">
+                No results found for "{searchQuery}"
+              </div>
             ) : (
-              journals.map((journal, idx) => (
+              filteredJournals.map((journal, idx) => (
                 <JournalCard
                   key={journal.id || idx}
                   journal={journal}
                   idx={idx}
-                  isLast={idx === journals.length - 1}
+                  isLast={idx === filteredJournals.length - 1}
                   isDarkMode={isDarkMode}
                   handleDownload={handleDownload}
                 />
