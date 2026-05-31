@@ -9,6 +9,7 @@ const desktopNavLinks = [
     { name: 'Services', href: '#services' },
     { name: 'Pricing', href: '#pricing' },
     { name: 'About', href: '#about' },
+    { name: 'Journals', href: '#journals' },
     { name: 'Contact', href: '#footer' },
 ];
 
