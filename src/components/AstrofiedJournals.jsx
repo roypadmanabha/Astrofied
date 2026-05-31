@@ -300,7 +300,7 @@ const AstrofiedJournals = () => {
               animate={{ opacity: 1, y: 0, x: '-50%' }}
               exit={{ opacity: 0, y: -20, x: '-50%' }}
               transition={{ duration: 0.3 }}
-              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#D00000] text-[#D4AF37] rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#D4AF37]/30"
+              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#D00000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#D4AF37]/30"
             >
               <AlertCircle size={24} />
               <span className="text-sm md:text-base">Not allowed. Content protection enabled.</span>
