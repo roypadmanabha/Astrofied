@@ -289,9 +289,30 @@ const Kundali = () => {
         if (enteredOtp === generatedOtp) {
             setOtpLoading(true);
             await sendToGoogleSheet();
+            try {
+                const API_URL = import.meta.env.VITE_API_URL || 'https://astrofied-production.up.railway.app';
+                const response = await axios.post(`${API_URL}/api/kundali`, {
+                    name: `${formData.firstName} ${formData.lastName}`.trim(),
+                    dob: formData.dob,
+                    tob: formData.tob,
+                    lat: formData.lat,
+                    lon: formData.lon,
+                    tzo: formData.tzo
+                });
+                
+                if (response.data && typeof response.data === 'string' && response.data.includes('<svg')) {
+                    setChartSvg(response.data);
+                    setIsModalOpen(true);
+                } else {
+                    setShowNotice(true);
+                }
+            } catch (error) {
+                console.error("Prokerala API Error:", error);
+                setShowNotice(true);
+            }
+
             setOtpLoading(false);
             setShowOtpModal(false);
-            setShowNotice(true); // Show high volume error notice
         } else {
             setOtpError("Wrong OTP! Auto-refreshing...");
             setTimeout(() => {
