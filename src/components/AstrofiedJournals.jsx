@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { House, LogOut, Search, X } from 'lucide-react';
+import { House, LogOut, Search, X, AlertCircle } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journal-hero-new.jpg';
@@ -121,11 +121,27 @@ const AstrofiedJournals = () => {
   const [loading, setLoading] = useState(true);
   const [showHomeModal, setShowHomeModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showRightClickPopup, setShowRightClickPopup] = useState(false);
 
   const filteredJournals = journals.filter(journal => 
     journal.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
     journal.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      if (window.innerWidth > 1024) {
+        e.preventDefault();
+        setShowRightClickPopup(true);
+        setTimeout(() => setShowRightClickPopup(false), 3000);
+      }
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -275,6 +291,22 @@ const AstrofiedJournals = () => {
             </button>
           </div>
         </header>
+
+        {/* Right Click Protection Popup */}
+        <AnimatePresence>
+          {showRightClickPopup && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, x: '-50%' }}
+              animate={{ opacity: 1, y: 0, x: '-50%' }}
+              exit={{ opacity: 0, y: -20, x: '-50%' }}
+              transition={{ duration: 0.3 }}
+              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#D00000] text-[#D4AF37] rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#D4AF37]/30"
+            >
+              <AlertCircle size={24} />
+              <span className="text-sm md:text-base">Not allowed. Content protection enabled.</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Home Modal */}
         <AnimatePresence>
