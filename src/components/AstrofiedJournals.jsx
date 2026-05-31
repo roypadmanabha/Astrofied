@@ -41,7 +41,26 @@ const getJournalImage = (title, defaultUrl) => {
   return defaultUrl;
 };
 
-const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
+const HighlightText = ({ text, highlight }) => {
+  if (!highlight || !highlight.trim()) return <>{text}</>;
+  const regex = new RegExp(`(${highlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  const parts = text.split(regex);
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.toLowerCase() === highlight.toLowerCase() ? (
+          <span key={i} className="bg-[#D4AF37]/40 text-[#D00000] px-1 rounded font-bold">
+            {part}
+          </span>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </>
+  );
+};
+
+const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQuery }) => {
   return (
     <div className="flex flex-col gap-6 md:gap-20">
       {/* Card */}
@@ -49,7 +68,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
         {/* Left Side: Title & Image */}
         <div className="w-[45%] flex flex-col items-center justify-center">
           <h2 className="text-[14px] sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#D00000] mb-2 sm:mb-4 md:mb-8 text-center leading-tight" style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
-            {journal.title}
+            <HighlightText text={journal.title} highlight={searchQuery} />
           </h2>
           <div
             className="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#D4AF37] bg-white"
@@ -66,7 +85,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
         <div className="w-[55%] flex flex-col justify-center h-full py-1 md:py-2">
 
           <p className="text-[9px] sm:text-xs md:text-base leading-[1.6] sm:leading-relaxed md:leading-relaxed text-justify mb-3 sm:mb-6 md:mb-8 whitespace-pre-wrap font-mulish font-medium md:font-normal">
-            {journal.description}
+            <HighlightText text={journal.description} highlight={searchQuery} />
           </p>
 
           <div className="flex justify-center md:justify-center mt-auto md:mt-0">
@@ -351,6 +370,7 @@ const AstrofiedJournals = () => {
                   isLast={idx === filteredJournals.length - 1}
                   isDarkMode={isDarkMode}
                   handleDownload={handleDownload}
+                  searchQuery={searchQuery}
                 />
               ))
             )}
