@@ -308,10 +308,10 @@ const AstrofiedJournals = () => {
                 placeholder="Search journals by topic or keyword..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full py-3 px-6 pr-12 rounded-full border-2 outline-none transition-all shadow-md text-sm md:text-base font-mulish
+                className={`w-full py-3 px-6 pr-12 rounded-[28px] border-2 outline-none transition-all text-sm md:text-base font-mulish shadow-none
                   ${isDarkMode 
-                    ? 'bg-[#1a1a1a] border-[#D4AF37]/50 text-white placeholder-white/50 focus:border-[#D4AF37] focus:shadow-[0_0_15px_rgba(212,175,55,0.3)]' 
-                    : 'bg-white border-[#D00000]/40 text-black placeholder-black/50 focus:border-[#D00000] focus:shadow-[0_0_15px_rgba(208,0,0,0.2)]'
+                    ? 'bg-[#1a1a1a] border-[#D4AF37]/50 text-white placeholder-white/50 focus:border-[#D4AF37]' 
+                    : 'bg-white border-[#D00000]/50 text-black placeholder-black/50 focus:border-[#D00000]'
                   }`}
               />
               <div className={`absolute right-5 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}`}>
