@@ -152,41 +152,63 @@ If you have any questions regarding this Privacy Policy or how your data is hand
   }, [legalModal.isOpen, isDetailsModalOpen]);
 
   useEffect(() => {
-    // Force scroll to top on refresh
+    // Force manual scroll restoration
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-    window.scrollTo(0, 0);
+
+    let lenis = null;
 
     // Only use Lenis on Desktop (Non-touch/Large screens)
     // Mobile browsers have native momentum scroll which is smoother than JS-based solutions
-    if (window.innerWidth < 1024) return;
+    if (window.innerWidth >= 1024) {
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+      });
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-    });
+      window.lenis = lenis;
 
-    // Store lenis on window for easy access if needed, or just keep it in scope
-    window.lenis = lenis;
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
 
-    function raf(time) {
-      lenis.raf(time);
       requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    // Handle initial routing to hash or scroll to top
+    if (window.location.hash) {
+      setTimeout(() => {
+        try {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            if (lenis) {
+              lenis.scrollTo(target);
+            } else {
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        } catch (e) {
+          console.error("Invalid hash selector");
+        }
+      }, 500); // Small delay to ensure DOM and images are rendered
+    } else {
+      window.scrollTo(0, 0);
+    }
 
     return () => {
-      lenis.destroy();
-      window.lenis = null;
+      if (lenis) {
+        lenis.destroy();
+        window.lenis = null;
+      }
     };
   }, []);
 
