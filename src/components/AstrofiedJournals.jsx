@@ -290,7 +290,7 @@ const AstrofiedJournals = () => {
         {/* Main Content */}
         <main className="max-w-4xl mx-auto px-4 md:px-8 pt-28 pb-8 md:pt-36 md:pb-12">
           {/* Intro Text */}
-          <p className="text-center text-sm md:text-base leading-relaxed mb-16 max-w-3xl mx-auto">
+          <p className="text-justify text-sm md:text-base leading-relaxed mb-16 max-w-3xl mx-auto">
             Welcome to Astrofied Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
           </p>
 
