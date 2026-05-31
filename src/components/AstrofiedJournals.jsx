@@ -42,59 +42,37 @@ const getJournalImage = (title, defaultUrl) => {
 };
 
 const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   return (
-    <div className="flex flex-col gap-12 md:gap-20">
+    <div className="flex flex-col gap-6 md:gap-20">
       {/* Card */}
-      <div className="flex flex-col md:flex-row items-stretch gap-8 md:gap-12">
+      <div className="flex flex-row items-stretch gap-3 sm:gap-6 md:gap-12">
         {/* Left Side: Title & Image */}
-        <div className="w-full md:w-[45%] flex flex-col items-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#D00000] mb-8 text-center" style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
+        <div className="w-[45%] flex flex-col items-center">
+          <h2 className="text-[14px] sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#D00000] mb-2 sm:mb-4 md:mb-8 text-center leading-tight" style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
             {journal.title}
           </h2>
           <div
-            className="w-full rounded-xl overflow-hidden shadow-xl border-[1.5px] border-[#D4AF37] bg-white"
+            className="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#D4AF37] bg-white"
             style={{ maxWidth: '923px', aspectRatio: '923/1024' }}
           >
             <img src={getJournalImage(journal.title, journal.image_url) || journalsCollage} alt={journal.title} className="w-full h-full object-cover" />
           </div>
         </div>
 
-        {/* Divider line (Desktop) */}
-        <div className={`hidden md:block w-px self-stretch ${isDarkMode ? 'bg-white/30' : 'bg-black/30'}`}></div>
+        {/* Divider line (Always visible) */}
+        <div className={`w-px self-stretch ${isDarkMode ? 'bg-white/30' : 'bg-black/30'}`}></div>
 
         {/* Right Side: Description & Button */}
-        <div className="w-full md:w-[55%] flex flex-col justify-center h-full py-2">
+        <div className="w-[55%] flex flex-col justify-center h-full py-1 md:py-2">
 
-          {/* Mobile Text (Expandable) */}
-          <div className="block md:hidden mb-8">
-            <motion.div
-              initial={false}
-              animate={{ height: isExpanded ? 'auto' : '1.3rem' }}
-              className="overflow-hidden"
-            >
-              <p className="text-sm leading-relaxed text-justify whitespace-pre-wrap font-mulish font-normal">
-                {journal.description}
-              </p>
-            </motion.div>
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="text-[#D4AF37] font-bold mt-2 hover:underline text-sm"
-            >
-              {isExpanded ? 'Read Less' : 'Read More..'}
-            </button>
-          </div>
-
-          {/* Desktop Text (Always full) */}
-          <p className="hidden md:block text-base leading-relaxed text-justify mb-8 whitespace-pre-wrap font-mulish font-normal">
+          <p className="text-[9px] sm:text-xs md:text-base leading-[1.6] sm:leading-relaxed md:leading-relaxed text-justify mb-3 sm:mb-6 md:mb-8 whitespace-pre-wrap font-mulish font-medium md:font-normal">
             {journal.description}
           </p>
 
-          <div className="flex justify-center md:justify-center">
+          <div className="flex justify-center md:justify-center mt-auto md:mt-0">
             <button
               onClick={() => handleDownload(journal.file_name)}
-              className="bg-[#6200EA] hover:bg-[#5000D0] text-white font-bold py-3.5 px-8 rounded-lg shadow-lg transition-transform hover:scale-105 active:scale-95 w-full md:w-auto min-w-[200px]"
+              className="bg-[#6200EA] hover:bg-[#5000D0] text-white font-bold py-1.5 px-2 sm:py-2.5 sm:px-6 md:py-3.5 md:px-8 rounded sm:rounded-md md:rounded-lg shadow-md md:shadow-lg transition-transform hover:scale-105 active:scale-95 text-[9px] sm:text-sm md:text-base w-full lg:w-auto min-w-0 md:min-w-[200px]"
             >
               Download PDF
             </button>
@@ -104,10 +82,10 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload }) => {
 
       {/* Diamond Separator between items */}
       {!isLast && (
-        <div className="flex justify-center items-center gap-3 opacity-80 mt-4 md:mt-8">
-          <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
-          <div className="w-2.5 h-2.5 rotate-45 bg-[#D4AF37]"></div>
-          <div className="w-24 md:w-40 h-px bg-[#D4AF37]"></div>
+        <div className="flex justify-center items-center gap-2 md:gap-3 opacity-80 mt-4 md:mt-8">
+          <div className="w-16 md:w-40 h-px bg-[#D4AF37]"></div>
+          <div className="w-1.5 h-1.5 md:w-2.5 md:h-2.5 rotate-45 bg-[#D4AF37]"></div>
+          <div className="w-16 md:w-40 h-px bg-[#D4AF37]"></div>
         </div>
       )}
     </div>
