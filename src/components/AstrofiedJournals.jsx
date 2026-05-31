@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { House, LogOut, Search } from 'lucide-react';
+import { House, LogOut, Search, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journal-hero-new.jpg';
@@ -327,14 +327,26 @@ const AstrofiedJournals = () => {
                 placeholder="Search journals by topic or keyword..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full py-2 md:py-3 px-5 md:px-6 pr-12 rounded-[28px] border-[1.5px] md:border-2 outline-none transition-all text-sm md:text-base font-mulish shadow-none
+                className={`w-full py-2 md:py-3 px-5 md:px-6 pr-16 md:pr-20 rounded-[28px] border-[1.5px] md:border-2 outline-none transition-all text-sm md:text-base font-mulish shadow-none
                   ${isDarkMode 
                     ? 'bg-[#1a1a1a] border-[#D4AF37]/50 text-white placeholder-white/50 focus:border-[#D4AF37]' 
                     : 'bg-white border-[#D00000]/50 text-black placeholder-black/50 focus:border-[#D00000]'
                   }`}
               />
-              <div className={`absolute right-5 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}`}>
-                <Search size={20} />
+              <div className={`absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 md:gap-3 ${isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}`}>
+                {searchQuery && (
+                  <>
+                    <button 
+                      onClick={() => setSearchQuery('')}
+                      className="hover:opacity-60 transition-opacity flex items-center justify-center"
+                      aria-label="Clear search"
+                    >
+                      <X size={18} className="md:w-5 md:h-5" />
+                    </button>
+                    <div className={`w-px h-4 md:h-5 ${isDarkMode ? 'bg-[#D4AF37]/50' : 'bg-[#D00000]/50'}`}></div>
+                  </>
+                )}
+                <Search size={18} className="md:w-5 md:h-5" />
               </div>
             </div>
 
