@@ -301,7 +301,7 @@ const AstrofiedJournals = () => {
           </p>
 
           {/* Search Bar */}
-          <div className="mb-12 flex justify-center w-full">
+          <div className="mb-12 flex flex-col items-center w-full px-4">
             <div className="relative w-full max-w-lg">
               <input
                 type="text"
@@ -318,6 +318,20 @@ const AstrofiedJournals = () => {
                 <Search size={20} />
               </div>
             </div>
+
+            {/* Matches count indicator */}
+            <AnimatePresence>
+              {searchQuery && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                  animate={{ opacity: 1, height: 'auto', marginTop: 12 }}
+                  exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                  className={`text-sm font-mulish font-bold overflow-hidden ${isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}`}
+                >
+                  {filteredJournals.length} {filteredJournals.length === 1 ? 'match' : 'matches'} found
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Journals List */}
