@@ -89,12 +89,12 @@ const Numerology = () => {
     ];
 
     return (
-        <section className={`py-16 md:py-24 font-mulish overflow-hidden ${isDarkMode ? 'bg-[#121212]' : 'bg-[#FDFBF2]'}`}>
+        <section className={`py-16 md:py-24 font-mulish overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-[#FDFBF2]'}`}>
             <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h2 className={`text-4xl md:text-6xl lg:text-[5rem] font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                        Know your <span className="text-[#D00000]">Numbers</span>
+                        Know your <span className={isDarkMode ? 'text-[#FFF000]' : 'text-[#D00000]'}>Numbers</span>
                     </h2>
                     <p className={`text-sm md:text-xl font-medium max-w-2xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                         Calculate your core numerology numbers for free with<br className="hidden md:block" /> 100% accurate calculations.
@@ -150,7 +150,7 @@ const Numerology = () => {
                     />
                     <button 
                         onClick={handleCalculate}
-                        className="bg-[#D00000] text-white px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg hover:bg-red-700 transition-colors w-full md:w-auto"
+                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto ${isDarkMode ? 'bg-[#FFF000] text-black hover:bg-[#FFE000]' : 'bg-[#D00000] text-white hover:bg-red-700'}`}
                     >
                         Calculate
                     </button>
@@ -190,8 +190,7 @@ const Numerology = () => {
                                             initial={{ opacity: 0, scale: 0.5, y: 20 }}
                                             animate={{ opacity: 1, scale: 1, y: 0 }}
                                             transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
-                                            className="text-7xl md:text-8xl lg:text-[7rem] text-[#D00000] leading-none drop-shadow-md"
-                                            style={{ fontFamily: '"Nunito", "Nunito Rounded", sans-serif', fontWeight: 900 }}
+                                            className="text-7xl md:text-8xl lg:text-[7rem] text-[#D00000] leading-none drop-shadow-md nunito-black"
                                         >
                                             {results[card.key]}
                                         </motion.div>
