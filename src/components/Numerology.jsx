@@ -109,7 +109,7 @@ const Numerology = () => {
                             setResults(null);
                             setError('');
                         }}
-                        className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#D00000] hover:text-[#D00000]' : 'bg-white border-transparent text-black hover:text-[#D00000]'}`}
+                        className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#D4AF37] hover:text-[#D4AF37]' : 'bg-white border-transparent text-black hover:text-[#D00000]'}`}
                         title="Reset"
                     >
                         <RotateCcw className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
@@ -146,7 +146,7 @@ const Numerology = () => {
                             setDob(val);
                             setResults(null);
                         }}
-                        className={`px-6 py-3 md:py-4 rounded-xl border-2 text-lg md:text-2xl font-bold shadow-lg w-full md:w-auto min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D00000]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
+                        className={`px-6 py-3 md:py-4 rounded-xl border-2 text-lg md:text-2xl font-bold shadow-lg w-full md:w-auto min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
                     />
                     <button 
                         onClick={handleCalculate}
