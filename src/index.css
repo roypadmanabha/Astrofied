@@ -82,6 +82,11 @@ h6 {
   font-style: normal;
 }
 
+.nunito-black {
+  font-family: "Nunito", sans-serif !important;
+  font-weight: 900 !important;
+}
+
 body {
   margin: 0;
   min-width: 320px;
