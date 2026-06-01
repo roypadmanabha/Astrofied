@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { RotateCcw } from 'lucide-react';
 
 const Numerology = () => {
     const { isDarkMode } = useTheme();
@@ -94,6 +95,16 @@ const Numerology = () => {
 
                 {/* Input & Button */}
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
+                    <button
+                        onClick={() => {
+                            setDob('');
+                            setResults(null);
+                        }}
+                        className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#D00000] hover:text-[#D00000]' : 'bg-white border-transparent text-black hover:text-[#D00000]'}`}
+                        title="Reset"
+                    >
+                        <RotateCcw className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
+                    </button>
                     <input 
                         type="date" 
                         value={dob}
