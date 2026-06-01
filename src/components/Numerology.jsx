@@ -174,7 +174,7 @@ const Numerology = () => {
                     {cards.map((card, idx) => (
                         <div 
                             key={idx} 
-                            className={`rounded-2xl p-6 flex flex-col justify-between shadow-xl min-h-[350px] md:min-h-[400px] relative overflow-hidden ${isDarkMode ? 'bg-transparent border border-[#D4AF37]' : 'bg-[#f5f5de] border border-[#6200EA]'}`}
+                            className={`rounded-2xl p-6 flex flex-col justify-between shadow-xl min-h-[350px] md:min-h-[400px] relative overflow-hidden backdrop-blur-xl ${isDarkMode ? 'bg-white/5 border border-[#D4AF37]' : 'bg-[#f5f5de]/70 border border-[#6200EA]'}`}
                         >
                             {/* Card Header */}
                             <h3 className={`text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
@@ -207,7 +207,7 @@ const Numerology = () => {
                             </div>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-2xl p-5 text-[11px] md:text-xs leading-relaxed z-10 mt-auto h-[120px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-black bg-[#f5f5dd]/50 border border-[#D4AF37]' : 'text-black bg-[#f5ebfc] border border-[#6200EA]'}`}>
+                            <div className={`rounded-2xl p-5 text-[11px] md:text-xs leading-relaxed z-10 mt-auto h-[120px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#D4AF37]' : 'text-black bg-[#f5ebfc] border border-[#6200EA]'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             
