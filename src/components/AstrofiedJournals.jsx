@@ -516,7 +516,7 @@ const AstrofiedJournals = () => {
               </div>
 
               {/* Vertical Separator Line (Hidden on mobile) */}
-              <div className={`hidden lg:block w-px h-auto self-stretch mx-6 ${isDarkMode ? 'bg-white/20' : 'bg-black/20'}`}></div>
+              <div className={`hidden lg:block w-px h-auto self-stretch mx-6 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
 
               {/* Right Side - Buttons (and Desktop Text) */}
               <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-2 lg:pt-0">
