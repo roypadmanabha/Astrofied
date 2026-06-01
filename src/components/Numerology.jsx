@@ -126,6 +126,8 @@ const Numerology = () => {
                                 const yearStr = parts[0];
                                 
                                 if (yearStr && yearStr.length > 4) {
+                                    const correctedVal = `${yearStr.substring(0, 4)}-${parts[1]}-${parts[2]}`;
+                                    setDob(correctedVal);
                                     setError('Please enter valid DOB in DD MM YYYY format only');
                                     return;
                                 }
