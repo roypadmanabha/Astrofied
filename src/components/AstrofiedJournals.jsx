@@ -123,8 +123,8 @@ const AstrofiedJournals = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showRightClickPopup, setShowRightClickPopup] = useState(false);
 
-  const filteredJournals = journals.filter(journal => 
-    journal.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+  const filteredJournals = journals.filter(journal =>
+    journal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     journal.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -266,7 +266,7 @@ const AstrofiedJournals = () => {
     </span>
   );
 
-  const textContent = "Astrofied Journals has made astrology simpler and more accessible by providing free astrological articles, updates, journals, and insights that can be read or downloaded in just one click. Our goal is to spread awareness of authentic and practical astrology in society by making reliable knowledge easy to understand and available to everyone. Through simplified explanations and valuable resources, Astrofied helps people learn astrology with clarity, convenience, and confidence.";
+  const textContent = "Astrofied Journals has made astrology simpler and more accessible by providing FREE astrological articles, updates, journals, and insights that can be read or downloaded in just one click. Our goal is to spread awareness of authentic and practical astrology in society by making reliable knowledge easy to understand and available to everyone. Through simplified explanations and valuable resources, Astrofied helps people learn astrology with clarity, convenience, and confidence.";
 
   // --- LOGGED IN STATE: Dashboard UI ---
   if (user) {
@@ -347,9 +347,14 @@ const AstrofiedJournals = () => {
         {/* Main Content */}
         <main className="max-w-4xl mx-auto px-4 md:px-8 pt-28 pb-8 md:pt-36 md:pb-12">
           {/* Intro Text */}
-          <p className="text-justify text-sm md:text-base leading-relaxed mb-16 max-w-3xl mx-auto">
-            Welcome to Astrofied Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
-          </p>
+          <div className="mb-16 max-w-3xl mx-auto">
+            <p className="text-justify text-sm md:text-base leading-relaxed mb-4">
+              Welcome to Astrofied Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
+            </p>
+            <p className="text-justify text-[10px] md:text-xs leading-relaxed font-mulish font-normal text-[#3d0000]">
+              *Disclaimer: All content within Astrofied Journals is provided strictly for personal reading and educational purposes. Unauthorized reproduction, distribution, resale, or commercial use of these materials is strictly prohibited under Indian Copyright Act. Astrofied reserves all intellectual property rights, and any infringement will be subject to strict legal action.*
+            </p>
+          </div>
 
           {/* Search Bar */}
           <div className="mb-12 flex flex-col items-center w-full px-4">
@@ -360,15 +365,15 @@ const AstrofiedJournals = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className={`w-full py-2 md:py-3 px-5 md:px-6 pr-16 md:pr-20 rounded-[28px] border-[1.5px] md:border-2 outline-none transition-all text-sm md:text-base font-mulish shadow-none
-                  ${isDarkMode 
-                    ? 'bg-[#1a1a1a] border-[#D4AF37]/50 text-white placeholder-white/50 focus:border-[#D4AF37]' 
+                  ${isDarkMode
+                    ? 'bg-[#1a1a1a] border-[#D4AF37]/50 text-white placeholder-white/50 focus:border-[#D4AF37]'
                     : 'bg-white border-[#D00000]/50 text-black placeholder-black/50 focus:border-[#D00000]'
                   }`}
               />
               <div className={`absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 md:gap-3 ${isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}`}>
                 {searchQuery && (
                   <>
-                    <button 
+                    <button
                       onClick={() => setSearchQuery('')}
                       className="hover:opacity-60 transition-opacity flex items-center justify-center"
                       aria-label="Clear search"
@@ -385,7 +390,7 @@ const AstrofiedJournals = () => {
             {/* Matches count indicator */}
             <AnimatePresence>
               {searchQuery && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, height: 0, marginTop: 0 }}
                   animate={{ opacity: 1, height: 'auto', marginTop: 12 }}
                   exit={{ opacity: 0, height: 0, marginTop: 0 }}
