@@ -207,7 +207,7 @@ const Numerology = () => {
                             </div>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-2xl p-5 text-white text-[11px] md:text-xs leading-relaxed z-10 mt-auto h-[120px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'bg-transparent' : 'bg-[#241A11]'}`}>
+                            <div className={`rounded-2xl p-5 text-white text-[11px] md:text-xs leading-relaxed z-10 mt-auto h-[120px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'bg-transparent border border-[#D4AF37]' : 'bg-[#241A11]'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             
