@@ -94,7 +94,7 @@ const Numerology = () => {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h2 className={`text-4xl md:text-6xl lg:text-[5rem] font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                            Know your <span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#6200EA]'}>Numbers</span>
+                            Know your <span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}>Numbers</span>
                     </h2>
                     <p className={`text-sm md:text-xl font-medium max-w-2xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                         Calculate your core numerology numbers for free with<br className="hidden md:block" /> 100% accurate calculations.
@@ -109,7 +109,7 @@ const Numerology = () => {
                             setResults(null);
                             setError('');
                         }}
-                        className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#6200EA] hover:text-[#6200EA]' : 'bg-white border-transparent text-black hover:text-[#6200EA]'}`}
+                        className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#D00000] hover:text-[#D00000]' : 'bg-white border-transparent text-black hover:text-[#D00000]'}`}
                         title="Reset"
                     >
                         <RotateCcw className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
@@ -146,11 +146,11 @@ const Numerology = () => {
                             setDob(val);
                             setResults(null);
                         }}
-                        className={`px-6 py-3 md:py-4 rounded-xl border-2 text-lg md:text-2xl font-bold shadow-lg w-full md:w-auto min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#6200EA]' : 'bg-white border-transparent focus:border-[#6200EA] text-black'}`}
+                        className={`px-6 py-3 md:py-4 rounded-xl border-2 text-lg md:text-2xl font-bold shadow-lg w-full md:w-auto min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D00000]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
                     />
                     <button 
                         onClick={handleCalculate}
-                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#6200EA] text-white hover:bg-[#5000D0]'}`}
+                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#D00000] text-white hover:bg-red-700'}`}
                     >
                         Calculate
                     </button>
@@ -178,7 +178,7 @@ const Numerology = () => {
                         >
                             {/* Card Header */}
                             <h3 className={`text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#6200EA]'}>{card.titleSuffix}</span>
+                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}>{card.titleSuffix}</span>
                             </h3>
 
                             {/* Result Number */}
@@ -190,7 +190,7 @@ const Numerology = () => {
                                             initial={{ opacity: 0, scale: 0.5, y: 20 }}
                                             animate={{ opacity: 1, scale: 1, y: 0 }}
                                             transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
-                                            className={`text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffff00]' : 'text-[#6200EA]'}`}
+                                            className={`text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffff00]' : 'text-[#D00000]'}`}
                                         >
                                             {results[card.key]}
                                         </motion.div>
