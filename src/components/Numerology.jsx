@@ -88,6 +88,34 @@ const Numerology = () => {
         }
     ];
 
+    const handleDateChange = (e) => {
+        const val = e.target.value;
+        if (val) {
+            const parts = val.split('-');
+            const yearStr = parts[0];
+            
+            if (yearStr && yearStr.length > 4) {
+                const correctedVal = `${yearStr.substring(0, 4)}-${parts[1]}-${parts[2]}`;
+                setDob(correctedVal);
+                setError('Please enter valid DOB in DD MM YYYY format only');
+                return;
+            }
+            
+            if (yearStr && yearStr.length === 4) {
+                const yearNum = parseInt(yearStr, 10);
+                if (yearNum < 1900 || yearNum > 2099) {
+                    setError('Please enter valid DOB in DD MM YYYY format only');
+                    setDob(val);
+                    setResults(null);
+                    return;
+                }
+            }
+        }
+        setError('');
+        setDob(val);
+        setResults(null);
+    };
+
     return (
         <section className={`py-16 md:py-24 font-mulish overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
             <div className="container mx-auto px-4 md:px-6 max-w-6xl">
@@ -115,6 +143,7 @@ const Numerology = () => {
                         <RotateCcw className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
                     </button>
                     <div className="relative w-full md:w-auto">
+                        {/* Mobile Input: Text to Date toggle for custom placeholder */}
                         <input 
                             type={dob ? "date" : "text"}
                             placeholder="Select DOB"
@@ -123,36 +152,19 @@ const Numerology = () => {
                                 if (!e.target.value) e.target.type = "text";
                             }}
                             min="1900-01-01"
-                        max="2099-12-31"
-                        value={dob}
-                        onChange={(e) => {
-                            const val = e.target.value;
-                            if (val) {
-                                const parts = val.split('-');
-                                const yearStr = parts[0];
-                                
-                                if (yearStr && yearStr.length > 4) {
-                                    const correctedVal = `${yearStr.substring(0, 4)}-${parts[1]}-${parts[2]}`;
-                                    setDob(correctedVal);
-                                    setError('Please enter valid DOB in DD MM YYYY format only');
-                                    return;
-                                }
-                                
-                                if (yearStr && yearStr.length === 4) {
-                                    const yearNum = parseInt(yearStr, 10);
-                                    if (yearNum < 1900 || yearNum > 2099) {
-                                        setError('Please enter valid DOB in DD MM YYYY format only');
-                                        setDob(val);
-                                        setResults(null);
-                                        return;
-                                    }
-                                }
-                            }
-                            setError('');
-                            setDob(val);
-                            setResults(null);
-                        }}
-                        className={`px-6 py-3 md:py-4 rounded-xl border-2 text-lg md:text-2xl font-bold shadow-lg w-full md:w-auto min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
+                            max="2099-12-31"
+                            value={dob}
+                            onChange={handleDateChange}
+                            className={`md:hidden px-6 py-3 rounded-xl border-2 text-lg font-bold shadow-lg w-full outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
+                        />
+                        {/* Desktop Input: Native Date Picker */}
+                        <input 
+                            type="date"
+                            min="1900-01-01"
+                            max="2099-12-31"
+                            value={dob}
+                            onChange={handleDateChange}
+                            className={`hidden md:block px-6 py-4 rounded-xl border-2 text-2xl font-bold shadow-lg min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
                         />
                     </div>
                     <button 
