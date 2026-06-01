@@ -174,7 +174,7 @@ const Numerology = () => {
                     {cards.map((card, idx) => (
                         <div 
                             key={idx} 
-                            className={`rounded-2xl p-6 flex flex-col justify-between shadow-xl min-h-[350px] md:min-h-[400px] relative overflow-hidden ${isDarkMode ? 'bg-transparent border border-[#D4AF37]' : 'bg-gradient-to-b from-[#D00000] to-black'}`}
+                            className={`rounded-2xl p-6 flex flex-col justify-between shadow-xl min-h-[350px] md:min-h-[400px] relative overflow-hidden ${isDarkMode ? 'bg-transparent border border-[#D4AF37]' : 'bg-gradient-to-b from-[#6200EA] to-black'}`}
                         >
                             {/* Card Header */}
                             <h3 className="text-2xl md:text-3xl font-bold text-center mt-2 z-10 text-white">
