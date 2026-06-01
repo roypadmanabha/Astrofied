@@ -19,12 +19,19 @@ const Numerology = () => {
     };
 
     const handleCalculate = () => {
-        if (!dob) return;
+        if (!dob) {
+            setError('Please enter valid DOB in DD MM YYYY format only');
+            return;
+        }
         
         const parts = dob.split('-');
         if (parts.length !== 3) return;
         
         const year = parseInt(parts[0], 10);
+        if (year < 1900 || parts[0].length > 4) {
+            setError('Please enter valid DOB in DD MM YYYY format only');
+            return;
+        }
         const month = parseInt(parts[1], 10);
         const day = parseInt(parts[2], 10);
 
@@ -109,15 +116,28 @@ const Numerology = () => {
                     </button>
                     <input 
                         type="date" 
+                        min="1900-01-01"
                         max="9999-12-31"
                         value={dob}
                         onChange={(e) => {
                             const val = e.target.value;
                             if (val) {
                                 const parts = val.split('-');
-                                if (parts[0] && parts[0].length > 4) {
+                                const yearStr = parts[0];
+                                
+                                if (yearStr && yearStr.length > 4) {
                                     setError('Please enter valid DOB in DD MM YYYY format only');
                                     return;
+                                }
+                                
+                                if (yearStr && yearStr.length === 4) {
+                                    const yearNum = parseInt(yearStr, 10);
+                                    if (yearNum < 1900) {
+                                        setError('Please enter valid DOB in DD MM YYYY format only');
+                                        setDob(val);
+                                        setResults(null);
+                                        return;
+                                    }
                                 }
                             }
                             setError('');
