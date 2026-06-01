@@ -156,7 +156,7 @@ const Numerology = () => {
 
                             {/* Bottom Description Box */}
                             <div className="bg-[#241A11] rounded-2xl p-5 text-white text-[11px] md:text-xs leading-relaxed z-10 mt-auto min-h-[100px] md:min-h-[120px] flex items-center shadow-lg">
-                                {card.desc}
+                                <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             
                             {/* Subtle background glow effect if needed */}
