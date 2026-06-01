@@ -494,7 +494,7 @@ const AstrofiedJournals = () => {
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl nunito-custom text-center w-full overflow-hidden text-ellipsis" style={{ fontFamily: '"Nunito", sans-serif' }}>
                   {titleContent}
                 </h2>
-                <p className={`text-base md:text-lg text-justify leading-relaxed font-mulish font-medium px-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                <p className={`text-base md:text-lg text-justify leading-relaxed font-mulish font-normal px-4 ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
                   {textContent}
                 </p>
               </div>
@@ -521,7 +521,7 @@ const AstrofiedJournals = () => {
               {/* Right Side - Buttons (and Desktop Text) */}
               <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-2 lg:pt-0">
                 {/* Desktop Only Text */}
-                <p className={`hidden lg:block text-lg xl:text-xl mb-12 text-justify leading-relaxed font-mulish font-medium px-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                <p className={`hidden lg:block text-lg xl:text-xl mb-12 text-justify leading-relaxed font-mulish font-normal px-4 ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
                   {textContent}
                 </p>
 
