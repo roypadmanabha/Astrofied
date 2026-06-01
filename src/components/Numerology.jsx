@@ -89,7 +89,7 @@ const Numerology = () => {
     ];
 
     return (
-        <section className={`py-16 md:py-24 font-mulish overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-[#FDFBF2]'}`}>
+        <section className={`py-16 md:py-24 font-mulish overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
             <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                 {/* Header */}
                 <div className="text-center mb-8">
