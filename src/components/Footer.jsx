@@ -3,14 +3,14 @@ import { useTheme } from '../context/ThemeContext';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import logo from '../assets/logo.png';
 
-export default function Footer({ onOpenLegal, forceLightMode = false }) {
+export default function Footer({ onOpenLegal, forceLightMode = false, isJournalsPage = false }) {
     const theme = useTheme();
     const isDarkMode = forceLightMode ? false : theme.isDarkMode;
 
     const socialLinks = [
         {
             icon: (
-                <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] md:w-8 md:h-8">
+                <svg viewBox="0 0 24 24" className={isJournalsPage ? "w-3 h-3 sm:w-4 sm:h-4 md:w-8 md:h-8" : "w-[18px] h-[18px] md:w-8 md:h-8"}>
                     <defs>
                         <radialGradient id="ig-gradient" cx="0%" cy="100%" r="150%">
                             <stop offset="0%" stopColor="#f09433" />
@@ -27,7 +27,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false }) {
         },
         {
             icon: (
-                <svg viewBox="0 0 24 24" className="w-[20px] h-[20px] md:w-9 md:h-9">
+                <svg viewBox="0 0 24 24" className={isJournalsPage ? "w-3.5 h-3.5 sm:w-5 sm:h-5 md:w-9 md:h-9" : "w-[20px] h-[20px] md:w-9 md:h-9"}>
                     <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" />
                     <path fill="#FFF" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </svg>
@@ -36,7 +36,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false }) {
         },
         {
             icon: (
-                <svg viewBox="0 0 24 24" className="w-[20px] h-[20px] md:w-9 md:h-9">
+                <svg viewBox="0 0 24 24" className={isJournalsPage ? "w-3.5 h-3.5 sm:w-5 sm:h-5 md:w-9 md:h-9" : "w-[20px] h-[20px] md:w-9 md:h-9"}>
                     <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     <path fill="#FFF" d="M16.671 15.458l.532-3.47h-3.328V9.738c0-.949.465-1.874 1.956-1.874h1.513V4.91s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.669v2.645H7.078v3.47h3.047v8.385a12.09 12.09 0 001.438.086c.49 0 .969-.03 1.437-.086v-8.385h2.796z" />
                 </svg>
@@ -46,20 +46,20 @@ export default function Footer({ onOpenLegal, forceLightMode = false }) {
     ];
 
     return (
-        <footer id="footer" className={`py-12 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/10'}`}>
-            <div className="container mx-auto px-6">
-                <div className="flex flex-wrap justify-between gap-x-4 gap-y-12 mb-12 md:mb-16">
-                    <div className="flex flex-col gap-6 w-full md:w-[45%] lg:w-auto">
-                        <div className="flex items-center gap-0">
+        <footer id="footer" className={`py-6 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#4B0082]/10'}`}>
+            <div className={`container mx-auto ${isJournalsPage ? 'px-2' : 'px-6'}`}>
+                <div className={`flex ${isJournalsPage ? 'flex-nowrap justify-between items-center md:items-start gap-1 md:gap-4' : 'flex-wrap justify-between gap-x-4 gap-y-12'} mb-8 md:mb-16`}>
+                    <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[20%]' : 'w-full md:w-[45%] lg:w-auto'}`}>
+                        <div className={`flex ${isJournalsPage ? 'flex-col md:flex-row' : ''} items-center gap-0`}>
                             <img
                                 src={logo}
                                 alt="Astrofied Logo"
-                                className="w-24 h-24 lg:w-32 lg:h-32 object-contain select-none pointer-events-none"
+                                className={`${isJournalsPage ? 'w-6 h-6 sm:w-8 sm:h-8 md:w-24 md:h-24 lg:w-32 lg:h-32' : 'w-24 h-24 lg:w-32 lg:h-32'} object-contain select-none pointer-events-none`}
                                 draggable={false}
-                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-6px' }}
+                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: isJournalsPage ? '0' : '-6px' }}
                             />
                             <h4
-                                className={`text-xl md:text-xl lg:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode
+                                className={`${isJournalsPage ? 'text-[7px] sm:text-[9px] md:text-xl lg:text-3xl mt-1 md:mt-0' : 'text-xl md:text-xl lg:text-3xl'} font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode
                                     ? 'from-red-600 to-yellow-500'
                                     : 'from-black to-red-600'
                                     }`}
@@ -71,28 +71,28 @@ export default function Footer({ onOpenLegal, forceLightMode = false }) {
 
                     {/* Divider */}
                     <div
-                        className="hidden lg:block w-[1px] h-30 self-center transition-colors duration-300"
+                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-30' : 'hidden lg:block h-30'} w-[1px] self-center transition-colors duration-300`}
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
                     {/* Legal Links Column */}
-                    <div className="flex flex-col gap-6 w-full min-[450px]:w-[45%] lg:w-auto">
+                    <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
                         <h4
-                            className="text-lg md:text-xl lg:text-2xl font-bold"
+                            className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                         >
                             Legal
                         </h4>
-                        <div className="flex flex-col gap-4">
+                        <div className={`flex flex-col ${isJournalsPage ? 'gap-1 md:gap-4' : 'gap-4'}`}>
                             <button
                                 onClick={() => onOpenLegal('terms')}
-                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
+                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} hover:text-gold transition-colors bg-transparent border-none p-0`}
                             >
                                 Terms and Conditions
                             </button>
                             <button
                                 onClick={() => onOpenLegal('privacy')}
-                                className="text-left text-xs md:text-sm lg:text-lg hover:text-gold transition-colors bg-transparent border-none p-0"
+                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} hover:text-gold transition-colors bg-transparent border-none p-0`}
                             >
                                 Privacy Policy
                             </button>
@@ -101,49 +101,49 @@ export default function Footer({ onOpenLegal, forceLightMode = false }) {
 
                     {/* Divider */}
                     <div
-                        className="hidden lg:block w-[1px] h-30 self-center transition-colors duration-300"
+                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-30' : 'hidden lg:block h-30'} w-[1px] self-center transition-colors duration-300`}
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
-                    <div className="flex flex-col gap-6 w-full min-[450px]:w-[45%] lg:w-auto">
+                    <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
                         <h4
-                            className="text-lg md:text-xl lg:text-2xl font-bold"
+                            className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                         >
                             Contact Details
                         </h4>
-                        <div className="flex flex-col gap-4">
-                            <button onClick={() => window.location.href = 'tel:+919612736566'} className="flex items-center gap-3 hover:text-gold transition-colors bg-transparent border-none p-0 cursor-pointer">
-                                <Phone className="w-4 h-4 md:w-5 md:h-5 text-gold" />
-                                <span className="text-xs md:text-sm lg:text-lg">+91 96127 36566</span>
+                        <div className={`flex flex-col ${isJournalsPage ? 'gap-1 md:gap-4' : 'gap-4'}`}>
+                            <button onClick={() => window.location.href = 'tel:+919612736566'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} hover:text-gold transition-colors bg-transparent border-none p-0 cursor-pointer`}>
+                                <Phone className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} text-gold`} />
+                                <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>+91 96127 36566</span>
                             </button>
-                            <button onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} className="flex items-center gap-3 hover:text-gold transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
-                                <Mail className="w-4 h-4 md:w-5 md:h-5 text-gold" />
-                                <span className="text-xs md:text-sm lg:text-lg">contact.astrofied@gmail.com</span>
+                            <button onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} hover:text-gold transition-colors bg-transparent border-none p-0 cursor-pointer text-left`}>
+                                <Mail className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} text-gold`} />
+                                <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>contact.astrofied@gmail.com</span>
                             </button>
                         </div>
                     </div>
 
                     {/* Divider */}
                     <div
-                        className="hidden lg:block w-[1px] h-30 self-center transition-colors duration-300"
+                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-30' : 'hidden lg:block h-30'} w-[1px] self-center transition-colors duration-300`}
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
-                    <div className="flex flex-col gap-6 w-full md:w-[45%] lg:w-auto">
+                    <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full md:w-[45%] lg:w-auto'}`}>
                         <h4
-                            className="text-lg md:text-xl lg:text-2xl font-bold"
+                            className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
                             style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
                         >
                             Address
                         </h4>
                         <button
                             onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')}
-                            className="flex items-start gap-3 hover:text-gold transition-colors block bg-transparent border-none p-0 cursor-pointer text-left"
+                            className={`flex items-start ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} hover:text-gold transition-colors block bg-transparent border-none p-0 cursor-pointer text-left`}
                         >
-                            <MapPin className="w-4 h-4 md:w-5 md:h-5 text-gold mt-1 shrink-0" />
-                            <address className="not-italic text-xs md:text-sm lg:text-lg">
-                                Dakbanglow Road, near Rajarshi Hall,<br />
+                            <MapPin className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 mt-0 shrink-0' : 'w-4 h-4 md:w-5 md:h-5 mt-1 shrink-0'} text-gold`} />
+                            <address className={`not-italic ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg leading-tight' : 'text-xs md:text-sm lg:text-lg'}`}>
+                                Dakbanglow Road, near Rajarshi Hall,<br className={isJournalsPage ? "hidden md:block" : ""} />
                                 Udaipur, Gomati, Tripura - 799120
                             </address>
                         </button>
@@ -151,7 +151,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false }) {
 
                 </div>
 
-                <div className="flex justify-center gap-12 md:gap-16 mb-6 md:mb-16">
+                <div className={`flex justify-center ${isJournalsPage ? 'gap-6 sm:gap-8 md:gap-16 mb-4 md:mb-16' : 'gap-12 md:gap-16 mb-6 md:mb-16'}`}>
                     {socialLinks.map((social, index) => (
                         <motion.button
                             key={index}

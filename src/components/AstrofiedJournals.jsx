@@ -352,7 +352,7 @@ const AstrofiedJournals = () => {
               Welcome to Astrofied Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
             </p>
             <p className="text-justify text-[10px] md:text-xs leading-relaxed font-mulish font-normal text-[#3d0000] opacity-60">
-              Note: All content within Astrofied Journals is provided strictly for personal reading and educational purposes. Unauthorised reproduction, distribution, resale, or commercial use of these materials is strictly prohibited under Indian Copyright Act. Astrofied reserves all intellectual property rights, and any infringement will be subject to strict legal action.
+              <b>Note:</b> All content within Astrofied Journals is provided strictly for personal reading and educational purposes. Unauthorised reproduction, distribution, resale, or commercial use of these materials is strictly prohibited under Indian Copyright Act. Astrofied reserves all intellectual property rights, and any infringement will be subject to strict legal action.
             </p>
           </div>
 
@@ -425,7 +425,7 @@ const AstrofiedJournals = () => {
             )}
           </div>
         </main>
-        <Footer forceLightMode={true} onOpenLegal={(type) => window.dispatchEvent(new CustomEvent('openLegalModal', { detail: type }))} />
+        <Footer forceLightMode={true} isJournalsPage={true} onOpenLegal={(type) => window.dispatchEvent(new CustomEvent('openLegalModal', { detail: type }))} />
       </div>
     );
   }
