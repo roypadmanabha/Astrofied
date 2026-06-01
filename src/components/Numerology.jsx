@@ -130,46 +130,54 @@ const Numerology = () => {
                 </div>
 
                 {/* Input & Button */}
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
-                    <button
-                        onClick={() => {
-                            setDob('');
-                            setResults(null);
-                            setError('');
-                        }}
-                        className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#D4AF37] hover:text-[#D4AF37]' : 'bg-white border-transparent text-black hover:text-[#D00000]'}`}
-                        title="Reset"
-                    >
-                        <RotateCcw className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
-                    </button>
-                    <div className="relative w-full md:w-auto">
-                        {/* Mobile Input: Text to Date toggle for custom placeholder */}
-                        <input 
-                            type={dob ? "date" : "text"}
-                            placeholder="Select DOB"
-                            onFocus={(e) => (e.target.type = "date")}
-                            onBlur={(e) => {
-                                if (!e.target.value) e.target.type = "text";
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4 w-full">
+                    {/* Inner wrapper to keep Input and Reset on the same line on mobile */}
+                    <div className="flex flex-row items-center justify-center gap-2 md:gap-4 w-full md:w-auto order-1 md:order-none">
+                        
+                        {/* Input (Rendered First on Mobile, Second on Desktop) */}
+                        <div className="relative w-full md:w-auto flex-grow order-1 md:order-2">
+                            {/* Mobile Input: Text to Date toggle for custom placeholder */}
+                            <input 
+                                type={dob ? "date" : "text"}
+                                placeholder="Select DOB"
+                                onFocus={(e) => (e.target.type = "date")}
+                                onBlur={(e) => {
+                                    if (!e.target.value) e.target.type = "text";
+                                }}
+                                min="1900-01-01"
+                                max="2099-12-31"
+                                value={dob}
+                                onChange={handleDateChange}
+                                className={`md:hidden px-4 py-3 rounded-xl border-2 text-[15px] font-bold shadow-lg w-full outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
+                            />
+                            {/* Desktop Input: Native Date Picker */}
+                            <input 
+                                type="date"
+                                min="1900-01-01"
+                                max="2099-12-31"
+                                value={dob}
+                                onChange={handleDateChange}
+                                className={`hidden md:block px-6 py-4 rounded-xl border-2 text-2xl font-bold shadow-lg min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
+                            />
+                        </div>
+
+                        {/* Reset Button (Rendered Second on Mobile, First on Desktop) */}
+                        <button
+                            onClick={() => {
+                                setDob('');
+                                setResults(null);
+                                setError('');
                             }}
-                            min="1900-01-01"
-                            max="2099-12-31"
-                            value={dob}
-                            onChange={handleDateChange}
-                            className={`md:hidden px-6 py-3 rounded-xl border-2 text-lg font-bold shadow-lg w-full outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
-                        />
-                        {/* Desktop Input: Native Date Picker */}
-                        <input 
-                            type="date"
-                            min="1900-01-01"
-                            max="2099-12-31"
-                            value={dob}
-                            onChange={handleDateChange}
-                            className={`hidden md:block px-6 py-4 rounded-xl border-2 text-2xl font-bold shadow-lg min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
-                        />
+                            className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group flex-shrink-0 order-2 md:order-1 ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#D4AF37] hover:text-[#D4AF37]' : 'bg-white border-transparent text-black hover:text-[#D00000]'}`}
+                            title="Reset"
+                        >
+                            <RotateCcw className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
+                        </button>
                     </div>
+
                     <button 
                         onClick={handleCalculate}
-                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#4c0082] text-white hover:bg-[#3b0066]'}`}
+                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#4c0082] text-white hover:bg-[#3b0066]'}`}
                     >
                         Calculate
                     </button>
