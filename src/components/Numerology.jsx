@@ -174,7 +174,7 @@ const Numerology = () => {
                     {cards.map((card, idx) => (
                         <div 
                             key={idx} 
-                            className={`rounded-2xl p-6 flex flex-col justify-between shadow-xl min-h-[350px] md:min-h-[400px] relative overflow-hidden backdrop-blur-xl ${isDarkMode ? 'bg-white/5 border border-[#D4AF37]' : 'bg-[#f5f5de]/70 border border-[#6200EA]'}`}
+                            className={`rounded-2xl p-6 flex flex-col shadow-xl relative overflow-hidden backdrop-blur-xl transition-all duration-500 ${isDarkMode ? 'bg-white/5 border border-[#D4AF37]' : 'bg-[#f5f5de]/70 border border-[#6200EA]'}`}
                         >
                             {/* Card Header */}
                             <h3 className={`text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
@@ -182,32 +182,29 @@ const Numerology = () => {
                             </h3>
 
                             {/* Result Number */}
-                            <div className="flex-grow flex items-center justify-center z-10 my-4 h-[120px]">
-                                <AnimatePresence mode="wait">
-                                    {results ? (
+                            <AnimatePresence>
+                                {results && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0, marginTop: 0, marginBottom: 0 }}
+                                        animate={{ height: 120, opacity: 1, marginTop: 16, marginBottom: 16 }}
+                                        exit={{ height: 0, opacity: 0, marginTop: 0, marginBottom: 0 }}
+                                        transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                                        className="flex items-center justify-center z-10 overflow-hidden"
+                                    >
                                         <motion.div
-                                            key={`result-${idx}`}
-                                            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                                            initial={{ opacity: 0, scale: 0.5, y: -40 }} // calendar drop-down effect
                                             animate={{ opacity: 1, scale: 1, y: 0 }}
                                             transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
                                             className={`text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffff00]' : 'text-[#D00000]'}`}
                                         >
                                             {results[card.key]}
                                         </motion.div>
-                                    ) : (
-                                        <motion.div
-                                            key={`empty-${idx}`}
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            className="w-full h-full"
-                                        />
-                                    )}
-                                </AnimatePresence>
-                            </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-2xl p-5 text-[11px] md:text-xs leading-relaxed z-10 mt-auto h-[120px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#D4AF37]' : 'text-black bg-[#f5ebfc] border border-[#6200EA]'}`}>
+                            <div className={`rounded-2xl p-5 text-[11px] md:text-xs leading-relaxed z-10 mt-6 h-[120px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#D4AF37]' : 'text-black bg-[#f5ebfc] border border-[#6200EA]'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             
