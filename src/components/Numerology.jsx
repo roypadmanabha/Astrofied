@@ -28,7 +28,7 @@ const Numerology = () => {
         if (parts.length !== 3) return;
         
         const year = parseInt(parts[0], 10);
-        if (year < 1900 || parts[0].length > 4) {
+        if (year < 1900 || year > 2099 || parts[0].length > 4) {
             setError('Please enter valid DOB in DD MM YYYY format only');
             return;
         }
@@ -117,7 +117,7 @@ const Numerology = () => {
                     <input 
                         type="date" 
                         min="1900-01-01"
-                        max="9999-12-31"
+                        max="2099-12-31"
                         value={dob}
                         onChange={(e) => {
                             const val = e.target.value;
@@ -132,7 +132,7 @@ const Numerology = () => {
                                 
                                 if (yearStr && yearStr.length === 4) {
                                     const yearNum = parseInt(yearStr, 10);
-                                    if (yearNum < 1900) {
+                                    if (yearNum < 1900 || yearNum > 2099) {
                                         setError('Please enter valid DOB in DD MM YYYY format only');
                                         setDob(val);
                                         setResults(null);
