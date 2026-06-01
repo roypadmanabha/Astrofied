@@ -7,6 +7,7 @@ const Numerology = () => {
     const { isDarkMode } = useTheme();
     const [dob, setDob] = useState('');
     const [results, setResults] = useState(null);
+    const [error, setError] = useState('');
 
     const reduceToSingleDigit = (num) => {
         let n = parseInt(num, 10);
@@ -99,6 +100,7 @@ const Numerology = () => {
                         onClick={() => {
                             setDob('');
                             setResults(null);
+                            setError('');
                         }}
                         className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#D00000] hover:text-[#D00000]' : 'bg-white border-transparent text-black hover:text-[#D00000]'}`}
                         title="Reset"
@@ -107,12 +109,22 @@ const Numerology = () => {
                     </button>
                     <input 
                         type="date" 
+                        max="9999-12-31"
                         value={dob}
                         onChange={(e) => {
-                            setDob(e.target.value);
+                            const val = e.target.value;
+                            if (val) {
+                                const parts = val.split('-');
+                                if (parts[0] && parts[0].length > 4) {
+                                    setError('Please enter valid DOB in DD MM YYYY format only');
+                                    return;
+                                }
+                            }
+                            setError('');
+                            setDob(val);
                             setResults(null);
                         }}
-                        className={`px-6 py-3 md:py-4 rounded-xl border-2 text-lg md:text-2xl font-bold shadow-lg w-full md:w-auto min-w-[250px] outline-none transition-all ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D00000]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
+                        className={`px-6 py-3 md:py-4 rounded-xl border-2 text-lg md:text-2xl font-bold shadow-lg w-full md:w-auto min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D00000]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
                     />
                     <button 
                         onClick={handleCalculate}
@@ -121,6 +133,13 @@ const Numerology = () => {
                         Calculate
                     </button>
                 </div>
+
+                {/* Error Message */}
+                {error && (
+                    <div className="text-center text-red-500 text-sm md:text-base font-bold mb-4 animate-pulse">
+                        {error}
+                    </div>
+                )}
 
                 <div className="text-center mb-12">
                     <p className={`text-[10px] md:text-xs max-w-3xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
