@@ -174,11 +174,11 @@ const Numerology = () => {
                     {cards.map((card, idx) => (
                         <div 
                             key={idx} 
-                            className={`rounded-2xl p-6 flex flex-col justify-between shadow-xl min-h-[350px] md:min-h-[400px] relative overflow-hidden ${isDarkMode ? 'bg-transparent border border-[#D4AF37]' : 'bg-gradient-to-b from-[#6200EA] to-black'}`}
+                            className={`rounded-2xl p-6 flex flex-col justify-between shadow-xl min-h-[350px] md:min-h-[400px] relative overflow-hidden ${isDarkMode ? 'bg-transparent border border-[#D4AF37]' : 'bg-[#f5f5de]'}`}
                         >
                             {/* Card Header */}
-                            <h3 className="text-2xl md:text-3xl font-bold text-center mt-2 z-10 text-white">
-                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#FFF000]'}>{card.titleSuffix}</span>
+                            <h3 className={`text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#6200EA]'}>{card.titleSuffix}</span>
                             </h3>
 
                             {/* Result Number */}
@@ -190,7 +190,7 @@ const Numerology = () => {
                                             initial={{ opacity: 0, scale: 0.5, y: 20 }}
                                             animate={{ opacity: 1, scale: 1, y: 0 }}
                                             transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
-                                            className={`text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black text-[#ffff00]`}
+                                            className={`text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffff00]' : 'text-[#6200EA]'}`}
                                         >
                                             {results[card.key]}
                                         </motion.div>
@@ -207,7 +207,7 @@ const Numerology = () => {
                             </div>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-2xl p-5 text-white text-[11px] md:text-xs leading-relaxed z-10 mt-auto h-[120px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'bg-transparent border border-[#D4AF37]' : 'bg-transparent border border-[#ffff00]'}`}>
+                            <div className={`rounded-2xl p-5 text-[11px] md:text-xs leading-relaxed z-10 mt-auto h-[120px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#D4AF37]' : 'text-black bg-transparent border border-[#6200EA]'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             
