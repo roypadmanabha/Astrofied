@@ -94,7 +94,7 @@ const Numerology = () => {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h2 className={`text-4xl md:text-6xl lg:text-[5rem] font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                            Know your <span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}>Numbers</span>
+                            Know your <span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#6200EA]'}>Numbers</span>
                     </h2>
                     <p className={`text-sm md:text-xl font-medium max-w-2xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                         Calculate your core numerology numbers for free with<br className="hidden md:block" /> 100% accurate calculations.
@@ -150,7 +150,7 @@ const Numerology = () => {
                     />
                     <button 
                         onClick={handleCalculate}
-                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#D00000] text-white hover:bg-red-700'}`}
+                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#6200EA] text-white hover:bg-[#5000D0]'}`}
                     >
                         Calculate
                     </button>
