@@ -190,7 +190,8 @@ const Numerology = () => {
                                             initial={{ opacity: 0, scale: 0.5, y: 20 }}
                                             animate={{ opacity: 1, scale: 1, y: 0 }}
                                             transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
-                                            className="text-7xl md:text-8xl lg:text-[7rem] text-[#D00000] leading-none drop-shadow-md nunito-black"
+                                            className="text-7xl md:text-8xl lg:text-[7rem] text-[#D00000] leading-none drop-shadow-md"
+                                            style={{ fontFamily: '"Nunito", "Nunito Rounded", sans-serif', fontWeight: 900 }}
                                         >
                                             {results[card.key]}
                                         </motion.div>
