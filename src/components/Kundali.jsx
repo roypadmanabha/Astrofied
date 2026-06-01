@@ -241,7 +241,7 @@ const Kundali = () => {
             const ampm = h >= 12 ? 'PM' : 'AM';
             h = h % 12;
             h = h ? h : 12;
-            return `${h.toString().padStart(2, '0')}:${minutes} ${ampm}`;
+            return `'${h.toString().padStart(2, '0')}:${minutes} ${ampm}`;
         };
 
         const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyzw6F0g25xoT0eAcbZbrarrt9autYIZQC8z5YTVW_EpggHG3bh9EfnN9ITJUyzYQvd5Q/exec";
