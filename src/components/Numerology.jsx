@@ -170,14 +170,14 @@ const Numerology = () => {
                 </div>
 
                 {/* Cards Container */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
                     {cards.map((card, idx) => (
                         <div 
                             key={idx} 
-                            className={`rounded-2xl p-4 md:p-6 flex flex-col shadow-xl relative overflow-hidden backdrop-blur-xl transition-all duration-500 ${isDarkMode ? 'bg-white/5 border border-[#D4AF37]' : 'bg-[#f5f5de]/70 border border-[#6200EA]'}`}
+                            className={`rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col shadow-xl relative overflow-hidden backdrop-blur-xl transition-all duration-500 ${isDarkMode ? 'bg-white/5 border border-[#D4AF37]' : 'bg-[#f5f5de]/70 border border-[#6200EA]'}`}
                         >
                             {/* Card Header */}
-                            <h3 className={`text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                            <h3 className={`text-[15px] sm:text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
                                 {card.titlePrefix}<span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#6200EA]'}>{card.titleSuffix}</span>
                             </h3>
 
@@ -186,16 +186,16 @@ const Numerology = () => {
                                 {results && (
                                     <motion.div
                                         initial={{ height: 0, opacity: 0, marginTop: 0, marginBottom: 0 }}
-                                        animate={{ height: 120, opacity: 1, marginTop: 16, marginBottom: 16 }}
+                                        animate={{ height: "auto", opacity: 1, marginTop: 16, marginBottom: 16 }}
                                         exit={{ height: 0, opacity: 0, marginTop: 0, marginBottom: 0 }}
                                         transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                                        className="flex items-center justify-center z-10 overflow-hidden"
+                                        className="flex items-center justify-center z-10 overflow-hidden py-2"
                                     >
                                         <motion.div
                                             initial={{ opacity: 0, scale: 0.5, y: -40 }} // calendar drop-down effect
                                             animate={{ opacity: 1, scale: 1, y: 0 }}
                                             transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
-                                            className={`text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffff00]' : 'text-[#D00000]'}`}
+                                            className={`text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffff00]' : 'text-[#D00000]'}`}
                                         >
                                             {results[card.key]}
                                         </motion.div>
@@ -204,7 +204,7 @@ const Numerology = () => {
                             </AnimatePresence>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-2xl p-4 md:p-5 text-[10px] sm:text-[11px] md:text-xs leading-relaxed z-10 mt-4 md:mt-6 h-[110px] sm:h-[120px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#D4AF37]' : 'text-black bg-[#f5ebfc] border border-[#6200EA]'}`}>
+                            <div className={`rounded-2xl p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 h-[75px] sm:h-[110px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#D4AF37]' : 'text-black bg-[#f5ebfc] border border-[#6200EA]'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             
