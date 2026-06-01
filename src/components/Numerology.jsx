@@ -114,8 +114,14 @@ const Numerology = () => {
                     >
                         <RotateCcw className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
                     </button>
-                    <input 
-                        type="date" 
+                    <div className="relative w-full md:w-auto">
+                        {!dob && (
+                            <span className={`absolute left-6 top-1/2 -translate-y-1/2 pointer-events-none md:hidden text-[17px] font-bold ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`}>
+                                Select DOB
+                            </span>
+                        )}
+                        <input 
+                            type="date" 
                         min="1900-01-01"
                         max="2099-12-31"
                         value={dob}
@@ -147,7 +153,8 @@ const Numerology = () => {
                             setResults(null);
                         }}
                         className={`px-6 py-3 md:py-4 rounded-xl border-2 text-lg md:text-2xl font-bold shadow-lg w-full md:w-auto min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
-                    />
+                        />
+                    </div>
                     <button 
                         onClick={handleCalculate}
                         className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#4c0082] text-white hover:bg-[#3b0066]'}`}
