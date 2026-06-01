@@ -1,0 +1,172 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
+
+const Numerology = () => {
+    const { isDarkMode } = useTheme();
+    const [dob, setDob] = useState('');
+    const [results, setResults] = useState(null);
+
+    const reduceToSingleDigit = (num) => {
+        let n = parseInt(num, 10);
+        if (isNaN(n)) return 0;
+        while (n > 9) {
+            n = String(n).split('').reduce((acc, digit) => acc + parseInt(digit, 10), 0);
+        }
+        return n;
+    };
+
+    const handleCalculate = () => {
+        if (!dob) return;
+        
+        const parts = dob.split('-');
+        if (parts.length !== 3) return;
+        
+        const year = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10);
+        const day = parseInt(parts[2], 10);
+
+        const moolank = reduceToSingleDigit(day);
+        
+        const sumOfAllDigits = String(day).split('')
+            .concat(String(month).split(''), String(year).split(''))
+            .reduce((acc, curr) => acc + parseInt(curr, 10), 0);
+        const bhagyank = reduceToSingleDigit(sumOfAllDigits);
+
+        const currentYear = new Date().getFullYear();
+        const varshankSum = String(day).split('')
+            .concat(String(month).split(''), String(currentYear).split(''))
+            .reduce((acc, curr) => acc + parseInt(curr, 10), 0);
+        const varshank = reduceToSingleDigit(varshankSum);
+
+        const attitudeSum = String(day).split('')
+            .concat(String(month).split(''))
+            .reduce((acc, curr) => acc + parseInt(curr, 10), 0);
+        const attitude = reduceToSingleDigit(attitudeSum);
+
+        setResults({
+            moolank,
+            bhagyank,
+            varshank,
+            attitude
+        });
+    };
+
+    const cards = [
+        {
+            titlePrefix: "Mool",
+            titleSuffix: "ank",
+            key: "moolank",
+            desc: "Used to determine a person's core personality traits, natural inclinations, and fundamental self-image."
+        },
+        {
+            titlePrefix: "Bhagy",
+            titleSuffix: "ank",
+            key: "bhagyank",
+            desc: "Used to reveal a person's ultimate life purpose, long-term destiny, and overarching karmic path."
+        },
+        {
+            titlePrefix: "Varsh",
+            titleSuffix: "ank",
+            key: "varshank",
+            desc: "Used to forecast the specific themes, opportunities, and challenges a person will encounter during the current calendar year."
+        },
+        {
+            titlePrefix: "Attitude ",
+            titleSuffix: "No.",
+            key: "attitude",
+            desc: "Used to understand a person's instinctual, day-to-day reactions and the initial impression they make on others."
+        }
+    ];
+
+    return (
+        <section className={`py-16 md:py-24 font-mulish overflow-hidden ${isDarkMode ? 'bg-[#121212]' : 'bg-[#FDFBF2]'}`}>
+            <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+                {/* Header */}
+                <div className="text-center mb-8">
+                    <h2 className={`text-4xl md:text-6xl lg:text-[5rem] font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                        Know your <span className="text-[#D00000]">Numbers</span>
+                    </h2>
+                    <p className={`text-sm md:text-xl font-medium max-w-2xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
+                        Calculate your core numerology numbers for free with<br className="hidden md:block" /> 100% accurate calculations.
+                    </p>
+                </div>
+
+                {/* Input & Button */}
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
+                    <input 
+                        type="date" 
+                        value={dob}
+                        onChange={(e) => {
+                            setDob(e.target.value);
+                            setResults(null);
+                        }}
+                        className={`px-6 py-3 md:py-4 rounded-xl border-2 text-lg md:text-2xl font-bold shadow-lg w-full md:w-auto min-w-[250px] outline-none transition-all ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D00000]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
+                    />
+                    <button 
+                        onClick={handleCalculate}
+                        className="bg-[#D00000] text-white px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg hover:bg-red-700 transition-colors w-full md:w-auto"
+                    >
+                        Calculate
+                    </button>
+                </div>
+
+                <div className="text-center mb-12">
+                    <p className={`text-[10px] md:text-xs max-w-3xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                        Note: Please ensure your birth details are entered correctly. Any errors in the day, month, or year will result in inaccurate calculations.
+                    </p>
+                </div>
+
+                {/* Cards Container */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    {cards.map((card, idx) => (
+                        <div 
+                            key={idx} 
+                            className="bg-gradient-to-b from-[#FFD15C] to-[#F27E2D] rounded-2xl p-6 flex flex-col justify-between shadow-xl min-h-[350px] md:min-h-[400px] relative overflow-hidden"
+                        >
+                            {/* Card Header */}
+                            <h3 className="text-2xl md:text-3xl font-bold text-center mt-2 text-black z-10">
+                                {card.titlePrefix}<span className="text-[#D00000]">{card.titleSuffix}</span>
+                            </h3>
+
+                            {/* Result Number */}
+                            <div className="flex-grow flex items-center justify-center z-10 my-4 h-[120px]">
+                                <AnimatePresence mode="wait">
+                                    {results ? (
+                                        <motion.div
+                                            key={`result-${idx}`}
+                                            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                                            transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
+                                            className="text-7xl md:text-8xl lg:text-[7rem] font-black text-[#D00000] leading-none drop-shadow-md"
+                                        >
+                                            {results[card.key]}
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key={`empty-${idx}`}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            className="w-full h-full"
+                                        />
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
+                            {/* Bottom Description Box */}
+                            <div className="bg-[#241A11] rounded-2xl p-5 text-white text-[11px] md:text-xs leading-relaxed z-10 mt-auto min-h-[100px] md:min-h-[120px] flex items-center shadow-lg">
+                                {card.desc}
+                            </div>
+                            
+                            {/* Subtle background glow effect if needed */}
+                            <div className="absolute top-0 left-0 right-0 h-1/2 bg-white/10 rounded-b-full blur-2xl -z-0 pointer-events-none" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default Numerology;

@@ -13,6 +13,7 @@ import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
+import Numerology from './components/Numerology';
 import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
@@ -314,6 +315,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <Services />
       <Pricing />
       <Kundali />
+      <Numerology />
 
       {/* About Us Section */}
       <section id="about" className="py-24 overflow-hidden">
