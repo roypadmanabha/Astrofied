@@ -437,7 +437,7 @@ const Kundali = () => {
                                             placeholder="First Name"
                                             className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-black/60'
                                                 }`}
                                             value={formData.firstName}
                                             onChange={handleInputChange}
@@ -455,7 +455,7 @@ const Kundali = () => {
                                             placeholder="Last Name"
                                             className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-black/60'
                                                 }`}
                                             value={formData.lastName}
                                             onChange={handleInputChange}
@@ -471,7 +471,7 @@ const Kundali = () => {
                                             <span className="font-black">+91</span> Mobile
                                         </label>
                                         <div className={`flex items-center gap-2 border-b transition-all ${isDarkMode ? 'border-white/10 focus-within:border-gold' : 'border-[#0A1931]/10 focus-within:border-[#0A1931]'}`}>
-                                            <span className={`text-sm md:text-base font-bold opacity-50 ${isDarkMode ? 'text-white' : 'text-black'}`}>+91</span>
+                                            <span className={`text-sm md:text-base font-bold opacity-60 ${isDarkMode ? 'text-white' : 'text-black'}`}>+91</span>
                                             <input
                                                 type="tel"
                                                 name="mobile"
@@ -479,7 +479,7 @@ const Kundali = () => {
                                                 placeholder=""
                                                 className={`w-full bg-transparent py-1 text-sm md:text-base font-bold focus:outline-none ${isDarkMode
                                                     ? 'text-white placeholder:text-gray-700'
-                                                    : 'text-black placeholder:text-gray-400'
+                                                    : 'text-black placeholder:text-black/60'
                                                     }`}
                                                 value={formData.mobile}
                                                 onChange={handleInputChange}
@@ -498,7 +498,7 @@ const Kundali = () => {
                                             placeholder=""
                                             className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-black/60'
                                                 }`}
                                             value={formData.email}
                                             onChange={handleInputChange}
@@ -573,7 +573,7 @@ const Kundali = () => {
                                         placeholder="Search city..."
                                         className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                             ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
+                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-black/60'
                                             }`}
                                         value={formData.city}
                                         onChange={handleInputChange}
@@ -624,14 +624,14 @@ const Kundali = () => {
                                     )}
                                 </motion.button>
 
-                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 ${isDarkMode ? 'text-white' : 'text-[#4b0082]'}`}>
+                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-60 ${isDarkMode ? 'text-white' : 'text-black'}`}>
                                     Note: We don't share or tamper your personal data
                                 </p>
 
                                 <button
                                     type="button"
                                     onClick={handleReset}
-                                    className={`mt-4 text-[10px] font-bold uppercase tracking-widest opacity-30 hover:opacity-100 transition-all flex items-center justify-center gap-2 mx-auto ${isDarkMode ? 'text-white' : 'text-[#4b0082]'}`}
+                                    className={`mt-4 text-[10px] font-bold uppercase tracking-widest opacity-60 hover:opacity-100 transition-all flex items-center justify-center gap-2 mx-auto ${isDarkMode ? 'text-white' : 'text-black'}`}
                                 >
                                     <RotateCcw size={10} /> Reset
                                 </button>
