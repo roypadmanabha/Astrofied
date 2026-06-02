@@ -79,7 +79,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : '#4b0082' }}
+                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#591000' : '#4b0082') }}
                         >
                             Legal
                         </h4>
@@ -108,7 +108,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : '#4b0082' }}
+                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#591000' : '#4b0082') }}
                         >
                             Contact Details
                         </h4>
@@ -133,7 +133,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full md:w-[45%] lg:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : '#4b0082' }}
+                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#591000' : '#4b0082') }}
                         >
                             Address
                         </h4>
