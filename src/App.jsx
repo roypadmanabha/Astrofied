@@ -164,25 +164,19 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     // Mobile browsers have native momentum scroll which is smoother than JS-based solutions
     if (window.innerWidth >= 1024) {
       lenis = new Lenis({
-        duration: 1.2,
+        autoRaf: true, // Native 120hz synchronization
+        duration: 1.2, // Buttery smooth feel
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,
-        wheelMultiplier: 1,
+        wheelMultiplier: 1.1, // Slightly snappier
         smoothTouch: false,
         touchMultiplier: 2,
         infinite: false,
       });
 
       window.lenis = lenis;
-
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-
-      requestAnimationFrame(raf);
     }
 
     // Handle initial routing to hash or scroll to top

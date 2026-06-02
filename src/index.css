@@ -61,7 +61,28 @@ html {
   line-height: 1.6;
   font-weight: 400;
   color-scheme: light dark;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth removed to fix Lenis JS smooth scroll lag */
+}
+
+/* Lenis Recommended CSS for Buttery Smooth Scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 
