@@ -110,7 +110,7 @@ const Pricing = () => {
               <div className="px-4 pb-4">
                 <div className="flex flex-col gap-3 mb-8">
                   <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-black font-mulish leading-tight ${
-                    isDarkMode ? 'text-white' : 'text-[#4b0082]'
+                    isDarkMode ? 'text-white' : 'text-[#E00000]'
                   }`}>
                     {item.title}
                   </h3>
@@ -128,7 +128,7 @@ const Pricing = () => {
                 }`}>
                   <div className="flex flex-col">
                     <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 ${
-                      isDarkMode ? 'text-gold' : 'text-[#4b0082]'
+                      isDarkMode ? 'text-gold' : 'text-[#E00000]'
                     }`}>Price</span>
                     <div className="flex items-baseline gap-1">
                       <span className={`text-sm font-bold ${isDarkMode ? 'text-white/50' : 'text-gray-400'}`}>₹</span>
@@ -144,10 +144,10 @@ const Pricing = () => {
                     whileHover={{ scale: 1.05, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
-                    className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 whitespace-nowrap ${
+                    className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 whitespace-nowrap border border-transparent ${
                       isDarkMode
-                        ? 'bg-gold text-black hover:bg-white shadow-gold/20'
-                        : 'bg-[#4b0082] text-white hover:bg-black shadow-[#991600]/20'
+                        ? 'bg-gold text-black hover:bg-white hover:border-transparent shadow-gold/20'
+                        : 'bg-[#E00000] text-white hover:bg-white hover:text-[#E00000] hover:border-[#E00000] shadow-[#E00000]/20'
                     }`}
                   >
                     Book Now
