@@ -212,7 +212,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                             >
                                 {link.name}
                                 <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
-                                    isDarkMode ? 'bg-gold' : 'bg-[#DC2626]'
+                                    isDarkMode ? 'bg-gold' : 'bg-gradient-to-r from-black to-[#FF2400]'
                                 }`} />
                             </motion.button>
                         ))}
