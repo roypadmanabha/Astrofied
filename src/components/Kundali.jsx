@@ -616,7 +616,7 @@ const Kundali = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     disabled={loading || otpLoading}
-                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs border-2 border-transparent ${isDarkMode ? 'bg-gold text-black' : 'bg-gradient-to-r from-black to-[#FF2400] text-white shadow-xl hover:opacity-90'
+                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${isDarkMode ? 'bg-gold text-black' : 'bg-gradient-to-r from-black to-[#FF2400] text-white shadow-xl hover:opacity-90'
                                         }`}
                                 >
                                     {(loading || otpLoading) ? <Loader2 className="animate-spin" size={18} /> : (
