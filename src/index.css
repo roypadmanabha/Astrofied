@@ -268,15 +268,3 @@ img {
 @utility pause {
   animation-play-state: paused !important;
 }
-
-.kundali-light-mode-svg svg path,
-.kundali-light-mode-svg svg line,
-.kundali-light-mode-svg svg polygon,
-.kundali-light-mode-svg svg rect,
-.kundali-light-mode-svg svg circle {
-    stroke: #000000 !important;
-}
-
-.kundali-light-mode-svg svg text {
-    fill: #000000 !important;
-}

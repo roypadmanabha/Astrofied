@@ -807,9 +807,36 @@ const Kundali = () => {
                                 <div className={`flex-1 flex flex-col items-center justify-center p-6 md:p-12 ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-purple-600/5'}`}>
                                     <div
                                         ref={chartRef}
-                                        className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-purple-600/10 shadow-lg rounded-[2rem] flex items-center justify-center ${!isDarkMode ? 'kundali-light-mode-svg' : ''}`}
-                                        dangerouslySetInnerHTML={{ __html: chartSvg }}
-                                    />
+                                        className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-purple-600/10 shadow-lg rounded-[2rem] flex items-center justify-center kundali-svg-container`}
+                                    >
+                                        <style>
+                                            {`
+                                                .kundali-svg-container svg path,
+                                                .kundali-svg-container svg line,
+                                                .kundali-svg-container svg polygon,
+                                                .kundali-svg-container svg rect,
+                                                .kundali-svg-container svg circle {
+                                                    stroke-width: 1.5px !important;
+                                                    stroke: ${!isDarkMode ? '#000000' : '#ffd700'} !important;
+                                                    fill: none !important;
+                                                }
+                                                .kundali-svg-container svg text {
+                                                    fill: ${!isDarkMode ? '#000000' : '#ffd700'} !important;
+                                                    font-family: 'Mulish', sans-serif !important;
+                                                    font-weight: 800 !important;
+                                                }
+                                                .kundali-svg-container rect[fill="white"],
+                                                .kundali-svg-container rect[fill="#ffffff"] {
+                                                    fill: transparent !important;
+                                                    stroke: none !important;
+                                                }
+                                                .kundali-svg-container svg {
+                                                    background: transparent !important;
+                                                }
+                                            `}
+                                        </style>
+                                        <div dangerouslySetInnerHTML={{ __html: chartSvg }} className="w-full h-full" />
+                                    </div>
 
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}
