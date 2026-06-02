@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { House, LogOut, Search, X, AlertCircle } from 'lucide-react';
+import { House, LogOut, Search, X, AlertCircle, Play } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journal-hero-new.jpg';
 import journalBg from '../assets/journal-bg.jpg';
 import logo from '../assets/logo.png';
 import Footer from './Footer';
+import journalsPromoVideo from '../assets/astrofied_journals_promo.mp4';
 
 import houseSeriesImg from '../assets/journals/house-series.png';
 import planetSeriesImg from '../assets/journals/planet-series.jpg';
@@ -111,6 +112,63 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
           <div className="w-16 md:w-40 h-px bg-[#ffd700]"></div>
         </div>
       )}
+    </div>
+  );
+};
+
+const JournalsPromo = () => {
+  const videoRef = useRef(null);
+  const [showPlayButton, setShowPlayButton] = useState(false);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.volume = 1.0;
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.log("Autoplay prevented:", err);
+          setShowPlayButton(true);
+        });
+      }
+    }
+  }, []);
+
+  const handlePlayClick = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setShowPlayButton(false);
+    }
+  };
+
+  const handleEnded = () => {
+    setShowPlayButton(true);
+  };
+
+  return (
+    <div className="w-full max-w-xl md:max-w-2xl mx-auto mb-12 px-4">
+      <div 
+        className="relative w-full rounded-[20px] overflow-hidden border border-[#E00000] shadow-lg bg-black"
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <video
+          ref={videoRef}
+          src={journalsPromoVideo}
+          className="w-full h-auto block pointer-events-none rounded-[20px]"
+          playsInline
+          onEnded={handleEnded}
+        />
+        {showPlayButton && (
+          <button
+            onClick={handlePlayClick}
+            className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition-colors cursor-pointer"
+            aria-label="Play video"
+          >
+            <div className="bg-[#E00000] text-white p-3 md:p-4 rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 flex items-center justify-center">
+              <Play className="w-6 h-6 md:w-8 md:h-8 fill-current ml-0.5 md:ml-1" />
+            </div>
+          </button>
+        )}
+      </div>
     </div>
   );
 };
@@ -359,6 +417,8 @@ const AstrofiedJournals = () => {
               <b>Note:</b> All content within Astrofied Journals is provided strictly for personal reading and educational purposes. Unauthorised reproduction, distribution, resale, or commercial use of these materials is strictly prohibited under Indian Copyright Act. Astrofied reserves all intellectual property rights, and any infringement will be subject to strict legal action.
             </p>
           </div>
+
+          <JournalsPromo />
 
           {/* Search Bar */}
           <div className="mb-12 flex flex-col items-center w-full px-4">
