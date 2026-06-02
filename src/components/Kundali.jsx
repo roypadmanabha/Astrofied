@@ -389,7 +389,7 @@ const Kundali = () => {
                             className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4b0082]'
                                 }`}
                         >
-                            <span className={!isDarkMode ? "force-nunito bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent" : ""}>Astrofied</span> Free <br />
+                            Generate Free <br />
                             <span className={`${isDarkMode ? 'text-gold' : 'text-black'} italic`}>Kundali</span>
                         </motion.h2>
 
