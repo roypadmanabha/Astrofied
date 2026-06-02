@@ -167,7 +167,7 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
             {isMobile && !isExpanded && (
                 <button
                     onClick={() => setIsExpanded(true)}
-                    className={`text-[10px] font-bold mb-4 ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`}
+                    className={`text-[10px] font-bold mb-4 ${isDarkMode ? 'text-gold' : 'text-[#591000]'}`}
                 >
                     Read More
                 </button>
