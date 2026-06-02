@@ -144,6 +144,7 @@ const Numerology = () => {
                                 onBlur={(e) => {
                                     if (!e.target.value) e.target.type = "text";
                                 }}
+                                onKeyDown={(e) => e.key === 'Enter' && handleCalculate()}
                                 min="1900-01-01"
                                 max="2099-12-31"
                                 value={dob}
@@ -157,6 +158,7 @@ const Numerology = () => {
                                 max="2099-12-31"
                                 value={dob}
                                 onChange={handleDateChange}
+                                onKeyDown={(e) => e.key === 'Enter' && handleCalculate()}
                                 className={`hidden md:block px-6 py-4 rounded-xl border-2 text-2xl font-bold shadow-lg min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
                             />
                         </div>
