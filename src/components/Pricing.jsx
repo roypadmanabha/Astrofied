@@ -42,7 +42,7 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className={`py-16 md:py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-white'}`}>
+    <section id="pricing" className={`py-16 md:py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-[#f5f5dd]'}`}>
       <div className="container mx-auto px-6 max-w-[1200px]">
         <motion.div
           initial={{ opacity: 0.8, y: 10 }}
@@ -71,7 +71,7 @@ const Pricing = () => {
               className={`relative group rounded-[24px] p-4 sm:p-5 border shadow-2xl transition-all duration-700 hover:-translate-y-4 ${item.glow} ${
                 isDarkMode
                   ? 'bg-white/[0.03] border-white/10 hover:bg-white/[0.05]'
-                  : 'bg-gradient-to-b from-[#ffde59] to-[#ff914d] border-black/[0.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)]'
+                  : 'bg-gradient-to-b from-white to-white border-black/[0.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)]'
               }`}
             >
               {/* Animated Background Glow */}
