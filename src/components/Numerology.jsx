@@ -233,7 +233,7 @@ const Numerology = () => {
                             </AnimatePresence>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-2xl p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 h-[75px] sm:h-[110px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#ffd700]' : 'text-black bg-[#f5ebfc] border border-[#4b0082]'}`}>
+                            <div className={`rounded-2xl p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 h-[75px] sm:h-[110px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#ffd700]' : 'text-white bg-black border border-[#4b0082]'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             
