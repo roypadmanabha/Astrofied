@@ -191,8 +191,11 @@ export default function Panchang() {
                 
                 {/* Header */}
                 <div className="text-center mb-10">
-                    <h2 className="text-4xl md:text-6xl font-black mb-4 font-mulish tracking-tight">
-                        <span className="text-[#FF0000] font-mulish">Astrofied</span> <span className={`${isDarkMode ? 'text-white' : 'text-[#1B263B]'} font-mulish`}>Panchang</span>
+                    <h2 
+                        className={`text-4xl md:text-7xl mb-4 tracking-tight bg-gradient-to-r ${isDarkMode ? 'from-white' : 'from-black'} to-[#FF0000] text-transparent bg-clip-text pb-2`} 
+                        style={{ fontFamily: 'Nunito, sans-serif', fontWeight: 900 }}
+                    >
+                        Astrofied Panchang
                     </h2>
                     <h3 className={`text-3xl md:text-4xl font-bold mb-6 font-mulish ${isDarkMode ? 'text-gray-200' : 'text-[#111827]'}`}>
                         Today's Panchang
