@@ -151,7 +151,7 @@ export default function Panchang() {
                         },
                         {
                             id: 2,
-                            heading: 'Abhijit Muhurat',
+                            heading: 'Abhijit Muhurta',
                             start: abhijitStartStr,
                             end: abhijitEndStr,
                             desc: 'An exceptionally favorable timing window within the day, considered perfect for initiating important tasks or rituals.'
@@ -165,7 +165,7 @@ export default function Panchang() {
                         },
                         {
                             id: 4,
-                            heading: 'Yama Gandam',
+                            heading: 'Yam Gandam',
                             start: yamaStart,
                             end: yamaEnd,
                             desc: 'Another inauspicious daily period where starting new and important tasks is generally avoided according to Vedic astrology.'
@@ -228,7 +228,7 @@ export default function Panchang() {
                                 background: 'linear-gradient(180deg, #FFD700 0%, #FF8C00 100%)',
                             }}
                         >
-                            <h4 className="text-lg md:text-xl lg:text-3xl font-black font-mulish text-[#8B0000] mb-4 uppercase tracking-tight leading-tight min-h-[3rem] flex items-center justify-center">
+                            <h4 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-semibold font-mulish text-[#8B0000] mb-4 tracking-tight whitespace-nowrap flex items-center justify-center">
                                 {kaal.heading}
                             </h4>
                             
