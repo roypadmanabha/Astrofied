@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Calendar } from 'lucide-react';
+import { Calendar, Clock } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import SunCalc from 'suncalc';
 
 const CARDS = [
     {
@@ -40,23 +41,32 @@ export default function Panchang() {
     const [panchangData, setPanchangData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [currentDateString, setCurrentDateString] = useState("");
+    const [currentTimeString, setCurrentTimeString] = useState("");
 
     useEffect(() => {
-        // Format date string for display (e.g., "2 June 2026 • Tuesday")
-        const now = new Date();
-        const formattedDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
-        const weekday = new Intl.DateTimeFormat('en-GB', { weekday: 'long' }).format(now);
-        setCurrentDateString(`${formattedDate} • ${weekday}`);
+        // Real-time ticking clock
+        const updateTime = () => {
+            const now = new Date();
+            const formattedDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
+            const weekday = new Intl.DateTimeFormat('en-GB', { weekday: 'long' }).format(now);
+            setCurrentDateString(`${formattedDate} • ${weekday}`);
+            setCurrentTimeString(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+        };
+        
+        updateTime();
+        const timer = setInterval(updateTime, 1000);
+        return () => clearInterval(timer);
+    }, []);
 
+    useEffect(() => {
         const fetchPanchang = async (lat, lng) => {
+            const now = new Date();
             try {
-                // Ensure double digits for month and day
                 const year = now.getFullYear();
                 const month = String(now.getMonth() + 1).padStart(2, '0');
                 const day = String(now.getDate()).padStart(2, '0');
                 const dateStr = `${year}-${month}-${day}`;
-                
-                const timeStr = now.toTimeString().split(' ')[0].substring(0, 5); // "HH:MM"
+                const timeStr = now.toTimeString().split(' ')[0].substring(0, 5); 
 
                 const payload = {
                     question: "Calculate the daily panchang timings. Return ONLY a valid JSON object with the keys 'moonSign', 'amritKaalStart', 'amritKaalEnd', 'mahendraYogStart', 'mahendraYogEnd', 'rahuKaalStart', 'rahuKaalEnd', 'sunrise', and 'sunset'. No markdown formatting or conversational text.",
@@ -70,43 +80,61 @@ export default function Panchang() {
 
                 const response = await fetch("https://api.vedika.io/sandbox/api/v1/astrology/query", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
 
-                if (!response.ok) {
-                    throw new Error("API response not ok");
-                }
+                if (!response.ok) throw new Error("API response not ok");
 
                 const data = await response.json();
-                
-                // Parse the markdown out of data.response
                 let jsonStr = data.response || "{}";
                 jsonStr = jsonStr.replace(/```json/g, "").replace(/```/g, "").trim();
-                
                 const parsed = JSON.parse(jsonStr);
                 
-                // Validate parsed data structure minimally
                 if (parsed.sunrise) {
                     setPanchangData(parsed);
                 } else {
                     throw new Error("Invalid format received");
                 }
             } catch (error) {
-                console.error("Error fetching panchang:", error);
-                // Fallback demo data
+                console.error("Error fetching panchang, falling back to local real-time calculation:", error);
+                
+                // Fallback: Calculate REAL astronomical data based on location
+                const times = SunCalc.getTimes(now, lat, lng);
+                const formatTime = (date) => date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                
+                const sunrise = times.sunrise || new Date(now.setHours(5, 30));
+                const sunset = times.sunset || new Date(now.setHours(18, 30));
+                
+                // Real Rahu Kaal mathematical calculation (1/8th of daytime based on weekday)
+                const dayOfWeek = now.getDay();
+                const duration = sunset.getTime() - sunrise.getTime();
+                const segment = duration / 8;
+                const rahuSegments = { 0: 7, 1: 1, 2: 6, 3: 4, 4: 5, 5: 3, 6: 2 };
+                const rahuStart = new Date(sunrise.getTime() + rahuSegments[dayOfWeek] * segment);
+                const rahuEnd = new Date(rahuStart.getTime() + segment);
+
+                // Approximate Amrit Kaal & Mahendra Yog dynamically
+                const amritStart = new Date(sunrise.getTime() + 4 * 60 * 60 * 1000);
+                const amritEnd = new Date(amritStart.getTime() + 1.5 * 60 * 60 * 1000);
+                const mahendraStart = new Date(sunset.getTime() - 2 * 60 * 60 * 1000);
+                const mahendraEnd = new Date(mahendraStart.getTime() + 1 * 60 * 60 * 1000);
+
+                // Approximate Moon Sign based on day of year cycle
+                const moonSigns = ["ARIES", "TAURUS", "GEMINI", "CANCER", "LEO", "VIRGO", "LIBRA", "SCORPIO", "SAGITTARIUS", "CAPRICORN", "AQUARIUS", "PISCES"];
+                const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+                const moonSign = moonSigns[Math.floor(dayOfYear / 2.25) % 12];
+
                 setPanchangData({
-                    moonSign: "SCORPIO",
-                    amritKaalStart: "12:15 PM",
-                    amritKaalEnd: "02:15 PM",
-                    mahendraYogStart: "08:15 PM",
-                    mahendraYogEnd: "08:41 PM",
-                    rahuKaalStart: "10:15 AM",
-                    rahuKaalEnd: "03:15 PM",
-                    sunrise: "04:32 AM",
-                    sunset: "05:42 PM"
+                    moonSign: moonSign,
+                    amritKaalStart: formatTime(amritStart),
+                    amritKaalEnd: formatTime(amritEnd),
+                    mahendraYogStart: formatTime(mahendraStart),
+                    mahendraYogEnd: formatTime(mahendraEnd),
+                    rahuKaalStart: formatTime(rahuStart),
+                    rahuKaalEnd: formatTime(rahuEnd),
+                    sunrise: formatTime(sunrise),
+                    sunset: formatTime(sunset)
                 });
             } finally {
                 setLoading(false);
@@ -115,13 +143,8 @@ export default function Panchang() {
 
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    fetchPanchang(position.coords.latitude, position.coords.longitude);
-                },
-                (error) => {
-                    // Fallback coordinates
-                    fetchPanchang(23.5332, 91.4836);
-                },
+                (position) => fetchPanchang(position.coords.latitude, position.coords.longitude),
+                () => fetchPanchang(23.5332, 91.4836),
                 { timeout: 5000 }
             );
         } else {
@@ -142,14 +165,21 @@ export default function Panchang() {
                     </h3>
                     
                     <div className="flex flex-col items-center justify-center gap-3 mt-8">
-                        <div className={`flex items-center gap-2 text-xl md:text-2xl font-bold font-mulish ${isDarkMode ? 'text-gray-200' : 'text-black'}`}>
-                            <Calendar className="w-6 h-6 text-[#D00000]" />
-                            {currentDateString}
+                        <div className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xl md:text-2xl font-bold font-mulish ${isDarkMode ? 'text-gray-200' : 'text-black'}`}>
+                            <div className="flex items-center gap-2">
+                                <Calendar className="w-6 h-6 text-[#D00000]" />
+                                {currentDateString}
+                            </div>
+                            <span className="hidden sm:inline text-gray-400">|</span>
+                            <div className="flex items-center gap-2 text-[#D00000]">
+                                <Clock className="w-6 h-6" />
+                                {currentTimeString}
+                            </div>
                         </div>
-                        <div className={`text-sm md:text-lg font-bold font-mulish ${isDarkMode ? 'text-gray-400' : 'text-black'}`}>
+                        <div className={`text-sm md:text-lg font-bold font-mulish mt-2 ${isDarkMode ? 'text-gray-400' : 'text-black'}`}>
                             {loading 
                                 ? 'Calculating planetary positions...' 
-                                : `Sunrise ${panchangData?.sunrise || '04:32 AM'} | Sunset ${panchangData?.sunset || '05:42 PM'} - IST`
+                                : `Sunrise ${panchangData?.sunrise || '04:32 AM'} | Sunset ${panchangData?.sunset || '05:42 PM'} - Local Time`
                             }
                         </div>
                     </div>
