@@ -119,7 +119,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                         className={`group flex items-center gap-4 text-base font-bold tracking-wide transition-all py-3 px-4 rounded-2xl cursor-pointer ${
                                             isDarkMode 
                                                 ? 'text-gray-300 hover:text-gold hover:bg-gold/5' 
-                                                : 'text-[#4b0082]/80 hover:text-[#4b0082] hover:bg-[#4b0082]/5'
+                                                : 'hover:bg-black/5'
                                         }`}
                                         whileTap={{ scale: 0.96 }}
                                     >
@@ -128,7 +128,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                         }`}>
                                             <link.icon size={18} strokeWidth={3} />
                                         </div>
-                                        <span>{link.name}</span>
+                                        <span className={isDarkMode ? '' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent group-hover:opacity-80 transition-all'}>{link.name}</span>
                                     </motion.div>
                                 );
                             })}
@@ -206,13 +206,13 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                     }
                                 }}
                                 className={`text-lg font-bold transition-all relative group bg-transparent border-none p-0 cursor-pointer ${
-                                    isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-[#FF2400] hover:text-black'
+                                    isDarkMode ? 'text-gray-100 hover:text-gold' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent hover:opacity-80'
                                 }`}
                                 whileHover={{ scale: 1.05 }}
                             >
                                 {link.name}
                                 <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
-                                    isDarkMode ? 'bg-gold' : 'bg-black'
+                                    isDarkMode ? 'bg-gold' : 'bg-[#DC2626]'
                                 }`} />
                             </motion.button>
                         ))}
