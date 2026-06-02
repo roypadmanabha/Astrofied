@@ -81,6 +81,11 @@ export default function Panchang() {
                 let sunriseStr = 'N/A';
                 let sunsetStr = 'N/A';
 
+                let mathRahuStart = 'N/A';
+                let mathRahuEnd = 'N/A';
+                let mathYamaStart = 'N/A';
+                let mathYamaEnd = 'N/A';
+
                 if (srssData && srssData.sun_rise_time) {
                     sunriseStr = formatTimeStr(srssData.sun_rise_time);
                     sunsetStr = formatTimeStr(srssData.sun_set_time);
@@ -96,6 +101,7 @@ export default function Panchang() {
                     const ssDate = parseTime(srssData.sun_set_time);  // "19:14:57"
                     const dayDurationMs = ssDate - srDate;
                     
+                    // Abhijit Math
                     const solarNoonMs = srDate.getTime() + (dayDurationMs / 2);
                     const abhijitDurationMs = dayDurationMs / 15;
                     const abhijitStartMs = solarNoonMs - (abhijitDurationMs / 2);
@@ -107,7 +113,28 @@ export default function Panchang() {
 
                     abhijitStartStr = formatLocalTime(abhijitStartMs);
                     abhijitEndStr = formatLocalTime(abhijitEndMs);
+
+                    // Mathematical Fallback for Rahu/Yama (in case of API rate limit / failure)
+                    const onePartMs = dayDurationMs / 8;
+                    const dayOfWeek = today.getDay(); // 0 = Sun, 1 = Mon...
+                    
+                    const rahuParts = [8, 2, 7, 5, 6, 4, 3];
+                    const rahuStartMs = srDate.getTime() + (rahuParts[dayOfWeek] - 1) * onePartMs;
+                    mathRahuStart = formatLocalTime(rahuStartMs);
+                    mathRahuEnd = formatLocalTime(rahuStartMs + onePartMs);
+
+                    const yamaParts = [5, 4, 3, 2, 1, 7, 6];
+                    const yamaStartMs = srDate.getTime() + (yamaParts[dayOfWeek] - 1) * onePartMs;
+                    mathYamaStart = formatLocalTime(yamaStartMs);
+                    mathYamaEnd = formatLocalTime(yamaStartMs + onePartMs);
                 }
+
+                // If API fails to return starts_at (due to rate limiting), fallback to mathematical certainty
+                const rahuStart = formatTimeStr(rahuData?.starts_at) !== 'N/A' ? formatTimeStr(rahuData?.starts_at) : mathRahuStart;
+                const rahuEnd = formatTimeStr(rahuData?.ends_at) !== 'N/A' ? formatTimeStr(rahuData?.ends_at) : mathRahuEnd;
+                
+                const yamaStart = formatTimeStr(yamaData?.starts_at) !== 'N/A' ? formatTimeStr(yamaData?.starts_at) : mathYamaStart;
+                const yamaEnd = formatTimeStr(yamaData?.ends_at) !== 'N/A' ? formatTimeStr(yamaData?.ends_at) : mathYamaEnd;
 
                 setPanchangData({
                     sunrise: sunriseStr,
@@ -132,15 +159,15 @@ export default function Panchang() {
                         {
                             id: 3,
                             heading: 'Rahu Kaal',
-                            start: formatTimeStr(rahuData?.starts_at),
-                            end: formatTimeStr(rahuData?.ends_at),
+                            start: rahuStart,
+                            end: rahuEnd,
                             desc: 'A daily inauspicious period lasting approximately 90 minutes during which it is advised to avoid starting any major or new activities.'
                         },
                         {
                             id: 4,
                             heading: 'Yama Gandam',
-                            start: formatTimeStr(yamaData?.starts_at),
-                            end: formatTimeStr(yamaData?.ends_at),
+                            start: yamaStart,
+                            end: yamaEnd,
                             desc: 'Another inauspicious daily period where starting new and important tasks is generally avoided according to Vedic astrology.'
                         }
                     ]
@@ -164,21 +191,21 @@ export default function Panchang() {
                 
                 {/* Header */}
                 <div className="text-center mb-10">
-                    <h2 className="text-4xl md:text-6xl font-black mb-4">
-                        <span className="text-[#FF0000]">Astrofied</span> <span className={isDarkMode ? 'text-white' : 'text-[#1B263B]'}>Panchang</span>
+                    <h2 className="text-4xl md:text-6xl font-black mb-4 font-mulish tracking-tight">
+                        <span className="text-[#FF0000] font-mulish">Astrofied</span> <span className={`${isDarkMode ? 'text-white' : 'text-[#1B263B]'} font-mulish`}>Panchang</span>
                     </h2>
-                    <h3 className={`text-3xl md:text-4xl font-bold mb-6 ${isDarkMode ? 'text-gray-200' : 'text-[#111827]'}`}>
+                    <h3 className={`text-3xl md:text-4xl font-bold mb-6 font-mulish ${isDarkMode ? 'text-gray-200' : 'text-[#111827]'}`}>
                         Today's Panchang
                     </h3>
                     
                     <div className="flex flex-col items-center justify-center gap-4">
                         <div className="flex items-center gap-3">
                             <CalendarDays className={`w-8 h-8 ${isDarkMode ? 'text-gray-300' : 'text-[#4A5568]'}`} strokeWidth={1.5} />
-                            <span className="text-2xl md:text-3xl font-bold">
+                            <span className="text-2xl md:text-3xl font-bold font-mulish">
                                 {panchangData.currentDate} <span className="mx-2 font-normal">•</span> {panchangData.currentDay} <span className="mx-2 font-normal">•</span> {currentTime}
                             </span>
                         </div>
-                        <div className="text-sm md:text-base font-bold tracking-wide uppercase mt-2">
+                        <div className="text-sm md:text-base font-bold tracking-wide uppercase mt-2 font-mulish">
                             Sunrise {panchangData.sunrise} | Sunset {panchangData.sunset} - IST
                         </div>
                     </div>
@@ -198,15 +225,15 @@ export default function Panchang() {
                                 background: 'linear-gradient(180deg, #FFD700 0%, #FF8C00 100%)',
                             }}
                         >
-                            <h4 className="text-lg md:text-xl lg:text-3xl font-black text-[#8B0000] mb-4 uppercase tracking-tight leading-tight min-h-[3rem] flex items-center justify-center">
+                            <h4 className="text-lg md:text-xl lg:text-3xl font-black font-mulish text-[#8B0000] mb-4 uppercase tracking-tight leading-tight min-h-[3rem] flex items-center justify-center">
                                 {kaal.heading}
                             </h4>
                             
                             <div className="w-full h-[1px] bg-black/20 my-2"></div>
                             
                             <div className="flex flex-col items-center my-3 w-full">
-                                <span className="text-red-700 font-bold text-xs md:text-sm uppercase tracking-wider mb-1">starts at</span>
-                                <span className="text-xl md:text-3xl lg:text-4xl font-black text-[#5C2B2B]">
+                                <span className="text-red-700 font-bold font-mulish text-xs md:text-sm uppercase tracking-wider mb-1">starts at</span>
+                                <span className="text-xl md:text-3xl lg:text-4xl font-black font-mulish text-[#5C2B2B]">
                                     {kaal.start}
                                 </span>
                             </div>
@@ -214,14 +241,14 @@ export default function Panchang() {
                             <div className="w-4/5 h-[2px] bg-[#8B0000]/60 my-2"></div>
 
                             <div className="flex flex-col items-center my-3 w-full">
-                                <span className="text-red-700 font-bold text-xs md:text-sm uppercase tracking-wider mb-1">ends at</span>
-                                <span className="text-xl md:text-3xl lg:text-4xl font-black text-[#5C2B2B]">
+                                <span className="text-red-700 font-bold font-mulish text-xs md:text-sm uppercase tracking-wider mb-1">ends at</span>
+                                <span className="text-xl md:text-3xl lg:text-4xl font-black font-mulish text-[#5C2B2B]">
                                     {kaal.end}
                                 </span>
                             </div>
 
                             <div className="mt-6 bg-[#2B2B2B] rounded-2xl p-4 md:p-5 text-left w-full flex-grow flex items-center shadow-inner min-h-[6rem]">
-                                <p className="text-white text-[10px] md:text-xs leading-relaxed font-medium">
+                                <p className="text-white text-[10px] md:text-xs font-mulish leading-relaxed font-medium">
                                     {kaal.desc}
                                 </p>
                             </div>
