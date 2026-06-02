@@ -108,9 +108,10 @@ export default function Testimonials() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="text-center md:text-left">
                         <h2
-                            className={`text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-4 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}
+                            className={`text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-4 w-fit mx-auto md:mx-0 ${isDarkMode ? '' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent'}`}
                         >
-                            Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4b0082]'}>Trust</span>
+                            <span className={isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700] transition-colors' : ''}>Voices of</span>{' '}
+                            <span className={isDarkMode ? 'text-white' : ''}>Trust</span>
                         </h2>
                         <p className={`text-sm md:text-xl opacity-70 font-mulish ml-1 md:ml-1.5 ${isDarkMode ? 'text-gray-400' : 'text-[#4b0082]'}`}>
                             Hear from our clients who found clarity.
