@@ -61,7 +61,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                 }}
                                 className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg transition-all border glass hover:scale-105 active:scale-95 cursor-pointer ${isDarkMode
                                     ? 'border-gold/30 text-gold hover:border-gold shadow-gold/5'
-                                    : 'border-[#4b0082] text-[#4b0082] hover:bg-[#4b0082] hover:text-white shadow-[#4b0082]/5'
+                                    : 'border-[#4b0082] text-[#4b0082] hover:bg-[#4b0082] hover:text-yellow-200 shadow-[#4b0082]/5'
                                     }`}
                             >
                                 Explore Astrofied
