@@ -11,7 +11,7 @@ import AstrofiedJournals from './components/AstrofiedJournals';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
-import Panchang from './components/Panchang';
+import AstrofiedPanchang from './components/AstrofiedPanchang';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
 import Numerology from './components/Numerology';
@@ -450,8 +450,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <PromoVideo />
       <AstrofiedJournals />
 
-      <Panchang />
-
+      <AstrofiedPanchang />
       <Testimonials />
 
       {/* FAQs Section */}
