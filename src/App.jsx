@@ -302,7 +302,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </div>
               <button
                 onClick={() => setShowFullWhySj(!showFullWhySj)}
-                className="mt-4 text-gold font-bold transition-all flex items-center gap-2 hover:translate-x-1"
+                className={`mt-4 font-bold transition-all flex items-center gap-2 hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}
               >
                 {showFullWhySj ? 'Read Less' : 'Read More'}
               </button>
@@ -418,7 +418,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </div>
               <button
                 onClick={() => setShowFullAbout(!showFullAbout)}
-                className="mt-4 text-gold font-bold transition-all hover:translate-x-1"
+                className={`mt-4 font-bold transition-all hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}
               >
                 {showFullAbout ? 'Read Less' : 'Read More'}
               </button>
