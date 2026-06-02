@@ -537,7 +537,7 @@ const AstrofiedJournals = () => {
                     className={`w-full py-3 lg:py-4 text-base md:text-lg lg:text-xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode
                         ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
-                        : 'bg-gradient-to-r from-black to-red-600 text-white shadow-red-600/30 hover:opacity-70'
+                        : 'bg-gradient-to-r from-black to-red-600 text-white shadow-none hover:opacity-70'
                       }
                 `}
                   >
