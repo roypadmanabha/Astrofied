@@ -110,7 +110,7 @@ const Pricing = () => {
               <div className="px-4 pb-4">
                 <div className="flex flex-col gap-3 mb-8">
                   <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-black font-mulish leading-tight ${
-                    isDarkMode ? 'text-white' : 'text-[#E00000]'
+                    isDarkMode ? 'text-white' : 'bg-gradient-to-r from-black to-[#E00000] bg-clip-text text-transparent w-fit'
                   }`}>
                     {item.title}
                   </h3>
