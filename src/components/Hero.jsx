@@ -26,7 +26,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             style={{ color: isDarkMode ? '#F5F5F5' : '#0A0A0A' }}
                         >
                             A Deeper Understanding <br className="hidden lg:block xl:hidden" />
-                            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#59100000]'}`}>of Your Life</span> Begins Here
+                            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#591000]'}`}>of Your Life</span> Begins Here
                         </motion.h1>
 
                         <motion.p
