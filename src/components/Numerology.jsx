@@ -122,7 +122,7 @@ const Numerology = () => {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h2 className={`text-4xl md:text-6xl lg:text-[5rem] font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                            Know your <span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#4b0082]'}>Numbers</span>
+                            Know your <span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#FF2400]'}>Numbers</span>
                     </h2>
                     <p className={`text-sm md:text-xl font-medium max-w-2xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                         Calculate your core numerology numbers for free with<br className="hidden md:block" /> 100% accurate calculations.
@@ -179,7 +179,7 @@ const Numerology = () => {
 
                     <button 
                         onClick={handleCalculate}
-                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#ffd700] text-black hover:bg-[#e6c200]' : 'bg-[#4b0082] text-white hover:bg-white hover:text-[#4b0082]'}`}
+                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-all w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#ffd700] text-black hover:bg-[#e6c200]' : 'bg-gradient-to-r from-black to-[#FF2400] text-white hover:opacity-90'}`}
                     >
                         Calculate
                     </button>
