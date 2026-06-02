@@ -122,7 +122,7 @@ const Numerology = () => {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h2 className={`text-4xl md:text-6xl lg:text-[5rem] font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                            Know your <span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#4c0082]'}>Numbers</span>
+                            Know your <span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#4c0082]'}>Numbers</span>
                     </h2>
                     <p className={`text-sm md:text-xl font-medium max-w-2xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                         Calculate your core numerology numbers for free with<br className="hidden md:block" /> 100% accurate calculations.
@@ -149,7 +149,7 @@ const Numerology = () => {
                                 max="2099-12-31"
                                 value={dob}
                                 onChange={handleDateChange}
-                                className={`md:hidden px-4 py-3 rounded-xl border-2 text-[15px] font-bold shadow-lg w-full outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
+                                className={`md:hidden px-4 py-3 rounded-xl border-2 text-[15px] font-bold shadow-lg w-full outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#ffd700]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
                             />
                             {/* Desktop Input: Native Date Picker */}
                             <input 
@@ -159,7 +159,7 @@ const Numerology = () => {
                                 value={dob}
                                 onChange={handleDateChange}
                                 onKeyDown={(e) => e.key === 'Enter' && handleCalculate()}
-                                className={`hidden md:block px-6 py-4 rounded-xl border-2 text-2xl font-bold shadow-lg min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#D4AF37]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
+                                className={`hidden md:block px-6 py-4 rounded-xl border-2 text-2xl font-bold shadow-lg min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#ffd700]' : 'bg-white border-transparent focus:border-[#D00000] text-black'}`}
                             />
                         </div>
 
@@ -170,7 +170,7 @@ const Numerology = () => {
                                 setResults(null);
                                 setError('');
                             }}
-                            className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group flex-shrink-0 order-2 md:order-1 ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#D4AF37] hover:text-[#D4AF37]' : 'bg-white border-transparent text-black hover:text-[#D00000]'}`}
+                            className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group flex-shrink-0 order-2 md:order-1 ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#ffd700] hover:text-[#ffd700]' : 'bg-white border-transparent text-black hover:text-[#D00000]'}`}
                             title="Reset"
                         >
                             <RotateCcw className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
@@ -179,7 +179,7 @@ const Numerology = () => {
 
                     <button 
                         onClick={handleCalculate}
-                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#4c0082] text-white hover:bg-[#fbf2cb] hover:text-[#4b0082]'}`}
+                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#ffd700] text-black hover:bg-[#e6c200]' : 'bg-[#4c0082] text-white hover:bg-[#fbf2cb] hover:text-[#4b0082]'}`}
                     >
                         Calculate
                     </button>
@@ -203,11 +203,11 @@ const Numerology = () => {
                     {cards.map((card, idx) => (
                         <div 
                             key={idx} 
-                            className={`rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col shadow-xl relative overflow-hidden transition-all duration-500 ${isDarkMode ? 'bg-transparent border border-[#D4AF37]' : 'backdrop-blur-xl bg-[#f5f5de]/70 border border-[#6200EA]'}`}
+                            className={`rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col shadow-xl relative overflow-hidden transition-all duration-500 ${isDarkMode ? 'bg-transparent border border-[#ffd700]' : 'backdrop-blur-xl bg-[#f5f5de]/70 border border-[#6200EA]'}`}
                         >
                             {/* Card Header */}
                             <h3 className={`text-[15px] sm:text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#D4AF37]' : 'text-[#6200EA]'}>{card.titleSuffix}</span>
+                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#6200EA]'}>{card.titleSuffix}</span>
                             </h3>
 
                             {/* Result Number */}
@@ -224,7 +224,7 @@ const Numerology = () => {
                                             initial={{ opacity: 0, scale: 0.5, y: -40 }} // calendar drop-down effect
                                             animate={{ opacity: 1, scale: 1, y: 0 }}
                                             transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
-                                            className={`text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffff00]' : 'text-[#D00000]'}`}
+                                            className={`text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffd700]' : 'text-[#D00000]'}`}
                                         >
                                             {results[card.key]}
                                         </motion.div>
@@ -233,7 +233,7 @@ const Numerology = () => {
                             </AnimatePresence>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-2xl p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 h-[75px] sm:h-[110px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#D4AF37]' : 'text-black bg-[#f5ebfc] border border-[#6200EA]'}`}>
+                            <div className={`rounded-2xl p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 h-[75px] sm:h-[110px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#ffd700]' : 'text-black bg-[#f5ebfc] border border-[#6200EA]'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             
