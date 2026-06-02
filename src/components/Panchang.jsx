@@ -5,7 +5,17 @@ import { CalendarDays } from 'lucide-react';
 
 export default function Panchang() {
     const { isDarkMode } = useTheme();
-    const [panchangData, setPanchangData] = useState(null);
+    const [panchangData, setPanchangData] = useState({
+        sunrise: '...', sunset: '...',
+        currentDate: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+        currentDay: new Date().toLocaleDateString('en-GB', { weekday: 'long' }),
+        kaals: [
+            { id: 1, heading: 'Nakshatra', start: '...', end: '...', desc: 'Represents the specific zodiac constellation the Moon is transiting through on that given day.' },
+            { id: 2, heading: 'Abhijit Muhurta', start: '...', end: '...', desc: 'An exceptionally favorable timing window within the day, considered perfect for initiating important tasks or rituals.' },
+            { id: 3, heading: 'Rahu Kaal', start: '...', end: '...', desc: 'A daily inauspicious period lasting approximately 90 minutes during which it is advised to avoid starting any major or new activities.' },
+            { id: 4, heading: 'Yam Gandam', start: '...', end: '...', desc: 'Another inauspicious daily period where starting new and important tasks is generally avoided according to Vedic astrology.' }
+        ]
+    });
     const [loading, setLoading] = useState(true);
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
 
@@ -25,6 +35,7 @@ export default function Panchang() {
                 const API_URL = import.meta.env.VITE_API_URL || 'https://astrofied-production.up.railway.app';
                 // Using 28.6139, 77.2090 as default New Delhi coordinates
                 const res = await fetch(`${API_URL}/api/panchang?datetime=${today.toISOString()}&lat=28.6139&lon=77.2090`);
+                if (!res.ok) throw new Error('Backend returned ' + res.status);
                 const data = await res.json();
 
                 // Helper to format ISO string into local time e.g., "03:46 PM"
@@ -72,6 +83,18 @@ export default function Panchang() {
 
             } catch (error) {
                 console.error("Failed to fetch panchang from Prokerala backend", error);
+                const today = new Date();
+                setPanchangData({
+                    sunrise: 'N/A', sunset: 'N/A',
+                    currentDate: today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+                    currentDay: today.toLocaleDateString('en-GB', { weekday: 'long' }),
+                    kaals: [
+                        { id: 1, heading: 'Nakshatra', start: 'N/A', end: 'N/A', desc: 'Represents the specific zodiac constellation the Moon is transiting through on that given day.' },
+                        { id: 2, heading: 'Abhijit Muhurta', start: 'N/A', end: 'N/A', desc: 'An exceptionally favorable timing window within the day, considered perfect for initiating important tasks or rituals.' },
+                        { id: 3, heading: 'Rahu Kaal', start: 'N/A', end: 'N/A', desc: 'A daily inauspicious period lasting approximately 90 minutes during which it is advised to avoid starting any major or new activities.' },
+                        { id: 4, heading: 'Yam Gandam', start: 'N/A', end: 'N/A', desc: 'Another inauspicious daily period where starting new and important tasks is generally avoided according to Vedic astrology.' }
+                    ]
+                });
             } finally {
                 setLoading(false);
             }
@@ -80,7 +103,6 @@ export default function Panchang() {
         fetchPanchang();
     }, []);
 
-    if (loading || !panchangData) return null;
 
     return (
         <section className={`py-16 font-mulish ${isDarkMode ? 'bg-[#0A0A0A] text-white' : 'bg-[#F2EFE9] text-black'}`}>
