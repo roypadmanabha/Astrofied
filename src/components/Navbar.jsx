@@ -206,13 +206,13 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                     }
                                 }}
                                 className={`text-lg font-bold transition-all relative group bg-transparent border-none p-0 cursor-pointer ${
-                                    isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-[#4b0082] hover:text-[#DC2626]'
+                                    isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-[#FF2400] hover:text-black'
                                 }`}
                                 whileHover={{ scale: 1.05 }}
                             >
                                 {link.name}
                                 <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
-                                    isDarkMode ? 'bg-gold' : 'bg-[#DC2626]'
+                                    isDarkMode ? 'bg-gold' : 'bg-black'
                                 }`} />
                             </motion.button>
                         ))}
