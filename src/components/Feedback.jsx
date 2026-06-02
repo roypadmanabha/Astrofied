@@ -656,7 +656,7 @@ export default function Feedback() {
                                     type="submit"
                                     className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${(status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
                                         } ${isDarkMode
-                                            ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
+                                            ? 'bg-gold text-black hover:bg-white hover:text-white shadow-gold/20'
                                             : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
                                         }`}
                                 >
