@@ -85,7 +85,7 @@ export default function Testimonials() {
                     />
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-bold text-base md:text-lg font-mulish tracking-tight" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>
+                    <span className={`font-bold text-base md:text-lg font-mulish tracking-tight transition-colors ${isDarkMode ? 'text-[#f2ff00] hover:text-[#D4AF37]' : 'text-[#4B0082]'}`}>
                         {t.name}
                     </span>
                     <div className="flex gap-0.5 mt-1">
@@ -108,8 +108,7 @@ export default function Testimonials() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="text-center md:text-left">
                         <h2
-                            className="text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-4"
-                            style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}
+                            className={`text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-4 transition-colors ${isDarkMode ? 'text-[#f2ff00] hover:text-[#D4AF37]' : 'text-[#4B0082]'}`}
                         >
                             Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4B0082]'}>Trust</span>
                         </h2>
@@ -125,7 +124,7 @@ export default function Testimonials() {
                             disabled={!canScrollLeft}
                             className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg
                                 ${isDarkMode 
-                                    ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] hover:bg-[#FFF8E1] hover:text-[#D4AF37] hover:scale-105 active:scale-95' 
+                                    ? 'border-gold/30 text-[#FFF8E1] bg-[#f2ff00] hover:bg-[#FFF8E1] hover:text-[#D4AF37] hover:scale-105 active:scale-95' 
                                     : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] hover:bg-purple-100 hover:text-[#4B0082] hover:scale-105 active:scale-95'}
                             `}
                         >
@@ -136,7 +135,7 @@ export default function Testimonials() {
                             disabled={!canScrollRight}
                             className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg
                                 ${isDarkMode 
-                                    ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] hover:bg-[#FFF8E1] hover:text-[#D4AF37] hover:scale-105 active:scale-95' 
+                                    ? 'border-gold/30 text-[#FFF8E1] bg-[#f2ff00] hover:bg-[#FFF8E1] hover:text-[#D4AF37] hover:scale-105 active:scale-95' 
                                     : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] hover:bg-purple-100 hover:text-[#4B0082] hover:scale-105 active:scale-95'}
                             `}
                         >
@@ -166,7 +165,7 @@ export default function Testimonials() {
                     disabled={!canScrollLeft}
                     className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
                         ${isDarkMode 
-                            ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] hover:bg-[#FFF8E1] hover:text-[#D4AF37] active:scale-90' 
+                            ? 'border-gold/30 text-[#FFF8E1] bg-[#f2ff00] hover:bg-[#FFF8E1] hover:text-[#D4AF37] active:scale-90' 
                             : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] hover:bg-purple-100 hover:text-[#4B0082] active:scale-90'}
                     `}
                 >
@@ -177,7 +176,7 @@ export default function Testimonials() {
                     disabled={!canScrollRight}
                     className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
                         ${isDarkMode 
-                            ? 'border-gold/30 text-[#FFF8E1] bg-[#D4AF37] hover:bg-[#FFF8E1] hover:text-[#D4AF37] active:scale-90' 
+                            ? 'border-gold/30 text-[#FFF8E1] bg-[#f2ff00] hover:bg-[#FFF8E1] hover:text-[#D4AF37] active:scale-90' 
                             : 'border-[#4B0082]/20 text-purple-100 bg-[#4B0082] hover:bg-purple-100 hover:text-[#4B0082] active:scale-90'}
                     `}
                 >

@@ -26,7 +26,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             style={{ color: isDarkMode ? '#F5F5F5' : '#0A0A0A' }}
                         >
                             A Deeper Understanding <br className="hidden lg:block xl:hidden" />
-                            <span style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>of Your Life</span> Begins Here
+                            <span className={`transition-colors ${isDarkMode ? 'text-[#f2ff00] hover:text-[#D4AF37]' : 'text-[#4B0082]'}`}>of Your Life</span> Begins Here
                         </motion.h1>
 
                         <motion.p
@@ -111,7 +111,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                         }`}
                                 >
                                     <div className="flex flex-col">
-                                        <span className="text-xl font-bold font-mulish" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>5 Thousand+</span>
+                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#f2ff00] hover:text-[#D4AF37]' : 'text-[#4B0082]'}`}>5 Thousand+</span>
                                         <span className="text-xs opacity-70">Consultations</span>
                                     </div>
                                 </motion.div>
@@ -124,7 +124,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                         }`}
                                 >
                                     <div className="flex flex-col">
-                                        <span className="text-xl font-bold font-mulish" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>7+ Years</span>
+                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#f2ff00] hover:text-[#D4AF37]' : 'text-[#4B0082]'}`}>7+ Years</span>
                                         <span className="text-xs opacity-70">of Experience</span>
                                     </div>
                                 </motion.div>
@@ -137,7 +137,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                         }`}
                                 >
                                     <div className="flex flex-col">
-                                        <span className="text-lg md:text-xl font-bold font-mulish" style={{ color: isDarkMode ? '#D4AF37' : '#4B0082' }}>100%</span>
+                                        <span className={`text-lg md:text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#f2ff00] hover:text-[#D4AF37]' : 'text-[#4B0082]'}`}>100%</span>
                                         <span className="text-[10px] md:text-xs opacity-70">Accuracy</span>
                                     </div>
                                 </motion.div>

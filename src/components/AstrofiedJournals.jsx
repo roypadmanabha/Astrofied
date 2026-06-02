@@ -49,7 +49,7 @@ const HighlightText = ({ text, highlight }) => {
     <>
       {parts.map((part, i) =>
         part.toLowerCase() === highlight.toLowerCase() ? (
-          <span key={i} className="bg-[#D4AF37]/40 text-[#D00000] px-1 rounded font-bold">
+          <span key={i} className="bg-[#f2ff00]/40 text-[#D00000] px-1 rounded font-bold">
             {part}
           </span>
         ) : (
@@ -71,7 +71,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
             <HighlightText text={journal.title} highlight={searchQuery} />
           </h2>
           <div
-            className="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#D4AF37] bg-white"
+            className="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#f2ff00] bg-white"
             style={{ maxWidth: '923px', aspectRatio: '923/1024' }}
           >
             <img src={getJournalImage(journal.title, journal.image_url) || journalsCollage} alt={journal.title} className="w-full h-full object-cover" />
@@ -102,9 +102,9 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
       {/* Diamond Separator between items */}
       {!isLast && (
         <div className="flex justify-center items-center gap-2 md:gap-3 opacity-80 mt-4 md:mt-8">
-          <div className="w-16 md:w-40 h-px bg-[#D4AF37]"></div>
-          <div className="w-1.5 h-1.5 md:w-2.5 md:h-2.5 rotate-45 bg-[#D4AF37]"></div>
-          <div className="w-16 md:w-40 h-px bg-[#D4AF37]"></div>
+          <div className="w-16 md:w-40 h-px bg-[#f2ff00]"></div>
+          <div className="w-1.5 h-1.5 md:w-2.5 md:h-2.5 rotate-45 bg-[#f2ff00]"></div>
+          <div className="w-16 md:w-40 h-px bg-[#f2ff00]"></div>
         </div>
       )}
     </div>
@@ -300,7 +300,7 @@ const AstrofiedJournals = () => {
               animate={{ opacity: 1, y: 0, x: '-50%' }}
               exit={{ opacity: 0, y: -20, x: '-50%' }}
               transition={{ duration: 0.3 }}
-              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#D00000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#D4AF37]/30"
+              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#D00000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#f2ff00]/30"
             >
               <AlertCircle size={24} />
               <span className="text-sm md:text-base">Not allowed. Content protection enabled.</span>
@@ -366,11 +366,11 @@ const AstrofiedJournals = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className={`w-full py-2 md:py-3 px-5 md:px-6 pr-16 md:pr-20 rounded-[28px] border-[1.5px] md:border-2 outline-none transition-all text-sm md:text-base font-mulish shadow-none
                   ${isDarkMode
-                    ? 'bg-[#1a1a1a] border-[#D4AF37]/50 text-white placeholder-white/50 focus:border-[#D4AF37]'
+                    ? 'bg-[#1a1a1a] border-[#f2ff00]/50 text-white placeholder-white/50 focus:border-[#f2ff00]'
                     : 'bg-white border-[#D00000]/50 text-black placeholder-black/50 focus:border-[#D00000]'
                   }`}
               />
-              <div className={`absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 md:gap-3 ${isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}`}>
+              <div className={`absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 md:gap-3 ${isDarkMode ? 'text-[#f2ff00]' : 'text-[#D00000]'}`}>
                 {searchQuery && (
                   <>
                     <button
@@ -380,7 +380,7 @@ const AstrofiedJournals = () => {
                     >
                       <X size={18} className="md:w-5 md:h-5" />
                     </button>
-                    <div className={`w-px h-4 md:h-5 ${isDarkMode ? 'bg-[#D4AF37]/50' : 'bg-[#D00000]/50'}`}></div>
+                    <div className={`w-px h-4 md:h-5 ${isDarkMode ? 'bg-[#f2ff00]/50' : 'bg-[#D00000]/50'}`}></div>
                   </>
                 )}
                 <Search size={18} className="md:w-5 md:h-5" />
@@ -394,7 +394,7 @@ const AstrofiedJournals = () => {
                   initial={{ opacity: 0, height: 0, marginTop: 0 }}
                   animate={{ opacity: 1, height: 'auto', marginTop: 12 }}
                   exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                  className={`text-sm font-mulish font-bold overflow-hidden ${isDarkMode ? 'text-[#D4AF37]' : 'text-[#D00000]'}`}
+                  className={`text-sm font-mulish font-bold overflow-hidden ${isDarkMode ? 'text-[#f2ff00]' : 'text-[#D00000]'}`}
                 >
                   {filteredJournals.length} {filteredJournals.length === 1 ? 'match' : 'matches'} found
                 </motion.div>
@@ -511,7 +511,7 @@ const AstrofiedJournals = () => {
                   {titleContent}
                 </h2>
 
-                <div className="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[28px] overflow-hidden shadow-2xl bg-transparent border-[1.5px] border-[#D4AF37]">
+                <div className="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[28px] overflow-hidden shadow-2xl bg-transparent border-[1.5px] border-[#f2ff00]">
                   <img
                     src={journalsCollage}
                     alt="Astrofied Journals Collage"

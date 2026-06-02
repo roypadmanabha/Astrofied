@@ -22,7 +22,7 @@ function Scene() {
             <Float speed={2} rotationIntensity={1} floatIntensity={1}>
                 <Sphere ref={sphereRef} args={[1, 32, 32]}>
                     <MeshDistortMaterial
-                        color={isDarkMode ? '#D4AF37' : '#4B0082'}
+                        color={isDarkMode ? '#f2ff00' : '#4B0082'}
                         attach="material"
                         distort={0.4}
                         speed={2}

@@ -83,7 +83,7 @@ export default function FAQs() {
                                 transition={{ duration: 0.4, ease: "easeOut" }}
                                 className={`border-2 rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
                                     ? isActive
-                                        ? 'border-[#D4AF37] bg-[#4B0082]/30 shadow-[#D4AF37]/10'
+                                        ? 'border-[#f2ff00] bg-[#4B0082]/30 shadow-[#f2ff00]/10'
                                         : 'border-[#4B0082] bg-[#121212] hover:border-[#D4AF37]/50'
                                     : isActive
                                         ? 'border-[#4B0082] bg-[#F5F5DC] shadow-[#4B0082]/10'
@@ -95,13 +95,13 @@ export default function FAQs() {
                                     className="w-full text-left px-6 py-5 md:py-6 flex items-center justify-between gap-4 focus:outline-none"
                                 >
                                     <span className={`text-base md:text-lg font-bold transition-colors font-mulish ${isDarkMode
-                                        ? isActive ? 'text-[#D4AF37]' : 'text-gray-100 hover:text-white'
+                                        ? isActive ? 'text-[#f2ff00]' : 'text-gray-100 hover:text-white'
                                         : isActive ? 'text-[#DC2626]' : 'text-[#17202A] hover:text-[#DC2626]'
                                         }`}>
                                         {faq.question}
                                     </span>
                                     <span className={`flex-shrink-0 transition-colors ${isDarkMode
-                                        ? isActive ? 'text-[#D4AF37]' : 'text-gray-100'
+                                        ? isActive ? 'text-[#f2ff00]' : 'text-gray-100'
                                         : isActive ? 'text-[#DC2626]' : 'text-[#17202A]'
                                         }`}>
                                         {isActive ? <Minus size={24} strokeWidth={3} /> : <Plus size={24} strokeWidth={3} />}
