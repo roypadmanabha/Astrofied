@@ -206,8 +206,8 @@ const Numerology = () => {
                             className={`rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col shadow-xl relative overflow-hidden transition-all duration-500 ${isDarkMode ? 'bg-transparent border border-[#ffd700]' : 'backdrop-blur-xl bg-[#f5f5de]/70 border border-[#4b0082]'}`}
                         >
                             {/* Card Header */}
-                            <h3 className={`text-[15px] sm:text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#4b0082]'}>{card.titleSuffix}</span>
+                            <h3 className={`text-[15px] sm:text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent'}`}>
+                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#ffd700]' : ''}>{card.titleSuffix}</span>
                             </h3>
 
                             {/* Result Number */}
