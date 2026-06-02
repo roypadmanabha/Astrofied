@@ -1,252 +1,186 @@
 import { useState, useEffect } from 'react';
-import { Calendar, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import SunCalc from 'suncalc';
-
-const CARDS = [
-    {
-        id: 'moonSign',
-        title: 'MOON SIGN',
-        type: 'single',
-        desc: "Represents the specific zodiac constellation the Moon is transiting through on that given day."
-    },
-    {
-        id: 'amritKaal',
-        title: 'AMRIT KAAL',
-        type: 'range',
-        startKey: 'amritKaalStart',
-        endKey: 'amritKaalEnd',
-        desc: "A highly auspicious daily time window, derived from the active Nakshatra, considered perfect for initiating important tasks or rituals."
-    },
-    {
-        id: 'mahendraYog',
-        title: 'MAHENDRA YOG',
-        type: 'range',
-        startKey: 'mahendraYogStart',
-        endKey: 'mahendraYogEnd',
-        desc: "An exceptionally favorable timing window within the day that is traditionally believed to bring success and positive outcomes to new endeavors."
-    },
-    {
-        id: 'rahuKaal',
-        title: 'RAHU KAAL',
-        type: 'range',
-        startKey: 'rahuKaalStart',
-        endKey: 'rahuKaalEnd',
-        desc: "A daily inauspicious period lasting approximately 90 minutes during which it is advised to avoid starting any major or new activities."
-    }
-];
+import { CalendarDays } from 'lucide-react';
 
 export default function Panchang() {
     const { isDarkMode } = useTheme();
     const [panchangData, setPanchangData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [currentDateString, setCurrentDateString] = useState("");
-    const [currentTimeString, setCurrentTimeString] = useState("");
 
     useEffect(() => {
-        // Real-time ticking clock
-        const updateTime = () => {
-            const now = new Date();
-            const formattedDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(now);
-            const weekday = new Intl.DateTimeFormat('en-GB', { weekday: 'long' }).format(now);
-            setCurrentDateString(`${formattedDate} • ${weekday}`);
-            setCurrentTimeString(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-        };
-        
-        updateTime();
-        const timer = setInterval(updateTime, 1000);
-        return () => clearInterval(timer);
-    }, []);
-
-    useEffect(() => {
-        const fetchPanchang = async (lat, lng) => {
-            const now = new Date();
+        const fetchPanchang = async () => {
             try {
-                const year = now.getFullYear();
-                const month = String(now.getMonth() + 1).padStart(2, '0');
-                const day = String(now.getDate()).padStart(2, '0');
-                const dateStr = `${year}-${month}-${day}`;
-                const timeStr = now.toTimeString().split(' ')[0].substring(0, 5); 
-
-                const API_URL = import.meta.env.VITE_API_URL || 'https://astrofied-production.up.railway.app';
-
-                const response = await fetch(`${API_URL}/api/panchang`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        date: dateStr,
-                        time: timeStr,
-                        lat: lat,
-                        lon: lng,
-                        tzo: '+05:30' // Assuming standard IST for Astrofied
-                    })
-                });
-
-                if (!response.ok) throw new Error("API response not ok");
-
-                const data = await response.json();
+                // Fetching Sunrise/Sunset for New Delhi (Standard IST)
+                const res = await fetch('https://api.sunrisesunset.io/json?lat=28.6139&lng=77.2090');
+                const data = await res.json();
                 
-                const formatISO = (isoString) => {
-                    if (!isoString) return '-';
-                    const d = new Date(isoString);
-                    return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-                };
+                if (data.status === 'OK') {
+                    const { sunrise, sunset } = data.results;
+                    
+                    // Convert AM/PM to Date objects for today
+                    const today = new Date();
+                    const parseTime = (timeStr) => {
+                        const [time, modifier] = timeStr.split(' ');
+                        let [hours, minutes, seconds] = time.split(':');
+                        if (hours === '12') hours = '00';
+                        if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
+                        const date = new Date(today);
+                        date.setHours(hours, minutes, seconds, 0);
+                        return date;
+                    };
 
-                setPanchangData({
-                    moonSign: data.moonSign,
-                    amritKaalStart: formatISO(data.amritKaal?.start),
-                    amritKaalEnd: formatISO(data.amritKaal?.end),
-                    mahendraYogStart: formatISO(data.abhijit?.start), // Used as Mahendra fallback
-                    mahendraYogEnd: formatISO(data.abhijit?.end),
-                    rahuKaalStart: formatISO(data.rahuKaal?.start),
-                    rahuKaalEnd: formatISO(data.rahuKaal?.end),
-                    sunrise: formatISO(data.sunrise),
-                    sunset: formatISO(data.sunset)
-                });
+                    const srDate = parseTime(sunrise);
+                    const ssDate = parseTime(sunset);
+                    
+                    const dayDurationMs = ssDate - srDate;
+                    const onePartMs = dayDurationMs / 8;
+                    const dayOfWeek = today.getDay(); // 0 = Sun, 1 = Mon...
+
+                    // Rahu Kaal Multipliers (1-indexed parts, so multiply by part - 1)
+                    const rahuParts = [8, 2, 7, 5, 6, 4, 3];
+                    const rahuStartMs = srDate.getTime() + (rahuParts[dayOfWeek] - 1) * onePartMs;
+                    const rahuEndMs = rahuStartMs + onePartMs;
+
+                    // Yamaganda Kaal Multipliers
+                    const yamaParts = [5, 4, 3, 2, 1, 7, 6];
+                    const yamaStartMs = srDate.getTime() + (yamaParts[dayOfWeek] - 1) * onePartMs;
+                    const yamaEndMs = yamaStartMs + onePartMs;
+
+                    // Abhijit Muhurat
+                    const solarNoonMs = srDate.getTime() + (dayDurationMs / 2);
+                    const abhijitDurationMs = dayDurationMs / 15;
+                    const abhijitStartMs = solarNoonMs - (abhijitDurationMs / 2);
+                    const abhijitEndMs = solarNoonMs + (abhijitDurationMs / 2);
+
+                    // Brahma Muhurat (Approx 1 hr 36 mins to 48 mins before sunrise)
+                    const brahmaStartMs = srDate.getTime() - (96 * 60000);
+                    const brahmaEndMs = srDate.getTime() - (48 * 60000);
+
+                    const formatTime = (ms) => {
+                        return new Date(ms).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                    };
+
+                    setPanchangData({
+                        sunrise,
+                        sunset,
+                        currentDate: today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+                        currentDay: today.toLocaleDateString('en-GB', { weekday: 'long' }),
+                        kaals: [
+                            {
+                                id: 1,
+                                heading: 'Brahma Muhurat',
+                                start: formatTime(brahmaStartMs),
+                                end: formatTime(brahmaEndMs),
+                                desc: 'A highly auspicious daily time window, traditionally believed to bring success and positive outcomes to new endeavors.'
+                            },
+                            {
+                                id: 2,
+                                heading: 'Abhijit Muhurat',
+                                start: formatTime(abhijitStartMs),
+                                end: formatTime(abhijitEndMs),
+                                desc: 'An exceptionally favorable timing window within the day, considered perfect for initiating important tasks or rituals.'
+                            },
+                            {
+                                id: 3,
+                                heading: 'Rahu Kaal',
+                                start: formatTime(rahuStartMs),
+                                end: formatTime(rahuEndMs),
+                                desc: 'A daily inauspicious period lasting approximately 90 minutes during which it is advised to avoid starting any major or new activities.'
+                            },
+                            {
+                                id: 4,
+                                heading: 'Yamaganda Kaal',
+                                start: formatTime(yamaStartMs),
+                                end: formatTime(yamaEndMs),
+                                desc: 'Another inauspicious daily period where starting new and important tasks is generally avoided according to Vedic astrology.'
+                            }
+                        ]
+                    });
+                }
             } catch (error) {
-                console.error("Error fetching panchang, falling back to local real-time calculation:", error);
-                
-                // Fallback: Calculate REAL astronomical data based on location
-                const times = SunCalc.getTimes(now, lat, lng);
-                const formatTime = (date) => date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-                
-                const sunrise = times.sunrise || new Date(now.setHours(5, 30));
-                const sunset = times.sunset || new Date(now.setHours(18, 30));
-                
-                // Real Rahu Kaal mathematical calculation (1/8th of daytime based on weekday)
-                const dayOfWeek = now.getDay();
-                const duration = sunset.getTime() - sunrise.getTime();
-                const segment = duration / 8;
-                const rahuSegments = { 0: 7, 1: 1, 2: 6, 3: 4, 4: 5, 5: 3, 6: 2 };
-                const rahuStart = new Date(sunrise.getTime() + rahuSegments[dayOfWeek] * segment);
-                const rahuEnd = new Date(rahuStart.getTime() + segment);
-
-                // Approximate Amrit Kaal & Mahendra Yog dynamically
-                const amritStart = new Date(sunrise.getTime() + 4 * 60 * 60 * 1000);
-                const amritEnd = new Date(amritStart.getTime() + 1.5 * 60 * 60 * 1000);
-                const mahendraStart = new Date(sunset.getTime() - 2 * 60 * 60 * 1000);
-                const mahendraEnd = new Date(mahendraStart.getTime() + 1 * 60 * 60 * 1000);
-
-                // Approximate Moon Sign based on day of year cycle
-                const moonSigns = ["ARIES", "TAURUS", "GEMINI", "CANCER", "LEO", "VIRGO", "LIBRA", "SCORPIO", "SAGITTARIUS", "CAPRICORN", "AQUARIUS", "PISCES"];
-                const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-                const moonSign = moonSigns[Math.floor(dayOfYear / 2.25) % 12];
-
-                setPanchangData({
-                    moonSign: moonSign,
-                    amritKaalStart: formatTime(amritStart),
-                    amritKaalEnd: formatTime(amritEnd),
-                    mahendraYogStart: formatTime(mahendraStart),
-                    mahendraYogEnd: formatTime(mahendraEnd),
-                    rahuKaalStart: formatTime(rahuStart),
-                    rahuKaalEnd: formatTime(rahuEnd),
-                    sunrise: formatTime(sunrise),
-                    sunset: formatTime(sunset)
-                });
+                console.error("Failed to fetch panchang", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => fetchPanchang(position.coords.latitude, position.coords.longitude),
-                () => fetchPanchang(23.5332, 91.4836),
-                { timeout: 5000 }
-            );
-        } else {
-            fetchPanchang(23.5332, 91.4836);
-        }
+        fetchPanchang();
     }, []);
 
+    if (loading || !panchangData) return null;
+
     return (
-        <section className={`py-16 md:py-24 transition-colors duration-500 ${isDarkMode ? 'bg-[#121212]' : 'bg-[#f8f6eb]'}`}>
-            <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-                {/* Header Section */}
-                <div className="text-center mb-10 md:mb-16">
-                    <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold font-mulish mb-2 tracking-tight">
-                        <span className="text-[#D00000]">Astrofied</span> <span className={isDarkMode ? 'text-white' : 'text-[#1a202c]'}>Panchang</span>
+        <section className={`py-16 font-mulish ${isDarkMode ? 'bg-[#0A0A0A] text-white' : 'bg-[#F2EFE9] text-black'}`}>
+            <div className="container mx-auto px-4 md:px-8 max-w-7xl">
+                
+                {/* Header */}
+                <div className="text-center mb-10">
+                    <h2 className="text-4xl md:text-6xl font-black mb-4">
+                        <span className="text-[#FF0000]">Astrofied</span> <span className={isDarkMode ? 'text-white' : 'text-[#1B263B]'}>Panchang</span>
                     </h2>
-                    <h3 className={`text-2xl md:text-4xl font-bold mb-6 font-mulish tracking-tight ${isDarkMode ? 'text-gray-300' : 'text-[#1a202c]'}`}>
+                    <h3 className={`text-3xl md:text-4xl font-bold mb-6 ${isDarkMode ? 'text-gray-200' : 'text-[#111827]'}`}>
                         Today's Panchang
                     </h3>
                     
-                    <div className="flex flex-col items-center justify-center gap-3 mt-8">
-                        <div className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xl md:text-2xl font-bold font-mulish ${isDarkMode ? 'text-gray-200' : 'text-black'}`}>
-                            <div className="flex items-center gap-2">
-                                <Calendar className="w-6 h-6 text-[#D00000]" />
-                                {currentDateString}
-                            </div>
-                            <span className="hidden sm:inline text-gray-400">|</span>
-                            <div className="flex items-center gap-2 text-[#D00000]">
-                                <Clock className="w-6 h-6" />
-                                {currentTimeString}
-                            </div>
+                    <div className="flex flex-col items-center justify-center gap-4">
+                        <div className="flex items-center gap-3">
+                            <CalendarDays className={`w-8 h-8 ${isDarkMode ? 'text-gray-300' : 'text-[#4A5568]'}`} strokeWidth={1.5} />
+                            <span className="text-2xl md:text-3xl font-bold">
+                                {panchangData.currentDate} <span className="mx-2 font-normal">•</span> {panchangData.currentDay}
+                            </span>
                         </div>
-                        <div className={`text-sm md:text-lg font-bold font-mulish mt-2 ${isDarkMode ? 'text-gray-400' : 'text-black'}`}>
-                            {loading 
-                                ? 'Calculating planetary positions...' 
-                                : `Sunrise ${panchangData?.sunrise || '04:32 AM'} | Sunset ${panchangData?.sunset || '05:42 PM'} - Local Time`
-                            }
+                        <div className="text-sm md:text-base font-bold tracking-wide uppercase mt-2">
+                            Sunrise {panchangData.sunrise} | Sunset {panchangData.sunset} - IST
                         </div>
                     </div>
                 </div>
 
-                {/* Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 font-mulish">
-                    {loading ? (
-                        /* Skeleton Loaders */
-                        [1, 2, 3, 4].map(i => (
-                            <div key={i} className="rounded-[2rem] bg-gradient-to-b from-yellow-300/50 to-orange-400/50 animate-pulse min-h-[400px] p-5 md:p-6 flex flex-col">
-                                <div className="h-6 bg-black/10 rounded w-1/2 mx-auto mb-8"></div>
-                                <div className="h-4 bg-black/10 rounded w-1/3 mx-auto mb-2"></div>
-                                <div className="h-10 bg-black/10 rounded w-2/3 mx-auto mb-6"></div>
-                                <div className="h-px bg-black/10 w-3/4 mx-auto my-4"></div>
-                                <div className="h-4 bg-black/10 rounded w-1/3 mx-auto mb-2"></div>
-                                <div className="h-10 bg-black/10 rounded w-2/3 mx-auto mb-auto"></div>
-                                <div className="h-24 bg-[#3b2a21]/50 rounded-2xl w-full mt-6"></div>
+                {/* Grid */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mt-12">
+                    {panchangData.kaals.map((kaal) => (
+                        <motion.div
+                            key={kaal.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: kaal.id * 0.1 }}
+                            className="rounded-3xl p-4 md:p-6 lg:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300"
+                            style={{
+                                background: 'linear-gradient(180deg, #FFD700 0%, #FF8C00 100%)',
+                            }}
+                        >
+                            <h4 className="text-lg md:text-2xl lg:text-3xl font-black text-[#8B0000] mb-4 uppercase tracking-tight">
+                                {kaal.heading}
+                            </h4>
+                            
+                            <div className="w-full h-[1px] bg-black/20 my-2"></div>
+                            
+                            <div className="flex flex-col items-center my-3 w-full">
+                                <span className="text-red-700 font-bold text-xs md:text-sm uppercase tracking-wider mb-1">starts at</span>
+                                <span className="text-xl md:text-3xl lg:text-4xl font-black text-[#5C2B2B]">
+                                    {kaal.start}
+                                </span>
                             </div>
-                        ))
-                    ) : (
-                        /* Actual Data Cards */
-                        CARDS.map(card => (
-                            <div 
-                                key={card.id} 
-                                className="rounded-[2rem] bg-gradient-to-b from-yellow-300 to-orange-400 p-5 md:p-6 flex flex-col text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 min-h-[400px]"
-                            >
-                                <h4 className="text-[#D00000] font-black text-xl md:text-2xl tracking-wide mb-6">
-                                    {card.title}
-                                </h4>
-                                
-                                {card.type === 'single' ? (
-                                    <div className="flex-grow flex items-center justify-center mb-6 px-2">
-                                        <span className="text-[#4a2e1b] font-black text-3xl sm:text-4xl uppercase leading-tight drop-shadow-sm">
-                                            {panchangData?.[card.id] || '-'}
-                                        </span>
-                                    </div>
-                                ) : (
-                                    <div className="flex-grow flex flex-col items-center justify-center mb-6">
-                                        <span className="text-[#D00000] font-bold text-sm md:text-base mb-1">starts at</span>
-                                        <span className="text-[#4a2e1b] font-black text-3xl sm:text-[2rem] md:text-[2.2rem] drop-shadow-sm">
-                                            {panchangData?.[card.startKey] || '-'}
-                                        </span>
-                                        
-                                        <hr className="border-[#4a2e1b]/20 border-t-2 w-[80%] mx-auto my-4 md:my-5" />
-                                        
-                                        <span className="text-[#D00000] font-bold text-sm md:text-base mb-1">ends at</span>
-                                        <span className="text-[#4a2e1b] font-black text-3xl sm:text-[2rem] md:text-[2.2rem] drop-shadow-sm">
-                                            {panchangData?.[card.endKey] || '-'}
-                                        </span>
-                                    </div>
-                                )}
 
-                                <div className="bg-[#3b2a21] text-white text-[10px] md:text-xs rounded-[1rem] p-4 mt-auto text-center leading-relaxed md:leading-relaxed shadow-inner">
-                                    {card.desc}
-                                </div>
+                            <div className="w-4/5 h-[2px] bg-[#8B0000]/60 my-2"></div>
+
+                            <div className="flex flex-col items-center my-3 w-full">
+                                <span className="text-red-700 font-bold text-xs md:text-sm uppercase tracking-wider mb-1">ends at</span>
+                                <span className="text-xl md:text-3xl lg:text-4xl font-black text-[#5C2B2B]">
+                                    {kaal.end}
+                                </span>
                             </div>
-                        ))
-                    )}
+
+                            <div className="mt-6 bg-[#2B2B2B] rounded-2xl p-4 md:p-5 text-left w-full flex-grow flex items-center shadow-inner">
+                                <p className="text-white text-[10px] md:text-xs leading-relaxed font-medium">
+                                    {kaal.desc}
+                                </p>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
+
             </div>
         </section>
     );
