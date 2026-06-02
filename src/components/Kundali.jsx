@@ -390,7 +390,7 @@ const Kundali = () => {
                                 }`}
                         >
                             Astrofied Free <br />
-                            <span className="text-gold italic">Kundali</span>
+                            <span className={`${isDarkMode ? 'text-gold' : 'text-black'} italic`}>Kundali</span>
                         </motion.h2>
 
                         <motion.p
