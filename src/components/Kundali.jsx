@@ -70,7 +70,7 @@ const Kundali = () => {
     const otpRefs = useRef([]);
 
     // Brand Colors
-    const brandGold = "#f2ff00";
+    const brandGold = "#ffd700";
     const brandPurple = "#4B0082";
     const darkBlue = "#0A1931";
 

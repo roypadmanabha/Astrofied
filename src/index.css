@@ -19,7 +19,7 @@
 }
 
 @theme {
-  --color-gold: #f2ff00;
+  --color-gold: #ffd700;
   --color-obsidian: #0A0A0A;
   --color-royal-indigo: #4B0082;
   --color-parchment: #F5F5DC;
@@ -117,11 +117,11 @@ body.light {
     display: inline-block;
     border-radius: 9999px;
     background: linear-gradient(45deg,
-        #f2ff00,
+        #ffd700,
         #FFF8DC,
-        #f2ff00,
+        #ffd700,
         #B8860B,
-        #f2ff00);
+        #ffd700);
     background-size: 400% 400%;
     animation: shine-animation 5s linear infinite;
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
@@ -171,7 +171,7 @@ body.light {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #f2ff00;
+  background: #ffd700;
   border-radius: 4px;
 }
 

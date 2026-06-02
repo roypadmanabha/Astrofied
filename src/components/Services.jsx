@@ -129,7 +129,7 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
             {/* Glossy Gift Ribbon */}
             <div className="absolute top-0 left-0 w-16 h-16 md:w-25 md:h-20 pointer-events-none z-20">
                 <div className={`absolute top-0 left-0 w-[160%] h-5 md:h-7 shadow-xl transform -rotate-45 -translate-x-[35%] translate-y-[32%] flex items-center justify-center border-y border-white/30 overflow-hidden ${isDarkMode
-                    ? 'bg-gradient-to-r from-[#B8860B] via-[#f2ff00] to-[#B8860B]'
+                    ? 'bg-gradient-to-r from-[#B8860B] via-[#ffd700] to-[#B8860B]'
                     : 'bg-gradient-to-r from-[#4B0082] via-[#6A0DAD] to-[#4B0082]'
                     }`}>
                     {/* Glossy Shine Effect */}
@@ -145,7 +145,7 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
             {/* Bottom Right Glossy Accent */}
             <div className={`absolute bottom-0 right-0 w-8 h-8 md:w-12 md:h-12 transition-colors duration-300 ${isDarkMode
                 ? 'bg-gradient-to-tl from-[#002366] via-[#4169E1] to-[#002366]'
-                : 'bg-gradient-to-tl from-[#B8860B] via-[#f2ff00] to-[#B8860B]'
+                : 'bg-gradient-to-tl from-[#B8860B] via-[#ffd700] to-[#B8860B]'
                 }`} style={{ clipPath: 'polygon(100% 100%, 0 100%, 100% 0)' }}>
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             </div>
@@ -201,7 +201,7 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className={`text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 transition-colors ${isDarkMode ? 'text-[#f2ff00] hover:text-[#D4AF37]' : 'text-[#4B0082]'}`}
+                    className={`text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4B0082]'}`}
                 >
                     What We Cover
                 </motion.h2>

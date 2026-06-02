@@ -34,9 +34,9 @@ const Pricing = () => {
       image: pricingKundali,
       description: "Deep compatibility analysis for a prosperous and harmonious lifelong union.",
       tag: "EXCLUSIVE",
-      color: "from-[#f2ff00]/20 via-transparent to-[#F59E0B]/20",
+      color: "from-[#ffd700]/20 via-transparent to-[#F59E0B]/20",
       glow: "group-hover:shadow-[0_0_50px_rgba(212,175,55,0.2)]",
-      accent: "#f2ff00",
+      accent: "#ffd700",
       isKundali: true
     }
   ];
@@ -52,7 +52,7 @@ const Pricing = () => {
           className="text-center mb-8 md:mb-16"
         >
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-tight">
-            <span className={`transition-colors ${isDarkMode ? 'text-[#f2ff00] hover:text-[#D4AF37]' : 'text-[#4B0082]'}`}>Best</span>{' '}
+            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4B0082]'}`}>Best</span>{' '}
             <span style={{ color: isDarkMode ? '#FFFFFF' : '#4B0082' }}>Prices</span>
           </h2>
           <p className={`text-base md:text-xl font-mulish opacity-70 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>

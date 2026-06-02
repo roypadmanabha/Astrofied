@@ -18,7 +18,7 @@ function ZodiacScene() {
     return (
         <>
             <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1.5} color={isDarkMode ? '#D4AF37' : '#4B0082'} />
+            <pointLight position={[10, 10, 10]} intensity={1.5} color={isDarkMode ? '#ffd700' : '#4B0082'} />
             <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
 
             <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
@@ -36,7 +36,7 @@ function ZodiacScene() {
                 {/* Inner glow or secondary element */}
                 <mesh rotation={[Math.PI / 2, 0, 0]}>
                     <ringGeometry args={[1.8, 1.85, 64]} />
-                    <meshBasicMaterial color={isDarkMode ? '#D4AF37' : '#4B0082'} transparent opacity={0.3} side={2} />
+                    <meshBasicMaterial color={isDarkMode ? '#ffd700' : '#4B0082'} transparent opacity={0.3} side={2} />
                 </mesh>
             </Float>
         </>
