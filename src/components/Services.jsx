@@ -201,7 +201,7 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className={`text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent'}`}
+                    className={`text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700] transition-colors' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent'}`}
                 >
                     What We Cover
                 </motion.h2>
