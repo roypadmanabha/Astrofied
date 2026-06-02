@@ -91,7 +91,11 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
           <div className="flex justify-center md:justify-center mt-auto md:mt-0">
             <button
               onClick={() => handleDownload(journal.file_name)}
-              className="bg-[#4b0082] hover:bg-white hover:text-[#4b0082] text-white font-bold py-1.5 px-2 sm:py-2.5 sm:px-6 md:py-3.5 md:px-8 rounded sm:rounded-md md:rounded-lg shadow-md md:shadow-lg transition-transform hover:scale-105 active:scale-95 text-[9px] sm:text-sm md:text-base w-full lg:w-auto min-w-0 md:min-w-[200px]"
+              className={`font-bold py-1.5 px-2 sm:py-2.5 sm:px-6 md:py-3.5 md:px-8 rounded sm:rounded-md md:rounded-lg shadow-md md:shadow-lg transition-all hover:scale-105 active:scale-95 text-[9px] sm:text-sm md:text-base w-full lg:w-auto min-w-0 md:min-w-[200px]
+                ${isDarkMode
+                  ? 'bg-[#4b0082] hover:bg-white hover:text-[#4b0082] text-white'
+                  : 'bg-gradient-to-r from-black to-red-600 text-white hover:opacity-90'
+                }`}
             >
               Download PDF
             </button>
@@ -537,7 +541,7 @@ const AstrofiedJournals = () => {
                     className={`w-full py-3 lg:py-4 text-base md:text-lg lg:text-xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode
                         ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
-                        : 'bg-gradient-to-r from-black to-red-600 text-white shadow-none hover:opacity-70'
+                        : 'bg-gradient-to-r from-black to-red-600 text-white shadow-none hover:opacity-90'
                       }
                 `}
                   >
