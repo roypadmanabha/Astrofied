@@ -398,7 +398,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-[#4b0082]/70'
+                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-black'
                                 }`}
                         >
                             Generate your precise East Indian style D1 Lagna chart based on your birth coordinates.
