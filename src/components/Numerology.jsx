@@ -179,7 +179,7 @@ const Numerology = () => {
 
                     <button 
                         onClick={handleCalculate}
-                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#4c0082] text-white hover:bg-[#3b0066]'}`}
+                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#D4AF37] text-black hover:bg-[#B8860B]' : 'bg-[#4c0082] text-white hover:bg-[#fbf2cb] hover:text-[#4b0082]'}`}
                     >
                         Calculate
                     </button>
