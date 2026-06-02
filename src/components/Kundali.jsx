@@ -374,7 +374,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full shadow-sm ${isDarkMode ? 'border border-gold/30 text-gold bg-gold/5' : 'bg-gradient-to-r from-black to-[#FF2400] text-white'
+                            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm ${isDarkMode ? 'border-gold/30 text-gold bg-gold/5' : 'border-[#4b0082]/20 text-[#4b0082] bg-[#4b0082]/5'
                                 }`}
                         >
                             <Sparkles size={14} />
@@ -386,11 +386,11 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-black'
+                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4b0082]'
                                 }`}
                         >
-                            Generate Free <br />
-                            <span className={`${isDarkMode ? 'text-gold' : 'text-[#FF2400]'} italic`}>Kundali</span>
+                            Astrofied Free <br />
+                            <span className={`${isDarkMode ? 'text-gold' : 'text-black'} italic`}>Kundali</span>
                         </motion.h2>
 
                         <motion.p
@@ -398,7 +398,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-black'
+                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-[#4b0082]/70'
                                 }`}
                         >
                             Generate your precise East Indian style D1 Lagna chart based on your birth coordinates.
@@ -414,7 +414,7 @@ const Kundali = () => {
                             transition={{ duration: 0.4, ease: "easeOut" }}
                             className={`p-6 md:p-10 lg:p-12 rounded-[12px] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative lg:aspect-square flex flex-col justify-center ${isDarkMode
                                 ? 'border-gold !bg-[#17202A]'
-                                : 'border-[#4b0082] bg-gradient-to-b from-[#ffde59] to-[#ff914d]'
+                                : 'border-[#4b0082] bg-[#F5F5DC]'
                                 }`}
                         >
                             <img
@@ -437,7 +437,7 @@ const Kundali = () => {
                                             placeholder="First Name"
                                             className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-black/60'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
                                                 }`}
                                             value={formData.firstName}
                                             onChange={handleInputChange}
@@ -455,7 +455,7 @@ const Kundali = () => {
                                             placeholder="Last Name"
                                             className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-black/60'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
                                                 }`}
                                             value={formData.lastName}
                                             onChange={handleInputChange}
@@ -471,7 +471,7 @@ const Kundali = () => {
                                             <span className="font-black">+91</span> Mobile
                                         </label>
                                         <div className={`flex items-center gap-2 border-b transition-all ${isDarkMode ? 'border-white/10 focus-within:border-gold' : 'border-[#0A1931]/10 focus-within:border-[#0A1931]'}`}>
-                                            <span className={`text-sm md:text-base font-bold opacity-60 ${isDarkMode ? 'text-white' : 'text-black'}`}>+91</span>
+                                            <span className={`text-sm md:text-base font-bold opacity-50 ${isDarkMode ? 'text-white' : 'text-black'}`}>+91</span>
                                             <input
                                                 type="tel"
                                                 name="mobile"
@@ -479,7 +479,7 @@ const Kundali = () => {
                                                 placeholder=""
                                                 className={`w-full bg-transparent py-1 text-sm md:text-base font-bold focus:outline-none ${isDarkMode
                                                     ? 'text-white placeholder:text-gray-700'
-                                                    : 'text-black placeholder:text-black/60'
+                                                    : 'text-black placeholder:text-gray-400'
                                                     }`}
                                                 value={formData.mobile}
                                                 onChange={handleInputChange}
@@ -498,7 +498,7 @@ const Kundali = () => {
                                             placeholder=""
                                             className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-black/60'
+                                                : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
                                                 }`}
                                             value={formData.email}
                                             onChange={handleInputChange}
@@ -573,7 +573,7 @@ const Kundali = () => {
                                         placeholder="Search city..."
                                         className={`w-full border-b bg-transparent px-0 py-1 text-sm md:text-base font-bold focus:outline-none transition-all ${isDarkMode
                                             ? 'border-white/10 text-white focus:border-gold placeholder:text-gray-700'
-                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-black/60'
+                                            : 'border-[#0A1931]/10 text-black focus:border-[#0A1931] placeholder:text-gray-400'
                                             }`}
                                         value={formData.city}
                                         onChange={handleInputChange}
@@ -616,7 +616,7 @@ const Kundali = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     disabled={loading || otpLoading}
-                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${isDarkMode ? 'bg-gold text-black' : 'bg-gradient-to-r from-black to-[#FF2400] text-white shadow-xl hover:opacity-90'
+                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs border-2 border-transparent ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4b0082] text-white shadow-xl hover:bg-transparent hover:text-[#4b0082] hover:border-[#4b0082]'
                                         }`}
                                 >
                                     {(loading || otpLoading) ? <Loader2 className="animate-spin" size={18} /> : (
@@ -624,14 +624,14 @@ const Kundali = () => {
                                     )}
                                 </motion.button>
 
-                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-60 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 ${isDarkMode ? 'text-white' : 'text-[#4b0082]'}`}>
                                     Note: We don't share or tamper your personal data
                                 </p>
 
                                 <button
                                     type="button"
                                     onClick={handleReset}
-                                    className={`mt-4 text-[10px] font-bold uppercase tracking-widest opacity-60 hover:opacity-100 transition-all flex items-center justify-center gap-2 mx-auto ${isDarkMode ? 'text-white' : 'text-black'}`}
+                                    className={`mt-4 text-[10px] font-bold uppercase tracking-widest opacity-30 hover:opacity-100 transition-all flex items-center justify-center gap-2 mx-auto ${isDarkMode ? 'text-white' : 'text-[#4b0082]'}`}
                                 >
                                     <RotateCcw size={10} /> Reset
                                 </button>

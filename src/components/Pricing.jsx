@@ -42,7 +42,7 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className={`py-16 md:py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-[#f5f5dd]'}`}>
+    <section id="pricing" className={`py-16 md:py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-[#FAF9F6]'}`}>
       <div className="container mx-auto px-6 max-w-[1200px]">
         <motion.div
           initial={{ opacity: 0.8, y: 10 }}
@@ -51,9 +51,9 @@ const Pricing = () => {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-8 md:mb-16"
         >
-          <h2 className={`text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-tight w-fit mx-auto ${isDarkMode ? '' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent'}`}>
-            <span className={isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700] transition-colors' : ''}>Best</span>{' '}
-            <span className={isDarkMode ? 'text-white' : ''}>Prices</span>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-tight">
+            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>Best</span>{' '}
+            <span style={{ color: isDarkMode ? '#FFFFFF' : '#4b0082' }}>Prices</span>
           </h2>
           <p className={`text-base md:text-xl font-mulish opacity-70 ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>
             High-quality astrological guidance made affordable for everyone.
@@ -68,14 +68,14 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`relative group rounded-[24px] p-4 sm:p-5 border shadow-2xl transition-all duration-700 hover:-translate-y-4 ${isDarkMode ? item.glow : ''} ${
+              className={`relative group rounded-[24px] p-4 sm:p-5 border shadow-2xl transition-all duration-700 hover:-translate-y-4 ${item.glow} ${
                 isDarkMode
                   ? 'bg-white/[0.03] border-white/10 hover:bg-white/[0.05]'
-                  : 'bg-gradient-to-b from-white to-white border-black/[0.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)]'
+                  : 'bg-white border-black/[0.03] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)]'
               }`}
             >
               {/* Animated Background Glow */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 ${isDarkMode ? 'group-hover:opacity-100' : ''} transition-opacity duration-700 -z-10 rounded-[24px]`} />
+              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 rounded-[24px]`} />
               
               {/* Card Decoration */}
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-current opacity-[0.02] rounded-full blur-3xl pointer-events-none" />
@@ -110,7 +110,7 @@ const Pricing = () => {
               <div className="px-4 pb-4">
                 <div className="flex flex-col gap-3 mb-8">
                   <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-black font-mulish leading-tight ${
-                    isDarkMode ? 'text-white' : 'bg-gradient-to-r from-black to-[#E00000] bg-clip-text text-transparent w-fit'
+                    isDarkMode ? 'text-white' : 'text-[#4b0082]'
                   }`}>
                     {item.title}
                   </h3>
@@ -128,7 +128,7 @@ const Pricing = () => {
                 }`}>
                   <div className="flex flex-col">
                     <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 ${
-                      isDarkMode ? 'text-gold' : 'text-[#E00000]'
+                      isDarkMode ? 'text-gold' : 'text-[#4b0082]'
                     }`}>Price</span>
                     <div className="flex items-baseline gap-1">
                       <span className={`text-sm font-bold ${isDarkMode ? 'text-white/50' : 'text-gray-400'}`}>₹</span>
@@ -144,10 +144,10 @@ const Pricing = () => {
                     whileHover={{ scale: 1.05, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
-                    className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 whitespace-nowrap border border-transparent ${
+                    className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 whitespace-nowrap ${
                       isDarkMode
-                        ? 'bg-gold text-black hover:bg-white hover:border-transparent shadow-gold/20'
-                        : 'bg-[#E00000] text-white hover:bg-white hover:text-[#E00000] hover:border-[#E00000] shadow-[#E00000]/20'
+                        ? 'bg-gold text-black hover:bg-white shadow-gold/20'
+                        : 'bg-[#4b0082] text-white hover:bg-black shadow-[#991600]/20'
                     }`}
                   >
                     Book Now

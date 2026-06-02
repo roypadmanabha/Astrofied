@@ -296,7 +296,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </div>
               <button
                 onClick={() => setShowFullWhySj(!showFullWhySj)}
-                className={`mt-4 font-bold transition-all flex items-center gap-2 hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#591000]'}`}
+                className={`mt-4 font-bold transition-all flex items-center gap-2 hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`}
               >
                 {showFullWhySj ? 'Read Less' : 'Read More'}
               </button>
@@ -380,7 +380,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="w-full md:w-7/12"
             >
-              <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-8 w-fit ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700] transition-colors' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent'}`}>
+              <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-8 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>
                 About Us
               </h2>
               <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">
@@ -412,7 +412,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </div>
               <button
                 onClick={() => setShowFullAbout(!showFullAbout)}
-                className={`mt-4 font-bold transition-all hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#591000]'}`}
+                className={`mt-4 font-bold transition-all hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`}
               >
                 {showFullAbout ? 'Read Less' : 'Read More'}
               </button>

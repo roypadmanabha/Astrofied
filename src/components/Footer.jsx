@@ -72,7 +72,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     {/* Divider */}
                     <div
                         className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-30' : 'hidden lg:block h-30'} w-[1px] self-center transition-colors duration-300`}
-                        style={{ backgroundColor: isDarkMode ? '#ffd700' : '#4b0082' }}
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
                     {/* Legal Links Column */}
@@ -102,7 +102,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     {/* Divider */}
                     <div
                         className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-30' : 'hidden lg:block h-30'} w-[1px] self-center transition-colors duration-300`}
-                        style={{ backgroundColor: isDarkMode ? '#ffd700' : '#4b0082' }}
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
@@ -127,7 +127,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     {/* Divider */}
                     <div
                         className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-30' : 'hidden lg:block h-30'} w-[1px] self-center transition-colors duration-300`}
-                        style={{ backgroundColor: isDarkMode ? '#ffd700' : '#4b0082' }}
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full md:w-[45%] lg:w-auto'}`}>

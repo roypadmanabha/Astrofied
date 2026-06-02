@@ -26,7 +26,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             style={{ color: isDarkMode ? '#F5F5F5' : '#0A0A0A' }}
                         >
                             A Deeper Understanding <br className="hidden lg:block xl:hidden" />
-                            <span className="transition-colors" style={{ color: isDarkMode ? '#ffd700' : '#E00000' }}>of Your Life</span> Begins Here
+                            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>of Your Life</span> Begins Here
                         </motion.h1>
 
                         <motion.p
@@ -49,7 +49,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                 onClick={onOpenConsultation}
                                 className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer border border-transparent ${isDarkMode
                                     ? 'bg-gold text-black hover:bg-white hover:text-black shadow-gold/20'
-                                    : 'bg-gradient-to-r from-black to-[#FF2400] text-white hover:opacity-90 shadow-[#FF2400]/20'
+                                    : 'bg-[#4b0082] text-white hover:bg-transparent hover:text-[#4b0082] hover:border-[#4b0082] shadow-[#4b0082]/30'
                                     }`}
                             >
                                 Book a Consultation
@@ -59,15 +59,12 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                     new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3').play().catch(e => console.log('Audio play blocked'));
                                     setIsDetailsModalOpen(true);
                                 }}
-                                className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg transition-all border group relative overflow-hidden hover:scale-105 active:scale-95 cursor-pointer ${isDarkMode
-                                    ? 'border-gold/30 text-gold hover:border-gold shadow-gold/5 glass'
-                                    : 'bg-white border-transparent shadow-[#FF2400]/10'
+                                className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg transition-all border glass hover:scale-105 active:scale-95 cursor-pointer ${isDarkMode
+                                    ? 'border-gold/30 text-gold hover:border-gold shadow-gold/5'
+                                    : 'border-[#4b0082] text-[#4b0082] hover:bg-[#4b0082]! hover:text-[#fef08a]! shadow-[#4b0082]/5'
                                     }`}
                             >
-                                {!isDarkMode && <div className="absolute inset-0 bg-gradient-to-r from-black to-[#FF2400] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0" />}
-                                <span className={`relative z-10 transition-all duration-300 ${isDarkMode ? '' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent group-hover:text-white group-hover:![background:none] group-hover:[-webkit-text-fill-color:white]'}`}>
-                                    Explore Astrofied
-                                </span>
+                                Explore Astrofied
                             </button>
                         </motion.div>
                     </div>

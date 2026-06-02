@@ -433,11 +433,9 @@ export default function Feedback() {
                         className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
                     >
                         <h2
-                            className={`text-4xl md:text-5xl lg:text-7xl font-black mb-8 font-mulish leading-[1.1] w-fit mx-auto lg:mx-0`}
+                            className={`text-4xl md:text-5xl lg:text-7xl font-black mb-8 font-mulish leading-[1.1] transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}
                         >
-                            <span className={isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700] transition-colors' : 'text-black'}>We Value Your</span>{' '}
-                            <br className="hidden lg:block" />{' '}
-                            <span className={isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700] transition-colors' : 'text-[#E00000]'}>Feedback</span>
+                            We Value Your <br className="hidden lg:block" /> Feedback
                         </h2>
                         <p className={`text-lg md:text-xl lg:text-2xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>
                             Your insights help us improve and serve you better. Share your experience with Astrofied!
