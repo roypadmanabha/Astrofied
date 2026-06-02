@@ -86,13 +86,13 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                         <div className={`flex flex-col ${isJournalsPage ? 'gap-1 md:gap-4' : 'gap-4'}`}>
                             <button
                                 onClick={() => onOpenLegal('terms')}
-                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : 'hover:text-[#4b0082]'} transition-colors bg-transparent border-none p-0`}
+                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0`}
                             >
                                 Terms and Conditions
                             </button>
                             <button
                                 onClick={() => onOpenLegal('privacy')}
-                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : 'hover:text-[#4b0082]'} transition-colors bg-transparent border-none p-0`}
+                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0`}
                             >
                                 Privacy Policy
                             </button>
@@ -113,11 +113,11 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                             Contact Details
                         </h4>
                         <div className={`flex flex-col ${isJournalsPage ? 'gap-1 md:gap-4' : 'gap-4'}`}>
-                            <button onClick={() => window.location.href = 'tel:+919612736566'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : 'hover:text-[#4b0082]'} transition-colors bg-transparent border-none p-0 cursor-pointer`}>
+                            <button onClick={() => window.location.href = 'tel:+919612736566'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0 cursor-pointer`}>
                                 <Phone className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`} />
                                 <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>+91 96127 36566</span>
                             </button>
-                            <button onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : 'hover:text-[#4b0082]'} transition-colors bg-transparent border-none p-0 cursor-pointer text-left`}>
+                            <button onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0 cursor-pointer text-left`}>
                                 <Mail className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`} />
                                 <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>contact.astrofied@gmail.com</span>
                             </button>
@@ -139,7 +139,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                         </h4>
                         <button
                             onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')}
-                            className={`flex items-start ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : 'hover:text-[#4b0082]'} transition-colors block bg-transparent border-none p-0 cursor-pointer text-left`}
+                            className={`flex items-start ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors block bg-transparent border-none p-0 cursor-pointer text-left`}
                         >
                             <MapPin className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 mt-0 shrink-0' : 'w-4 h-4 md:w-5 md:h-5 mt-1 shrink-0'} ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`} />
                             <address className={`not-italic ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg leading-tight' : 'text-xs md:text-sm lg:text-lg'}`}>
