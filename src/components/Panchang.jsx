@@ -7,6 +7,14 @@ export default function Panchang() {
     const { isDarkMode } = useTheme();
     const [panchangData, setPanchangData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }));
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
 
     useEffect(() => {
         const fetchPanchang = async () => {
@@ -167,7 +175,7 @@ export default function Panchang() {
                         <div className="flex items-center gap-3">
                             <CalendarDays className={`w-8 h-8 ${isDarkMode ? 'text-gray-300' : 'text-[#4A5568]'}`} strokeWidth={1.5} />
                             <span className="text-2xl md:text-3xl font-bold">
-                                {panchangData.currentDate} <span className="mx-2 font-normal">•</span> {panchangData.currentDay}
+                                {panchangData.currentDate} <span className="mx-2 font-normal">•</span> {panchangData.currentDay} <span className="mx-2 font-normal">•</span> {currentTime}
                             </span>
                         </div>
                         <div className="text-sm md:text-base font-bold tracking-wide uppercase mt-2">
