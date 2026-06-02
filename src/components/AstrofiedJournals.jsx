@@ -220,7 +220,7 @@ const AstrofiedJournals = () => {
 
   const handleLogin = async () => {
     if (!supabase) {
-      alert("Supabase is not configured. Please check your .env file and restart the server.");
+      alert("This section is currently being built and refined. We will notify you once it's officially launched!");
       return;
     }
     await supabase.auth.signInWithOAuth({
