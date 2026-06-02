@@ -58,14 +58,14 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                                 draggable={false}
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: isJournalsPage ? '0' : '-6px' }}
                             />
-                            <div
-                                className={`${isJournalsPage ? 'text-[7px] sm:text-[9px] md:text-xl lg:text-3xl mt-1 md:mt-0' : 'text-xl md:text-xl lg:text-3xl'} font-bold font-nunito bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode
+                            <h4
+                                className={`${isJournalsPage ? 'text-[7px] sm:text-[9px] md:text-xl lg:text-3xl mt-1 md:mt-0' : 'text-xl md:text-xl lg:text-3xl'} font-nunito font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode
                                     ? 'from-red-600 to-yellow-500'
                                     : 'from-black to-red-600'
                                     }`}
                             >
                                 Astrofied
-                            </div>
+                            </h4>
                         </div>
                     </div>
 
