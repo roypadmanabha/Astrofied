@@ -228,7 +228,7 @@ export default function Panchang() {
                                 background: 'linear-gradient(180deg, #FFD700 0%, #FF8C00 100%)',
                             }}
                         >
-                            <h4 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-semibold font-mulish text-[#8B0000] mb-4 tracking-tight whitespace-nowrap flex items-center justify-center">
+                            <h4 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold font-mulish text-[#8B0000] mb-4 tracking-tight leading-tight min-h-[3rem] flex items-center justify-center whitespace-nowrap">
                                 {kaal.heading}
                             </h4>
                             
