@@ -121,19 +121,50 @@ const JournalsPromo = () => {
   const [showPlayButton, setShowPlayButton] = useState(false);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.volume = 1.0;
-      const playPromise = videoRef.current.play();
+    if (!videoRef.current) return;
+
+    videoRef.current.volume = 1.0;
+
+    const attemptPlay = () => {
+      const playPromise = videoRef.current?.play();
       if (playPromise !== undefined) {
-        playPromise.catch(err => {
-          console.log("Autoplay prevented:", err);
-          setShowPlayButton(true);
-        });
+        playPromise
+          .then(() => {
+            setShowPlayButton(false);
+            removeListeners();
+          })
+          .catch(err => {
+            console.log("Autoplay prevented:", err);
+            setShowPlayButton(true);
+          });
       }
-    }
+    };
+
+    const handleInteraction = () => {
+      attemptPlay();
+    };
+
+    const removeListeners = () => {
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+    };
+
+    // Try playing immediately
+    attemptPlay();
+
+    // Set up listeners in case the browser blocked immediate autoplay
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('keydown', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction);
+
+    return () => {
+      removeListeners();
+    };
   }, []);
 
-  const handlePlayClick = () => {
+  const handlePlayClick = (e) => {
+    e.stopPropagation(); // Prevent triggering interaction listeners recursively
     if (videoRef.current) {
       videoRef.current.play();
       setShowPlayButton(false);
@@ -154,6 +185,7 @@ const JournalsPromo = () => {
           ref={videoRef}
           src={journalsPromoVideo}
           className="w-full h-auto block pointer-events-none rounded-[20px]"
+          autoPlay
           playsInline
           onEnded={handleEnded}
         />
