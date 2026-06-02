@@ -224,7 +224,7 @@ const Numerology = () => {
                                             initial={{ opacity: 0, scale: 0.5, y: -40 }} // calendar drop-down effect
                                             animate={{ opacity: 1, scale: 1, y: 0 }}
                                             transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
-                                            className={`text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffd700]' : 'text-[#D00000]'}`}
+                                            className={`text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black ${isDarkMode ? 'text-[#ffd700]' : 'bg-gradient-to-r from-black to-red-600 bg-clip-text text-transparent'}`}
                                         >
                                             {results[card.key]}
                                         </motion.div>
