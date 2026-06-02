@@ -414,7 +414,7 @@ const Kundali = () => {
                             transition={{ duration: 0.4, ease: "easeOut" }}
                             className={`p-6 md:p-10 lg:p-12 rounded-[12px] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative lg:aspect-square flex flex-col justify-center ${isDarkMode
                                 ? 'border-gold !bg-[#17202A]'
-                                : 'border-[#4b0082] bg-[#F5F5DC]'
+                                : 'border-[#4b0082] bg-gradient-to-b from-[#ffde59] to-[#ff914d]'
                                 }`}
                         >
                             <img
@@ -616,7 +616,7 @@ const Kundali = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     disabled={loading || otpLoading}
-                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs border-2 border-transparent ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4b0082] text-white shadow-xl hover:bg-transparent hover:text-[#4b0082] hover:border-[#4b0082]'
+                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs border-2 border-transparent ${isDarkMode ? 'bg-gold text-black' : 'bg-gradient-to-r from-black to-[#FF2400] text-white shadow-xl hover:opacity-90'
                                         }`}
                                 >
                                     {(loading || otpLoading) ? <Loader2 className="animate-spin" size={18} /> : (
