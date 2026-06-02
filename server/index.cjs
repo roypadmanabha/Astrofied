@@ -120,6 +120,48 @@ app.post('/api/kundali', async (req, res) => {
     }
 });
 
+app.get('/api/panchang', async (req, res) => {
+    try {
+        const { lat, lon, datetime } = req.query;
+        const defaultLat = lat || '28.6139';
+        const defaultLon = lon || '77.2090';
+        const defaultDatetime = datetime || new Date().toISOString();
+
+        const token = await getAccessToken();
+
+        const config = {
+            params: { ayanamsa: 1, datetime: defaultDatetime, coordinates: `${defaultLat},${defaultLon}`, la: 'en' },
+            headers: { 'Authorization': `Bearer ${token}` }
+        };
+
+        const [panchangRes, auspRes, inauspRes] = await Promise.all([
+            axios.get('https://api.prokerala.com/v2/astrology/panchang', config),
+            axios.get('https://api.prokerala.com/v2/astrology/auspicious-period', config),
+            axios.get('https://api.prokerala.com/v2/astrology/inauspicious-period', config)
+        ]);
+
+        const panchang = panchangRes.data?.data || {};
+        const ausp = auspRes.data?.data?.muhurat || [];
+        const inausp = inauspRes.data?.data?.muhurat || [];
+
+        const abhijit = ausp.find(m => m.name === 'Abhijit Muhurat') || {};
+        const rahu = inausp.find(m => m.name === 'Rahu') || {};
+        const yama = inausp.find(m => m.name === 'Yamaganda') || {};
+
+        res.json({
+            sunrise: panchang.sunrise,
+            sunset: panchang.sunset,
+            nakshatra: panchang.nakshatra?.[0] || {},
+            abhijit: abhijit.period?.[0] || {},
+            rahu: rahu.period?.[0] || {},
+            yama: yama.period?.[0] || {}
+        });
+    } catch (error) {
+        console.error('PROKERALA PANCHANG ERROR:', error.response?.data || error.message);
+        res.status(500).json({ error: 'Failed to fetch Panchang data from Prokerala' });
+    }
+});
+
 // Update for Railway: Use process.env.PORT
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, '0.0.0.0', () => {

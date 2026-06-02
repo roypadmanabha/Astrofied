@@ -20,161 +20,58 @@ export default function Panchang() {
         const fetchPanchang = async () => {
             try {
                 const today = new Date();
-                const reqPayload = {
-                    year: today.getFullYear(),
-                    month: today.getMonth() + 1,
-                    date: today.getDate(),
-                    hours: today.getHours(),
-                    minutes: today.getMinutes(),
-                    seconds: today.getSeconds(),
-                    latitude: 28.6139,
-                    longitude: 77.2090,
-                    timezone: 5.5
-                };
-
-                const fetchOptions = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-api-key': '5NoilrNtyM1jXyVDDrbxM7GeZvRZNzz05sqoBf7a'
-                    },
-                    body: JSON.stringify(reqPayload)
-                };
-
-                // Fetch data concurrently from the same API source
-                const [srssRes, nakshatraRes, rahuRes, yamaRes] = await Promise.all([
-                    fetch('https://json.freeastrologyapi.com/getsunriseandset', fetchOptions),
-                    fetch('https://json.freeastrologyapi.com/nakshatra-durations', fetchOptions),
-                    fetch('https://json.freeastrologyapi.com/rahu-kalam', fetchOptions),
-                    fetch('https://json.freeastrologyapi.com/yama-gandam', fetchOptions)
-                ]);
-
-                const parseAstro = async (res) => {
-                    const data = await res.json();
-                    if (data.statusCode === 200 && data.output) {
-                        return typeof data.output === 'string' ? JSON.parse(data.output) : data.output;
-                    }
-                    if (data.output) return typeof data.output === 'string' ? JSON.parse(data.output) : data.output;
-                    return data;
-                };
-
-                const srssData = await parseAstro(srssRes);
-                const nakshatraData = await parseAstro(nakshatraRes);
-                const rahuData = await parseAstro(rahuRes);
-                const yamaData = await parseAstro(yamaRes);
-
-                // Helper to format string time like "2026-06-02 15:46:39" into "03:46 PM"
-                const formatTimeStr = (dateStr) => {
-                    if (!dateStr) return 'N/A';
-                    const timePart = dateStr.includes(' ') ? dateStr.split(' ')[1] : dateStr;
-                    if (!timePart) return dateStr;
-                    const [hours, minutes] = timePart.split(':');
-                    let h = parseInt(hours, 10);
-                    const ampm = h >= 12 ? 'PM' : 'AM';
-                    h = h % 12;
-                    h = h ? h : 12;
-                    return `${h.toString().padStart(2, '0')}:${minutes} ${ampm}`;
-                };
-
-                let abhijitStartStr = 'N/A';
-                let abhijitEndStr = 'N/A';
-                let sunriseStr = 'N/A';
-                let sunsetStr = 'N/A';
-
-                let mathRahuStart = 'N/A';
-                let mathRahuEnd = 'N/A';
-                let mathYamaStart = 'N/A';
-                let mathYamaEnd = 'N/A';
-
-                if (srssData && srssData.sun_rise_time) {
-                    sunriseStr = formatTimeStr(srssData.sun_rise_time);
-                    sunsetStr = formatTimeStr(srssData.sun_set_time);
-                    
-                    const parseTime = (timeStr) => {
-                        let [hours, minutes, seconds] = timeStr.split(':');
-                        const date = new Date(today);
-                        date.setHours(hours, minutes, seconds || 0, 0);
-                        return date;
-                    };
-
-                    const srDate = parseTime(srssData.sun_rise_time); // "5:23:40"
-                    const ssDate = parseTime(srssData.sun_set_time);  // "19:14:57"
-                    const dayDurationMs = ssDate - srDate;
-                    
-                    // Abhijit Math
-                    const solarNoonMs = srDate.getTime() + (dayDurationMs / 2);
-                    const abhijitDurationMs = dayDurationMs / 15;
-                    const abhijitStartMs = solarNoonMs - (abhijitDurationMs / 2);
-                    const abhijitEndMs = solarNoonMs + (abhijitDurationMs / 2);
-
-                    const formatLocalTime = (ms) => {
-                        return new Date(ms).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-                    };
-
-                    abhijitStartStr = formatLocalTime(abhijitStartMs);
-                    abhijitEndStr = formatLocalTime(abhijitEndMs);
-
-                    // Mathematical Fallback for Rahu/Yama (in case of API rate limit / failure)
-                    const onePartMs = dayDurationMs / 8;
-                    const dayOfWeek = today.getDay(); // 0 = Sun, 1 = Mon...
-                    
-                    const rahuParts = [8, 2, 7, 5, 6, 4, 3];
-                    const rahuStartMs = srDate.getTime() + (rahuParts[dayOfWeek] - 1) * onePartMs;
-                    mathRahuStart = formatLocalTime(rahuStartMs);
-                    mathRahuEnd = formatLocalTime(rahuStartMs + onePartMs);
-
-                    const yamaParts = [5, 4, 3, 2, 1, 7, 6];
-                    const yamaStartMs = srDate.getTime() + (yamaParts[dayOfWeek] - 1) * onePartMs;
-                    mathYamaStart = formatLocalTime(yamaStartMs);
-                    mathYamaEnd = formatLocalTime(yamaStartMs + onePartMs);
-                }
-
-                // If API fails to return starts_at (due to rate limiting), fallback to mathematical certainty
-                const rahuStart = formatTimeStr(rahuData?.starts_at) !== 'N/A' ? formatTimeStr(rahuData?.starts_at) : mathRahuStart;
-                const rahuEnd = formatTimeStr(rahuData?.ends_at) !== 'N/A' ? formatTimeStr(rahuData?.ends_at) : mathRahuEnd;
                 
-                const yamaStart = formatTimeStr(yamaData?.starts_at) !== 'N/A' ? formatTimeStr(yamaData?.starts_at) : mathYamaStart;
-                const yamaEnd = formatTimeStr(yamaData?.ends_at) !== 'N/A' ? formatTimeStr(yamaData?.ends_at) : mathYamaEnd;
+                // Fetch from our backend which safely handles the Prokerala API keys and aggregations
+                const API_URL = import.meta.env.VITE_API_URL || 'https://astrofied-production.up.railway.app';
+                // Using 28.6139, 77.2090 as default New Delhi coordinates
+                const res = await fetch(`${API_URL}/api/panchang?datetime=${today.toISOString()}&lat=28.6139&lon=77.2090`);
+                const data = await res.json();
+
+                // Helper to format ISO string into local time e.g., "03:46 PM"
+                const formatTimeStr = (isoStr) => {
+                    if (!isoStr) return 'N/A';
+                    return new Date(isoStr).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                };
 
                 setPanchangData({
-                    sunrise: sunriseStr,
-                    sunset: sunsetStr,
+                    sunrise: formatTimeStr(data.sunrise),
+                    sunset: formatTimeStr(data.sunset),
                     currentDate: today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
                     currentDay: today.toLocaleDateString('en-GB', { weekday: 'long' }),
                     kaals: [
                         {
                             id: 1,
-                            heading: nakshatraData?.name ? `Nakshatra: ${nakshatraData.name}` : 'Nakshatra',
-                            start: formatTimeStr(nakshatraData?.starts_at),
-                            end: formatTimeStr(nakshatraData?.ends_at),
+                            heading: data.nakshatra?.name ? `Nakshatra: ${data.nakshatra.name}` : 'Nakshatra',
+                            start: formatTimeStr(data.nakshatra?.start),
+                            end: formatTimeStr(data.nakshatra?.end),
                             desc: 'Represents the specific zodiac constellation the Moon is transiting through on that given day.'
                         },
                         {
                             id: 2,
                             heading: 'Abhijit Muhurta',
-                            start: abhijitStartStr,
-                            end: abhijitEndStr,
+                            start: formatTimeStr(data.abhijit?.start),
+                            end: formatTimeStr(data.abhijit?.end),
                             desc: 'An exceptionally favorable timing window within the day, considered perfect for initiating important tasks or rituals.'
                         },
                         {
                             id: 3,
                             heading: 'Rahu Kaal',
-                            start: rahuStart,
-                            end: rahuEnd,
+                            start: formatTimeStr(data.rahu?.start),
+                            end: formatTimeStr(data.rahu?.end),
                             desc: 'A daily inauspicious period lasting approximately 90 minutes during which it is advised to avoid starting any major or new activities.'
                         },
                         {
                             id: 4,
                             heading: 'Yam Gandam',
-                            start: yamaStart,
-                            end: yamaEnd,
+                            start: formatTimeStr(data.yama?.start),
+                            end: formatTimeStr(data.yama?.end),
                             desc: 'Another inauspicious daily period where starting new and important tasks is generally avoided according to Vedic astrology.'
                         }
                     ]
                 });
 
             } catch (error) {
-                console.error("Failed to fetch panchang", error);
+                console.error("Failed to fetch panchang from Prokerala backend", error);
             } finally {
                 setLoading(false);
             }
