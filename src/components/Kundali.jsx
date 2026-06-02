@@ -374,7 +374,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm ${isDarkMode ? 'border-gold/30 text-gold bg-gold/5' : 'border-[#4b0082]/20 text-[#4b0082] bg-[#4b0082]/5'
+                            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full shadow-sm ${isDarkMode ? 'border border-gold/30 text-gold bg-gold/5' : 'bg-gradient-to-r from-black to-[#FF2400] text-white'
                                 }`}
                         >
                             <Sparkles size={14} />
@@ -386,11 +386,11 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4b0082]'
+                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-black'
                                 }`}
                         >
                             Generate Free <br />
-                            <span className={`${isDarkMode ? 'text-gold' : 'text-black'} italic`}>Kundali</span>
+                            <span className={`${isDarkMode ? 'text-gold' : 'text-[#FF2400]'} italic`}>Kundali</span>
                         </motion.h2>
 
                         <motion.p
