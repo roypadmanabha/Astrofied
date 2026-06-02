@@ -33,26 +33,24 @@ export default function Panchang() {
                     body: JSON.stringify(reqPayload)
                 };
 
-                // Fetch data concurrently
+                // Fetch data concurrently from the same API source
                 const [srssRes, nakshatraRes, rahuRes, yamaRes] = await Promise.all([
-                    fetch('https://api.sunrisesunset.io/json?lat=28.6139&lng=77.2090'),
+                    fetch('https://json.freeastrologyapi.com/getsunriseandset', fetchOptions),
                     fetch('https://json.freeastrologyapi.com/nakshatra-durations', fetchOptions),
                     fetch('https://json.freeastrologyapi.com/rahu-kalam', fetchOptions),
                     fetch('https://json.freeastrologyapi.com/yama-gandam', fetchOptions)
                 ]);
 
-                const srssData = await srssRes.json();
-                
                 const parseAstro = async (res) => {
                     const data = await res.json();
                     if (data.statusCode === 200 && data.output) {
-                        return JSON.parse(data.output);
+                        return typeof data.output === 'string' ? JSON.parse(data.output) : data.output;
                     }
-                    // Handle edge cases where output is already parsed or different
-                    if (data.output) return data.output;
+                    if (data.output) return typeof data.output === 'string' ? JSON.parse(data.output) : data.output;
                     return data;
                 };
 
+                const srssData = await parseAstro(srssRes);
                 const nakshatraData = await parseAstro(nakshatraRes);
                 const rahuData = await parseAstro(rahuRes);
                 const yamaData = await parseAstro(yamaRes);
@@ -60,7 +58,7 @@ export default function Panchang() {
                 // Helper to format string time like "2026-06-02 15:46:39" into "03:46 PM"
                 const formatTimeStr = (dateStr) => {
                     if (!dateStr) return 'N/A';
-                    const timePart = dateStr.split(' ')[1];
+                    const timePart = dateStr.includes(' ') ? dateStr.split(' ')[1] : dateStr;
                     if (!timePart) return dateStr;
                     const [hours, minutes] = timePart.split(':');
                     let h = parseInt(hours, 10);
@@ -75,22 +73,19 @@ export default function Panchang() {
                 let sunriseStr = 'N/A';
                 let sunsetStr = 'N/A';
 
-                if (srssData.status === 'OK') {
-                    sunriseStr = srssData.results.sunrise;
-                    sunsetStr = srssData.results.sunset;
+                if (srssData && srssData.sun_rise_time) {
+                    sunriseStr = formatTimeStr(srssData.sun_rise_time);
+                    sunsetStr = formatTimeStr(srssData.sun_set_time);
                     
                     const parseTime = (timeStr) => {
-                        const [time, modifier] = timeStr.split(' ');
-                        let [hours, minutes, seconds] = time.split(':');
-                        if (hours === '12') hours = '00';
-                        if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
+                        let [hours, minutes, seconds] = timeStr.split(':');
                         const date = new Date(today);
-                        date.setHours(hours, minutes, seconds, 0);
+                        date.setHours(hours, minutes, seconds || 0, 0);
                         return date;
                     };
 
-                    const srDate = parseTime(sunriseStr);
-                    const ssDate = parseTime(sunsetStr);
+                    const srDate = parseTime(srssData.sun_rise_time); // "5:23:40"
+                    const ssDate = parseTime(srssData.sun_set_time);  // "19:14:57"
                     const dayDurationMs = ssDate - srDate;
                     
                     const solarNoonMs = srDate.getTime() + (dayDurationMs / 2);
