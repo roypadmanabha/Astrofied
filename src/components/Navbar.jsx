@@ -128,7 +128,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                         }`}>
                                             <link.icon size={18} strokeWidth={3} />
                                         </div>
-                                        <span className={isDarkMode ? '' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent group-hover:opacity-80 transition-all'}>{link.name}</span>
+                                        <span className={isDarkMode ? '' : 'text-[#E00000] group-hover:opacity-80 transition-all'}>{link.name}</span>
                                     </motion.div>
                                 );
                             })}
@@ -206,7 +206,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                     }
                                 }}
                                 className={`text-lg font-bold transition-all relative group bg-transparent border-none p-0 cursor-pointer ${
-                                    isDarkMode ? 'text-gray-100 hover:text-gold' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent hover:opacity-80'
+                                    isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-[#E00000] hover:opacity-80'
                                 }`}
                                 whileHover={{ scale: 1.05 }}
                             >
