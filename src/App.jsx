@@ -275,7 +275,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                 />
                 <h1 className="text-4xl md:text-4xl lg:text-[2.75rem] xl:text-7xl font-bold leading-tight">
-                  Why <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-red-600'}`}>Astrofied?</span>
+                  Why <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-[#4b0082]'}`} style={{ fontFamily: '"Nunito", sans-serif' }}>Astrofied?</span>
                 </h1>
               </div>
               <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">

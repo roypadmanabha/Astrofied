@@ -117,7 +117,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                         className={`text-[4.5vw] sm:text-2xl md:text-4xl font-bold tracking-tight font-nunito whitespace-nowrap overflow-hidden bg-clip-text text-transparent
                                         ${isDarkMode
                                                 ? 'bg-gradient-to-r from-red-600 to-yellow-500'
-                                                : 'bg-gradient-to-r from-black to-red-600'}
+                                                : 'bg-gradient-to-r from-black to-[#4b0082]'}
                                     `}
                                         style={{ fontFamily: "'Nunito', sans-serif" }}
                                     >

@@ -76,7 +76,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                 className={`text-3xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
                                     isDarkMode 
                                         ? 'from-red-600 to-yellow-500' 
-                                        : 'from-black to-red-600'
+                                        : 'from-black to-[#4b0082]'
                                 }`}
                             >
                                 Astrofied
@@ -184,7 +184,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                             className={`text-2xl md:text-4xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
                                 isDarkMode 
                                     ? 'from-red-600 to-yellow-500' 
-                                    : 'from-black to-red-600'
+                                    : 'from-black to-[#4b0082]'
                             }`}
                         >
                             Astrofied
