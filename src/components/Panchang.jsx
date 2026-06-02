@@ -68,34 +68,41 @@ export default function Panchang() {
                 const dateStr = `${year}-${month}-${day}`;
                 const timeStr = now.toTimeString().split(' ')[0].substring(0, 5); 
 
-                const payload = {
-                    question: "Calculate the daily panchang timings. Return ONLY a valid JSON object with the keys 'moonSign', 'amritKaalStart', 'amritKaalEnd', 'mahendraYogStart', 'mahendraYogEnd', 'rahuKaalStart', 'rahuKaalEnd', 'sunrise', and 'sunset'. No markdown formatting or conversational text.",
-                    birthDetails: {
+                const API_URL = import.meta.env.VITE_API_URL || 'https://astrofied-production.up.railway.app';
+
+                const response = await fetch(`${API_URL}/api/panchang`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
                         date: dateStr,
                         time: timeStr,
                         lat: lat,
-                        lng: lng
-                    }
-                };
-
-                const response = await fetch("https://api.vedika.io/sandbox/api/v1/astrology/query", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
+                        lon: lng,
+                        tzo: '+05:30' // Assuming standard IST for Astrofied
+                    })
                 });
 
                 if (!response.ok) throw new Error("API response not ok");
 
                 const data = await response.json();
-                let jsonStr = data.response || "{}";
-                jsonStr = jsonStr.replace(/```json/g, "").replace(/```/g, "").trim();
-                const parsed = JSON.parse(jsonStr);
                 
-                if (parsed.sunrise) {
-                    setPanchangData(parsed);
-                } else {
-                    throw new Error("Invalid format received");
-                }
+                const formatISO = (isoString) => {
+                    if (!isoString) return '-';
+                    const d = new Date(isoString);
+                    return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                };
+
+                setPanchangData({
+                    moonSign: data.moonSign,
+                    amritKaalStart: formatISO(data.amritKaal?.start),
+                    amritKaalEnd: formatISO(data.amritKaal?.end),
+                    mahendraYogStart: formatISO(data.abhijit?.start), // Used as Mahendra fallback
+                    mahendraYogEnd: formatISO(data.abhijit?.end),
+                    rahuKaalStart: formatISO(data.rahuKaal?.start),
+                    rahuKaalEnd: formatISO(data.rahuKaal?.end),
+                    sunrise: formatISO(data.sunrise),
+                    sunset: formatISO(data.sunset)
+                });
             } catch (error) {
                 console.error("Error fetching panchang, falling back to local real-time calculation:", error);
                 
