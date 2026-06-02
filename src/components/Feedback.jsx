@@ -433,11 +433,11 @@ export default function Feedback() {
                         className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
                     >
                         <h2
-                            className={`text-4xl md:text-5xl lg:text-7xl font-black mb-8 font-mulish leading-[1.1] transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4B0082]'}`}
+                            className={`text-4xl md:text-5xl lg:text-7xl font-black mb-8 font-mulish leading-[1.1] transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}
                         >
                             We Value Your <br className="hidden lg:block" /> Feedback
                         </h2>
-                        <p className={`text-lg md:text-xl lg:text-2xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        <p className={`text-lg md:text-xl lg:text-2xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>
                             Your insights help us improve and serve you better. Share your experience with Astrofied!
                         </p>
                     </motion.div>
@@ -447,7 +447,7 @@ export default function Feedback() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className={`w-full lg:w-6/12 rounded-3xl p-4 sm:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4B0082]/20 !bg-[#F3E8FF]/90'
+                        className={`w-full lg:w-6/12 rounded-3xl p-4 sm:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#4b0082]/20 !bg-[#F3E8FF]/90'
                             }`}
                     >
                         <AnimatePresence mode="wait">
@@ -480,7 +480,7 @@ export default function Feedback() {
                         {step === 'form' ? (
                             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                                 <div className="flex flex-col gap-2">
-                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Full Name</label>
+                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4b0082]/60'}`}>Full Name</label>
                                     <div className="flex flex-col sm:flex-row gap-5">
                                     <div className="flex-1 sm:flex-[1.4] flex flex-col gap-1">
                                         <input
@@ -492,7 +492,7 @@ export default function Feedback() {
                                             placeholder="First Name"
                                             className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
                                                 ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4b0082] focus:border-[#4b0082]'
                                                 } ${errors.firstName ? 'border-red-500' : ''}`}
                                         />
                                         {errors.firstName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.firstName}</span>}
@@ -507,7 +507,7 @@ export default function Feedback() {
                                             placeholder="Last Name"
                                             className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
                                                 ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4b0082] focus:border-[#4b0082]'
                                                 } ${errors.lastName ? 'border-red-500' : ''}`}
                                         />
                                         {errors.lastName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.lastName}</span>}
@@ -516,7 +516,7 @@ export default function Feedback() {
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Email</label>
+                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4b0082]/60'}`}>Email</label>
                                     <div className="flex flex-col gap-1">
                                         <input
                                         type="email"
@@ -527,7 +527,7 @@ export default function Feedback() {
                                         placeholder="Your Mail Id"
                                         className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
                                             ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#4b0082] focus:border-[#4b0082]'
                                             } ${errors.email ? 'border-red-500' : ''}`}
                                     />
                                     {errors.email && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.email}</span>}
@@ -535,7 +535,7 @@ export default function Feedback() {
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Phone Number</label>
+                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4b0082]/60'}`}>Phone Number</label>
                                     <div className="flex flex-col gap-1">
                                         <div className="flex gap-2">
                                         <div className="relative" ref={dropdownRef}>
@@ -544,7 +544,7 @@ export default function Feedback() {
                                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                                 className={`w-16 sm:w-32 px-2 sm:px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all flex items-center justify-between gap-1 sm:gap-2 ${isDarkMode
                                                     ? 'border-white text-white focus:ring-white focus:border-white'
-                                                    : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                    : 'border-black text-gray-900 focus:ring-[#4b0082] focus:border-[#4b0082]'
                                                     }`}
                                             >
                                                 <span className="truncate">{formData.countryCode}</span>
@@ -591,7 +591,7 @@ export default function Feedback() {
                                                                     className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 transition-colors ${isDarkMode
                                                                         ? 'hover:bg-white/10'
                                                                         : 'hover:bg-black/5'
-                                                                        } ${formData.countryCode === c.code ? (isDarkMode ? 'bg-white/10 text-gold' : 'bg-black/5 text-[#4B0082]') : ''}`}
+                                                                        } ${formData.countryCode === c.code ? (isDarkMode ? 'bg-white/10 text-gold' : 'bg-black/5 text-[#4b0082]') : ''}`}
                                                                 >
                                                                     <span className="text-lg">{c.flag}</span>
                                                                     <span className="flex-1 truncate">{c.name}</span>
@@ -616,7 +616,7 @@ export default function Feedback() {
                                             placeholder="Mobile Number"
                                             className={`flex-1 min-w-0 px-3 sm:px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
                                                 ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4b0082] focus:border-[#4b0082]'
                                                 } ${errors.mobile ? 'border-red-500' : ''}`}
                                         />
                                     </div>
@@ -625,7 +625,7 @@ export default function Feedback() {
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>Comments</label>
+                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#4b0082]/60'}`}>Comments</label>
                                     <div className="flex flex-col gap-1">
                                         <div className="relative">
                                         <textarea
@@ -638,10 +638,10 @@ export default function Feedback() {
                                             placeholder="Write your feedback..."
                                             className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode
                                                 ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#4b0082] focus:border-[#4b0082]'
                                                 } ${errors.message ? 'border-red-500' : ''}`}
                                         ></textarea>
-                                        <div className={`absolute bottom-2 right-4 text-[10px] font-bold ${isDarkMode ? 'text-white/40' : 'text-[#4B0082]/40'}`}>
+                                        <div className={`absolute bottom-2 right-4 text-[10px] font-bold ${isDarkMode ? 'text-white/40' : 'text-[#4b0082]/40'}`}>
                                             {formData.message.length}/87
                                         </div>
                                     </div>
@@ -657,7 +657,7 @@ export default function Feedback() {
                                     className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${(status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
                                         } ${isDarkMode
                                             ? 'bg-gold text-black hover:bg-white hover:text-black shadow-gold/20'
-                                            : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
+                                            : 'bg-[#4b0082] text-white hover:bg-white hover:text-[#4b0082] shadow-[#4b0082]/30'
                                         }`}
                                 >
                                     {status === 'loading' ? 'Processing...' : 'Send Feedback'}
@@ -673,7 +673,7 @@ export default function Feedback() {
                             >
                                 <div className="text-center mb-2">
                                     <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Verify your Email</h3>
-                                    <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Enter the 6-digit code sent to your mail</p>
+                                    <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-black/80'}`}>Enter the 6-digit code sent to your mail</p>
                                 </div>
 
                                 <div className="flex justify-center gap-1.5 sm:gap-3">
@@ -714,7 +714,7 @@ export default function Feedback() {
                                             }}
                                             className={`w-9 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
                                                 ? 'border-white text-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 focus:ring-[#4B0082] focus:border-[#4B0082]'
+                                                : 'border-black text-gray-900 focus:ring-[#4b0082] focus:border-[#4b0082]'
                                                 } ${status === 'otp_error' ? 'border-red-500' : ''}`}
                                         />
                                     ))}
@@ -727,7 +727,7 @@ export default function Feedback() {
                                     disabled={userOtp.some(d => !d) || status === 'loading' || status === 'success' || status === 'otp_error'}
                                     className={`w-full py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed ${isDarkMode
                                         ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
-                                        : 'bg-[#4B0082] text-white hover:bg-[#3A0066] shadow-[#4B0082]/30'
+                                        : 'bg-[#4b0082] text-white hover:bg-white hover:text-[#4b0082] shadow-[#4b0082]/30'
                                         }`}
                                 >
                                     {status === 'loading' ? 'Verifying...' : 'Verify OTP'}
@@ -742,7 +742,7 @@ export default function Feedback() {
                                             setUserOtp(['', '', '', '', '', '']);
                                             setStatus('idle');
                                         }}
-                                        className={`text-sm font-bold flex items-center justify-center gap-2 transition-colors ${isDarkMode ? 'text-gold/60 hover:text-gold' : 'text-[#4B0082]/60 hover:text-[#4B0082]'
+                                        className={`text-sm font-bold flex items-center justify-center gap-2 transition-colors ${isDarkMode ? 'text-gold/60 hover:text-gold' : 'text-[#4b0082]/60 hover:text-[#4b0082]'
                                             }`}
                                     >
                                         <RefreshCw className="w-4 h-4" />

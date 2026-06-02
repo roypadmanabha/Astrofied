@@ -46,7 +46,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
     ];
 
     return (
-        <footer id="footer" className={`py-6 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#FF2400]/10'}`}>
+        <footer id="footer" className={`py-6 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#4b0082]/10'}`}>
             <div className={`container mx-auto ${isJournalsPage ? 'px-2' : 'px-6'}`}>
                 <div className={`flex ${isJournalsPage ? 'flex-nowrap justify-between items-center md:items-start gap-1 md:gap-4' : 'flex-wrap justify-between gap-x-4 gap-y-12'} mb-8 md:mb-16`}>
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[20%]' : 'w-full md:w-[45%] lg:w-auto'}`}>
@@ -79,7 +79,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : '#FF2400' }}
+                            style={{ color: isDarkMode ? '#ffd700' : '#4b0082' }}
                         >
                             Legal
                         </h4>
@@ -167,7 +167,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     ))}
                 </div>
 
-                <div className={`border-t ${isDarkMode ? 'border-gold/20' : 'border-[#FF2400]/20'} pt-4 md:pt-8 text-center ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm' : 'text-[10px] md:text-sm'} text-gray-500`}>
+                <div className={`border-t ${isDarkMode ? 'border-gold/20' : 'border-[#4b0082]/20'} pt-4 md:pt-8 text-center ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm' : 'text-[10px] md:text-sm'} text-gray-500`}>
                     © {new Date().getFullYear()} Astrofied. All rights reserved | <span className="opacity-90">Made by Vignette</span>
                 </div>
             </div>

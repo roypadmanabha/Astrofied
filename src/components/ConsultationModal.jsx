@@ -39,18 +39,18 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm }) {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
                         className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2.5rem] border shadow-2xl flex flex-col ${
-                            isDarkMode ? 'bg-black/80 border-gold/20' : 'bg-white/80 border-[#4B0082]/10'
+                            isDarkMode ? 'bg-black/80 border-gold/20' : 'bg-white/80 border-[#4b0082]/10'
                         } glass`}
                     >
                         {/* Header */}
                         <div className="flex items-center justify-between p-6 border-b border-white/10">
-                            <h3 className={`text-xl font-bold ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
+                            <h3 className={`text-xl font-bold ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`}>
                                 Online Consultation Guidelines
                             </h3>
                             <button
                                 onClick={onClose}
                                 className={`p-2 rounded-full hover:bg-white/10 transition-colors ${
-                                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                                    isDarkMode ? 'text-gray-400' : 'text-black/80'
                                 }`}
                             >
                                 <X size={24} />
@@ -92,7 +92,7 @@ export default function ConsultationModal({ isOpen, onClose, onConfirm }) {
                             </button>
                             <button
                                 onClick={onConfirm}
-                                className="flex-[1.5] px-4 py-3.5 rounded-2xl font-bold transition-all bg-[#4B0082] text-white shadow-[0_4px_15px_rgba(75,0,130,0.3)] hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 text-sm"
+                                className="flex-[1.5] px-4 py-3.5 rounded-2xl font-bold transition-all bg-[#4b0082] text-white shadow-[0_4px_15px_rgba(75,0,130,0.3)] hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 text-sm"
                             >
                                 Proceed <ArrowRight size={16} />
                             </button>

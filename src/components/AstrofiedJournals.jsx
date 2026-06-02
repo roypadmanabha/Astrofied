@@ -91,7 +91,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
           <div className="flex justify-center md:justify-center mt-auto md:mt-0">
             <button
               onClick={() => handleDownload(journal.file_name)}
-              className="bg-[#6200EA] hover:bg-[#5000D0] text-white font-bold py-1.5 px-2 sm:py-2.5 sm:px-6 md:py-3.5 md:px-8 rounded sm:rounded-md md:rounded-lg shadow-md md:shadow-lg transition-transform hover:scale-105 active:scale-95 text-[9px] sm:text-sm md:text-base w-full lg:w-auto min-w-0 md:min-w-[200px]"
+              className="bg-[#4b0082] hover:bg-white hover:text-[#4b0082] text-white font-bold py-1.5 px-2 sm:py-2.5 sm:px-6 md:py-3.5 md:px-8 rounded sm:rounded-md md:rounded-lg shadow-md md:shadow-lg transition-transform hover:scale-105 active:scale-95 text-[9px] sm:text-sm md:text-base w-full lg:w-auto min-w-0 md:min-w-[200px]"
             >
               Download PDF
             </button>
@@ -454,7 +454,7 @@ const AstrofiedJournals = () => {
               </p>
               <button
                 onClick={() => setSessionExpired(false)}
-                className={`w-full py-3 rounded-xl font-bold transition-colors font-['Nunito'] ${isDarkMode ? 'bg-[#FFF000] text-black hover:bg-[#FFE000]' : 'bg-[#6200EA] text-white hover:bg-[#5000D0]'}`}
+                className={`w-full py-3 rounded-xl font-bold transition-colors font-['Nunito'] ${isDarkMode ? 'bg-[#FFF000] text-black hover:bg-[#FFE000]' : 'bg-[#4b0082] text-white hover:bg-white hover:text-[#4b0082]'}`}
               >
                 Close
               </button>
@@ -466,7 +466,7 @@ const AstrofiedJournals = () => {
       <section id="journals" className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-4 md:px-6`}>
         {/* Decorative Background Orbs for Glassmorphism */}
         <div className={`absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#9d00ff]' : 'bg-[#FFE000]'}`}></div>
-        <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 ${isDarkMode ? 'bg-[#FFD700]' : 'bg-[#6200EA]'}`}></div>
+        <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 ${isDarkMode ? 'bg-[#FFD700]' : 'bg-[#4b0082]'}`}></div>
 
         <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10">
           <motion.div
@@ -537,7 +537,7 @@ const AstrofiedJournals = () => {
                     className={`w-full py-3 lg:py-4 text-base md:text-lg lg:text-xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
                   ${isDarkMode
                         ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
-                        : 'bg-[#6200EA] text-white shadow-[#6200EA]/30 hover:bg-[#5000D0]'
+                        : 'bg-[#4b0082] text-white shadow-[#4b0082]/30 hover:bg-white hover:text-[#4b0082]'
                       }
                 `}
                   >

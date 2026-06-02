@@ -69,7 +69,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                         className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col
                             ${isDarkMode
                                 ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-gold/30 text-white'
-                                : 'bg-white/80 border-[#4B0082]/30 text-black'}
+                                : 'bg-white/80 border-[#4b0082]/30 text-black'}
                         `}
                     >
                         {/* Water/Shining Effect Background */}
@@ -82,7 +82,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 }}
                                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                                 className={`absolute top-0 left-0 w-full h-full opacity-20 blur-[100px]
-                                    ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`}
+                                    ${isDarkMode ? 'bg-gold' : 'bg-[#4b0082]'}`}
                             />
                             <motion.div
                                 animate={{
@@ -92,7 +92,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 }}
                                 transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
                                 className={`absolute bottom-0 right-0 w-full h-full opacity-20 blur-[100px]
-                                    ${isDarkMode ? 'bg-[#4B0082]' : 'bg-gold'}`}
+                                    ${isDarkMode ? 'bg-[#4b0082]' : 'bg-gold'}`}
                             />
                             {/* Refraction Shine */}
                             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
@@ -139,11 +139,11 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                             className="w-40 md:w-56 lg:w-64 h-auto object-contain drop-shadow-[0_10px_20px_rgba(212,175,55,0.3)] group-hover:drop-shadow-[0_15px_30px_rgba(212,175,55,0.5)] transition-all duration-500"
                                         />
                                         <div className="mt-4 text-center">
-                                            <p className={`text-lg md:text-2xl font-black tracking-widest drop-shadow-sm ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'
+                                            <p className={`text-lg md:text-2xl font-black tracking-widest drop-shadow-sm ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'
                                                 }`}>
                                                 ॐ श्री गणेशाय नमः
                                             </p>
-                                            <div className={`h-0.5 w-24 mx-auto mt-2 rounded-full blur-[1px] ${isDarkMode ? 'bg-gold/40' : 'bg-[#4B0082]/30'
+                                            <div className={`h-0.5 w-24 mx-auto mt-2 rounded-full blur-[1px] ${isDarkMode ? 'bg-gold/40' : 'bg-[#4b0082]/30'
                                                 }`} />
                                         </div>
                                     </motion.div>
@@ -161,7 +161,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                             <span className={`flex-shrink-0 w-7 h-7 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center font-black text-[10px] md:text-base transition-colors
                                             ${isDarkMode
                                                     ? 'border-gold text-gold group-hover:bg-gold group-hover:text-black'
-                                                    : 'border-[#4B0082] text-[#4B0082] group-hover:bg-[#4B0082] group-hover:text-white'}
+                                                    : 'border-[#4b0082] text-[#4b0082] group-hover:bg-[#4b0082] group-hover:text-white'}
                                         `}>
                                                 {index + 1}
                                             </span>
@@ -177,14 +177,14 @@ const ExploreModal = ({ isOpen, onClose }) => {
 
                         {/* Footer - Close Button */}
                         <div className={`p-4 md:p-6 border-t backdrop-blur-xl relative z-20
-                            ${isDarkMode ? 'border-gold/20 bg-black/40' : 'border-[#4B0082]/10 bg-white/40'}
+                            ${isDarkMode ? 'border-gold/20 bg-black/40' : 'border-[#4b0082]/10 bg-white/40'}
                         `}>
                             <button
                                 onClick={onClose}
                                 className={`w-full py-3 md:py-4 rounded-xl md:rounded-2xl font-black text-sm md:text-lg tracking-widest uppercase transition-all shadow-xl active:scale-95
                                     ${isDarkMode
                                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'
-                                        : 'bg-[#4B0082] text-white hover:bg-black shadow-[#4B0082]/20'}
+                                        : 'bg-[#4b0082] text-white hover:bg-black shadow-[#4b0082]/20'}
                                 `}
                             >
                                 Close

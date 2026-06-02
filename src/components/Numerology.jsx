@@ -122,7 +122,7 @@ const Numerology = () => {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h2 className={`text-4xl md:text-6xl lg:text-[5rem] font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                            Know your <span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#4c0082]'}>Numbers</span>
+                            Know your <span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#4b0082]'}>Numbers</span>
                     </h2>
                     <p className={`text-sm md:text-xl font-medium max-w-2xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                         Calculate your core numerology numbers for free with<br className="hidden md:block" /> 100% accurate calculations.
@@ -179,7 +179,7 @@ const Numerology = () => {
 
                     <button 
                         onClick={handleCalculate}
-                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#ffd700] text-black hover:bg-[#e6c200]' : 'bg-[#4c0082] text-white hover:bg-[#fbf2cb] hover:text-[#4b0082]'}`}
+                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#ffd700] text-black hover:bg-[#e6c200]' : 'bg-[#4b0082] text-white hover:bg-white hover:text-[#4b0082]'}`}
                     >
                         Calculate
                     </button>
@@ -193,7 +193,7 @@ const Numerology = () => {
                 )}
 
                 <div className="text-center mb-12">
-                    <p className={`text-[10px] md:text-xs max-w-3xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <p className={`text-[10px] md:text-xs max-w-3xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-black/80'}`}>
                         Note: Please ensure your birth details are entered correctly. Any errors in the day, month, or year will result in inaccurate calculations.
                     </p>
                 </div>
@@ -203,11 +203,11 @@ const Numerology = () => {
                     {cards.map((card, idx) => (
                         <div 
                             key={idx} 
-                            className={`rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col shadow-xl relative overflow-hidden transition-all duration-500 ${isDarkMode ? 'bg-transparent border border-[#ffd700]' : 'backdrop-blur-xl bg-[#f5f5de]/70 border border-[#6200EA]'}`}
+                            className={`rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col shadow-xl relative overflow-hidden transition-all duration-500 ${isDarkMode ? 'bg-transparent border border-[#ffd700]' : 'backdrop-blur-xl bg-[#f5f5de]/70 border border-[#4b0082]'}`}
                         >
                             {/* Card Header */}
                             <h3 className={`text-[15px] sm:text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#6200EA]'}>{card.titleSuffix}</span>
+                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#4b0082]'}>{card.titleSuffix}</span>
                             </h3>
 
                             {/* Result Number */}
@@ -233,7 +233,7 @@ const Numerology = () => {
                             </AnimatePresence>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-2xl p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 h-[75px] sm:h-[110px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#ffd700]' : 'text-black bg-[#f5ebfc] border border-[#6200EA]'}`}>
+                            <div className={`rounded-2xl p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 h-[75px] sm:h-[110px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#ffd700]' : 'text-black bg-[#f5ebfc] border border-[#4b0082]'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             

@@ -71,7 +71,7 @@ const Kundali = () => {
 
     // Brand Colors
     const brandGold = "#ffd700";
-    const brandPurple = "#4B0082";
+    const brandPurple = "#4b0082";
     const darkBlue = "#0A1931";
 
     const validateField = (name, value) => {
@@ -137,8 +137,8 @@ const Kundali = () => {
 
             const styleElement = document.createElementNS("http://www.w3.org/2000/svg", "style");
             styleElement.textContent = `
-                svg path, svg line, svg polygon, svg rect, svg circle { stroke-width: 1.5px !important; stroke: #4B0082 !important; fill: none !important; }
-                svg text { fill: #4B0082 !important; font-family: 'Mulish', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
+                svg path, svg line, svg polygon, svg rect, svg circle { stroke-width: 1.5px !important; stroke: #4b0082 !important; fill: none !important; }
+                svg text { fill: #4b0082 !important; font-family: 'Mulish', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
                 rect[fill="white"] { fill: white !important; }
             `;
             clonedSvg.prepend(styleElement);
@@ -374,7 +374,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm ${isDarkMode ? 'border-gold/30 text-gold bg-gold/5' : 'border-purple-600/20 text-[#4B0082] bg-purple-600/5'
+                            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm ${isDarkMode ? 'border-gold/30 text-gold bg-gold/5' : 'border-[#4b0082]/20 text-[#4b0082] bg-[#4b0082]/5'
                                 }`}
                         >
                             <Sparkles size={14} />
@@ -386,7 +386,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4B0082]'
+                            className={`text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${isDarkMode ? 'text-white' : 'text-[#4b0082]'
                                 }`}
                         >
                             Astrofied Free <br />
@@ -398,7 +398,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-[#4B0082]/70'
+                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-[#4b0082]/70'
                                 }`}
                         >
                             Generate your precise East Indian style D1 Lagna chart based on your birth coordinates.
@@ -414,7 +414,7 @@ const Kundali = () => {
                             transition={{ duration: 0.4, ease: "easeOut" }}
                             className={`p-6 md:p-10 lg:p-12 rounded-[12px] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative lg:aspect-square flex flex-col justify-center ${isDarkMode
                                 ? 'border-gold !bg-[#17202A]'
-                                : 'border-[#4B0082] bg-[#F5F5DC]'
+                                : 'border-[#4b0082] bg-[#F5F5DC]'
                                 }`}
                         >
                             <img
@@ -585,7 +585,7 @@ const Kundali = () => {
                                                 initial={{ opacity: 0, y: 5 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: 5 }}
-                                                className={`absolute z-50 w-full mt-2 border rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl ${isDarkMode ? 'bg-[#1a1233]/95 border-white/10' : 'bg-white/95 border-purple-600/10'
+                                                className={`absolute z-50 w-full mt-2 border rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl ${isDarkMode ? 'bg-[#1a1233]/95 border-white/10' : 'bg-white/95 border-[#4b0082]/10'
                                                     }`}
                                             >
                                                 {suggestions.map((city, idx) => (
@@ -594,7 +594,7 @@ const Kundali = () => {
                                                         type="button"
                                                         className={`w-full text-left px-4 py-3 text-xs font-semibold transition-all border-b last:border-0 ${isDarkMode
                                                             ? 'text-gray-300 hover:bg-gold/10 hover:text-gold border-white/5'
-                                                            : 'text-[#0A1931] hover:bg-purple-600/10 hover:text-[#4B0082] border-purple-600/5'
+                                                            : 'text-[#0A1931] hover:bg-[#4b0082]/10 hover:text-[#4b0082] border-[#4b0082]/5'
                                                             }`}
                                                         onClick={() => handleCitySelect(city)}
                                                     >
@@ -616,7 +616,7 @@ const Kundali = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     disabled={loading || otpLoading}
-                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white shadow-xl'
+                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4b0082] text-white shadow-xl'
                                         }`}
                                 >
                                     {(loading || otpLoading) ? <Loader2 className="animate-spin" size={18} /> : (
@@ -624,14 +624,14 @@ const Kundali = () => {
                                     )}
                                 </motion.button>
 
-                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>
+                                <p className={`hidden lg:block text-center italic font-mulish text-[10px] opacity-50 ${isDarkMode ? 'text-white' : 'text-[#4b0082]'}`}>
                                     Note: We don't share or tamper your personal data
                                 </p>
 
                                 <button
                                     type="button"
                                     onClick={handleReset}
-                                    className={`mt-4 text-[10px] font-bold uppercase tracking-widest opacity-30 hover:opacity-100 transition-all flex items-center justify-center gap-2 mx-auto ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}
+                                    className={`mt-4 text-[10px] font-bold uppercase tracking-widest opacity-30 hover:opacity-100 transition-all flex items-center justify-center gap-2 mx-auto ${isDarkMode ? 'text-white' : 'text-[#4b0082]'}`}
                                 >
                                     <RotateCcw size={10} /> Reset
                                 </button>
@@ -656,11 +656,11 @@ const Kundali = () => {
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 30 }}
                             className={`relative w-full max-w-md p-8 md:p-10 rounded-[2.5rem] border shadow-2xl text-center
-                                ${isDarkMode ? 'bg-[#0f0a1f] border-gold/30 text-white' : 'bg-white border-purple-600/30 text-black'}
+                                ${isDarkMode ? 'bg-[#0f0a1f] border-gold/30 text-white' : 'bg-white border-[#4b0082]/30 text-black'}
                             `}
                         >
                             <div className="flex justify-center mb-6">
-                                <div className={`p-4 rounded-full ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-purple-600/10 text-[#4B0082]'}`}>
+                                <div className={`p-4 rounded-full ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#4b0082]/10 text-[#4b0082]'}`}>
                                     <ShieldCheck size={32} />
                                 </div>
                             </div>
@@ -683,7 +683,7 @@ const Kundali = () => {
                                         className={`w-12 h-14 md:w-14 md:h-16 text-2xl font-black text-center rounded-xl border-2 transition-all outline-none
                                             ${isDarkMode
                                                 ? 'bg-white/5 border-white/10 focus:border-gold focus:bg-gold/5'
-                                                : 'bg-black/5 border-black/10 focus:border-[#4B0082] focus:bg-[#4B0082]/5'}
+                                                : 'bg-black/5 border-black/10 focus:border-[#4b0082] focus:bg-[#4b0082]/5'}
                                             ${otpError && 'border-red-500 bg-red-500/5'}
                                         `}
                                     />
@@ -705,7 +705,7 @@ const Kundali = () => {
                                 onClick={handleOtpVerify}
                                 disabled={otpLoading || otpInputs.some(d => !d)}
                                 className={`w-full py-4 rounded-2xl font-black text-xs tracking-widest uppercase transition-all shadow-xl disabled:opacity-50 flex items-center justify-center gap-3
-                                    ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4B0082] text-white'}
+                                    ${isDarkMode ? 'bg-gold text-black' : 'bg-[#4b0082] text-white'}
                                 `}
                             >
                                 {otpLoading ? <Loader2 size={18} className="animate-spin" /> : 'Verify & Generate'}
@@ -738,7 +738,7 @@ const Kundali = () => {
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 20 }}
                             className={`relative w-full max-w-lg p-8 md:p-12 rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] text-center overflow-hidden
-                                ${isDarkMode ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-gold/30 text-white' : 'bg-white/90 border-[#4B0082]/30 text-black'}
+                                ${isDarkMode ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-gold/30 text-white' : 'bg-white/90 border-[#4b0082]/30 text-black'}
                             `}
                         >
                             <div className="flex justify-center mb-6">
@@ -762,7 +762,7 @@ const Kundali = () => {
                             <button
                                 onClick={() => setShowNotice(false)}
                                 className={`w-full py-4 rounded-xl font-black text-sm tracking-widest uppercase transition-all active:scale-95 shadow-xl
-                                    ${isDarkMode ? 'bg-gold text-black hover:bg-white' : 'bg-[#4B0082] text-white hover:bg-black'}
+                                    ${isDarkMode ? 'bg-gold text-black hover:bg-white' : 'bg-[#4b0082] text-white hover:bg-black'}
                                 `}
                             >
                                 Understood
@@ -782,32 +782,32 @@ const Kundali = () => {
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => setIsModalOpen(false)} className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-black/95' : 'bg-white/95'}`} />
                         <motion.div
                             initial={{ scale: 0.9, y: 50, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} exit={{ scale: 0.9, y: 50, opacity: 0 }}
-                            className={`relative w-full max-w-5xl rounded-[2.5rem] border shadow-2xl transition-all duration-700 overflow-hidden ${isDarkMode ? 'bg-[#0f0a1f]/95 border-gold/10' : 'bg-white border-purple-600/20'
+                            className={`relative w-full max-w-5xl rounded-[2.5rem] border shadow-2xl transition-all duration-700 overflow-hidden ${isDarkMode ? 'bg-[#0f0a1f]/95 border-gold/10' : 'bg-white border-[#4b0082]/20'
                                 }`}
                         >
-                            <button onClick={() => setIsModalOpen(false)} className={`absolute top-4 right-4 p-3 rounded-full transition-all z-20 ${isDarkMode ? 'bg-white/10 text-white hover:bg-gold hover:text-black' : 'bg-purple-600/10 text-[#4B0082] hover:bg-[#4B0082] hover:text-white'}`}>
+                            <button onClick={() => setIsModalOpen(false)} className={`absolute top-4 right-4 p-3 rounded-full transition-all z-20 ${isDarkMode ? 'bg-white/10 text-white hover:bg-gold hover:text-black' : 'bg-[#4b0082]/10 text-[#4b0082] hover:bg-[#4b0082] hover:text-white'}`}>
                                 <X size={20} />
                             </button>
                             <div className="flex flex-col h-full">
-                                <div className="p-6 md:p-12 text-center border-b border-purple-600/5">
+                                <div className="p-6 md:p-12 text-center border-b border-[#4b0082]/5">
                                     <div className="hidden sm:block space-y-4">
-                                        <h3 className={`text-3xl font-black ${isDarkMode ? 'text-white' : 'text-[#4B0082]'}`}>{formData.firstName} {formData.lastName}</h3>
-                                        <div className={`flex justify-center gap-6 text-xs font-bold ${isDarkMode ? 'text-white/60' : 'text-[#4B0082]/60'}`}>
+                                        <h3 className={`text-3xl font-black ${isDarkMode ? 'text-white' : 'text-[#4b0082]'}`}>{formData.firstName} {formData.lastName}</h3>
+                                        <div className={`flex justify-center gap-6 text-xs font-bold ${isDarkMode ? 'text-white/60' : 'text-[#4b0082]/60'}`}>
                                             <span>{formData.dob.split('-').reverse().join('/')}</span>
                                             <span>{formData.tob}</span>
                                             <span>{formData.city.split(',')[0]}</span>
                                         </div>
                                     </div>
                                     <div className="block sm:hidden pt-4">
-                                        <p className={`text-[9px] font-black uppercase tracking-tighter whitespace-nowrap overflow-hidden text-ellipsis ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>
+                                        <p className={`text-[9px] font-black uppercase tracking-tighter whitespace-nowrap overflow-hidden text-ellipsis ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`}>
                                             {formData.firstName} {formData.lastName} • {formData.dob.split('-').reverse().join('/')} • {formData.tob} • {formData.city.split(',')[0]}
                                         </p>
                                     </div>
                                 </div>
-                                <div className={`flex-1 flex flex-col items-center justify-center p-6 md:p-12 ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-purple-600/5'}`}>
+                                <div className={`flex-1 flex flex-col items-center justify-center p-6 md:p-12 ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-[#4b0082]/5'}`}>
                                     <div
                                         ref={chartRef}
-                                        className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-purple-600/10 shadow-lg rounded-[2rem] flex items-center justify-center kundali-svg-container`}
+                                        className={`w-full max-w-[500px] aspect-square p-6 md:p-10 bg-white border border-[#4b0082]/10 shadow-lg rounded-[2rem] flex items-center justify-center kundali-svg-container`}
                                     >
                                         <style>
                                             {`
@@ -845,7 +845,7 @@ const Kundali = () => {
                                         disabled={downloading}
                                         className={`mt-8 px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all shadow-xl disabled:opacity-50 ${isDarkMode
                                             ? 'bg-gold text-black hover:bg-white'
-                                            : 'bg-[#4B0082] text-white hover:bg-purple-700'
+                                            : 'bg-[#4b0082] text-white hover:bg-white hover:text-[#4b0082]'
                                             }`}
                                     >
                                         {downloading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
@@ -860,8 +860,8 @@ const Kundali = () => {
 
             <style jsx>{`
                 :global(svg) { width: 100% !important; height: 100% !important; overflow: visible !important; }
-                :global(svg path), :global(svg line), :global(svg polygon), :global(svg rect), :global(svg circle) { stroke-width: 1.5px !important; stroke: #4B0082 !important; }
-                :global(svg text) { fill: #4B0082 !important; font-family: 'Mulish', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
+                :global(svg path), :global(svg line), :global(svg polygon), :global(svg rect), :global(svg circle) { stroke-width: 1.5px !important; stroke: #4b0082 !important; }
+                :global(svg text) { fill: #4b0082 !important; font-family: 'Mulish', sans-serif !important; font-weight: 800 !important; font-size: 16px !important; }
                 @media (max-width: 480px) { :global(svg text) { font-size: 20px !important; } }
                 input::-webkit-calendar-picker-indicator { 
                     filter: ${isDarkMode ? 'brightness(0) invert(1)' : 'brightness(0)'}; 

@@ -18,15 +18,15 @@ function ZodiacScene() {
     return (
         <>
             <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1.5} color={isDarkMode ? '#ffd700' : '#4B0082'} />
+            <pointLight position={[10, 10, 10]} intensity={1.5} color={isDarkMode ? '#ffd700' : '#4b0082'} />
             <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
 
             <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
                 <mesh ref={ringRef}>
                     <torusGeometry args={[2, 0.05, 16, 100]} />
                     <meshStandardMaterial
-                        color={isDarkMode ? '#bcd437ff' : '#4B0082'}
-                        emissive={isDarkMode ? '#c2d437ff' : '#4B0082'}
+                        color={isDarkMode ? '#bcd437ff' : '#4b0082'}
+                        emissive={isDarkMode ? '#c2d437ff' : '#4b0082'}
                         emissiveIntensity={0.5}
                         metalness={1}
                         roughness={0.1}
@@ -36,7 +36,7 @@ function ZodiacScene() {
                 {/* Inner glow or secondary element */}
                 <mesh rotation={[Math.PI / 2, 0, 0]}>
                     <ringGeometry args={[1.8, 1.85, 64]} />
-                    <meshBasicMaterial color={isDarkMode ? '#ffd700' : '#4B0082'} transparent opacity={0.3} side={2} />
+                    <meshBasicMaterial color={isDarkMode ? '#ffd700' : '#4b0082'} transparent opacity={0.3} side={2} />
                 </mesh>
             </Float>
         </>

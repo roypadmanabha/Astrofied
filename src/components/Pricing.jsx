@@ -52,10 +52,10 @@ const Pricing = () => {
           className="text-center mb-8 md:mb-16"
         >
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-tight">
-            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4B0082]'}`}>Best</span>{' '}
-            <span style={{ color: isDarkMode ? '#FFFFFF' : '#4B0082' }}>Prices</span>
+            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>Best</span>{' '}
+            <span style={{ color: isDarkMode ? '#FFFFFF' : '#4b0082' }}>Prices</span>
           </h2>
-          <p className={`text-base md:text-xl font-mulish opacity-70 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+          <p className={`text-base md:text-xl font-mulish opacity-70 ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>
             High-quality astrological guidance made affordable for everyone.
           </p>
         </motion.div>
@@ -110,12 +110,12 @@ const Pricing = () => {
               <div className="px-4 pb-4">
                 <div className="flex flex-col gap-3 mb-8">
                   <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-black font-mulish leading-tight ${
-                    isDarkMode ? 'text-white' : 'text-[#4B0082]'
+                    isDarkMode ? 'text-white' : 'text-[#4b0082]'
                   }`}>
                     {item.title}
                   </h3>
                   <p className={`text-sm sm:text-base font-mulish font-medium leading-relaxed opacity-60 ${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                    isDarkMode ? 'text-gray-300' : 'text-black/80'
                   }`}>
                     {item.description}
                   </p>
@@ -128,7 +128,7 @@ const Pricing = () => {
                 }`}>
                   <div className="flex flex-col">
                     <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 ${
-                      isDarkMode ? 'text-gold' : 'text-purple-600'
+                      isDarkMode ? 'text-gold' : 'text-[#4b0082]'
                     }`}>Price</span>
                     <div className="flex items-baseline gap-1">
                       <span className={`text-sm font-bold ${isDarkMode ? 'text-white/50' : 'text-gray-400'}`}>₹</span>
@@ -147,7 +147,7 @@ const Pricing = () => {
                     className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 whitespace-nowrap ${
                       isDarkMode
                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'
-                        : 'bg-[#4B0082] text-white hover:bg-black shadow-purple-900/20'
+                        : 'bg-[#4b0082] text-white hover:bg-black shadow-[#991600]/20'
                     }`}
                   >
                     Book Now

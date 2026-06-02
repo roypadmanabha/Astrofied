@@ -296,7 +296,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </div>
               <button
                 onClick={() => setShowFullWhySj(!showFullWhySj)}
-                className={`mt-4 font-bold transition-all flex items-center gap-2 hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}
+                className={`mt-4 font-bold transition-all flex items-center gap-2 hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`}
               >
                 {showFullWhySj ? 'Read Less' : 'Read More'}
               </button>
@@ -345,7 +345,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="bg-[#4B0082] py-2 md:py-2.5 rounded-xl shadow-2xl border border-gold/30 w-full max-w-[420px] overflow-hidden flex items-center justify-center"
+                    className="bg-[#4b0082] py-2 md:py-2.5 rounded-xl shadow-2xl border border-gold/30 w-full max-w-[420px] overflow-hidden flex items-center justify-center"
                   >
                     <svg
                       viewBox="0 0 350 25"
@@ -370,7 +370,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 </div>
               </motion.div>
               {/* Background decorative element */}
-              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 rounded-full blur-[100px] opacity-20 -z-10 ${isDarkMode ? 'bg-gold' : 'bg-[#4B0082]'}`} />
+              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 rounded-full blur-[100px] opacity-20 -z-10 ${isDarkMode ? 'bg-gold' : 'bg-[#4b0082]'}`} />
             </motion.div>
 
             <motion.div
@@ -380,7 +380,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="w-full md:w-7/12"
             >
-              <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-8 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4B0082]'}`}>
+              <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-8 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>
                 About Us
               </h2>
               <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">
@@ -402,7 +402,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                         {ABOUT_US_TEXT.slice(432).split('Prasanta Chakraborty').map((part, i, arr) => (
                           <span key={i}>
                             {part}
-                            {i < arr.length - 1 && <span className={`font-bold ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}>Prasanta Chakraborty</span>}
+                            {i < arr.length - 1 && <span className={`font-bold ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`}>Prasanta Chakraborty</span>}
                           </span>
                         ))}
                       </p>
@@ -412,7 +412,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </div>
               <button
                 onClick={() => setShowFullAbout(!showFullAbout)}
-                className={`mt-4 font-bold transition-all hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#4B0082]'}`}
+                className={`mt-4 font-bold transition-all hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`}
               >
                 {showFullAbout ? 'Read Less' : 'Read More'}
               </button>
@@ -429,7 +429,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           onClick={handleBookConsultation}
           className={`relative z-10 px-6 py-3 sm:px-8 sm:py-4 md:px-12 md:py-5 rounded-[15px] border-2 text-sm sm:text-base md:text-xl font-bold tracking-widest transition-all shadow-xl font-mulish ${isDarkMode
             ? 'bg-transparent border-gold text-gold hover:bg-gold hover:text-black shadow-gold/20'
-            : 'bg-[#4B0082] border-[#4B0082] text-white hover:bg-transparent hover:text-[#4B0082] shadow-[#4B0082]/20'
+            : 'bg-[#4b0082] border-[#4b0082] text-white hover:bg-transparent hover:text-[#4b0082] shadow-[#4b0082]/20'
             }`}
         >
           BOOK A CONSULTATION
