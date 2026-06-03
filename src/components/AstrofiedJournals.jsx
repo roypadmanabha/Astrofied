@@ -75,7 +75,12 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
             className="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#ffd700] bg-white"
             style={{ maxWidth: '923px', aspectRatio: '923/1024' }}
           >
-            <img src={getJournalImage(journal.title, journal.image_url) || journalsCollage} alt={journal.title} className="w-full h-full object-cover" />
+            <img 
+              src={getJournalImage(journal.title, journal.image_url) || journalsCollage} 
+              alt={journal.title} 
+              className="w-full h-full object-cover" 
+              loading="lazy"
+            />
           </div>
         </div>
 
@@ -187,6 +192,7 @@ const JournalsPromo = () => {
           className="w-full h-auto block pointer-events-none rounded-[20px]"
           autoPlay
           playsInline
+          preload="metadata"
           onEnded={handleEnded}
         />
         {showPlayButton && (
@@ -612,6 +618,7 @@ const AstrofiedJournals = () => {
                     src={journalsCollage}
                     alt="Astrofied Journals Collage"
                     className="w-full h-auto object-contain"
+                    loading="lazy"
                   />
                 </div>
               </div>

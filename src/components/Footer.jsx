@@ -57,6 +57,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                                 className={`${isJournalsPage ? 'w-6 h-6 sm:w-8 sm:h-8 md:w-24 md:h-24 lg:w-32 lg:h-32' : 'w-24 h-24 lg:w-32 lg:h-32'} object-contain select-none pointer-events-none`}
                                 draggable={false}
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: isJournalsPage ? '0' : '-6px' }}
+                                loading="lazy"
                             />
                             <h4
                                 className={`${isJournalsPage ? 'text-[7px] sm:text-[9px] md:text-xl lg:text-3xl mt-1 md:mt-0' : 'text-xl md:text-xl lg:text-3xl'} force-nunito font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode

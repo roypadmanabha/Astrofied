@@ -107,6 +107,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                     alt=""
                                     className="w-[80%] md:w-1/2 h-auto object-contain"
                                     style={{ filter: isDarkMode ? 'brightness(1.5)' : 'none' }}
+                                    loading="lazy"
                                 />
                             </div>
 
@@ -137,6 +138,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                             src={ganesha}
                                             alt="Lord Ganesha"
                                             className="w-40 md:w-56 lg:w-64 h-auto object-contain drop-shadow-[0_10px_20px_rgba(212,175,55,0.3)] group-hover:drop-shadow-[0_15px_30px_rgba(212,175,55,0.5)] transition-all duration-500"
+                                            loading="lazy"
                                         />
                                         <div className="mt-4 text-center">
                                             <p className={`text-lg md:text-2xl font-black tracking-widest drop-shadow-sm ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'

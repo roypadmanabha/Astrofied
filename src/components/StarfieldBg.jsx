@@ -110,17 +110,7 @@ export default function StarfieldBg() {
             frameCount++;
             ctx.clearRect(0, 0, width, height);
 
-            // Deep space gradient background
-            const bgGrad = ctx.createRadialGradient(
-                width * 0.5, height * 0.4, 0,
-                width * 0.5, height * 0.4, Math.max(width, height)
-            );
-            bgGrad.addColorStop(0, '#0d0221');
-            bgGrad.addColorStop(0.4, '#080118');
-            bgGrad.addColorStop(0.7, '#05010d');
-            bgGrad.addColorStop(1, '#020008');
-            ctx.fillStyle = bgGrad;
-            ctx.fillRect(0, 0, width, height);
+            // Static background is handled via CSS gradient on the canvas style to optimize GPU rendering
 
             // Only draw nebula on desktop
             if (!isMobileDevice) {
@@ -249,7 +239,10 @@ export default function StarfieldBg() {
         <canvas
             ref={canvasRef}
             className="fixed inset-0 w-full h-full pointer-events-none"
-            style={{ zIndex: -1 }}
+            style={{ 
+                zIndex: -1,
+                background: 'radial-gradient(circle at 50% 40%, #0d0221 0%, #080118 40%, #05010d 70%, #020008 100%)'
+            }}
             aria-hidden="true"
         />
     );

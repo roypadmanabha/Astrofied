@@ -42,6 +42,7 @@ const PromoVideo = () => {
             src={promoVideo}
             className="w-full h-auto object-cover rounded-none"
             playsInline
+            preload="metadata"
             onEnded={handleVideoEnded}
             onPause={() => setIsPlaying(false)}
             onPlay={() => setIsPlaying(true)}

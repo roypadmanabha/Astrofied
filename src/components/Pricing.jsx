@@ -94,6 +94,7 @@ const Pricing = () => {
                     mixBlendMode: isDarkMode ? 'screen' : 'multiply',
                     filter: isDarkMode ? 'invert(1) brightness(0.9) contrast(1.1)' : 'none'
                   } : {}}
+                  loading="lazy"
                 />
                 
                 {/* Badge Overlay */}

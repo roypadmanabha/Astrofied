@@ -82,6 +82,7 @@ export default function Testimonials() {
                         alt={t.name}
                         className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover select-none pointer-events-none"
                         draggable={false}
+                        loading="lazy"
                     />
                 </div>
                 <div className="flex flex-col">
