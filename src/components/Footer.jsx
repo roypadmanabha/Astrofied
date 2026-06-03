@@ -169,7 +169,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                 </div>
 
                 <div className={`border-t ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/20'} pt-4 md:pt-8 text-center ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm' : 'text-[10px] md:text-sm'} text-gray-500`}>
-                    © {new Date().getFullYear()} Astrofied. All rights reserved | <span className="opacity-90">Made by Vignette</span>
+                    © {new Date().getFullYear()} <span className="brand-text">Astrofied</span>. All rights reserved | <span className="opacity-90">Made by Vignette</span>
                 </div>
             </div>
         </footer>

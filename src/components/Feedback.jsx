@@ -438,7 +438,7 @@ export default function Feedback() {
                             We Value <span className={isDarkMode ? 'text-[#ffd700]' : 'text-black'}>Your <br className="hidden lg:block" /> Feedback</span>
                         </h2>
                         <p className={`text-lg md:text-xl lg:text-2xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>
-                            Your insights help us improve and serve you better. Share your experience with Astrofied!
+                            Your insights help us improve and serve you better. Share your experience with <span className="brand-text">Astrofied</span>!
                         </p>
                     </motion.div>
 
@@ -447,7 +447,7 @@ export default function Feedback() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className={`w-full lg:w-6/12 rounded-3xl p-4 sm:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-[#17202A]' : 'glass border-[#A30000]/20 !bg-[#f5f5dd]'
+                        className={`w-full lg:w-6/12 rounded-3xl p-4 sm:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white !bg-transparent' : 'glass border-[#A30000]/20 !bg-[#f5f5dd]'
                             }`}
                     >
                         <AnimatePresence mode="wait">

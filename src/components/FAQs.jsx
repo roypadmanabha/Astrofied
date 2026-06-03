@@ -40,6 +40,14 @@ const faqs = [
 
 ];
 
+const formatAstrofied = (text) => {
+    if (!text) return text;
+    if (typeof text !== 'string') return text;
+    return text.split(/(Astrofied)/g).map((part, i) => 
+        part === 'Astrofied' ? <span key={i} className="brand-text">Astrofied</span> : part
+    );
+};
+
 export default function FAQs() {
     const { isDarkMode } = useTheme();
     const [openIndex, setOpenIndex] = useState(0); // First one open by default
@@ -81,13 +89,13 @@ export default function FAQs() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.4, ease: "easeOut" }}
-                                className={`border-2 rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
+                                className={`rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
                                     ? isActive
-                                        ? 'border-[#ffd700] bg-[#A30000]/30 shadow-[#ffd700]/10'
-                                        : 'border-[#A30000] bg-[#121212] hover:border-[#ffd700]/50'
+                                        ? 'border border-gray-600 bg-transparent shadow-white/5'
+                                        : 'border border-gray-600 bg-transparent hover:border-gray-400'
                                     : isActive
-                                        ? 'border-[#A30000] bg-[#F5F5DC] shadow-[#A30000]/10'
-                                        : 'border-[#A30000]/20 bg-[#FFFFFF] hover:border-[#A30000]'
+                                        ? 'border-2 border-[#A30000] bg-[#F5F5DC] shadow-[#A30000]/10'
+                                        : 'border-2 border-[#A30000]/20 bg-[#FFFFFF] hover:border-[#A30000]'
                                     }`}
                             >
                                 <button
@@ -98,7 +106,7 @@ export default function FAQs() {
                                         ? isActive ? 'text-[#ffd700]' : 'text-gray-100 hover:text-white'
                                         : isActive ? 'text-[#DC2626]' : 'text-[#17202A] hover:text-[#DC2626]'
                                         }`}>
-                                        {faq.question}
+                                        {formatAstrofied(faq.question)}
                                     </span>
                                     <span className={`flex-shrink-0 transition-colors ${isDarkMode
                                         ? isActive ? 'text-[#ffd700]' : 'text-gray-100'
@@ -118,7 +126,7 @@ export default function FAQs() {
                                         >
                                             <div className={`px-6 pb-6 pt-1 text-sm md:text-base leading-relaxed text-justify ${isDarkMode ? 'text-gray-300' : 'text-black'
                                                 }`}>
-                                                {faq.answer}
+                                                {formatAstrofied(faq.answer)}
                                             </div>
                                         </motion.div>
                                     )}

@@ -173,7 +173,7 @@ body.light {
 }
 
 .dark .glass {
-  background: rgba(10, 10, 10, 0.7);
+  background: transparent;
   border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
@@ -371,6 +371,19 @@ img {
   -webkit-text-fill-color: transparent !important;
 }
 
+.dark .astrofied-title-gradient,
+.dark .brand-text {
+  font-family: 'Nunito', sans-serif !important;
+  background: linear-gradient(to right, #FF0000, #FFFF00) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline-block;
+}
+
+.brand-text {
+  display: inline-block;
+}
+
 /* Custom Journals Explore Button Transition Override */
 .light button.journals-explore-btn {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -388,7 +401,8 @@ img {
   opacity: 0.9 !important;
 }
 
-/* Force Numerology Output Numbers to Nunito Rounded in Light Mode */
-.light .numerology-result-number {
+/* Force Numerology Output Numbers to Nunito Rounded in Light and Dark Mode */
+.light .numerology-result-number,
+.dark .numerology-result-number {
   font-family: 'Nunito', sans-serif !important;
 }

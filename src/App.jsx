@@ -347,7 +347,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="bg-[#A30000] py-2 md:py-2.5 rounded-xl shadow-2xl border border-gold/30 w-full max-w-[420px] overflow-hidden flex items-center justify-center"
+                    className={`py-2 md:py-2.5 rounded-xl shadow-2xl border border-gold/30 w-full max-w-[420px] overflow-hidden flex items-center justify-center ${isDarkMode ? 'bg-[#17202A]' : 'bg-[#A30000]'}`}
                   >
                     <svg
                       viewBox="0 0 350 25"

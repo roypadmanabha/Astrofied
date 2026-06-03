@@ -363,7 +363,7 @@ const Kundali = () => {
     };
 
     return (
-        <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-[#05010d]/80' : 'bg-white'}`}>
+        <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
             <div className="container mx-auto px-6">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
 
@@ -390,7 +390,7 @@ const Kundali = () => {
                             transition={{ duration: 0.4, ease: "easeOut" }}
                             className="text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight flex flex-col"
                         >
-                            <span className={`force-nunito font-extrabold ${isDarkMode ? 'text-white' : 'astrofied-title-gradient'}`}>
+                            <span className={`force-nunito font-extrabold ${isDarkMode ? 'brand-text' : 'astrofied-title-gradient'}`}>
                                 Astrofied
                             </span>
                             <span className={`font-mulish mt-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
@@ -419,7 +419,7 @@ const Kundali = () => {
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
                             className={`p-6 md:p-10 lg:p-12 rounded-[12px] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative lg:aspect-square flex flex-col justify-center ${isDarkMode
-                                ? 'border-gold !bg-[#17202A]'
+                                ? 'border-gold bg-transparent'
                                 : 'border-[#A30000] bg-[#F5F5DC]'
                                 }`}
                         >

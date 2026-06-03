@@ -42,7 +42,7 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className={`py-16 md:py-24 relative overflow-hidden ${isDarkMode ? 'bg-[#05010d]/50' : 'bg-[#f5f5dd]'}`}>
+    <section id="pricing" className={`py-16 md:py-24 relative overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-[#f5f5dd]'}`}>
       <div className="container mx-auto px-6 max-w-[1200px]">
         <motion.div
           initial={{ opacity: 0.8, y: 10 }}
@@ -70,13 +70,13 @@ const Pricing = () => {
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               className={`relative rounded-[24px] p-4 sm:p-5 border ${
                 isDarkMode
-                  ? `group shadow-2xl transition-all duration-700 hover:-translate-y-4 ${item.glow} bg-white/[0.03] border-white/10 hover:bg-white/[0.05]`
+                  ? `shadow-2xl transition-all duration-700 bg-transparent border-white`
                   : 'bg-white border-gray-200 shadow-md'
               }`}
             >
               {/* Animated Background Glow (Dark Mode Only) */}
               {isDarkMode && (
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 rounded-[24px]`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 transition-opacity duration-700 -z-10 rounded-[24px]`} />
               )}
               
               {/* Card Decoration */}
@@ -90,7 +90,7 @@ const Pricing = () => {
                   src={item.image}
                   alt={item.title}
                   className={`w-full h-full object-cover select-none pointer-events-none ${
-                    isDarkMode ? 'transition-all duration-700 group-hover:scale-110' : ''
+                    isDarkMode ? '' : ''
                   } ${
                     item.isKundali ? (isDarkMode ? '' : 'mix-blend-multiply') : ''
                   }`}
@@ -115,7 +115,7 @@ const Pricing = () => {
               <div className="px-4 pb-4">
                 <div className="flex flex-col gap-3 mb-8">
                   <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-mulish leading-tight ${
-                    isDarkMode ? 'font-black text-white' : 'font-bold text-[#A30000]'
+                    isDarkMode ? 'font-bold text-[#ffd700]' : 'font-bold text-[#A30000]'
                   }`}>
                     {item.title}
                   </h3>
@@ -128,7 +128,7 @@ const Pricing = () => {
 
                 <div className={`flex items-center justify-between mt-auto p-3 sm:p-6 rounded-[24px] border ${
                   isDarkMode 
-                    ? 'backdrop-blur-xl bg-white/5 border-white/5 group-hover:bg-white/[0.08] transition-colors duration-500' 
+                    ? 'backdrop-blur-xl bg-white/5 border-[0.5px] border-white transition-colors duration-500' 
                     : 'bg-[#f5f5dd] border-black/[0.05]'
                 }`}>
                   <div className="flex flex-col">
@@ -149,7 +149,7 @@ const Pricing = () => {
                     whileHover={{ scale: 1.05, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
-                    className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 whitespace-nowrap pricing-card-btn ${
+                    className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${
                       isDarkMode
                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                         : 'bg-[#A30000] text-white hover:bg-black shadow-[#991600]/20'

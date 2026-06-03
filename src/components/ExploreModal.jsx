@@ -5,6 +5,13 @@ import { useTheme } from '../context/ThemeContext';
 import logo from '../assets/logo.png';
 import ganesha from '../assets/ganesha.png';
 
+const formatAstrofied = (text) => {
+    if (!text) return text;
+    return text.split(/(Astrofied)/g).map((part, i) => 
+        part === 'Astrofied' ? <span key={i} className="brand-text">Astrofied</span> : part
+    );
+};
+
 const ExploreModal = ({ isOpen, onClose }) => {
     const { isDarkMode } = useTheme();
 

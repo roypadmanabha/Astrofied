@@ -111,13 +111,13 @@ export default function Panchang() {
     if (loading || !panchangData) return null;
 
     return (
-        <section className={`py-16 font-mulish ${isDarkMode ? 'bg-[#0A0A0A] text-white' : 'bg-[#F2EFE9] text-black'}`}>
+        <section className={`py-16 font-mulish ${isDarkMode ? 'bg-transparent text-white' : 'bg-[#F2EFE9] text-black'}`}>
             <div className="container mx-auto px-4 md:px-8 max-w-7xl">
                 
                 {/* Header */}
                 <div className="text-center mb-10">
                     <h2 className="text-4xl md:text-6xl font-black mb-4">
-                        <span className="text-[#FF0000]">Astrofied</span> <span className={isDarkMode ? 'text-white' : 'text-[#1B263B]'}>Panchang</span>
+                        <span className="text-[#FF0000] brand-text">Astrofied</span> <span className={isDarkMode ? 'text-white' : 'text-[#1B263B]'}>Panchang</span>
                     </h2>
                     <h3 className={`text-3xl md:text-4xl font-bold mb-6 ${isDarkMode ? 'text-gray-200' : 'text-[#111827]'}`}>
                         Today's Panchang

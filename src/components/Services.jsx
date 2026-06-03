@@ -124,7 +124,7 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className={`rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-[#17202A] border-gray-800' : 'bg-[#FFFFFF] border-gold/10'} group relative overflow-hidden`}
+            className={`rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-transparent border-[#ffd700] border-[0.5px]' : 'bg-[#FFFFFF] border-gold/10'} group relative overflow-hidden`}
         >
             {/* Glossy Gift Ribbon */}
             <div className="absolute top-0 left-0 w-16 h-16 md:w-25 md:h-20 pointer-events-none z-20">
@@ -144,7 +144,7 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
 
             {/* Bottom Right Glossy Accent */}
             <div className={`absolute bottom-0 right-0 w-8 h-8 md:w-12 md:h-12 transition-colors duration-300 ${isDarkMode
-                ? 'bg-gradient-to-tl from-[#002366] via-[#4169E1] to-[#002366]'
+                ? 'bg-white'
                 : 'bg-gradient-to-tl from-[#B8860B] via-[#ffd700] to-[#B8860B]'
                 }`} style={{ clipPath: 'polygon(100% 100%, 0 100%, 100% 0)' }}>
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />

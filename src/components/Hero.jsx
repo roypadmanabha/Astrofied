@@ -64,7 +64,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                      : 'explore-btn-light shadow-[#A30000]/5'
                                      }`}
                              >
-                                 <span>Explore Astrofied</span>
+                                 <span>Explore <span className="brand-text">Astrofied</span></span>
                              </button>
                         </motion.div>
                     </div>
@@ -107,7 +107,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                     initial={{ opacity: 0, x: 30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.5 }}
-                                    className={`absolute right-4 lg:right-4 xl:right-6 top-[42%] md:top-[45%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/20'
+                                    className={`absolute right-4 lg:right-4 xl:right-6 top-[42%] md:top-[45%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20 !bg-black/80' : 'border-[#A30000]/20'
                                         }`}
                                 >
                                     <div className="flex flex-col">
@@ -120,7 +120,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                     initial={{ opacity: 0, x: -30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.7 }}
-                                    className={`absolute left-0 md:left-4 top-[55%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/20'
+                                    className={`absolute left-0 md:left-4 top-[55%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20 !bg-black/80' : 'border-[#A30000]/20'
                                         }`}
                                  >
                                     <div className="flex flex-col">
@@ -133,7 +133,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.9 }}
-                                    className={`absolute -right-2 md:-right-8 lg:-right-10 xl:-right-16 bottom-[18%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/20'
+                                    className={`absolute -right-2 md:-right-8 lg:-right-10 xl:-right-16 bottom-[18%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20 !bg-black/80' : 'border-[#A30000]/20'
                                         }`}
                                  >
                                     <div className="flex flex-col">
@@ -149,7 +149,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.2 }}
                                 className={`relative -mt-10 md:-mt-12 z-30 w-full px-4 md:px-10 py-3.5 md:py-4 rounded-2xl md:rounded-full border glass backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex justify-center items-center ${isDarkMode 
-                                    ? 'border-gold/30 text-gold shadow-gold/20' 
+                                    ? 'border-gold/30 text-gold shadow-gold/20 !bg-black/80' 
                                     : 'border-[#A30000]/30 text-[#A30000] shadow-[#A30000]/20'
                                     }`}
                             >

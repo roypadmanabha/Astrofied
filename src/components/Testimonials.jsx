@@ -36,6 +36,13 @@ const testimonials = [
     { id: 15, name: "Suman Saha", img: suman, text: "Transformative experience! Astrofied changed my perspective towards traditional wisdom." },
 ];
 
+const formatAstrofied = (text) => {
+    if (!text) return text;
+    return text.split(/(Astrofied)/g).map((part, i) => 
+        part === 'Astrofied' ? <span key={i} className="brand-text">Astrofied</span> : part
+    );
+};
+
 export default function Testimonials() {
     const { isDarkMode } = useTheme();
     const scrollRef = useRef(null);
@@ -69,7 +76,7 @@ export default function Testimonials() {
         <div
             className={`group relative flex flex-col gap-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border backdrop-blur-xl transition-all duration-500 min-w-[300px] sm:min-w-[380px] md:min-w-[450px] shrink-0 whitespace-normal
                 ${isDarkMode
-                    ? 'border-gold/20 !bg-gradient-to-br from-black via-[#08002e] to-black text-white shadow-[0_0_20px_rgba(8,0,46,0.5)]'
+                    ? 'border-gold/20 !bg-transparent text-white shadow-[0_0_20px_rgba(8,0,46,0.5)]'
                     : 'glass border-[#A30000]/20 !bg-[#fbf2cb] text-black'}
             `}
         >
@@ -86,7 +93,7 @@ export default function Testimonials() {
                     />
                 </div>
                 <div className="flex flex-col">
-                    <span className={`font-bold text-base md:text-lg font-mulish tracking-tight transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-black'}`}>
+                    <span className={`font-bold text-base md:text-lg font-mulish tracking-tight transition-colors ${isDarkMode ? 'text-white hover:text-white' : 'text-black'}`}>
                         {t.name}
                     </span>
                     <div className="flex gap-0.5 mt-1">

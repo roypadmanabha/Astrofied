@@ -371,7 +371,7 @@ const AstrofiedJournals = () => {
   // --- LOGGED IN STATE: Dashboard UI ---
   if (user) {
     return (
-      <div className={`astrofied-journals-container font-['Nunito'] min-h-screen w-full ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-[#F4F1E1] text-black'}`}>
+      <div className={`astrofied-journals-container font-['Nunito'] min-h-screen w-full ${isDarkMode ? 'bg-transparent text-white' : 'bg-[#F4F1E1] text-black'}`}>
         {/* Top Nav */}
         <header className={`fixed top-0 left-0 w-full z-50 px-4 md:px-12 py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/70' : 'bg-[#F4F1E1]/70'} backdrop-blur-lg border-b shadow-sm ${isDarkMode ? 'border-white/10 shadow-black/20' : 'border-black/10 shadow-black/5'} transition-all duration-300`}>
           <div className="flex items-center">
@@ -449,10 +449,10 @@ const AstrofiedJournals = () => {
           {/* Intro Text */}
           <div className="mb-16 max-w-3xl mx-auto">
             <p className="text-justify text-sm md:text-base leading-relaxed mb-4">
-              Welcome to Astrofied Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
+              Welcome to <span className="brand-text">Astrofied</span> Journals! Explore our articles, posts, and in-depth analyses on various topics of astrology. Feel free to download, share, and gain a deeper understanding of astrological concepts. Don't hesitate to contact us if you have any questions or queries.
             </p>
             <p className="text-justify text-[10px] md:text-xs leading-relaxed font-mulish font-normal text-[#3d0000] opacity-60">
-              <b>Note:</b> All content within Astrofied Journals is provided strictly for personal reading and educational purposes. Unauthorised reproduction, distribution, resale, or commercial use of these materials is strictly prohibited under Indian Copyright Act. Astrofied reserves all intellectual property rights, and any infringement will be subject to strict legal action.
+              <b>Note:</b> All content within <span className="brand-text">Astrofied</span> Journals is provided strictly for personal reading and educational purposes. Unauthorised reproduction, distribution, resale, or commercial use of these materials is strictly prohibited under Indian Copyright Act. <span className="brand-text">Astrofied</span> reserves all intellectual property rights, and any infringement will be subject to strict legal action.
             </p>
           </div>
 
@@ -599,10 +599,10 @@ const AstrofiedJournals = () => {
               {/* Mobile Only: Title & Text (Shown before Image) */}
               <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2 px-4">
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl nunito-custom text-center w-full overflow-hidden text-ellipsis" style={{ fontFamily: '"Nunito", sans-serif' }}>
-                  {titleContent}
+                  {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p,i)=>p==="Astrofied"?<span key={i} className="brand-text">Astrofied</span>:p) : titleContent}
                 </h2>
                 <p className={`text-base md:text-lg text-justify leading-relaxed font-mulish font-normal ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
-                  {textContent}
+                  {typeof textContent === "string" ? textContent.split(/(Astrofied)/g).map((p,i)=>p==="Astrofied"?<span key={i} className="brand-text">Astrofied</span>:p) : textContent}
                 </p>
               </div>
 
@@ -610,7 +610,7 @@ const AstrofiedJournals = () => {
               <div className="w-full lg:w-1/2 flex flex-col items-center">
                 {/* Desktop Only Title */}
                 <h2 className="hidden lg:block lg:text-[37px] xl:text-[45px] nunito-custom mb-6 text-center w-[85%] leading-none tracking-tight" style={{ fontFamily: '"Nunito", sans-serif' }}>
-                  {titleContent}
+                  {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p,i)=>p==="Astrofied"?<span key={i} className="brand-text">Astrofied</span>:p) : titleContent}
                 </h2>
 
                 <div className="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[28px] overflow-hidden shadow-2xl bg-transparent border-[1.5px] border-[#ffd700]">
@@ -630,7 +630,7 @@ const AstrofiedJournals = () => {
               <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-2 lg:pt-0">
                 {/* Desktop Only Text */}
                 <p className={`hidden lg:block text-lg xl:text-xl mb-12 text-justify leading-relaxed font-mulish font-normal px-4 ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
-                  {textContent}
+                  {typeof textContent === "string" ? textContent.split(/(Astrofied)/g).map((p,i)=>p==="Astrofied"?<span key={i} className="brand-text">Astrofied</span>:p) : textContent}
                 </p>
 
                 {/* Buttons (Single button now) */}
