@@ -57,7 +57,7 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
                                 </div>
                                 <button
                                     onClick={onClose}
-                                    className={`p-2 rounded-full transition-all ${isDarkMode ? 'hover:bg-white/10 text-gold' : 'hover:bg-[#0A1931]/10 text-[#4b0082]'
+                                    className={`p-2 rounded-full transition-all ${isDarkMode ? 'hover:bg-white/10 text-gold' : 'hover:bg-[#0A1931]/10 text-[#A30000]'
                                         }`}
                                 >
                                     <X size={24} />

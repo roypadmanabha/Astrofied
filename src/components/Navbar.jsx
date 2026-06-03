@@ -60,11 +60,11 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         className={`fixed inset-0 z-[100] flex flex-col items-start justify-start pt-32 gap-0 md:hidden overflow-y-auto px-8 ${
                             isDarkMode 
                                 ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-r border-gold/10' 
-                                : 'bg-gradient-to-br from-white via-[#f0e6ff] to-white border-r border-[#4b0082]/10'
+                                : 'bg-[#f5f5dd] border-r border-[#A30000]/10'
                         }`}
                     >
                         {/* Decorative Glow */}
-                        <div className={`absolute top-0 right-0 w-64 h-64 blur-[120px] opacity-20 -z-10 rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4b0082]'}`} />
+                        <div className={`absolute top-0 right-0 w-64 h-64 blur-[120px] opacity-20 -z-10 rounded-full ${isDarkMode ? 'bg-gold' : 'bg-transparent'}`} />
                         <div className={`absolute bottom-0 left-0 w-48 h-48 blur-[100px] opacity-10 -z-10 rounded-full ${isDarkMode ? 'bg-purple-500' : 'bg-blue-400'}`} />
 
                         {/* Mobile Menu Header */}
@@ -77,7 +77,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                     isDarkMode 
                                         ? 'from-red-600 to-yellow-500' 
                                         : 'from-black to-red-600'
-                                }`}
+                                    }`}
                             >
                                 Astrofied
                             </span>
@@ -86,7 +86,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         <button
                             onClick={() => setIsOpen(false)}
                             className={`absolute top-10 right-8 p-2 focus:outline-none transition-all border-none bg-transparent ${
-                                isDarkMode ? 'text-gold' : 'text-[#4b0082]'
+                                isDarkMode ? 'text-gold' : 'text-black'
                             }`}
                         >
                             <X size={24} />
@@ -119,12 +119,12 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                         className={`group flex items-center gap-4 text-base font-bold tracking-wide transition-all py-3 px-4 rounded-2xl cursor-pointer ${
                                             isDarkMode 
                                                 ? 'text-gray-300 hover:text-gold hover:bg-gold/5' 
-                                                : 'text-[#4b0082]/80 hover:text-[#4b0082] hover:bg-[#4b0082]/5'
+                                                : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
                                         }`}
                                         whileTap={{ scale: 0.96 }}
                                     >
                                         <div className={`p-2 rounded-xl transition-all group-hover:scale-110 ${
-                                            isDarkMode ? 'bg-gold/10 text-gold shadow-[0_0_10px_rgba(212,175,55,0.1)]' : 'bg-[#4b0082]/10 text-[#4b0082]'
+                                            isDarkMode ? 'bg-gold/10 text-gold shadow-[0_0_10px_rgba(212,175,55,0.1)]' : 'bg-[#fbf2cb] text-[#FF0000]'
                                         }`}>
                                             <link.icon size={18} strokeWidth={3} />
                                         </div>
@@ -139,7 +139,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
 
             <nav
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md ${scrolled 
-                    ? isDarkMode ? 'py-2 bg-black/60 border-b border-gold/20 shadow-2xl' : 'py-2 bg-white/60 border-b border-[#4b0082]/10 shadow-xl'
+                    ? isDarkMode ? 'py-2 bg-black/60 border-b border-gold/20 shadow-2xl' : 'py-2 bg-white/60 border-b border-[#A30000]/10 shadow-xl'
                     : 'py-3 md:py-4 bg-transparent'
                 }`}
             >
@@ -154,15 +154,15 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         >
                             <motion.span
                                 animate={isOpen ? { rotate: 45, y: 5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}
-                                className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-[#4b0082]'}`}
+                                className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
                             />
                             <motion.span
                                 animate={isOpen ? { opacity: 0, scale: 0 } : { opacity: 1, scale: 1 }}
-                                className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-[#4b0082]'}`}
+                                className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
                             />
                             <motion.span
                                 animate={isOpen ? { rotate: -45, y: -5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}
-                                className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-[#4b0082]'}`}
+                                className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
                             />
                         </button>
                     </div>
@@ -206,13 +206,13 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                     }
                                 }}
                                 className={`text-lg font-bold transition-all relative group bg-transparent border-none p-0 cursor-pointer ${
-                                    isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-[#4b0082] hover:text-[#DC2626]'
+                                    isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#FF0000]'
                                 }`}
                                 whileHover={{ scale: 1.05 }}
                             >
                                 {link.name}
                                 <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
-                                    isDarkMode ? 'bg-gold' : 'bg-[#DC2626]'
+                                    isDarkMode ? 'bg-gold' : 'bg-[#FF0000]'
                                 }`} />
                             </motion.button>
                         ))}
@@ -224,7 +224,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         whileHover={{ scale: 1.1, rotate: 15 }}
                         whileTap={{ scale: 0.9 }}
                         className={`p-1.5 transition-all duration-300 bg-transparent border-none ${
-                            isDarkMode ? 'text-gold' : 'text-[#4b0082]'
+                            isDarkMode ? 'text-gold' : 'text-[#FF0000]'
                         }`}
                     >
                         {isDarkMode ? <Sun size={18} strokeWidth={2.5} /> : <Moon size={18} strokeWidth={2.5} />}

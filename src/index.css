@@ -21,9 +21,9 @@
 @theme {
   --color-gold: #ffd700;
   --color-obsidian: #0A0A0A;
-  --color-royal-indigo: #FF2400;
+  --color-royal-indigo: #A30000;
   --color-parchment: #F5F5DC;
-  --color-indigo: #FF2400;
+  --color-indigo: #A30000;
   --color-bronze: #CD7F32;
 
   --font-mulish: "Mulish", sans-serif;
@@ -292,4 +292,103 @@ img {
 
 @utility pause {
   animation-play-state: paused !important;
+}
+
+/* Global Light Mode Button Gradient Overrides */
+.light button[class*="bg-[#A30000]"]:not([class*="bg-transparent"]):not(.testimonial-nav-btn):not(.journals-explore-btn):not(.pricing-card-btn),
+.light button[class*="bg-[#FF3B30]"]:not([class*="bg-transparent"]):not(.testimonial-nav-btn):not(.journals-explore-btn):not(.pricing-card-btn),
+.light button[class*="border-[#A30000]"]:not([class*="bg-transparent"]):not(.testimonial-nav-btn):not(.journals-explore-btn):not(.pricing-card-btn),
+.light button[class*="from-black"]:not([class*="bg-transparent"]):not(.testimonial-nav-btn):not(.journals-explore-btn):not(.pricing-card-btn) {
+  background: linear-gradient(to right, #000000, #FF0000) !important;
+  color: #ffffff !important;
+  border: none !important;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out !important;
+}
+
+.light button[class*="bg-[#A30000]"]:not([class*="bg-transparent"]):not(.testimonial-nav-btn):not(.journals-explore-btn):not(.pricing-card-btn):hover,
+.light button[class*="bg-[#FF3B30]"]:not([class*="bg-transparent"]):not(.testimonial-nav-btn):not(.journals-explore-btn):not(.pricing-card-btn):hover,
+.light button[class*="border-[#A30000]"]:not([class*="bg-transparent"]):not(.testimonial-nav-btn):not(.journals-explore-btn):not(.pricing-card-btn):hover,
+.light button[class*="from-black"]:not([class*="bg-transparent"]):not(.testimonial-nav-btn):not(.journals-explore-btn):not(.pricing-card-btn):hover {
+  opacity: 0.9 !important;
+}
+
+/* Custom Light Mode Explore Button */
+.explore-btn-light {
+  background: transparent !important;
+  border: 1px solid #000000 !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.explore-btn-light span {
+  background: linear-gradient(to right, #000000, #FF0000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.explore-btn-light:hover {
+  background: linear-gradient(to right, #000000, #FF0000) !important;
+  border-color: #000000 !important;
+}
+
+.explore-btn-light:hover span {
+  -webkit-text-fill-color: #ffffff;
+}
+
+/* Custom Light Mode Book a Consultation Button */
+.consultation-btn-light {
+  background: linear-gradient(to right, #000000, #FF0000) !important;
+  border: 1px solid #000000 !important;
+  position: relative;
+  overflow: hidden;
+  color: #ffffff !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.consultation-btn-light span {
+  background: #ffffff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.consultation-btn-light:hover {
+  background: transparent !important;
+  border-color: #000000 !important;
+}
+
+.consultation-btn-light:hover span {
+  background: linear-gradient(to right, #000000, #FF0000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.astrofied-title-gradient {
+  background: linear-gradient(to right, #000000, #FF0000) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Custom Journals Explore Button Transition Override */
+.light button.journals-explore-btn {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Custom Pricing Card Button Transition Override */
+.light button.pricing-card-btn {
+  background: linear-gradient(to right, #000000, #FF0000) !important;
+  color: #ffffff !important;
+  border: none !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.light button.pricing-card-btn:hover {
+  opacity: 0.9 !important;
+}
+
+/* Force Numerology Output Numbers to Nunito Rounded in Light Mode */
+.light .numerology-result-number {
+  font-family: 'Nunito', sans-serif !important;
 }

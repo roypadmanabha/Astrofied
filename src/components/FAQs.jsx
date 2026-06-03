@@ -65,7 +65,7 @@ export default function FAQs() {
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="text-3xl md:text-5xl font-bold text-center mb-12 font-mulish"
-                    style={{ color: isDarkMode ? '#FFFFFF' : '#4b0082' }}
+                    style={{ color: isDarkMode ? '#FFFFFF' : '#A30000' }}
                 >
                     Frequently Asked Questions
                 </motion.h2>
@@ -83,11 +83,11 @@ export default function FAQs() {
                                 transition={{ duration: 0.4, ease: "easeOut" }}
                                 className={`border-2 rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
                                     ? isActive
-                                        ? 'border-[#ffd700] bg-[#4b0082]/30 shadow-[#ffd700]/10'
-                                        : 'border-[#4b0082] bg-[#121212] hover:border-[#ffd700]/50'
+                                        ? 'border-[#ffd700] bg-[#A30000]/30 shadow-[#ffd700]/10'
+                                        : 'border-[#A30000] bg-[#121212] hover:border-[#ffd700]/50'
                                     : isActive
-                                        ? 'border-[#4b0082] bg-[#F5F5DC] shadow-[#4b0082]/10'
-                                        : 'border-[#4b0082]/20 bg-[#FFFFFF] hover:border-[#4b0082]'
+                                        ? 'border-[#A30000] bg-[#F5F5DC] shadow-[#A30000]/10'
+                                        : 'border-[#A30000]/20 bg-[#FFFFFF] hover:border-[#A30000]'
                                     }`}
                             >
                                 <button

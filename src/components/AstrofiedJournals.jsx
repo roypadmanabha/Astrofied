@@ -50,7 +50,7 @@ const HighlightText = ({ text, highlight }) => {
     <>
       {parts.map((part, i) =>
         part.toLowerCase() === highlight.toLowerCase() ? (
-          <span key={i} className="bg-[#ffd700]/40 text-[#D00000] px-1 rounded font-bold">
+          <span key={i} className="bg-[#ffd700]/40 text-[#A30000] px-1 rounded font-bold">
             {part}
           </span>
         ) : (
@@ -68,7 +68,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
       <div className="flex flex-row items-stretch gap-3 sm:gap-6 md:gap-12">
         {/* Left Side: Title & Image */}
         <div className="w-[45%] flex flex-col items-center justify-center">
-          <h2 className="text-[14px] sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#D00000] mb-2 sm:mb-4 md:mb-8 text-center leading-tight" style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
+          <h2 className="text-[14px] sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#A30000] mb-2 sm:mb-4 md:mb-8 text-center leading-tight" style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
             <HighlightText text={journal.title} highlight={searchQuery} />
           </h2>
           <div
@@ -99,7 +99,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
               onClick={() => handleDownload(journal.file_name)}
               className={`font-bold py-1.5 px-2 sm:py-2.5 sm:px-6 md:py-3.5 md:px-8 rounded sm:rounded-md md:rounded-lg shadow-md md:shadow-lg transition-all hover:scale-105 active:scale-95 text-[9px] sm:text-sm md:text-base w-full lg:w-auto min-w-0 md:min-w-[200px]
                 ${isDarkMode
-                  ? 'bg-[#4b0082] hover:bg-white hover:text-[#4b0082] text-white'
+                  ? 'bg-[#A30000] hover:bg-white hover:text-[#A30000] text-white'
                   : 'bg-gradient-to-r from-black to-red-600 text-white hover:opacity-90'
                 }`}
             >
@@ -183,7 +183,7 @@ const JournalsPromo = () => {
   return (
     <div className="w-full max-w-xl md:max-w-2xl mx-auto mb-12 px-4">
       <div 
-        className="relative w-full rounded-[20px] overflow-hidden border border-[#E00000] shadow-lg bg-black"
+        className="relative w-full rounded-[20px] overflow-hidden border border-[#A30000] shadow-lg bg-black"
         onContextMenu={(e) => e.preventDefault()}
       >
         <video
@@ -201,7 +201,7 @@ const JournalsPromo = () => {
             className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition-colors cursor-pointer"
             aria-label="Play video"
           >
-            <div className="bg-[#E00000] text-white p-3 md:p-4 rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 flex items-center justify-center">
+            <div className="bg-[#A30000] text-white p-3 md:p-4 rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 flex items-center justify-center">
               <Play className="w-6 h-6 md:w-8 md:h-8 fill-current ml-0.5 md:ml-1" />
             </div>
           </button>
@@ -385,7 +385,7 @@ const AstrofiedJournals = () => {
               <span className="hidden md:inline">Home</span>
               <House className="md:hidden w-5 h-5" />
             </button>
-            <button onClick={handleLogout} className="text-[#D00000] hover:opacity-70 transition-opacity flex items-center" aria-label="Logout">
+            <button onClick={handleLogout} className="text-[#A30000] hover:opacity-70 transition-opacity flex items-center" aria-label="Logout">
               <span className="hidden md:inline">Logout</span>
               <LogOut className="md:hidden w-5 h-5" />
             </button>
@@ -400,7 +400,7 @@ const AstrofiedJournals = () => {
               animate={{ opacity: 1, y: 0, x: '-50%' }}
               exit={{ opacity: 0, y: -20, x: '-50%' }}
               transition={{ duration: 0.3 }}
-              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#D00000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#ffd700]/30"
+              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#A30000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#ffd700]/30"
             >
               <AlertCircle size={24} />
               <span className="text-sm md:text-base">Not allowed. Content protection enabled.</span>
@@ -428,7 +428,7 @@ const AstrofiedJournals = () => {
                 <div className="flex justify-center gap-4">
                   <button
                     onClick={handleQuit}
-                    className="flex-1 py-3 bg-[#D00000] hover:bg-red-700 text-white rounded-xl font-bold transition-colors"
+                    className="flex-1 py-3 bg-[#A30000] hover:bg-red-700 text-white rounded-xl font-bold transition-colors"
                   >
                     Yes
                   </button>
@@ -469,10 +469,10 @@ const AstrofiedJournals = () => {
                 className={`w-full py-2 md:py-3 px-5 md:px-6 pr-16 md:pr-20 rounded-[28px] border-[1.5px] md:border-2 outline-none transition-all text-sm md:text-base font-mulish shadow-none
                   ${isDarkMode
                     ? 'bg-[#1a1a1a] border-[#ffd700]/50 text-white placeholder-white/50 focus:border-[#ffd700]'
-                    : 'bg-white border-[#D00000]/50 text-black placeholder-black/50 focus:border-[#D00000]'
+                    : 'bg-white border-[#A30000]/50 text-black placeholder-black/50 focus:border-[#A30000]'
                   }`}
               />
-              <div className={`absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 md:gap-3 ${isDarkMode ? 'text-[#ffd700]' : 'text-[#D00000]'}`}>
+              <div className={`absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 md:gap-3 ${isDarkMode ? 'text-[#ffd700]' : 'text-[#A30000]'}`}>
                 {searchQuery && (
                   <>
                     <button
@@ -482,7 +482,7 @@ const AstrofiedJournals = () => {
                     >
                       <X size={18} className="md:w-5 md:h-5" />
                     </button>
-                    <div className={`w-px h-4 md:h-5 ${isDarkMode ? 'bg-[#ffd700]/50' : 'bg-[#D00000]/50'}`}></div>
+                    <div className={`w-px h-4 md:h-5 ${isDarkMode ? 'bg-[#ffd700]/50' : 'bg-[#A30000]/50'}`}></div>
                   </>
                 )}
                 <Search size={18} className="md:w-5 md:h-5" />
@@ -496,7 +496,7 @@ const AstrofiedJournals = () => {
                   initial={{ opacity: 0, height: 0, marginTop: 0 }}
                   animate={{ opacity: 1, height: 'auto', marginTop: 12 }}
                   exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                  className={`text-sm font-mulish font-bold overflow-hidden ${isDarkMode ? 'text-[#ffd700]' : 'text-[#D00000]'}`}
+                  className={`text-sm font-mulish font-bold overflow-hidden ${isDarkMode ? 'text-[#ffd700]' : 'text-[#A30000]'}`}
                 >
                   {filteredJournals.length} {filteredJournals.length === 1 ? 'match' : 'matches'} found
                 </motion.div>
@@ -556,7 +556,7 @@ const AstrofiedJournals = () => {
               </p>
               <button
                 onClick={() => setSessionExpired(false)}
-                className={`w-full py-3 rounded-xl font-bold transition-colors font-['Nunito'] ${isDarkMode ? 'bg-[#FFF000] text-black hover:bg-[#FFE000]' : 'bg-[#4b0082] text-white hover:bg-white hover:text-[#4b0082]'}`}
+                className={`w-full py-3 rounded-xl font-bold transition-colors font-['Nunito'] ${isDarkMode ? 'bg-[#FFF000] text-black hover:bg-[#FFE000]' : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000]'}`}
               >
                 Close
               </button>
@@ -565,10 +565,10 @@ const AstrofiedJournals = () => {
         )}
       </AnimatePresence>
 
-      <section id="journals" className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-4 md:px-6`}>
+      <section id="journals" className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
         {/* Decorative Background Orbs for Glassmorphism */}
         <div className={`absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#9d00ff]' : 'bg-[#FFE000]'}`}></div>
-        <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 ${isDarkMode ? 'bg-[#FFD700]' : 'bg-[#4b0082]'}`}></div>
+        <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 ${isDarkMode ? 'bg-[#FFD700]' : 'bg-transparent'}`}></div>
 
         <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10">
           <motion.div
@@ -597,11 +597,11 @@ const AstrofiedJournals = () => {
             <div className="relative z-10 w-full flex flex-col lg:flex-row items-center lg:items-stretch gap-8 lg:gap-12">
 
               {/* Mobile Only: Title & Text (Shown before Image) */}
-              <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2">
+              <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2 px-4">
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl nunito-custom text-center w-full overflow-hidden text-ellipsis" style={{ fontFamily: '"Nunito", sans-serif' }}>
                   {titleContent}
                 </h2>
-                <p className={`text-base md:text-lg text-justify leading-relaxed font-mulish font-normal px-4 ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
+                <p className={`text-base md:text-lg text-justify leading-relaxed font-mulish font-normal ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
                   {textContent}
                 </p>
               </div>
@@ -637,7 +637,7 @@ const AstrofiedJournals = () => {
                 <div className="flex w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] mx-auto justify-center">
                   <button
                     onClick={handleLogin}
-                    className={`w-full py-3 lg:py-4 text-base md:text-lg lg:text-xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito']
+                    className={`w-full py-3 lg:py-4 text-base md:text-lg lg:text-xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito'] journals-explore-btn
                   ${isDarkMode
                         ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
                         : 'bg-gradient-to-r from-black to-red-600 text-white shadow-none hover:opacity-90'

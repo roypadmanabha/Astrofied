@@ -46,7 +46,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
     ];
 
     return (
-        <footer id="footer" className={`py-6 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#4b0082]/10'}`}>
+        <footer id="footer" className={`py-6 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/10'}`}>
             <div className={`container mx-auto ${isJournalsPage ? 'px-2' : 'px-6'}`}>
                 <div className={`flex ${isJournalsPage ? 'flex-nowrap justify-between items-center md:items-start gap-1 md:gap-4' : 'flex-wrap justify-between gap-x-4 gap-y-12'} mb-8 md:mb-16`}>
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[20%]' : 'w-full md:w-[45%] lg:w-auto'}`}>
@@ -80,7 +80,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#E00000' : '#4b0082') }}
+                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
                         >
                             Legal
                         </h4>
@@ -109,17 +109,17 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#E00000' : '#4b0082') }}
+                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
                         >
                             Contact Details
                         </h4>
                         <div className={`flex flex-col ${isJournalsPage ? 'gap-1 md:gap-4' : 'gap-4'}`}>
                             <button onClick={() => window.location.href = 'tel:+919612736566'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0 cursor-pointer`}>
-                                <Phone className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#4b0082]')}`} />
+                                <Phone className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#A30000]')}`} />
                                 <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>+91 96127 36566</span>
                             </button>
                             <button onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0 cursor-pointer text-left`}>
-                                <Mail className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#4b0082]')}`} />
+                                <Mail className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#A30000]')}`} />
                                 <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>contact.astrofied@gmail.com</span>
                             </button>
                         </div>
@@ -134,7 +134,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full md:w-[45%] lg:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#E00000' : '#4b0082') }}
+                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
                         >
                             Address
                         </h4>
@@ -142,7 +142,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                             onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')}
                             className={`flex items-start ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors block bg-transparent border-none p-0 cursor-pointer text-left`}
                         >
-                            <MapPin className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 mt-0 shrink-0' : 'w-4 h-4 md:w-5 md:h-5 mt-1 shrink-0'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#4b0082]')}`} />
+                            <MapPin className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 mt-0 shrink-0' : 'w-4 h-4 md:w-5 md:h-5 mt-1 shrink-0'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#A30000]')}`} />
                             <address className={`not-italic ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg leading-tight' : 'text-xs md:text-sm lg:text-lg'}`}>
                                 Dakbanglow Road, near Rajarshi Hall,<br className={isJournalsPage ? "hidden md:block" : ""} />
                                 Udaipur, Gomati, Tripura - 799120
@@ -168,7 +168,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     ))}
                 </div>
 
-                <div className={`border-t ${isDarkMode ? 'border-gold/20' : 'border-[#4b0082]/20'} pt-4 md:pt-8 text-center ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm' : 'text-[10px] md:text-sm'} text-gray-500`}>
+                <div className={`border-t ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/20'} pt-4 md:pt-8 text-center ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm' : 'text-[10px] md:text-sm'} text-gray-500`}>
                     © {new Date().getFullYear()} Astrofied. All rights reserved | <span className="opacity-90">Made by Vignette</span>
                 </div>
             </div>

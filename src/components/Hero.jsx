@@ -11,7 +11,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-28 pb-12 md:pb-20 overflow-hidden">
             {/* Background elements */}
-            <div className={`absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[150px] opacity-20 ${isDarkMode ? 'bg-gold' : 'bg-[#4b0082]'}`} />
+            <div className={`absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[150px] opacity-20 ${isDarkMode ? 'bg-gold' : 'bg-transparent'}`} />
             <div className={`absolute bottom-1/4 -right-20 w-80 h-80 rounded-full blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#4b0082]' : 'bg-gold'}`} />
 
             <div className="container mx-auto px-6 relative z-10">
@@ -26,7 +26,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             style={{ color: isDarkMode ? '#F5F5F5' : '#0A0A0A' }}
                         >
                             A Deeper Understanding <br className="hidden lg:block xl:hidden" />
-                            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>of Your Life</span> Begins Here
+                            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>of Your Life</span> Begins Here
                         </motion.h1>
 
                         <motion.p
@@ -47,25 +47,25 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                         >
                             <button
                                 onClick={onOpenConsultation}
-                                className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer border border-transparent ${isDarkMode
-                                    ? 'bg-gold text-black hover:bg-white hover:text-black shadow-gold/20'
-                                    : 'bg-[#4b0082] text-white hover:bg-transparent hover:text-[#4b0082] hover:border-[#4b0082] shadow-[#4b0082]/30'
+                                className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg hover:scale-105 active:scale-95 cursor-pointer shadow-xl ${isDarkMode
+                                    ? 'bg-gold text-black hover:bg-white hover:text-black shadow-gold/20 border border-transparent transition-all'
+                                    : 'consultation-btn-light shadow-[#A30000]/30'
                                     }`}
                             >
-                                Book a Consultation
+                                <span>Book a Consultation</span>
                             </button>
                              <button
-                                onClick={() => {
-                                    new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3').play().catch(e => console.log('Audio play blocked'));
-                                    setIsDetailsModalOpen(true);
-                                }}
-                                className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg transition-all border glass hover:scale-105 active:scale-95 cursor-pointer ${isDarkMode
-                                    ? 'border-gold/30 text-gold hover:border-gold shadow-gold/5'
-                                    : 'border-[#4b0082] text-[#4b0082] hover:bg-[#4b0082]! hover:text-[#fef08a]! shadow-[#4b0082]/5'
-                                    }`}
-                            >
-                                Explore Astrofied
-                            </button>
+                                 onClick={() => {
+                                     new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3').play().catch(e => console.log('Audio play blocked'));
+                                     setIsDetailsModalOpen(true);
+                                 }}
+                                 className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg hover:scale-105 active:scale-95 cursor-pointer ${isDarkMode
+                                     ? 'border border-gold/30 text-gold hover:border-gold shadow-gold/5 glass'
+                                     : 'explore-btn-light shadow-[#A30000]/5'
+                                     }`}
+                             >
+                                 <span>Explore Astrofied</span>
+                             </button>
                         </motion.div>
                     </div>
 
@@ -107,11 +107,11 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                     initial={{ opacity: 0, x: 30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.5 }}
-                                    className={`absolute right-4 lg:right-4 xl:right-6 top-[42%] md:top-[45%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4b0082]/20'
+                                    className={`absolute right-4 lg:right-4 xl:right-6 top-[42%] md:top-[45%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/20'
                                         }`}
                                 >
                                     <div className="flex flex-col">
-                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>5 Thousand+</span>
+                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>5 Thousand+</span>
                                         <span className="text-xs opacity-70">Consultations</span>
                                     </div>
                                 </motion.div>
@@ -120,11 +120,11 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                     initial={{ opacity: 0, x: -30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.7 }}
-                                    className={`absolute left-0 md:left-4 top-[55%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4b0082]/20'
+                                    className={`absolute left-0 md:left-4 top-[55%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/20'
                                         }`}
-                                >
+                                 >
                                     <div className="flex flex-col">
-                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>7+ Years</span>
+                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>7+ Years</span>
                                         <span className="text-xs opacity-70">of Experience</span>
                                     </div>
                                 </motion.div>
@@ -133,11 +133,11 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.9 }}
-                                    className={`absolute -right-2 md:-right-8 lg:-right-10 xl:-right-16 bottom-[18%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#4b0082]/20'
+                                    className={`absolute -right-2 md:-right-8 lg:-right-10 xl:-right-16 bottom-[18%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/20'
                                         }`}
-                                >
+                                 >
                                     <div className="flex flex-col">
-                                        <span className={`text-lg md:text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>100%</span>
+                                        <span className={`text-lg md:text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>100%</span>
                                         <span className="text-[10px] md:text-xs opacity-70">Accuracy</span>
                                     </div>
                                 </motion.div>
@@ -150,7 +150,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                 transition={{ delay: 1.2 }}
                                 className={`relative -mt-10 md:-mt-12 z-30 w-full px-4 md:px-10 py-3.5 md:py-4 rounded-2xl md:rounded-full border glass backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex justify-center items-center ${isDarkMode 
                                     ? 'border-gold/30 text-gold shadow-gold/20' 
-                                    : 'border-[#4b0082]/30 text-[#4b0082] shadow-[#4b0082]/20'
+                                    : 'border-[#A30000]/30 text-[#A30000] shadow-[#A30000]/20'
                                     }`}
                             >
                                 <span className="text-[9px] sm:text-[10px] md:text-sm font-black tracking-[0.1em] sm:tracking-[0.2em] uppercase font-mulish text-center leading-tight">

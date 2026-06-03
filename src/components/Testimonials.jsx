@@ -70,13 +70,13 @@ export default function Testimonials() {
             className={`group relative flex flex-col gap-4 px-6 py-6 sm:px-8 sm:py-8 rounded-[2rem] border backdrop-blur-xl transition-all duration-500 min-w-[300px] sm:min-w-[380px] md:min-w-[450px] shrink-0 whitespace-normal
                 ${isDarkMode
                     ? 'border-gold/20 !bg-gradient-to-br from-black via-[#08002e] to-black text-white shadow-[0_0_20px_rgba(8,0,46,0.5)]'
-                    : 'glass border-[#4b0082]/20 bg-white/40 text-black'}
+                    : 'glass border-[#A30000]/20 !bg-[#fbf2cb] text-black'}
             `}
         >
-            <Quote className={`absolute top-6 right-8 w-8 h-8 hidden md:block opacity-100 ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`} />
+            <Quote className={`absolute top-6 right-8 w-8 h-8 hidden md:block opacity-100 ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`} />
 
             <div className="flex items-center gap-4">
-                <div className={`relative p-[2px] rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#4b0082]'}`}>
+                <div className={`relative p-[2px] rounded-full ${isDarkMode ? 'bg-gold' : 'bg-[#591000]'}`}>
                     <img
                         src={t.img}
                         alt={t.name}
@@ -86,12 +86,18 @@ export default function Testimonials() {
                     />
                 </div>
                 <div className="flex flex-col">
-                    <span className={`font-bold text-base md:text-lg font-mulish tracking-tight transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}>
+                    <span className={`font-bold text-base md:text-lg font-mulish tracking-tight transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-black'}`}>
                         {t.name}
                     </span>
                     <div className="flex gap-0.5 mt-1">
                         {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-3 h-3 md:w-4 md:h-4 fill-gold text-gold" />
+                            <Star 
+                                key={i} 
+                                className="w-3 h-3 md:w-4 md:h-4" 
+                                fill={isDarkMode ? '#ffd700' : '#FFEA00'}
+                                stroke={isDarkMode ? '#ffd700' : '#5C4033'}
+                                strokeWidth={isDarkMode ? 1.5 : 1}
+                            />
                         ))}
                     </div>
                 </div>
@@ -109,11 +115,11 @@ export default function Testimonials() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="text-center md:text-left">
                         <h2
-                            className={`text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-4 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}
+                            className={`text-3xl md:text-5xl lg:text-7xl font-black font-mulish tracking-tight mb-4 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}
                         >
-                            Voices of <span className={isDarkMode ? 'text-white' : 'text-[#4b0082]'}>Trust</span>
+                            Voices of <span className={isDarkMode ? 'text-white' : 'text-black'}>Trust</span>
                         </h2>
-                        <p className={`text-sm md:text-xl opacity-70 font-mulish ml-1 md:ml-1.5 ${isDarkMode ? 'text-gray-400' : 'text-[#4b0082]'}`}>
+                        <p className={`text-sm md:text-xl opacity-70 font-mulish ml-1 md:ml-1.5 ${isDarkMode ? 'text-gray-400' : 'text-black'}`}>
                             Hear from our clients who found clarity.
                         </p>
                     </div>
@@ -123,10 +129,10 @@ export default function Testimonials() {
                         <button
                             onClick={() => scroll('left')}
                             disabled={!canScrollLeft}
-                            className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg
+                            className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg testimonial-nav-btn
                                 ${isDarkMode 
                                     ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black hover:scale-105 active:scale-95' 
-                                    : 'border-[#4b0082]/20 text-purple-100 bg-[#4b0082] hover:bg-purple-100 hover:text-[#4b0082] hover:scale-105 active:scale-95'}
+                                    : 'border-[#A30000] text-white bg-[#A30000] hover:bg-white hover:text-[#A30000] hover:scale-105 active:scale-95'}
                             `}
                         >
                             <ChevronLeft size={24} strokeWidth={3} />
@@ -134,10 +140,10 @@ export default function Testimonials() {
                         <button
                             onClick={() => scroll('right')}
                             disabled={!canScrollRight}
-                            className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg
+                            className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg testimonial-nav-btn
                                 ${isDarkMode 
                                     ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black hover:scale-105 active:scale-95' 
-                                    : 'border-[#4b0082]/20 text-purple-100 bg-[#4b0082] hover:bg-purple-100 hover:text-[#4b0082] hover:scale-105 active:scale-95'}
+                                    : 'border-[#A30000] text-white bg-[#A30000] hover:bg-white hover:text-[#A30000] hover:scale-105 active:scale-95'}
                             `}
                         >
                             <ChevronRight size={24} strokeWidth={3} />
@@ -167,7 +173,7 @@ export default function Testimonials() {
                     className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
                         ${isDarkMode 
                             ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black active:scale-90' 
-                            : 'border-[#4b0082]/20 text-purple-100 bg-[#4b0082] hover:bg-purple-100 hover:text-[#4b0082] active:scale-90'}
+                            : 'border-[#591000]/20 text-purple-100 bg-[#591000] hover:bg-purple-100 hover:text-[#591000] active:scale-90'}
                     `}
                 >
                     <ChevronLeft size={20} strokeWidth={4} />
@@ -178,7 +184,7 @@ export default function Testimonials() {
                     className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
                         ${isDarkMode 
                             ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black active:scale-90' 
-                            : 'border-[#4b0082]/20 text-purple-100 bg-[#4b0082] hover:bg-purple-100 hover:text-[#4b0082] active:scale-90'}
+                            : 'border-[#591000]/20 text-purple-100 bg-[#591000] hover:bg-purple-100 hover:text-[#591000] active:scale-90'}
                     `}
                 >
                     <ChevronRight size={20} strokeWidth={4} />

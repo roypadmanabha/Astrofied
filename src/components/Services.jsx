@@ -11,7 +11,7 @@ const services = [
         price: '₹ 8915',
         duration: '40 Min',
         icon: Briefcase,
-        color: 'bg-purple-100 text-[#4b0082]',
+        color: 'bg-purple-100 text-[#A30000]',
     },
     {
         id: 2,
@@ -130,7 +130,7 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
             <div className="absolute top-0 left-0 w-16 h-16 md:w-25 md:h-20 pointer-events-none z-20">
                 <div className={`absolute top-0 left-0 w-[160%] h-5 md:h-7 shadow-xl transform -rotate-45 -translate-x-[35%] translate-y-[32%] flex items-center justify-center border-y border-white/30 overflow-hidden ${isDarkMode
                     ? 'bg-gradient-to-r from-[#B8860B] via-[#ffd700] to-[#B8860B]'
-                    : 'bg-gradient-to-r from-[#4b0082] via-[#6A0DAD] to-[#4b0082]'
+                    : 'bg-gradient-to-r from-[#990000] via-[#FF2400] to-[#990000]'
                     }`}>
                     {/* Glossy Shine Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
@@ -167,7 +167,7 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
             {isMobile && !isExpanded && (
                 <button
                     onClick={() => setIsExpanded(true)}
-                    className={`text-[10px] font-bold mb-4 ${isDarkMode ? 'text-gold' : 'text-[#4b0082]'}`}
+                    className={`text-[10px] font-bold mb-4 ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}
                 >
                     Read More
                 </button>
@@ -201,7 +201,7 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className={`text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#4b0082]'}`}
+                    className={`text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}
                 >
                     What We Cover
                 </motion.h2>
