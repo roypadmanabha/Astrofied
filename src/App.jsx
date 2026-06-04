@@ -17,6 +17,7 @@ import Numerology from './components/Numerology';
 import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
+import Panchang from './components/Panchang';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -440,6 +441,8 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
       {/* Feedback Section */}
       <Feedback />
+
+      <Panchang />
 
       {/* Promo Video Section */}
       <PromoVideo />

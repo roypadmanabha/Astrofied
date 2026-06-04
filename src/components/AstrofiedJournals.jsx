@@ -566,15 +566,13 @@ const AstrofiedJournals = () => {
       </AnimatePresence>
 
       <section id="journals" className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
-        {/* Decorative Background Orbs for Glassmorphism */}
-        <div className={`absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#9d00ff]' : 'bg-[#FFE000]'}`}></div>
-        <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 ${isDarkMode ? 'bg-[#FFD700]' : 'bg-transparent'}`}></div>
+        {/* Decorative Background Orbs for Glassmorphism (Hidden in Light Mode) */}
+        <div className={`${isDarkMode ? 'block' : 'hidden'} absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 bg-[#9d00ff]`}></div>
+        <div className={`${isDarkMode ? 'block' : 'hidden'} absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 bg-[#FFD700]`}></div>
 
         <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10">
           <motion.div
-            className={`relative overflow-hidden flex flex-col lg:flex-row w-full gap-8 lg:gap-12 items-center lg:items-stretch p-6 md:p-10 lg:p-12 rounded-[30px] border shadow-2xl backdrop-blur-xl
-            ${isDarkMode ? 'bg-white/5 border-white/10 shadow-black/50' : 'bg-white/40 border-white/40 shadow-gray-200/50'}
-          `}
+            className={`relative overflow-hidden flex flex-col lg:flex-row w-full gap-8 lg:gap-12 items-center lg:items-stretch p-6 md:p-10 lg:p-12 rounded-[30px] bg-transparent ${isDarkMode ? 'border border-white' : 'border-none'} shadow-none`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -583,7 +581,7 @@ const AstrofiedJournals = () => {
             {/* Sketch Background Layer (Simulated Chroma Key via Mix-Blend) */}
             <div
               className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-500
-              ${isDarkMode ? 'mix-blend-screen invert opacity-10' : 'mix-blend-multiply opacity-20'}
+              ${isDarkMode ? 'hidden' : 'mix-blend-multiply opacity-20'}
             `}
               style={{
                 backgroundImage: `url(${journalBg})`,

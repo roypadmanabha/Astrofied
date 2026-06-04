@@ -46,10 +46,10 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
     ];
 
     return (
-        <footer id="footer" className={`py-6 md:py-24 glass border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/10'}`}>
+        <footer id="footer" className={`py-8 md:py-12 ${isDarkMode ? 'bg-black' : 'bg-[#f5f5dd]'} border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/10'}`}>
             <div className={`container mx-auto ${isJournalsPage ? 'px-2' : 'px-6'}`}>
-                <div className={`flex ${isJournalsPage ? 'flex-nowrap justify-between items-center md:items-start gap-1 md:gap-4' : 'flex-wrap justify-between gap-x-4 gap-y-12'} mb-8 md:mb-16`}>
-                    <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[20%]' : 'w-full md:w-[45%] lg:w-auto'}`}>
+                <div className={`${isJournalsPage ? 'flex flex-nowrap justify-between items-center md:items-start gap-1 md:gap-4' : 'grid grid-cols-1 sm:grid-cols-2 xl:flex xl:flex-row xl:justify-between gap-8 xl:gap-4'} mb-8 md:mb-10`}>
+                    <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[20%]' : 'w-full xl:w-auto'}`}>
                         <div className={`flex ${isJournalsPage ? 'flex-col md:flex-row' : ''} items-center gap-0`}>
                             <img
                                 src={logo}
@@ -72,12 +72,12 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
 
                     {/* Divider */}
                     <div
-                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-30' : 'hidden lg:block h-30'} w-[1px] self-center transition-colors duration-300`}
+                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-24' : 'hidden xl:block h-24'} w-[1px] self-center transition-colors duration-300`}
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
                     {/* Legal Links Column */}
-                    <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
+                    <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto' : 'w-full xl:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
                             style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
@@ -102,11 +102,11 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
 
                     {/* Divider */}
                     <div
-                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-30' : 'hidden lg:block h-30'} w-[1px] self-center transition-colors duration-300`}
+                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-24' : 'hidden xl:block h-24'} w-[1px] self-center transition-colors duration-300`}
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
-                    <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full min-[450px]:w-[45%] lg:w-auto'}`}>
+                    <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full xl:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
                             style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
@@ -127,11 +127,11 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
 
                     {/* Divider */}
                     <div
-                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-30' : 'hidden lg:block h-30'} w-[1px] self-center transition-colors duration-300`}
+                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-24' : 'hidden xl:block h-24'} w-[1px] self-center transition-colors duration-300`}
                         style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
                     />
 
-                    <div className={`flex flex-col gap-1 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full md:w-[45%] lg:w-auto'}`}>
+                    <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full xl:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
                             style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
@@ -152,7 +152,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
 
                 </div>
 
-                <div className={`flex justify-center ${isJournalsPage ? 'gap-6 sm:gap-8 md:gap-16 mb-4 md:mb-16' : 'gap-12 md:gap-16 mb-6 md:mb-16'}`}>
+                <div className={`flex justify-center ${isJournalsPage ? 'gap-6 sm:gap-8 md:gap-16 mb-4 md:mb-8' : 'gap-12 md:gap-16 mb-6 md:mb-10'}`}>
                     {socialLinks.map((social, index) => (
                         <motion.button
                             key={index}

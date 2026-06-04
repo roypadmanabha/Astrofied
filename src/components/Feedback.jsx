@@ -663,6 +663,9 @@ export default function Feedback() {
                                     {status === 'loading' ? 'Processing...' : 'Send Feedback'}
                                     {status !== 'loading' && <Send className="w-5 h-5" />}
                                 </motion.button>
+                                <p className={`text-[10px] text-center mt-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                                    Note: This form is exclusively for clients who have already consulted with Astrofied. It is not a general feedback form.
+                                </p>
                             </form>
                         ) : (
                             <motion.form

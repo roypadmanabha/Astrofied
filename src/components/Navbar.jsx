@@ -57,7 +57,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '-100%' }}
                         transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                        className={`fixed inset-0 z-[100] flex flex-col items-start justify-start pt-32 gap-0 md:hidden overflow-y-auto px-8 ${
+                        className={`fixed inset-0 z-[100] flex flex-col items-start justify-start pt-32 gap-0 lg:hidden overflow-y-auto px-8 ${
                             isDarkMode 
                                 ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-r border-gold/10' 
                                 : 'bg-[#f5f5dd] border-r border-[#A30000]/10'
@@ -147,7 +147,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                 {/* Left Section: Hamburger (Mobile) + Logo (All) */}
                 <div className="flex items-center gap-2 md:gap-0">
                     {/* Mobile Menu Toggle (Left on mobile, Hidden on desktop) */}
-                    <div className="md:hidden">
+                    <div className="lg:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="flex flex-col justify-center items-center w-10 h-10 gap-1 focus:outline-none transition-all duration-300 bg-transparent border-none"
@@ -195,7 +195,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                 {/* Right Section: Desktop Links + Toggle (Desktop) / Toggle only (Mobile) */}
                 <div className="flex items-center gap-8">
                     {/* Desktop Links */}
-                    <div className="hidden md:flex items-center gap-8">
+                    <div className="hidden lg:flex items-center gap-8">
                         {desktopNavLinks.map((link) => (
                             <motion.button
                                 key={link.name}
@@ -224,7 +224,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         whileHover={{ scale: 1.1, rotate: 15 }}
                         whileTap={{ scale: 0.9 }}
                         className={`p-1.5 transition-all duration-300 bg-transparent border-none ${
-                            isDarkMode ? 'text-gold' : 'text-[#FF0000]'
+                            isDarkMode ? 'text-gold' : 'text-[#491000]'
                         }`}
                     >
                         {isDarkMode ? <Sun size={18} strokeWidth={2.5} /> : <Moon size={18} strokeWidth={2.5} />}

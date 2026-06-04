@@ -3,6 +3,7 @@ const axios = require('axios');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
+const { calculatePanchang } = require('./panchang-engine.cjs');
 
 const app = express();
 
@@ -117,6 +118,17 @@ app.post('/api/kundali', async (req, res) => {
             error: prokeralaError,
             details: error.response?.data
         });
+    }
+});
+
+app.get('/api/panchang', async (req, res) => {
+    try {
+        const dateStr = req.query.date || new Date().toISOString();
+        const panchangData = await calculatePanchang(dateStr);
+        res.json(panchangData);
+    } catch (error) {
+        console.error('PANCHANG API ERROR:', error);
+        res.status(500).json({ error: 'Failed to calculate Panchang data.' });
     }
 });
 

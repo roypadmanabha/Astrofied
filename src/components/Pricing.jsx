@@ -60,7 +60,7 @@ const Pricing = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           {pricingData.map((item, idx) => (
             <motion.div
               key={item.id}
@@ -126,7 +126,7 @@ const Pricing = () => {
                   </p>
                 </div>
 
-                <div className={`flex items-center justify-between mt-auto p-3 sm:p-6 rounded-[24px] border ${
+                <div className={`flex flex-wrap items-center justify-between gap-4 mt-auto p-4 md:p-6 rounded-[24px] border ${
                   isDarkMode 
                     ? 'backdrop-blur-xl bg-white/5 border-[0.5px] border-white transition-colors duration-500' 
                     : 'bg-[#f5f5dd] border-black/[0.05]'
@@ -136,7 +136,7 @@ const Pricing = () => {
                       isDarkMode ? 'text-gold' : 'text-[#A30000]'
                     }`}>Price</span>
                     <div className="flex items-baseline gap-1">
-                      <span className={`text-sm font-bold ${isDarkMode ? 'text-white/50' : 'text-gray-400'}`}>₹</span>
+                      <span className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>₹</span>
                       <span className={`text-xl sm:text-3xl font-bold ${
                         isDarkMode ? 'text-white' : 'text-gray-900'
                       }`}>
@@ -145,11 +145,11 @@ const Pricing = () => {
                     </div>
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.05, x: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
-                    className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${
+                    <motion.button
+                      whileHover={{ scale: 1.05, x: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
+                      className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-3 xl:px-8 xl:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${
                       isDarkMode
                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                         : 'bg-[#A30000] text-white hover:bg-black shadow-[#991600]/20'

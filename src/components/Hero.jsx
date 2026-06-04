@@ -15,9 +15,9 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
             <div className={`absolute bottom-1/4 -right-20 w-80 h-80 rounded-full blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#4b0082]' : 'bg-gold'}`} />
 
             <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
+                <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8">
                     {/* Left Content */}
-                    <div className="w-full lg:w-1/2 text-center lg:text-left order-1 z-20">
+                    <div className="w-full xl:w-1/2 text-center xl:text-left order-1 z-20">
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -33,7 +33,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className={`text-lg md:text-xl max-w-xl mb-12 opacity-80 font-mulish leading-relaxed text-justify lg:text-left ${isDarkMode ? 'text-gray-300' : 'text-black'
+                            className={`text-lg md:text-xl max-w-xl mb-12 opacity-80 font-mulish leading-relaxed text-justify xl:text-left ${isDarkMode ? 'text-gray-300' : 'text-black'
                                 }`}
                         >
                             Refined Vedic insights designed to guide your decisions with clarity, confidence, and purpose through the ancient wisdom of the cosmos.
@@ -43,7 +43,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.3 }}
-                            className="flex flex-row items-center gap-2 sm:gap-6 justify-center lg:justify-start"
+                            className="flex flex-row items-center gap-2 sm:gap-6 justify-center xl:justify-start"
                         >
                             <button
                                 onClick={onOpenConsultation}
@@ -70,7 +70,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                     </div>
 
                     {/* Right Image Segment */}
-                    <div className="w-full lg:w-1/2 relative flex justify-center items-center order-2 mt-12 lg:mt-0">
+                    <div className="w-full xl:w-1/2 relative flex justify-center items-center order-2 mt-12 xl:mt-0">
                         {/* Background Rotating Wheel */}
                         <motion.img
                             src={zodiacBg}

@@ -201,8 +201,21 @@ const Numerology = () => {
                             className={`rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col shadow-xl relative overflow-hidden transition-all duration-500 ${isDarkMode ? 'bg-transparent border border-[#ffd700]' : 'bg-gradient-to-b from-[#ffde59] to-[#ff914d] border border-[#A30000]'}`}
                         >
                             {/* Card Header */}
-                            <h3 className={`text-[15px] sm:text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                {card.titlePrefix}<span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#FF0000]'}>{card.titleSuffix}</span>
+                            <h3 className={`text-[14px] sm:text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                                {card.key === 'attitude' ? (
+                                    <>
+                                        <span className="lg:hidden xl:inline whitespace-pre">
+                                            {card.titlePrefix}<span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#FF0000]'}>{card.titleSuffix}</span>
+                                        </span>
+                                        <span className="hidden lg:inline xl:hidden">
+                                            Attitude
+                                        </span>
+                                    </>
+                                ) : (
+                                    <>
+                                        {card.titlePrefix}<span className={isDarkMode ? 'text-[#ffd700]' : 'text-[#FF0000]'}>{card.titleSuffix}</span>
+                                    </>
+                                )}
                             </h3>
 
                             {/* Result Number */}
@@ -228,7 +241,7 @@ const Numerology = () => {
                             </AnimatePresence>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-2xl p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 h-[75px] sm:h-[110px] md:h-[140px] flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#ffd700]' : 'text-white bg-black border border-black'}`}>
+                            <div className={`rounded-2xl p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 flex-1 flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border border-[#ffd700]' : 'text-white bg-black border border-black'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             
