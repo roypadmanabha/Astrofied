@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { House, LogOut, Search, X, AlertCircle, Play } from 'lucide-react';
+import { House, LogOut, Search, X, AlertCircle, Play, Pause } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journal-hero-new.jpg';
@@ -125,88 +125,58 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
 
 const JournalsPromo = () => {
   const videoRef = useRef(null);
-  const [showPlayButton, setShowPlayButton] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  useEffect(() => {
+  const togglePlay = () => {
     if (!videoRef.current) return;
-
-    videoRef.current.volume = 1.0;
-
-    const attemptPlay = () => {
-      const playPromise = videoRef.current?.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setShowPlayButton(false);
-            removeListeners();
-          })
-          .catch(err => {
-            console.log("Autoplay prevented:", err);
-            setShowPlayButton(true);
-          });
-      }
-    };
-
-    const handleInteraction = () => {
-      attemptPlay();
-    };
-
-    const removeListeners = () => {
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('keydown', handleInteraction);
-      document.removeEventListener('touchstart', handleInteraction);
-    };
-
-    // Try playing immediately
-    attemptPlay();
-
-    // Set up listeners in case the browser blocked immediate autoplay
-    document.addEventListener('click', handleInteraction);
-    document.addEventListener('keydown', handleInteraction);
-    document.addEventListener('touchstart', handleInteraction);
-
-    return () => {
-      removeListeners();
-    };
-  }, []);
-
-  const handlePlayClick = (e) => {
-    e.stopPropagation(); // Prevent triggering interaction listeners recursively
-    if (videoRef.current) {
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
       videoRef.current.play();
-      setShowPlayButton(false);
+      setIsPlaying(true);
     }
   };
 
   const handleEnded = () => {
-    setShowPlayButton(true);
+    setIsPlaying(false);
   };
 
   return (
     <div className="w-full max-w-xl md:max-w-2xl mx-auto mb-12 px-4">
       <div 
-        className="relative w-full rounded-[20px] overflow-hidden border border-[#A30000] shadow-lg bg-black"
+        className="relative w-full rounded-[20px] overflow-hidden border border-[#A30000] shadow-lg bg-black cursor-pointer group"
         onContextMenu={(e) => e.preventDefault()}
+        onClick={togglePlay}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <video
           ref={videoRef}
           src={journalsPromoVideo}
           className="w-full h-auto block pointer-events-none rounded-[20px]"
-          autoPlay
           playsInline
           preload="metadata"
           onEnded={handleEnded}
         />
-        {showPlayButton && (
-          <button
-            onClick={handlePlayClick}
-            className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition-colors cursor-pointer"
-            aria-label="Play video"
-          >
+        
+        {/* Play Button Overlay (when paused) */}
+        {!isPlaying && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition-colors">
             <div className="bg-[#A30000] text-white p-3 md:p-4 rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 flex items-center justify-center">
               <Play className="w-6 h-6 md:w-8 md:h-8 fill-current ml-0.5 md:ml-1" />
             </div>
-          </button>
+          </div>
+        )}
+
+        {/* Pause Button Overlay (on hover when playing) */}
+        {isPlaying && isHovered && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors">
+            <div className="bg-[#A30000] text-white p-3 md:p-4 rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 flex items-center justify-center">
+              <Pause className="w-6 h-6 md:w-8 md:h-8 fill-current" />
+            </div>
+          </div>
         )}
       </div>
     </div>
