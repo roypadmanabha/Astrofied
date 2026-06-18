@@ -16,8 +16,8 @@ import malMaasImg from '../assets/journals/mal-maas.jpg';
 import jupiterImg from '../assets/journals/jupiter-cancer.jpg';
 import saturnImg from '../assets/journals/saturn-revati.jpg';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://tbavyzcyjkkxnhctkiwo.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRiYXZ5emN5amtreG5oY3RraXdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjg5ODgsImV4cCI6MjA5MzY0NDk4OH0.a0cMgX9qDRzOKujWkVpzau0b-frV6tPCZeyvAYJ9hbc';
 
 let supabase;
 try {

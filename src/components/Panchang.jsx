@@ -17,7 +17,7 @@ const formatTime = (timeDiff) => {
 class PanchangAPI {
   static async fetchCurrentData() {
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://astrofied-production.up.railway.app';
       const response = await fetch(`${apiUrl}/api/panchang?date=${new Date().toISOString()}`);
       if (!response.ok) throw new Error('Failed to fetch panchang');
       return await response.json();
@@ -46,7 +46,7 @@ export default function Panchang() {
   if (!data) return null;
 
   return (
-    <section className={`py-24 relative overflow-hidden ${isDarkMode ? 'text-white bg-transparent' : 'bg-white text-black'}`}>
+    <section id="panchang" className={`py-24 relative overflow-hidden ${isDarkMode ? 'text-white bg-transparent' : 'bg-white text-black'}`}>
 
 
 
