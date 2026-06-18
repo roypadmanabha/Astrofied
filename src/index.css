@@ -182,7 +182,7 @@ body.light {
   border: 1px solid rgba(75, 0, 130, 0.2);
 }
 
-/* Custom Scrollbar (Dark Mode Default) */
+/* Custom Scrollbar — Dark Mode (default) */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -196,7 +196,7 @@ body.light {
   border-radius: 4px;
 }
 
-/* Light Mode Scrollbar Override */
+/* Custom Scrollbar — Light Mode Override */
 .light ::-webkit-scrollbar-track,
 .light::-webkit-scrollbar-track {
   background: #F5F5DC;
@@ -204,7 +204,7 @@ body.light {
 
 .light ::-webkit-scrollbar-thumb,
 .light::-webkit-scrollbar-thumb {
-  background: #591000;
+  background: #DC143C;
   border-radius: 4px;
 }
 
