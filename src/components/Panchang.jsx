@@ -43,7 +43,7 @@ function getSiderealLon(body, date) {
   if (body === 'Sun') {
     lon = Astronomy.SunPosition(date).elon;
   } else {
-    const eq = Astronomy.Equator(body, date, Astronomy.MakeObserver(0, 0, 0), true, true);
+    const eq = Astronomy.Equator(body, date, new Astronomy.Observer(0, 0, 0), true, true);
     const ecl = Astronomy.Ecliptic(eq.vec);
     lon = ecl.elon;
   }
@@ -82,7 +82,7 @@ function getKaranaName(idx) {
   return repeating[(idx - 1) % 7];
 }
 
-// ── Main client-side calculator ──
+// ── Main client-side calculator — fast part (instant) ──
 function calculateClientPanchang() {
   const now = new Date();
   const sunLon = getSiderealLon('Sun', now);
@@ -96,11 +96,6 @@ function calculateClientPanchang() {
   const karanaIdx = Math.floor(diff / 6);
   const moonSignIdx = Math.floor(moonLon / 30);
   const sunSignIdx = Math.floor(sunLon / 30);
-
-  const getDiff = (d) => { const s = getSiderealLon('Sun', d); const m = getSiderealLon('Moon', d); return (m - s + 360) % 360; };
-  const getSum = (d) => { const s = getSiderealLon('Sun', d); const m = getSiderealLon('Moon', d); return (m + s) % 360; };
-  const getMoon = (d) => getSiderealLon('Moon', d);
-  const getSun = (d) => getSiderealLon('Sun', d);
 
   // Panchak status
   let panchakStatus;
@@ -126,6 +121,8 @@ function calculateClientPanchang() {
     bhadraStatus = `in ${Math.max(1, Math.round(karanasAway * 0.5))} days`;
   }
 
+  // Approximate countdowns (fast estimate, no heavy stepping)
+  const approxNow = now.getTime();
   return {
     tithi: TITHI_NAMES[tithiIdx],
     nakshatra: NAKSHATRA_NAMES[nakshatraIdx],
@@ -136,12 +133,12 @@ function calculateClientPanchang() {
     sunSign: RASHI_NAMES[sunSignIdx],
     paksha: tithiIdx < 15 ? "Shukla Paksha" : "Krishna Paksha",
     countdowns: {
-      tithi: findNextBoundary(now, 12, getDiff, 48),
-      nakshatra: findNextBoundary(now, 360 / 27, getMoon, 48),
-      yoga: findNextBoundary(now, 360 / 27, getSum, 48),
-      moon: findNextBoundary(now, 30, getMoon, 72),
-      sun: findNextBoundary(now, 30, getSun, 768),
-      karana: findNextBoundary(now, 6, getDiff, 24)
+      tithi: approxNow + 12 * 3600 * 1000,
+      nakshatra: approxNow + 24 * 3600 * 1000,
+      yoga: approxNow + 13 * 3600 * 1000,
+      moon: approxNow + 2.5 * 24 * 3600 * 1000,
+      sun: approxNow + 30 * 24 * 3600 * 1000,
+      karana: approxNow + 6 * 3600 * 1000
     },
     muhurtas: {
       sunrise: "05:40 AM",
@@ -159,6 +156,29 @@ function calculateClientPanchang() {
     lunarMonth: LUNAR_MONTHS[(sunSignIdx + 1) % 12],
     samvatsara: SAMVATSARAS[(now.getFullYear() - 1987 + 60) % 60]
   };
+}
+
+// ── Deferred countdown refinement (runs after initial render) ──
+function computeAccurateCountdowns() {
+  try {
+    const now = new Date();
+    const getDiff = (d) => { const s = getSiderealLon('Sun', d); const m = getSiderealLon('Moon', d); return (m - s + 360) % 360; };
+    const getSum = (d) => { const s = getSiderealLon('Sun', d); const m = getSiderealLon('Moon', d); return (m + s) % 360; };
+    const getMoon = (d) => getSiderealLon('Moon', d);
+    const getSun = (d) => getSiderealLon('Sun', d);
+
+    return {
+      tithi: findNextBoundary(now, 12, getDiff, 48),
+      nakshatra: findNextBoundary(now, 360 / 27, getMoon, 48),
+      yoga: findNextBoundary(now, 360 / 27, getSum, 48),
+      moon: findNextBoundary(now, 30, getMoon, 72),
+      sun: findNextBoundary(now, 30, getSun, 120),
+      karana: findNextBoundary(now, 6, getDiff, 24)
+    };
+  } catch (e) {
+    console.error('Failed to compute accurate countdowns:', e);
+    return null;
+  }
 }
 
 // Real API Layer fetching from Node.js Swiss Ephemeris engine
@@ -187,7 +207,22 @@ export default function Panchang() {
       if (res) {
         setData(res);
       } else {
-        setData(calculateClientPanchang());
+        try {
+          setData(calculateClientPanchang());
+          // Defer heavy countdown computation so UI renders instantly
+          setTimeout(() => {
+            try {
+              const countdowns = computeAccurateCountdowns();
+              if (countdowns) {
+                setData(prev => prev ? { ...prev, countdowns } : prev);
+              }
+            } catch (e) {
+              console.error('Deferred countdown error:', e);
+            }
+          }, 100);
+        } catch (e) {
+          console.error('Client panchang calculation failed:', e);
+        }
       }
     });
 
@@ -202,7 +237,14 @@ export default function Panchang() {
         if (res) {
           setData(res);
         } else {
-          setData(calculateClientPanchang());
+          try {
+            const fresh = calculateClientPanchang();
+            const countdowns = computeAccurateCountdowns();
+            if (countdowns) fresh.countdowns = countdowns;
+            setData(fresh);
+          } catch (e) {
+            console.error('Recalculation error:', e);
+          }
         }
       });
     }, 5 * 60 * 1000);
