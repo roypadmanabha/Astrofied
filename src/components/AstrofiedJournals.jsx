@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { House, LogOut, Search, X, AlertCircle, Play, Pause, Loader2, ShieldAlert } from 'lucide-react';
+import { House, LogOut, Search, X, AlertCircle, Play, Pause } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journal-hero-new.jpg';
@@ -8,8 +8,6 @@ import journalBg from '../assets/journal-bg.jpg';
 import logo from '../assets/logo.png';
 import Footer from './Footer';
 import journalsPromoVideo from '../assets/astrofied_journals_promo.mp4';
-import { useBlobVideo } from '../lib/useBlobVideo';
-import ProtectedImage from './ProtectedImage';
 
 import houseSeriesImg from '../assets/journals/house-series.png';
 import planetSeriesImg from '../assets/journals/planet-series.jpg';
@@ -75,14 +73,17 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
           <h2 className="text-[14px] sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#A30000] mb-2 sm:mb-4 md:mb-8 text-center leading-tight" style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
             <HighlightText text={journal.title} highlight={searchQuery} />
           </h2>
-          <ProtectedImage
-            src={getJournalImage(journal.title, journal.image_url) || journalsCollage} 
-            alt={journal.title} 
-            className="w-full h-full object-cover" 
-            loading="lazy"
-            wrapperClassName="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#ffd700] bg-white"
-            wrapperStyle={{ maxWidth: '923px', aspectRatio: '923/1024' }}
-          />
+          <div
+            className="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#ffd700] bg-white"
+            style={{ maxWidth: '923px', aspectRatio: '923/1024' }}
+          >
+            <img 
+              src={getJournalImage(journal.title, journal.image_url) || journalsCollage} 
+              alt={journal.title} 
+              className="w-full h-full object-cover" 
+              loading="lazy"
+            />
+          </div>
         </div>
 
         {/* Divider line (Always visible) */}
@@ -126,10 +127,8 @@ const JournalsPromo = () => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const { blobUrl, progress, isLoading } = useBlobVideo(journalsPromoVideo);
 
   const togglePlay = () => {
-    if (isLoading) return;
     if (!videoRef.current) return;
     if (isPlaying) {
       videoRef.current.pause();
@@ -155,29 +154,12 @@ const JournalsPromo = () => {
       >
         <video
           ref={videoRef}
-          src={blobUrl}
+          src={journalsPromoVideo}
           className="w-full h-auto block pointer-events-none rounded-[20px]"
           playsInline
           preload="metadata"
           onEnded={handleEnded}
         />
-
-        {/* Buffering/Loading Overlay */}
-        {isLoading && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/95 backdrop-blur-sm z-30 pointer-events-auto cursor-wait">
-            <div className="flex flex-col items-center gap-3 text-center p-4">
-              <Loader2 className="w-10 h-10 text-[#ffd700] animate-spin" />
-              <div className="flex flex-col gap-1">
-                <span className="text-white font-bold text-xs tracking-wider uppercase">Securing Media Stream...</span>
-                <span className="text-[#ffd700] font-mulish font-bold text-base">{progress}%</span>
-              </div>
-              <div className="flex items-center gap-1.5 mt-1 px-2.5 py-0.5 bg-white/5 border border-white/10 rounded-full">
-                <ShieldAlert className="w-3 h-3 text-[#ffd700]" />
-                <span className="text-[9px] text-white/60 tracking-wider font-mulish uppercase">Encrypted Content Protection</span>
-              </div>
-            </div>
-          </div>
-        )}
         
         {/* Play Button Overlay (when paused) */}
         {!isPlaying && (
@@ -211,11 +193,27 @@ const AstrofiedJournals = () => {
   const [loading, setLoading] = useState(true);
   const [showHomeModal, setShowHomeModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showRightClickPopup, setShowRightClickPopup] = useState(false);
 
   const filteredJournals = journals.filter(journal =>
     journal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     journal.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      if (window.innerWidth > 1024) {
+        e.preventDefault();
+        setShowRightClickPopup(true);
+        setTimeout(() => setShowRightClickPopup(false), 3000);
+      }
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -366,7 +364,21 @@ const AstrofiedJournals = () => {
           </div>
         </header>
 
-        {/* Right Click Protection Popup has been moved to global App.jsx */}
+        {/* Right Click Protection Popup */}
+        <AnimatePresence>
+          {showRightClickPopup && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, x: '-50%' }}
+              animate={{ opacity: 1, y: 0, x: '-50%' }}
+              exit={{ opacity: 0, y: -20, x: '-50%' }}
+              transition={{ duration: 0.3 }}
+              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#A30000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#ffd700]/30"
+            >
+              <AlertCircle size={24} />
+              <span className="text-sm md:text-base">Not allowed. Content protection enabled.</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Home Modal */}
         <AnimatePresence>
@@ -571,13 +583,14 @@ const AstrofiedJournals = () => {
                   {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p,i)=>p==="Astrofied"?<span key={i} className="brand-text">Astrofied</span>:p) : titleContent}
                 </h2>
 
-                <ProtectedImage
-                  src={journalsCollage}
-                  alt="Astrofied Journals Collage"
-                  className="w-full h-auto object-contain"
-                  loading="lazy"
-                  wrapperClassName="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[28px] overflow-hidden shadow-2xl bg-transparent border-[1.5px] border-[#ffd700]"
-                />
+                <div className="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[28px] overflow-hidden shadow-2xl bg-transparent border-[1.5px] border-[#ffd700]">
+                  <img
+                    src={journalsCollage}
+                    alt="Astrofied Journals Collage"
+                    className="w-full h-auto object-contain"
+                    loading="lazy"
+                  />
+                </div>
               </div>
 
               {/* Vertical Separator Line (Hidden on mobile) */}

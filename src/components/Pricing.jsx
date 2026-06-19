@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import pricingHoroscope from '../assets/pricing-horoscope.png';
 import pricingKundali from '../assets/pricing-kundali.jpg';
-import ProtectedImage from './ProtectedImage';
 
 const Pricing = () => {
   const { isDarkMode } = useTheme();
@@ -87,7 +86,7 @@ const Pricing = () => {
               <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-md ${
                 isDarkMode ? 'shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] bg-black/40' : 'bg-[#f5f5dd]'
               }`}>
-                <ProtectedImage
+                <img
                   src={item.image}
                   alt={item.title}
                   className={`w-full h-full object-cover select-none pointer-events-none ${
@@ -100,7 +99,6 @@ const Pricing = () => {
                     filter: isDarkMode ? 'invert(1) brightness(0.9) contrast(1.1)' : 'none'
                   } : {}}
                   loading="lazy"
-                  wrapperClassName="w-full h-full"
                 />
                 
                 {/* Badge Overlay */}
