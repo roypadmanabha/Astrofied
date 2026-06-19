@@ -18,6 +18,8 @@ import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
 import Panchang from './components/Panchang';
+import WhatsAppButton from './components/WhatsAppButton';
+import { getWhatsAppLink } from './lib/constants';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -49,7 +51,7 @@ function MainContent() {
   }, []);
 
   const handleBookConsultation = () => {
-    window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20online%20consultation.', '_blank');
+    window.open(getWhatsAppLink('I want to book an online consultation.'), '_blank');
   };
 
   const openLegalModal = (type) => {
@@ -459,6 +461,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         title={legalModal.title}
         content={legalModal.content}
       />
+      <WhatsAppButton />
     </div>
   );
 }

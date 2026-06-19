@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import { CONTACT_PHONE } from '../lib/constants';
 import logo from '../assets/logo.png';
 
 export default function Footer({ onOpenLegal, forceLightMode = false, isJournalsPage = false }) {
@@ -114,9 +115,9 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                             Contact Details
                         </h4>
                         <div className={`flex flex-col ${isJournalsPage ? 'gap-1 md:gap-4' : 'gap-4'}`}>
-                            <button onClick={() => window.location.href = 'tel:+919612736566'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0 cursor-pointer`}>
+                            <button onClick={() => window.location.href = `tel:${CONTACT_PHONE.replace(/\s+/g, '')}`} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0 cursor-pointer`}>
                                 <Phone className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#A30000]')}`} />
-                                <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>+91 96127 36566</span>
+                                <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>{CONTACT_PHONE}</span>
                             </button>
                             <button onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0 cursor-pointer text-left`}>
                                 <Mail className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#A30000]')}`} />

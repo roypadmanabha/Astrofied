@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
+import { getWhatsAppLink } from '../lib/constants';
 import { Briefcase, IndianRupee, Heart, Users, Scale, Baby, Stethoscope, ChevronRight, Hourglass, GraduationCap, Home, HandCoins, Plane, MessageCircleHeart, Landmark } from 'lucide-react';
 
 const services = [
@@ -174,7 +175,7 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
             )}
 
             <button
-                onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20appointment%20for%20an%20online%20consultation%20with%20Astrofied.%20Please%20guide%20me%20through%20the%20process%20of%20sending%20my%20birth%20details%20and%20completing%20the%20payment.', '_blank')}
+                onClick={() => window.open(getWhatsAppLink('I want to book an appointment for an online consultation with Astrofied. Please guide me through the process of sending my birth details and completing the payment.'), '_blank')}
                 className="flex items-center gap-2 text-[#F25A29] font-bold hover:text-[#D14A1F] transition-colors group/btn mt-auto"
             >
             </button>

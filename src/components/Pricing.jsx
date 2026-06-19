@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { getWhatsAppLink } from '../lib/constants';
 import pricingHoroscope from '../assets/pricing-horoscope.png';
 import pricingKundali from '../assets/pricing-kundali.jpg';
 
@@ -148,7 +149,7 @@ const Pricing = () => {
                     <motion.button
                       whileHover={{ scale: 1.05, x: 5 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20' + encodeURIComponent(item.title) + '.', '_blank')}
+                      onClick={() => window.open(getWhatsAppLink(`I want to book ${item.title}.`), '_blank')}
                       className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-3 xl:px-8 xl:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${
                       isDarkMode
                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'

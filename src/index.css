@@ -208,6 +208,21 @@ body.light {
   border-radius: 4px;
 }
 
+/* Hide/make transparent scrollbar on mobile when mobile menu is active in light mode */
+@media (max-width: 1023px) {
+  body.mobile-nav-active.light::-webkit-scrollbar-thumb,
+  body.mobile-nav-active.light ::-webkit-scrollbar-thumb {
+    background: transparent !important;
+  }
+  body.mobile-nav-active.light::-webkit-scrollbar-track,
+  body.mobile-nav-active.light ::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+  body.mobile-nav-active.light {
+    scrollbar-width: none !important;
+  }
+}
+
 .dark {
   background-color: transparent;
   color: #F5F5F5;

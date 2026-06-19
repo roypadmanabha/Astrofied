@@ -39,8 +39,10 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
         
         if (isOpen) {
             document.body.style.overflow = 'hidden';
+            document.body.classList.add('mobile-nav-active');
         } else {
             document.body.style.overflow = '';
+            document.body.classList.remove('mobile-nav-active');
         }
 
         return () => {
@@ -126,7 +128,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                         whileTap={{ scale: 0.96 }}
                                     >
                                         <div className={`p-2 rounded-xl transition-all group-hover:scale-110 ${
-                                            isDarkMode ? 'bg-gold/10 text-gold shadow-[0_0_10px_rgba(212,175,55,0.1)]' : 'bg-[#fbf2cb] text-[#FF0000]'
+                                            isDarkMode ? 'bg-gold/10 text-gold shadow-[0_0_10px_rgba(212,175,55,0.1)]' : 'bg-[#DC143C] text-white'
                                         }`}>
                                             <link.icon size={18} strokeWidth={3} />
                                         </div>

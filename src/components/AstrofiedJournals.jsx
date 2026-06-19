@@ -221,7 +221,7 @@ const AstrofiedJournals = () => {
       const style = document.createElement('style');
       style.id = 'astrofied-journals-lock';
       style.innerHTML = `
-        body.dashboard-active #root > div > *:not(.astrofied-journals-container):not(.legal-modal-container) {
+        body.dashboard-active #root > div > *:not(.astrofied-journals-container):not(.legal-modal-container):not(.whatsapp-btn-container) {
           display: none !important;
         }
       `;
