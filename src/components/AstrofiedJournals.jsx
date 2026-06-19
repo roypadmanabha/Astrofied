@@ -539,8 +539,8 @@ const AstrofiedJournals = () => {
 
       <section id="journals" className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
         {/* Decorative Background Orbs for Glassmorphism (Hidden in Light Mode) */}
-        <div className={`${isDarkMode ? 'block' : 'hidden'} absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 bg-[#9d00ff]`}></div>
-        <div className={`${isDarkMode ? 'block' : 'hidden'} absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-[140px] opacity-15 bg-[#FFD700]`}></div>
+        <div className={`${isDarkMode ? 'block' : 'hidden'} absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-screen filter blur-[120px] opacity-20 bg-[#9d00ff]`}></div>
+        <div className={`${isDarkMode ? 'block' : 'hidden'} absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-screen filter blur-[140px] opacity-15 bg-[#FFD700]`}></div>
 
         <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10">
           <motion.div
