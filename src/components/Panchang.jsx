@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Clock, Moon, Sun, Compass, Calendar, Sunrise, Sunset, Star, Timer } from 'lucide-react';
+import * as Astronomy from 'astronomy-engine';
 
 const formatTime = (timeDiff) => {
   if (timeDiff < 0) return "00 : 00 : 00 : 00";
@@ -13,6 +14,153 @@ const formatTime = (timeDiff) => {
   return `${days.toString().padStart(2, '0')} Days : ${hours.toString().padStart(2, '0')} Hours : ${minutes.toString().padStart(2, '0')} Minutes : ${seconds.toString().padStart(2, '0')} Seconds`;
 };
 
+// ── Vedic Panchang Name Tables (identical to server engine) ──
+const TITHI_NAMES = ["Shukla Pratipada","Shukla Dwitiya","Shukla Tritiya","Shukla Chaturthi","Shukla Panchami","Shukla Shashthi","Shukla Saptami","Shukla Ashtami","Shukla Navami","Shukla Dashami","Shukla Ekadashi","Shukla Dwadashi","Shukla Trayodashi","Shukla Chaturdashi","Purnima","Krishna Pratipada","Krishna Dwitiya","Krishna Tritiya","Krishna Chaturthi","Krishna Panchami","Krishna Shashthi","Krishna Saptami","Krishna Ashtami","Krishna Navami","Krishna Dashami","Krishna Ekadashi","Krishna Dwadashi","Krishna Trayodashi","Krishna Chaturdashi","Amavasya"];
+const NAKSHATRA_NAMES = ["Ashwini","Bharani","Krittika","Rohini","Mrigashira","Ardra","Punarvasu","Pushya","Ashlesha","Magha","Purva Phalguni","Uttara Phalguni","Hasta","Chitra","Swati","Vishakha","Anuradha","Jyeshtha","Mula","Purva Ashadha","Uttara Ashadha","Shravana","Dhanishta","Shatabhisha","Purva Bhadrapada","Uttara Bhadrapada","Revati"];
+const RASHI_NAMES = ["Mesha", "Vrishabh", "Mithun", "Kark", "Simha", "Kanya", "Tula", "Vrishchik", "Dhanu", "Makar", "Kumbh", "Meen"];
+const YOGA_NAMES = ["Vishkambha", "Priti", "Ayushman", "Saubhagya", "Shobhana", "Atiganda", "Sukarma", "Dhriti", "Shula", "Ganda", "Vriddhi", "Dhruva", "Vyaghata", "Harshana", "Vajra", "Siddhi", "Vyatipata", "Variyan", "Parigha", "Shiva", "Siddha", "Sadhya", "Shubha", "Shukla", "Brahma", "Indra", "Vaidhriti"];
+const VARAS = ["Ravivara", "Somavara", "Mangalavara", "Budhavara", "Guruvara", "Shukravara", "Shanivara"];
+const SAMVATSARAS = ["Prabhava", "Vibhava", "Shukla", "Pramoda", "Prajapati", "Angirasa", "Shrimukha", "Bhava", "Yuva", "Dhatri", "Ishvara", "Bahudhanya", "Pramathi", "Vikrama", "Vrusha", "Chitrabhanu", "Subhanu", "Tarana", "Parthiva", "Vyaya", "Sarvajit", "Sarvadhari", "Virodhi", "Vikruti", "Khara", "Nandana", "Vijaya", "Jaya", "Manmatha", "Durmukha", "Hevilambi", "Vilambi", "Vikari", "Sharvari", "Plava", "Shubhakrut", "Shobhakrut", "Krodhi", "Vishwavasu", "Parabhava", "Plavanga", "Kilaka", "Saumya", "Sadharana", "Virodhikrut", "Paridhavi", "Pramadi", "Ananda", "Rakshasa", "Nala", "Pingala", "Kalayukti", "Siddharthi", "Raudra", "Durmati", "Dundubhi", "Rudhirodgari", "Raktaksha", "Krodhana", "Kshaya"];
+const LUNAR_MONTHS = ["Chaitra", "Vaishakha", "Jyeshtha", "Ashadha", "Shravana", "Bhadrapada", "Ashwina", "Kartika", "Margashirsha", "Pausha", "Magha", "Phalguna"];
+const RAHU_KAAL_LIST = [
+  "04:30 PM - 06:00 PM", "07:30 AM - 09:00 AM", "03:00 PM - 04:30 PM",
+  "12:00 PM - 01:30 PM", "01:30 PM - 03:00 PM", "10:30 AM - 12:00 PM",
+  "09:00 AM - 10:30 AM"
+];
+
+// ── Lahiri Ayanamsa (linear approximation, accurate to ~1 arcmin) ──
+function getLahiriAyanamsa(date) {
+  const jd2000 = 2451545.0;
+  const jd = 2440587.5 + date.getTime() / 86400000;
+  const T = (jd - jd2000) / 36525.0;
+  return 23.85 + 0.0137 * (T * 100);
+}
+
+// ── Get sidereal longitude using astronomy-engine ──
+function getSiderealLon(body, date) {
+  const ayanamsa = getLahiriAyanamsa(date);
+  let lon;
+  if (body === 'Sun') {
+    lon = Astronomy.SunPosition(date).elon;
+  } else {
+    const eq = Astronomy.Equator(body, date, Astronomy.MakeObserver(0, 0, 0), true, true);
+    const ecl = Astronomy.Ecliptic(eq.vec);
+    lon = ecl.elon;
+  }
+  return (lon - ayanamsa + 360) % 360;
+}
+
+// ── Find next transit boundary by stepping ──
+function findNextBoundary(date, cycleDeg, getFn, maxHours) {
+  let t = new Date(date);
+  const stepMs = 10 * 60 * 1000; // 10 minutes
+  const limit = date.getTime() + maxHours * 3600 * 1000;
+  const currentVal = Math.floor(getFn(t) / cycleDeg);
+
+  while (t.getTime() < limit) {
+    t = new Date(t.getTime() + stepMs);
+    const newVal = Math.floor(getFn(t) / cycleDeg);
+    if (newVal !== currentVal) {
+      // Refine with binary search
+      let lo = t.getTime() - stepMs, hi = t.getTime();
+      for (let i = 0; i < 12; i++) {
+        const mid = (lo + hi) / 2;
+        if (Math.floor(getFn(new Date(mid)) / cycleDeg) !== currentVal) { hi = mid; } else { lo = mid; }
+      }
+      return hi;
+    }
+  }
+  return date.getTime() + maxHours * 3600 * 1000;
+}
+
+function getKaranaName(idx) {
+  if (idx === 0) return "Kintughna";
+  if (idx === 57) return "Shakuni";
+  if (idx === 58) return "Chatushpada";
+  if (idx === 59) return "Naga";
+  const repeating = ["Bava", "Balava", "Kaulava", "Taitila", "Gara", "Vanija", "Vishti"];
+  return repeating[(idx - 1) % 7];
+}
+
+// ── Main client-side calculator ──
+function calculateClientPanchang() {
+  const now = new Date();
+  const sunLon = getSiderealLon('Sun', now);
+  const moonLon = getSiderealLon('Moon', now);
+  const diff = (moonLon - sunLon + 360) % 360;
+  const sum = (moonLon + sunLon) % 360;
+
+  const tithiIdx = Math.floor(diff / 12);
+  const nakshatraIdx = Math.floor(moonLon / (360 / 27));
+  const yogaIdx = Math.floor(sum / (360 / 27));
+  const karanaIdx = Math.floor(diff / 6);
+  const moonSignIdx = Math.floor(moonLon / 30);
+  const sunSignIdx = Math.floor(sunLon / 30);
+
+  const getDiff = (d) => { const s = getSiderealLon('Sun', d); const m = getSiderealLon('Moon', d); return (m - s + 360) % 360; };
+  const getSum = (d) => { const s = getSiderealLon('Sun', d); const m = getSiderealLon('Moon', d); return (m + s) % 360; };
+  const getMoon = (d) => getSiderealLon('Moon', d);
+  const getSun = (d) => getSiderealLon('Sun', d);
+
+  // Panchak status
+  let panchakStatus;
+  if (moonSignIdx === 10 || moonSignIdx === 11) {
+    panchakStatus = "Active";
+  } else {
+    const degToPanchak = (300 - moonLon + 360) % 360;
+    const daysToPanchak = Math.max(1, Math.round(degToPanchak / 13.176));
+    panchakStatus = `in ${daysToPanchak} days`;
+  }
+
+  // Bhadra status
+  const karanaName = getKaranaName(karanaIdx);
+  let bhadraStatus;
+  if (karanaName === "Vishti") {
+    bhadraStatus = "Active";
+  } else {
+    let nextVishtiIdx = karanaIdx;
+    while (getKaranaName(nextVishtiIdx) !== "Vishti") {
+      nextVishtiIdx = (nextVishtiIdx + 1) % 60;
+    }
+    const karanasAway = (nextVishtiIdx - karanaIdx + 60) % 60;
+    bhadraStatus = `in ${Math.max(1, Math.round(karanasAway * 0.5))} days`;
+  }
+
+  return {
+    tithi: TITHI_NAMES[tithiIdx],
+    nakshatra: NAKSHATRA_NAMES[nakshatraIdx],
+    yoga: YOGA_NAMES[yogaIdx],
+    karana: karanaName,
+    vara: VARAS[now.getDay()],
+    moonSign: RASHI_NAMES[moonSignIdx],
+    sunSign: RASHI_NAMES[sunSignIdx],
+    paksha: tithiIdx < 15 ? "Shukla Paksha" : "Krishna Paksha",
+    countdowns: {
+      tithi: findNextBoundary(now, 12, getDiff, 48),
+      nakshatra: findNextBoundary(now, 360 / 27, getMoon, 48),
+      yoga: findNextBoundary(now, 360 / 27, getSum, 48),
+      moon: findNextBoundary(now, 30, getMoon, 72),
+      sun: findNextBoundary(now, 30, getSun, 768),
+      karana: findNextBoundary(now, 6, getDiff, 24)
+    },
+    muhurtas: {
+      sunrise: "05:40 AM",
+      sunset: "06:45 PM",
+      moonrise: "07:15 AM",
+      moonset: "08:00 PM",
+      rahuKaal: RAHU_KAAL_LIST[now.getDay()],
+      yamaganda: "09:00 AM - 10:30 AM",
+      gulikaKaal: "12:00 PM - 01:30 PM",
+      abhijit: "11:55 AM - 12:45 PM",
+      brahma: "04:10 AM - 04:58 AM",
+      amritKaal: "10:15 AM - 11:50 AM"
+    },
+    status: { panchak: panchakStatus, bhadra: bhadraStatus },
+    lunarMonth: LUNAR_MONTHS[(sunSignIdx + 1) % 12],
+    samvatsara: SAMVATSARAS[(now.getFullYear() - 1987 + 60) % 60]
+  };
+}
+
 // Real API Layer fetching from Node.js Swiss Ephemeris engine
 class PanchangAPI {
   static async fetchCurrentData() {
@@ -22,63 +170,10 @@ class PanchangAPI {
       if (!response.ok) throw new Error('Failed to fetch panchang');
       return await response.json();
     } catch (error) {
-      console.error(error);
+      console.error('Backend API unavailable, using client-side calculation:', error.message);
       return null;
     }
   }
-}
-
-function getFallbackPanchangData() {
-  const now = Date.now();
-  const daysOfWeek = ['Ravivara', 'Somavara', 'Mangalavara', 'Budhavara', 'Guruvara', 'Shukravara', 'Shanivara'];
-  const currentDay = new Date().getDay();
-  
-  const rahuKaalList = [
-    "04:30 PM - 06:00 PM", // Sunday
-    "07:30 AM - 09:00 AM", // Monday
-    "03:00 PM - 04:30 PM", // Tuesday
-    "12:00 PM - 01:30 PM", // Wednesday
-    "01:30 PM - 03:00 PM", // Thursday
-    "10:30 AM - 12:00 PM", // Friday
-    "09:00 AM - 10:30 AM"  // Saturday
-  ];
-
-  return {
-    tithi: "Shukla Chaturthi",
-    nakshatra: "Ashlesha",
-    yoga: "Vyaghata",
-    karana: "Vishti",
-    vara: daysOfWeek[currentDay],
-    moonSign: "Kark",
-    sunSign: "Mithun",
-    paksha: "Shukla Paksha",
-    countdowns: {
-      tithi: now + 3.5 * 3600 * 1000,
-      nakshatra: now + 5.2 * 3600 * 1000,
-      yoga: now + 2.1 * 3600 * 1000,
-      moon: now + 8.4 * 3600 * 1000,
-      sun: now + 48 * 3600 * 1000,
-      karana: now + 1.2 * 3600 * 1000
-    },
-    muhurtas: {
-      sunrise: "05:40 AM",
-      sunset: "06:45 PM",
-      moonrise: "07:15 AM",
-      moonset: "08:00 PM",
-      rahuKaal: rahuKaalList[currentDay],
-      yamaganda: "09:00 AM - 10:30 AM",
-      gulikaKaal: "12:00 PM - 01:30 PM",
-      abhijit: "11:55 AM - 12:45 PM",
-      brahma: "04:10 AM - 04:58 AM",
-      amritKaal: "10:15 AM - 11:50 AM"
-    },
-    status: {
-      panchak: "Inactive",
-      bhadra: "Active"
-    },
-    lunarMonth: "Ashadha",
-    samvatsara: "Parabhava"
-  };
 }
 
 export default function Panchang() {
@@ -87,19 +182,35 @@ export default function Panchang() {
   const [now, setNow] = useState(Date.now());
 
   useEffect(() => {
+    // Try backend API first, fall back to client-side astronomical calculation
     PanchangAPI.fetchCurrentData().then(res => {
       if (res) {
         setData(res);
       } else {
-        setData(getFallbackPanchangData());
+        setData(calculateClientPanchang());
       }
     });
 
+    // Tick every second for countdown timers
     const timer = setInterval(() => {
       setNow(Date.now());
     }, 1000);
 
-    return () => clearInterval(timer);
+    // Recalculate panchang every 5 minutes so tithi/nakshatra stay current
+    const recalcTimer = setInterval(() => {
+      PanchangAPI.fetchCurrentData().then(res => {
+        if (res) {
+          setData(res);
+        } else {
+          setData(calculateClientPanchang());
+        }
+      });
+    }, 5 * 60 * 1000);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(recalcTimer);
+    };
   }, []);
 
   if (!data) return null;
