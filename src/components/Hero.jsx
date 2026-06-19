@@ -4,6 +4,7 @@ import astrologer from '../assets/hero-astrologer.png';
 import zodiacBg from '../assets/zodiac-wheel.png';
 import { useState } from 'react';
 import ExploreModal from './ExploreModal';
+import ProtectedImage from './ProtectedImage';
 
 export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDetailsModalOpen }) {
     const { isDarkMode } = useTheme();
@@ -88,10 +89,10 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                 transition={{ duration: 1 }}
                                 className="relative z-10 w-full"
                             >
-                                <img
+                                <ProtectedImage
                                     src={astrologer}
                                     alt="Astrologer"
-                                    className="w-full h-auto object-contain select-none pointer-events-none transition-transform duration-700 hover:scale-[1.02]"
+                                    className="w-full h-auto object-contain select-none pointer-events-none transition-transform duration-700 group-hover:scale-[1.02]"
                                     style={{
                                         filter: isDarkMode
                                             ? 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 30px rgba(212, 175, 55, 0.3))'
@@ -100,6 +101,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                         WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)'
                                     }}
                                     draggable={false}
+                                    wrapperClassName="w-full group"
                                 />
 
                                 {/* Floating Stats Badges - POSITIONED PRECISELY */}

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AlertCircle } from 'lucide-react';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
@@ -18,6 +19,7 @@ import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
 import Panchang from './components/Panchang';
+import ProtectedImage from './components/ProtectedImage';
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -33,6 +35,7 @@ function MainContent() {
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showRightClickPopup, setShowRightClickPopup] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -41,12 +44,26 @@ function MainContent() {
     
     const handleOpenLegalEvent = (e) => openLegalModal(e.detail);
     window.addEventListener('openLegalModal', handleOpenLegalEvent);
+
+    const handleGlobalContextMenu = (e) => {
+      e.preventDefault();
+      setShowRightClickPopup(true);
+    };
+    document.addEventListener('contextmenu', handleGlobalContextMenu);
     
     return () => {
       window.removeEventListener('resize', checkMobile);
       window.removeEventListener('openLegalModal', handleOpenLegalEvent);
+      document.removeEventListener('contextmenu', handleGlobalContextMenu);
     };
   }, []);
+
+  useEffect(() => {
+    if (showRightClickPopup) {
+      const timer = setTimeout(() => setShowRightClickPopup(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showRightClickPopup]);
 
   const handleBookConsultation = () => {
     window.open('https://wa.me/919612736566?text=I%20want%20to%20book%20an%20online%20consultation.', '_blank');
@@ -228,6 +245,22 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     >
       <StarfieldBg />
 
+      {/* Right Click Protection Popup */}
+      <AnimatePresence>
+        {showRightClickPopup && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: -20, x: '-50%' }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#A30000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-gold/30"
+          >
+            <AlertCircle size={24} />
+            <span className="text-sm md:text-base">Not allowed. Content protection enabled.</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
 
       <Navbar
         onOpenLegal={openLegalModal}
@@ -251,14 +284,15 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="w-full md:w-5/12 aspect-square glass rounded-full overflow-hidden shadow-2xl relative flex items-center justify-center p-4 border-4 border-gold/30"
             >
-              <motion.img
+              <ProtectedImage
                 src={zodiacWheel}
                 alt="Zodiac Wheel"
                 className="w-full h-full object-contain will-change-transform"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                wrapperClassName="w-full h-full"
+                overlayClassName="bg-gold/5 rounded-full"
               />
-              <div className="absolute inset-0 bg-gold/5 rounded-full pointer-events-none" />
             </motion.div>
 
             <motion.div
@@ -329,7 +363,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 className="relative z-10 w-full"
               >
-                <img
+                <ProtectedImage
                   src={aboutSj}
                   alt="Prasanta Chakraborty"
                   className="w-full h-auto max-w-full drop-shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-transform duration-700"
