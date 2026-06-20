@@ -482,7 +482,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               <span>Redirecting...</span>
             </>
           ) : (
-            <span>Explore Gemstones</span>
+            <span>Astrofied Gemstones</span>
           )}
         </button>
       </div>
