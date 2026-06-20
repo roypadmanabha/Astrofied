@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5174",
-    "build": "vite build",
+    "build": "vite build && cd gemstones && npm install && npm run build && cd .. && mkdir -p dist/gemstones && cp -r gemstones/dist/* dist/gemstones/",
     "start": "node server/index.cjs",
     "lint": "eslint .",
     "preview": "vite preview"
