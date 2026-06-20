@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import GemstoneGrid from './components/GemstoneGrid';
@@ -10,6 +10,45 @@ import LegalModal from './components/LegalModal';
 function App() {
   const [submittedOrder, setSubmittedOrder] = useState(null);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
+
+  useEffect(() => {
+    // 1. Block right click (context menu) and show alert
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      alert('not allowed-content protection-enabled');
+    };
+
+    // 2. Block drag start (prevents dragging/grabbing of images/texts)
+    const handleDragStart = (e) => {
+      e.preventDefault();
+    };
+
+    // 3. Block copy keyboard shortcut (Ctrl+C, Cmd+C)
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
+        e.preventDefault();
+        alert('not allowed-content protection-enabled');
+      }
+    };
+
+    // 4. Block copy event
+    const handleCopy = (e) => {
+      e.preventDefault();
+      alert('not allowed-content protection-enabled');
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('dragstart', handleDragStart);
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('copy', handleCopy);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('dragstart', handleDragStart);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('copy', handleCopy);
+    };
+  }, []);
 
   const openLegalModal = (type) => {
     if (type === 'terms') {
