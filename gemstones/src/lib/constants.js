@@ -1,66 +1,75 @@
 export const gemstones = [
   {
     id: 1,
-    name: 'Pukhraj (Yellow Sapphire)',
-    planet: 'Jupiter (Guru)',
+    name: 'Pukhraj',
+    planet: 'Jupiter',
     description: 'Enhances wisdom, prosperity, and marital harmony. Strengthens decision-making and attracts good fortune in career and finance.',
-    imageName: 'pukhraj'
+    imageName: 'pukhraj',
+    imagePath: '/gemstones/pukhraj.png'
   },
   {
     id: 2,
-    name: 'Manik (Ruby)',
-    planet: 'Sun (Surya)',
+    name: 'Ruby',
+    planet: 'Sun',
     description: 'Boosts confidence, leadership, and vitality. Strengthens authority, health, and overall life force.',
-    imageName: 'manik'
+    imageName: 'manik',
+    imagePath: '/gemstones/ruby.png'
   },
   {
     id: 3,
-    name: 'Moti (Pearl)',
-    planet: 'Moon (Chandra)',
+    name: 'Mukta',
+    planet: 'Moon',
     description: 'Calms the mind, improves emotional balance, and supports mental peace. Beneficial for stress relief and intuition.',
-    imageName: 'moti'
+    imageName: 'moti',
+    imagePath: '/gemstones/mukta.png'
   },
   {
     id: 4,
-    name: 'Moonga (Red Coral)',
-    planet: 'Mars (Mangal)',
+    name: 'Prabal',
+    planet: 'Mars',
     description: 'Boosts courage, energy, and willpower. Supports career growth, physical strength, and removes obstacles.',
-    imageName: 'moonga'
+    imageName: 'moonga',
+    imagePath: '/gemstones/prabal.png'
   },
   {
     id: 5,
-    name: 'Panna (Emerald)',
-    planet: 'Mercury (Budh)',
+    name: 'Panna',
+    planet: 'Mercury',
     description: 'Sharpens intellect, communication, and analytical skills. Ideal for students, business owners, and professionals.',
-    imageName: 'panna'
+    imageName: 'panna',
+    imagePath: '/gemstones/panna.png'
   },
   {
     id: 6,
-    name: 'Neelam (Blue Sapphire)',
-    planet: 'Saturn (Shani)',
+    name: 'Neelam',
+    planet: 'Saturn',
     description: 'A powerful, fast-acting stone for discipline, focus, and removing long-standing obstacles. Recommended only after careful chart analysis.',
-    imageName: 'neelam'
+    imageName: 'neelam',
+    imagePath: '/gemstones/neelam.jpg'
   },
   {
     id: 7,
-    name: 'Gomed (Hessonite)',
+    name: 'Gomed',
     planet: 'Rahu',
     description: 'Helps control confusion and unexpected disruptions. Supports clarity, sudden gains, and protection from deception.',
-    imageName: 'gomed'
+    imageName: 'gomed',
+    imagePath: '/gemstones/gomed.png'
   },
   {
     id: 8,
-    name: 'Cat\'s Eye (Lehsunia)',
+    name: "Cat's Eye",
     planet: 'Ketu',
     description: 'Protects against hidden enemies and unforeseen losses. Supports spiritual growth and sharp intuition.',
-    imageName: 'cats-eye'
+    imageName: 'cats-eye',
+    imagePath: '/gemstones/cats-eye.png'
   },
   {
     id: 9,
     name: 'Opal',
-    planet: 'Venus (Shukra)',
+    planet: 'Venus',
     description: 'Enhances love, creativity, beauty, and relationship harmony. Favorable for artists and those seeking marital bliss.',
-    imageName: 'opal'
+    imageName: 'opal',
+    imagePath: '/gemstones/opal.png'
   }
 ];
 

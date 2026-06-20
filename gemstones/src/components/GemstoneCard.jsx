@@ -54,9 +54,9 @@ export default function GemstoneCard({ gemstone, index }) {
 
       {/* Gemstone Image Frame */}
       <div className="w-32 h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden shadow-inner border border-black/5 flex items-center justify-center p-2 mb-6 relative bg-gradient-to-br from-black/5 to-transparent">
-        {!imgError ? (
+        {gemstone.imagePath && !imgError ? (
           <img
-            src={`/gemstones/${gemstone.imageName}.jpg`}
+            src={gemstone.imagePath}
             alt={gemstone.name}
             onError={() => setImgError(true)}
             className="w-full h-full object-cover rounded-xl select-none"
@@ -76,13 +76,13 @@ export default function GemstoneCard({ gemstone, index }) {
       </div>
 
       {/* Gemstone Name */}
-      <h3 className="text-lg md:text-xl font-nunito font-extrabold mb-2 text-black">
+      <h3 className="text-lg md:text-xl font-mulish font-extrabold mb-2 text-black">
         {gemstone.name}
       </h3>
 
       {/* Planet Badge/Label */}
-      <div className="mb-4 px-3 py-1 rounded-full bg-[#A30000]/10 border border-[#A30000]/20 text-[#A30000] text-[10px] font-nunito font-black tracking-wider uppercase">
-        Planet: {gemstone.planet}
+      <div className="mb-4 px-3.5 py-1 rounded-full bg-gradient-to-r from-black to-[#A30000] text-white text-[10px] font-mulish font-black tracking-[0.15em] uppercase border-none shadow-sm shadow-[#A30000]/10">
+        <span className="hidden sm:inline">Planet: </span>{gemstone.planet}
       </div>
 
       {/* Description */}

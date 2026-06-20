@@ -42,7 +42,7 @@ export default function Hero() {
           {/* Small Pill Badge */}
           <motion.div
             variants={itemVariants}
-            className="px-4 py-1.5 rounded-full bg-[#A30000]/10 border border-[#A30000]/20 text-[#A30000] text-xs font-black tracking-[0.15em] uppercase font-nunito"
+            className="px-4 py-1.5 rounded-full bg-[#A30000]/10 border border-[#A30000]/20 text-[#A30000] text-xs font-black tracking-[0.15em] uppercase font-mulish"
           >
             Gemstone Remedies
           </motion.div>
@@ -50,7 +50,7 @@ export default function Hero() {
           {/* Headline */}
           <motion.h1
             variants={itemVariants}
-            className="text-4xl sm:text-5xl md:text-6xl font-nunito font-extrabold tracking-tight leading-[1.1] text-black"
+            className="text-4xl sm:text-5xl md:text-6xl font-mulish font-extrabold tracking-tight leading-[1.1] text-black"
           >
             Wear the Right <span className="text-[#A30000]">Stone</span> for Your Stars
           </motion.h1>
@@ -71,7 +71,7 @@ export default function Hero() {
             {/* Stat Chip 1 */}
             <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
               <ShieldCheck className="w-5 h-5 text-[#C9A227]" />
-              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-nunito">
+              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish">
                 100% Certified Stones
               </span>
             </div>
@@ -79,7 +79,7 @@ export default function Hero() {
             {/* Stat Chip 2 */}
             <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
               <UserCheck className="w-5 h-5 text-[#A30000]" />
-              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-nunito">
+              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish">
                 Astrologer-Prescribed
               </span>
             </div>
@@ -87,7 +87,7 @@ export default function Hero() {
             {/* Stat Chip 3 */}
             <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
               <Award className="w-5 h-5 text-[#C9A227]" />
-              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-nunito">
+              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish">
                 Lab-Tested Authenticity
               </span>
             </div>

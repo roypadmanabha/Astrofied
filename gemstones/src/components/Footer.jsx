@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import logo from '../assets/logo.png';
 
-export default function Footer() {
+export default function Footer({ onOpenLegal }) {
   const socialLinks = [
     {
       icon: (
@@ -45,101 +45,11 @@ export default function Footer() {
   return (
     <footer id="footer" className="py-8 md:py-12 bg-[#f5f5dd] border-t font-mulish border-[#A30000]/10">
       <div className="container mx-auto px-6">
-
-        {/* ===== DESKTOP LAYOUT (≥1280px): Single row with dividers ===== */}
-        <div className="footer-desktop-row" style={{ marginBottom: '2.5rem' }}>
-
-          {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0px', flexShrink: 0 }}>
-            <img
-              src={logo}
-              alt="Astrofied Logo"
-              className="object-contain select-none pointer-events-none"
-              draggable={false}
-              style={{ width: '128px', height: '128px', mixBlendMode: 'multiply', marginRight: '-6px' }}
-              loading="lazy"
-            />
-            <h4 className="font-nunito font-bold bg-clip-text text-transparent bg-gradient-to-r from-black to-red-600" style={{ fontSize: '1.875rem', whiteSpace: 'nowrap' }}>
-              Astrofied
-            </h4>
-          </div>
-
-          {/* Divider 1 */}
-          <div style={{ width: '1px', height: '6rem', backgroundColor: 'rgba(0,0,0,0.1)', flexShrink: 0, alignSelf: 'center' }} />
-
-          {/* Legal */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', flexShrink: 0 }}>
-            <h4 className="font-bold text-[#A30000]" style={{ fontSize: '1.25rem' }}>Legal</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <button
-                onClick={() => alert("Terms & Conditions: All gemstone shipments are handled with secure packaging. Certified authenticity is guaranteed. No reseller commercialization allowed.")}
-                className="hover:text-[#A30000] transition-colors"
-                style={{ textAlign: 'left', fontSize: '1.125rem', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: '#5A5A5A', whiteSpace: 'nowrap' }}
-              >
-                Terms and Conditions
-              </button>
-              <button
-                onClick={() => alert("Privacy Policy: All customer and order details are 100% confidential. We do not share your physical address, phone number, or payment screenshots with any third parties.")}
-                className="hover:text-[#A30000] transition-colors"
-                style={{ textAlign: 'left', fontSize: '1.125rem', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', color: '#5A5A5A', whiteSpace: 'nowrap' }}
-              >
-                Privacy Policy
-              </button>
-            </div>
-          </div>
-
-          {/* Divider 2 */}
-          <div style={{ width: '1px', height: '6rem', backgroundColor: 'rgba(0,0,0,0.1)', flexShrink: 0, alignSelf: 'center' }} />
-
-          {/* Contact Details */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', flexShrink: 0 }}>
-            <h4 className="font-bold text-[#A30000]" style={{ fontSize: '1.25rem', whiteSpace: 'nowrap' }}>Contact Details</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', color: '#5A5A5A' }}>
-              <button 
-                onClick={() => window.location.href = 'tel:+919612736566'} 
-                className="hover:text-[#A30000] transition-colors"
-                style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}
-              >
-                <Phone style={{ width: '20px', height: '20px', color: '#A30000', flexShrink: 0 }} />
-                <span style={{ fontSize: '1.125rem', whiteSpace: 'nowrap' }}>+91 96127 36566</span>
-              </button>
-              <button 
-                onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} 
-                className="hover:text-[#A30000] transition-colors"
-                style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}
-              >
-                <Mail style={{ width: '20px', height: '20px', color: '#A30000', flexShrink: 0 }} />
-                <span style={{ fontSize: '1.125rem', whiteSpace: 'nowrap' }}>contact.astrofied@gmail.com</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Divider 3 */}
-          <div style={{ width: '1px', height: '6rem', backgroundColor: 'rgba(0,0,0,0.1)', flexShrink: 0, alignSelf: 'center' }} />
-
-          {/* Address */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', flexShrink: 0 }}>
-            <h4 className="font-bold text-[#A30000]" style={{ fontSize: '1.25rem' }}>Address</h4>
-            <button
-              onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')}
-              className="hover:text-[#A30000] transition-colors"
-              style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', color: '#5A5A5A' }}
-            >
-              <MapPin style={{ width: '20px', height: '20px', marginTop: '2px', color: '#A30000', flexShrink: 0 }} />
-              <address style={{ fontStyle: 'normal', fontSize: '1.125rem', lineHeight: 1.4, whiteSpace: 'nowrap' }}>
-                Dakbanglow Road, near Rajarshi Hall,<br />
-                Udaipur, Gomati, Tripura - 799120
-              </address>
-            </button>
-          </div>
-
-        </div>
-
-        {/* ===== MOBILE/TABLET LAYOUT (<1280px): Stacked or 2-col grid ===== */}
-        <div className="footer-mobile-grid" style={{ marginBottom: '2.5rem' }}>
-
-          {/* Logo */}
-          <div className="flex flex-col gap-2 md:gap-6">
+        
+        <div className="flex flex-col sm:grid sm:grid-cols-2 xl:flex xl:flex-row xl:justify-between gap-8 xl:gap-4 mb-8 md:mb-10">
+          
+          {/* Logo Column */}
+          <div className="flex flex-col gap-2 md:gap-6 w-full xl:w-auto">
             <div className="flex items-center gap-0">
               <img
                 src={logo}
@@ -149,45 +59,68 @@ export default function Footer() {
                 style={{ mixBlendMode: 'multiply', marginRight: '-6px' }}
                 loading="lazy"
               />
-              <h4 className="text-xl md:text-xl lg:text-3xl font-nunito font-bold bg-clip-text text-transparent bg-gradient-to-r from-black to-red-600">
+              <h4 
+                className="text-xl md:text-xl lg:text-3xl bg-clip-text text-transparent bg-gradient-to-r from-black to-[#A30000]"
+                style={{ color: 'transparent', backgroundClip: 'text', WebkitBackgroundClip: 'text', fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}
+              >
                 Astrofied
               </h4>
             </div>
           </div>
 
-          {/* Legal */}
-          <div className="flex flex-col gap-2 md:gap-6">
-            <h4 className="text-lg md:text-xl lg:text-2xl font-bold text-[#A30000]">Legal</h4>
+          {/* Divider 1 */}
+          <div
+            className="hidden xl:block h-24 w-[1px] self-center transition-colors duration-300"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+          />
+
+          {/* Legal Links Column */}
+          <div className="flex flex-col gap-2 md:gap-6 w-full xl:w-auto">
+            <h4 className="text-lg md:text-xl lg:text-2xl font-bold font-mulish" style={{ color: '#A30000' }}>
+              Legal
+            </h4>
             <div className="flex flex-col gap-4">
               <button
-                onClick={() => alert("Terms & Conditions: All gemstone shipments are handled with secure packaging. Certified authenticity is guaranteed. No reseller commercialization allowed.")}
-                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-[#5A5A5A]"
+                onClick={() => onOpenLegal('terms')}
+                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer whitespace-nowrap"
+                style={{ color: '#0A0A0A' }}
               >
                 Terms and Conditions
               </button>
               <button
-                onClick={() => alert("Privacy Policy: All customer and order details are 100% confidential. We do not share your physical address, phone number, or payment screenshots with any third parties.")}
-                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-[#5A5A5A]"
+                onClick={() => onOpenLegal('privacy')}
+                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer whitespace-nowrap"
+                style={{ color: '#0A0A0A' }}
               >
                 Privacy Policy
               </button>
             </div>
           </div>
 
-          {/* Contact */}
-          <div className="flex flex-col gap-2 md:gap-6">
-            <h4 className="text-lg md:text-xl lg:text-2xl font-bold text-[#A30000]">Contact Details</h4>
-            <div className="flex flex-col gap-4 text-[#5A5A5A]">
-              <button 
-                onClick={() => window.location.href = 'tel:+919612736566'} 
-                className="flex items-center gap-3 hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left"
+          {/* Divider 2 */}
+          <div
+            className="hidden xl:block h-24 w-[1px] self-center transition-colors duration-300"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+          />
+
+          {/* Contact Details Column */}
+          <div className="flex flex-col gap-2 md:gap-6 w-full xl:w-auto">
+            <h4 className="text-lg md:text-xl lg:text-2xl font-bold font-mulish" style={{ color: '#A30000' }}>
+              Contact Details
+            </h4>
+            <div className="flex flex-col gap-4">
+              <button
+                onClick={() => window.location.href = 'tel:+919612736566'}
+                className="flex items-center gap-3 hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left whitespace-nowrap"
+                style={{ color: '#0A0A0A' }}
               >
                 <Phone className="w-4 h-4 md:w-5 md:h-5 text-[#A30000] shrink-0" />
                 <span className="text-xs md:text-sm lg:text-lg">+91 96127 36566</span>
               </button>
-              <button 
-                onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} 
-                className="flex items-center gap-3 hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left"
+              <button
+                onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'}
+                className="flex items-center gap-3 hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left whitespace-nowrap"
+                style={{ color: '#0A0A0A' }}
               >
                 <Mail className="w-4 h-4 md:w-5 md:h-5 text-[#A30000] shrink-0" />
                 <span className="text-xs md:text-sm lg:text-lg">contact.astrofied@gmail.com</span>
@@ -195,12 +128,21 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Address */}
-          <div className="flex flex-col gap-2 md:gap-6">
-            <h4 className="text-lg md:text-xl lg:text-2xl font-bold text-[#A30000]">Address</h4>
+          {/* Divider 3 */}
+          <div
+            className="hidden xl:block h-24 w-[1px] self-center transition-colors duration-300"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+          />
+
+          {/* Address Column */}
+          <div className="flex flex-col gap-2 md:gap-6 w-full xl:w-auto">
+            <h4 className="text-lg md:text-xl lg:text-2xl font-bold font-mulish" style={{ color: '#A30000' }}>
+              Address
+            </h4>
             <button
               onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')}
-              className="flex items-start gap-3 hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left text-[#5A5A5A]"
+              className="flex items-start gap-3 hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left"
+              style={{ color: '#0A0A0A' }}
             >
               <MapPin className="w-4 h-4 md:w-5 md:h-5 mt-1 text-[#A30000] shrink-0" />
               <address className="not-italic text-xs md:text-sm lg:text-lg leading-tight text-left">
@@ -212,7 +154,7 @@ export default function Footer() {
 
         </div>
 
-        {/* Social Icons */}
+        {/* Social Icons Row */}
         <div className="flex justify-center gap-12 md:gap-16 mb-6 md:mb-10">
           {socialLinks.map((social, index) => (
             <motion.button
@@ -229,7 +171,7 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Copyright */}
+        {/* Copyright Row */}
         <div className="border-t border-[#A30000]/20 pt-4 md:pt-8 text-center text-[10px] md:text-sm text-gray-500 font-mulish">
           © {new Date().getFullYear()} Astrofied. All rights reserved | Made by Vignette
         </div>

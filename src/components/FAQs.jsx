@@ -135,6 +135,20 @@ export default function FAQs() {
                         );
                     })}
                 </div>
+
+                {/* Gemstones button */}
+                <div className="mt-12 flex justify-center">
+                    <a
+                        href="/gemstones/"
+                        className={`px-8 py-3.5 rounded-full text-base font-bold transition-all duration-300 tracking-wider shadow-md hover:scale-105 inline-flex items-center justify-center font-mulish ${
+                            isDarkMode
+                                ? 'bg-transparent text-[#ffd700] border border-white hover:bg-white/10 hover:shadow-white/5'
+                                : 'bg-gradient-to-r from-black to-[#A30000] text-white hover:shadow-black/20'
+                        }`}
+                    >
+                        Gemstones
+                    </a>
+                </div>
             </div>
         </section>
     );

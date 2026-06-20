@@ -40,7 +40,8 @@ const localPincodeDatabase = [
 export default function OrderForm({ onSubmitSuccess }) {
   // Form Field States
   const [paymentType, setPaymentType] = useState('');
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [mobile, setMobile] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [district, setDistrict] = useState('');
@@ -53,8 +54,8 @@ export default function OrderForm({ onSubmitSuccess }) {
   // Dynamic districts list computed based on active state selection
   const districtsList = React.useMemo(() => {
     if (!state) return [];
-    const stateObj = statesAndDistrictsData.states.find(s => 
-      s.state === state || 
+    const stateObj = statesAndDistrictsData.states.find(s =>
+      s.state === state ||
       s.state.replace(/\s*\(ut\)\s*|\s*\(nct\)\s*/gi, '') === state.replace(/\s*\(ut\)\s*|\s*\(nct\)\s*/gi, '')
     );
     return stateObj ? [...stateObj.districts, 'Others'] : ['Others'];
@@ -73,7 +74,8 @@ export default function OrderForm({ onSubmitSuccess }) {
   const [isSearchingPincode, setIsSearchingPincode] = useState(false);
 
   // Focus/Blur validation indicators
-  const [nameTouched, setNameTouched] = useState(false);
+  const [firstNameTouched, setFirstNameTouched] = useState(false);
+  const [lastNameTouched, setLastNameTouched] = useState(false);
   const [mobileTouched, setMobileTouched] = useState(false);
   const [streetAddressTouched, setStreetAddressTouched] = useState(false);
   const [districtTouched, setDistrictTouched] = useState(false);
@@ -82,7 +84,8 @@ export default function OrderForm({ onSubmitSuccess }) {
   const [pincodeTouched, setPincodeTouched] = useState(false);
 
   // Error States
-  const [nameError, setNameError] = useState('');
+  const [firstNameError, setFirstNameError] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
   const [mobileError, setMobileError] = useState('');
   const [streetAddressError, setStreetAddressError] = useState('');
   const [districtError, setDistrictError] = useState('');
@@ -98,18 +101,18 @@ export default function OrderForm({ onSubmitSuccess }) {
   const handlePincodeSelect = (suggestion) => {
     setPincode(suggestion.pincode);
     setCity(suggestion.office);
-    
+
     // Find matching state object dynamically
-    const stateObj = statesAndDistrictsData.states.find(s => 
+    const stateObj = statesAndDistrictsData.states.find(s =>
       s.state.toLowerCase() === suggestion.state.toLowerCase() ||
       s.state.toLowerCase().replace(/\s*\(ut\)\s*|\s*\(nct\)\s*/g, '') === suggestion.state.toLowerCase().replace(/\s*\(ut\)\s*|\s*\(nct\)\s*/g, '')
     );
-    
+
     if (stateObj) {
       setState(stateObj.state);
-      
+
       // Find matching district in this state's district list
-      const foundDistrict = stateObj.districts.find(d => 
+      const foundDistrict = stateObj.districts.find(d =>
         d.toLowerCase() === suggestion.district.toLowerCase() ||
         d.toLowerCase().includes(suggestion.district.toLowerCase()) ||
         suggestion.district.toLowerCase().includes(d.toLowerCase())
@@ -126,7 +129,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
     // Clear suggestion lists
     setPincodeSuggestions([]);
-    
+
     // Reset individual error states since we auto-filled valid coordinates
     setPincodeError('');
     setCityError('');
@@ -149,7 +152,7 @@ export default function OrderForm({ onSubmitSuccess }) {
     }
 
     // Filter local database first for instant suggestions
-    const localMatches = localPincodeDatabase.filter(item => 
+    const localMatches = localPincodeDatabase.filter(item =>
       item.pincode.startsWith(pincode)
     ).map(item => ({
       pincode: item.pincode,
@@ -176,7 +179,7 @@ export default function OrderForm({ onSubmitSuccess }) {
               isLocal: false
             }));
             setPincodeSuggestions(liveMatches);
-            
+
             // Auto-populate the first option immediately on complete 6-digit match
             if (liveMatches.length > 0) {
               handlePincodeSelect(liveMatches[0]);
@@ -201,16 +204,27 @@ export default function OrderForm({ onSubmitSuccess }) {
     }
   }, [pincode]);
 
-  // Validate Name
+  // Validate First Name
   useEffect(() => {
-    if (nameTouched) {
-      if (!name.trim()) {
-        setNameError('Name is required');
+    if (firstNameTouched) {
+      if (!firstName.trim()) {
+        setFirstNameError('First name is required');
       } else {
-        setNameError('');
+        setFirstNameError('');
       }
     }
-  }, [name, nameTouched]);
+  }, [firstName, firstNameTouched]);
+
+  // Validate Last Name
+  useEffect(() => {
+    if (lastNameTouched) {
+      if (!lastName.trim()) {
+        setLastNameError('Last name is required');
+      } else {
+        setLastNameError('');
+      }
+    }
+  }, [lastName, lastNameTouched]);
 
   // Validate Mobile
   useEffect(() => {
@@ -313,9 +327,18 @@ export default function OrderForm({ onSubmitSuccess }) {
   }, [totalAmount, advanceAmount]);
 
   // Key filtering inputs on keystroke
-  const handleNameChange = (e) => {
-    const filtered = e.target.value.replace(/[^a-zA-Z\s]/g, '');
-    setName(filtered);
+  const handleFirstNameChange = (e) => {
+    const val = e.target.value;
+    const clean = val.replace(/[^a-zA-Z\s]/g, '');
+    const formatted = clean.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    setFirstName(formatted);
+  };
+
+  const handleLastNameChange = (e) => {
+    const val = e.target.value;
+    const clean = val.replace(/[^a-zA-Z\s]/g, '');
+    const formatted = clean.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    setLastName(formatted);
   };
 
   const handleAmountChange = (e, setter) => {
@@ -376,12 +399,13 @@ export default function OrderForm({ onSubmitSuccess }) {
     }
   };
 
-  const isFormValid = 
+  const isFormValid =
     paymentType && paymentType !== '' &&
     (!['Advance Payment', 'Pending Payment'].includes(paymentType) || (
       totalAmount && !totalAmountError
     )) &&
-    name.trim() && !nameError &&
+    firstName.trim() && !firstNameError &&
+    lastName.trim() && !lastNameError &&
     mobile && isValidIndianMobile(mobile) && !mobileError &&
     streetAddress.trim() && !streetAddressError &&
     district && !districtError &&
@@ -409,7 +433,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
     const formData = {
       paymentType,
-      name: name.trim(),
+      name: `${firstName.trim()} ${lastName.trim()}`,
       mobile: `+91 ${mobile}`,
       address: formattedAddress,
       totalAmount: totalAmount || '0',
@@ -421,13 +445,13 @@ export default function OrderForm({ onSubmitSuccess }) {
 
     try {
       const url = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
-      
+
       if (!url) {
         throw new Error('Google Apps Script URL is missing. Please configure VITE_GOOGLE_SCRIPT_URL in your .env file.');
       }
 
       const formBody = new URLSearchParams(formData).toString();
-      
+
       await fetch(url, {
         method: 'POST',
         mode: 'no-cors',
@@ -452,10 +476,10 @@ export default function OrderForm({ onSubmitSuccess }) {
   };
 
   return (
-    <section id="order-form" className="py-16 md:py-24 bg-[#FAF7E8] border-t border-[#E5DFC2] transition-colors duration-300">
+    <section id="order-form" className="py-10 sm:py-16 md:py-24 bg-white border-t border-[#E5DFC2] transition-colors duration-300">
       <div className="container mx-auto px-6 max-w-6xl">
-        <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start lg:items-center justify-between">
-          
+        <div className="flex flex-col lg:flex-row gap-x-16 gap-y-6 sm:gap-y-12 items-start lg:items-center justify-between">
+
           {/* Left Column: Heading Text */}
           <motion.div
             initial={{ opacity: 0.8, x: -10 }}
@@ -464,11 +488,11 @@ export default function OrderForm({ onSubmitSuccess }) {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="w-full lg:w-5/12 text-center lg:text-left space-y-6"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-black font-nunito leading-[1.1] text-[#A30000]">
-              Complete Your <span className="text-black">Purchase</span>
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-black font-mulish leading-[1.1] text-black">
+              <span className="text-[#A30000]">Complete</span> Your Purchase
             </h2>
-            <p className="text-lg md:text-xl opacity-80 leading-relaxed text-[#555555] font-mulish">
-              Please fill in your prescription details to complete your gemstone order. Our support team will confirm and assist you.
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl opacity-80 leading-relaxed text-[#555555] font-mulish">
+              Please fill in your personal details to complete your gemstone order. Our support team will confirm and assist you.
             </p>
           </motion.div>
 
@@ -478,13 +502,13 @@ export default function OrderForm({ onSubmitSuccess }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="w-full lg:w-6/12 bg-white rounded-3xl border border-[#E5DFC2] p-6 sm:p-10 shadow-xl shadow-black/[0.03]"
+            className="w-full lg:w-6/12 bg-[#f5f5dd] rounded-2xl sm:rounded-3xl border border-[#E5DFC2] p-4 sm:p-8 md:p-10 shadow-xl shadow-black/[0.03]"
           >
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5 font-mulish">
-              
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5 font-mulish">
+
               {/* Payment Type */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
                   Payment Type
                 </label>
                 <select
@@ -499,7 +523,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     setTotalAmountError('');
                     setAdvanceAmountError('');
                   }}
-                  className="w-full bg-[#FAF7E8] border border-[#E5DFC2] text-black rounded-xl px-4 py-3.5 text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-pointer font-bold"
+                  className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-pointer font-bold"
                 >
                   <option value="" disabled>Select one</option>
                   <option value="Advance Payment">Advance Payment</option>
@@ -512,11 +536,11 @@ export default function OrderForm({ onSubmitSuccess }) {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-[fadeIn_0.3s_ease-out]">
                   {/* Total Amount */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
                       Total Amount
                     </label>
-                    <div className="flex rounded-xl bg-[#FAF7E8] border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
-                      <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3.5 py-3.5 text-base font-extrabold select-none flex items-center justify-center font-nunito">
+                    <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
+                      <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
                         ₹
                       </span>
                       <input
@@ -525,24 +549,24 @@ export default function OrderForm({ onSubmitSuccess }) {
                         value={totalAmount ? parseInt(totalAmount).toLocaleString('en-IN') : ''}
                         onChange={handleTotalAmountChange}
                         onBlur={() => setTotalAmountTouched(true)}
-                        className="w-full bg-transparent text-black px-4 py-3.5 text-base focus:outline-none border-none font-extrabold"
+                        className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold"
                       />
                     </div>
                     {totalAmountError && (
-                      <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-nunito mt-0.5">
+                      <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
                         <AlertCircle size={12} />
                         <span>{totalAmountError}</span>
                       </div>
                     )}
                   </div>
 
-                  {/* Advance Payment Amount */}
+                  {/* Advance Amount */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
-                      Advance Payment Amount
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                      Advance Amount
                     </label>
-                    <div className="flex rounded-xl bg-[#FAF7E8] border border-[#E5DFC2] overflow-hidden">
-                      <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3.5 py-3.5 text-base font-extrabold select-none flex items-center justify-center font-nunito">
+                    <div className="flex rounded-xl bg-white border border-[#E5DFC2] overflow-hidden">
+                      <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
                         ₹
                       </span>
                       <input
@@ -551,18 +575,18 @@ export default function OrderForm({ onSubmitSuccess }) {
                         value={advanceAmount ? parseInt(advanceAmount).toLocaleString('en-IN') : '0'}
                         readOnly
                         disabled
-                        className="w-full bg-transparent text-black px-4 py-3.5 text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
+                        className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
                       />
                     </div>
                   </div>
 
-                  {/* Pending Payment Amount */}
+                  {/* Pending Amount */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
-                      Pending Payment Amount
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                      Pending Amount
                     </label>
-                    <div className="flex rounded-xl bg-[#FAF7E8] border border-[#E5DFC2] overflow-hidden">
-                      <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3.5 py-3.5 text-base font-extrabold select-none flex items-center justify-center font-nunito">
+                    <div className="flex rounded-xl bg-white border border-[#E5DFC2] overflow-hidden">
+                      <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
                         ₹
                       </span>
                       <input
@@ -570,69 +594,92 @@ export default function OrderForm({ onSubmitSuccess }) {
                         value={calculatedPendingAmount ? parseInt(calculatedPendingAmount).toLocaleString('en-IN') : '0'}
                         readOnly
                         disabled
-                        className="w-full bg-transparent text-black px-4 py-3.5 text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
+                        className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
                       />
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Name & Mobile Grid */}
+              {/* First Name & Last Name Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Name */}
+                {/* First Name */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
-                    Name
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                    First Name
                   </label>
                   <input
                     type="text"
-                    placeholder="Full name"
-                    value={name}
-                    onChange={handleNameChange}
-                    onBlur={() => setNameTouched(true)}
+                    placeholder="First name"
+                    value={firstName}
+                    onChange={handleFirstNameChange}
+                    onBlur={() => setFirstNameTouched(true)}
                     onPaste={(e) => e.preventDefault()}
-                    autoComplete="name"
-                    className="w-full bg-[#FAF7E8] border border-[#E5DFC2] text-black rounded-xl px-4 py-3.5 text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold"
+                    autoComplete="given-name"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold"
                   />
-                  {nameError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-nunito mt-0.5">
+                  {firstNameError && (
+                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
-                      <span>{nameError}</span>
+                      <span>{firstNameError}</span>
                     </div>
                   )}
                 </div>
 
-                {/* Mobile Number */}
+                {/* Last Name */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
-                    Mobile No.
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                    Last Name
                   </label>
-                  <div className="flex rounded-xl bg-[#FAF7E8] border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
-                    <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3.5 py-3.5 text-base font-extrabold select-none flex items-center justify-center font-nunito">
-                      +91
-                    </span>
-                    <input
-                      type="tel"
-                      placeholder="10-digit number"
-                      value={mobile}
-                      onChange={handleMobileChange}
-                      onBlur={() => setMobileTouched(true)}
-                      className="w-full bg-transparent text-black px-4 py-3.5 text-base focus:outline-none border-none font-extrabold"
-                    />
-                  </div>
-                  {mobileError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-nunito mt-0.5">
+                  <input
+                    type="text"
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={handleLastNameChange}
+                    onBlur={() => setLastNameTouched(true)}
+                    onPaste={(e) => e.preventDefault()}
+                    autoComplete="family-name"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold"
+                  />
+                  {lastNameError && (
+                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
-                      <span>{mobileError}</span>
+                      <span>{lastNameError}</span>
                     </div>
                   )}
                 </div>
               </div>
 
+              {/* Mobile Number */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                  Mobile No.
+                </label>
+                <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
+                  <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
+                    +91
+                  </span>
+                  <input
+                    type="tel"
+                    placeholder="10-digit number"
+                    value={mobile}
+                    onChange={handleMobileChange}
+                    onBlur={() => setMobileTouched(true)}
+                    className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold"
+                  />
+                </div>
+                {mobileError && (
+                  <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                    <AlertCircle size={12} />
+                    <span>{mobileError}</span>
+                  </div>
+                )}
+              </div>
+
               {/* Address (Max 500 chars) */}
               <div className="flex flex-col gap-1.5">
                 <div className="flex justify-between items-center">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
                     Address
                   </label>
                   <span className="text-[9px] font-bold text-gray-400">
@@ -646,10 +693,10 @@ export default function OrderForm({ onSubmitSuccess }) {
                   onBlur={() => setStreetAddressTouched(true)}
                   rows={2}
                   maxLength={500}
-                  className="w-full bg-[#FAF7E8] border border-[#E5DFC2] text-black rounded-xl px-4 py-3.5 text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all resize-none leading-relaxed font-bold"
+                  className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all resize-none leading-relaxed font-bold"
                 />
                 {streetAddressError && (
-                  <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-nunito mt-0.5">
+                  <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
                     <AlertCircle size={12} />
                     <span>{streetAddressError}</span>
                   </div>
@@ -660,7 +707,7 @@ export default function OrderForm({ onSubmitSuccess }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* State Dropdown */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
                     State
                   </label>
                   <select
@@ -672,7 +719,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                       setDistrictTouched(false);
                     }}
                     onBlur={() => setStateTouched(true)}
-                    className="w-full bg-[#FAF7E8] border border-[#E5DFC2] text-black rounded-xl px-4 py-3.5 text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-pointer font-bold"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-pointer font-bold"
                   >
                     <option value="">Select State</option>
                     {indianStatesAndUTs.map((s) => (
@@ -680,7 +727,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     ))}
                   </select>
                   {stateError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-nunito mt-0.5">
+                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{stateError}</span>
                     </div>
@@ -689,7 +736,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                 {/* District Dropdown */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
                     District
                   </label>
                   <select
@@ -697,7 +744,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     onChange={(e) => setDistrict(e.target.value)}
                     onBlur={() => setDistrictTouched(true)}
                     disabled={!state}
-                    className={`w-full bg-[#FAF7E8] border border-[#E5DFC2] text-black rounded-xl px-4 py-3.5 text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold ${!state ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
+                    className={`w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold ${!state ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                   >
                     <option value="">Select District</option>
                     {districtsList.map((d) => (
@@ -705,7 +752,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     ))}
                   </select>
                   {districtError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-nunito mt-0.5">
+                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{districtError}</span>
                     </div>
@@ -718,7 +765,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                 {/* PIN Code with Autocomplete suggestions */}
                 <div className="flex flex-col gap-1.5 relative">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
                       PIN Code
                     </label>
                     {isSearchingPincode && (
@@ -736,10 +783,10 @@ export default function OrderForm({ onSubmitSuccess }) {
                       setTimeout(() => setPincodeSuggestions([]), 200);
                       setPincodeTouched(true);
                     }}
-                    className="w-full bg-[#FAF7E8] border border-[#E5DFC2] text-black rounded-xl px-4 py-3.5 text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold"
                   />
                   {pincodeError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-nunito mt-0.5">
+                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{pincodeError}</span>
                     </div>
@@ -769,7 +816,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                 {/* City/Town/Village Input (Read-only) */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
                     City/Town/Village
                   </label>
                   <input
@@ -777,10 +824,10 @@ export default function OrderForm({ onSubmitSuccess }) {
                     placeholder="City"
                     value={city}
                     readOnly
-                    className="w-full bg-[#FAF7E8] border border-[#E5DFC2] text-black rounded-xl px-4 py-3.5 text-base font-bold cursor-not-allowed opacity-100 focus:outline-none"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base font-bold cursor-not-allowed opacity-100 focus:outline-none"
                   />
                   {cityError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-nunito mt-0.5">
+                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{cityError}</span>
                     </div>
@@ -789,13 +836,13 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                 {/* Country */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-nunito">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
                     Country
                   </label>
                   <select
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
-                    className="w-full bg-[#FAF7E8] border border-[#E5DFC2] text-black rounded-xl px-4 py-3.5 text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-not-allowed font-bold"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-not-allowed font-bold"
                     disabled
                   >
                     <option value="INDIA">INDIA</option>
@@ -805,7 +852,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
               {/* Consent Checkbox */}
               <div className="flex items-start gap-3 mt-2">
-                <div 
+                <div
                   onClick={() => setConsent(!consent)}
                   className={`custom-checkbox mt-1 shrink-0 ${consent ? 'checked' : ''}`}
                   role="checkbox"
@@ -819,7 +866,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     </svg>
                   )}
                 </div>
-                <label className="text-xs text-[#555555] leading-relaxed cursor-pointer select-none">
+                <label className="text-xs text-[#555555] leading-relaxed cursor-pointer select-none text-justify">
                   I hereby agree to the <a href="#terms" onClick={(e) => { e.preventDefault(); alert("Terms & Conditions: All gemstone shipments are handled with secure packaging. Certified authenticity is guaranteed. No reseller commercialization allowed."); }} className="text-[#A30000] font-extrabold underline hover:opacity-80 transition-opacity">Terms and Conditions</a> of Astrofied. I confirm that I am purchasing this gemstone strictly based on my own informed decision and the recommendation provided by my consulting astrologer, and that no one has influenced, pressured, or obligated me to make this purchase.
                 </label>
               </div>
@@ -836,7 +883,7 @@ export default function OrderForm({ onSubmitSuccess }) {
               <button
                 type="submit"
                 disabled={!isFormValid || isSubmitting}
-                className="btn btn-primary w-full mt-4 flex items-center justify-center gap-2 h-14 font-nunito"
+                className="btn btn-primary w-full mt-4 flex items-center justify-center gap-2 h-11 sm:h-14 text-sm sm:text-base font-mulish"
               >
                 {isSubmitting ? (
                   <>

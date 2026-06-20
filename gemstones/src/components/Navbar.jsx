@@ -4,7 +4,7 @@ import logo from '../assets/logo.png';
 
 export default function Navbar() {
   return (
-    <header className="fixed top-0 left-0 w-full z-50 px-4 md:px-12 py-4 flex justify-between items-center bg-[#F4F1E1]/70 backdrop-blur-lg border-b shadow-sm border-black/10 shadow-black/5 transition-all duration-300">
+    <header className="fixed top-0 left-0 w-full z-50 px-4 md:px-12 py-4 flex justify-between items-center bg-[#f5f5dd]/70 backdrop-blur-lg border-b shadow-sm border-black/10 shadow-black/5 transition-all duration-300">
       
       {/* Logo and Wordmark */}
       <div 
@@ -31,7 +31,7 @@ export default function Navbar() {
       </div>
 
       {/* Right Side Navigation Links */}
-      <div className="flex gap-4 md:gap-6 font-semibold items-center font-nunito">
+      <div className="flex gap-4 md:gap-6 font-semibold items-center font-mulish">
         <button 
           onClick={() => {
             const gridSection = document.getElementById('gemstone-collection');

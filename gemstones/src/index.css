@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-parchment: #F4F1E1;
+  --color-parchment: #f5f5dd;
   --color-brand-red: #A30000;
   --color-gold: #ffd700;
   --color-obsidian: #0A0A0A;
@@ -11,7 +11,7 @@
 }
 
 :root {
-  --parchment: #F4F1E1;
+  --parchment: #f5f5dd;
   --brand-red: #A30000;
   --gold: #ffd700;
   --text-black: #0A0A0A;
@@ -46,7 +46,7 @@
 }
 @media (min-width: 1280px) {
   .container {
-    max-width: 1200px;
+    max-width: 1280px;
   }
 }
 
@@ -62,7 +62,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-nunito);
+  font-family: var(--font-mulish);
   color: var(--text-black);
 }
 
@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   margin-bottom: 1rem;
   text-transform: capitalize;
-  font-family: var(--font-nunito);
+  font-family: var(--font-mulish);
 }
 @media (min-width: 1024px) {
   .section-header h2 {
@@ -161,48 +161,57 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==================== Footer Layout ==================== */
+/* Footer styles are handled by inline and Tailwind v4 classes. */
 
-/* Desktop row: hidden by default, shown at xl (1280px+) */
-.footer-desktop-row {
-  display: none;
-}
-
-/* Mobile/tablet grid: shown by default */
-.footer-mobile-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* Tablet: 2-column grid */
-@media (min-width: 640px) {
-  .footer-mobile-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-}
-
-/* Desktop (xl+): switch to single row with dividers */
-@media (min-width: 1280px) {
-  /* Let the footer container use full width */
-  #footer .container {
-    max-width: none;
-    padding-left: 3rem;
-    padding-right: 3rem;
+/* Print styles to show only the payment confirmation bill details */
+@media print {
+  /* Set body styling for print output */
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  .footer-desktop-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-  }
-
-  .footer-mobile-grid {
+  /* Hide everything under the root except the payment confirmation element */
+  #root > :not(#payment-confirmation) {
     display: none !important;
   }
+
+  /* Hide print-specific exclusions (e.g. countdown timer, action buttons, links) */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset parent containers for clean print fitting */
+  #payment-confirmation {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  #payment-confirmation > div {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Target the bill card to render cleanly and center-aligned on paper */
+  #printable-bill {
+    background-color: #f5f5dd !important;
+    border: 1px solid #E5DFC2 !important;
+    box-shadow: none !important;
+    margin: 20px auto !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    border-radius: 24px !important;
+    padding: 30px !important;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
+
 
 
