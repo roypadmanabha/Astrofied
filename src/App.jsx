@@ -470,7 +470,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         <button
           disabled={isRedirecting}
           onClick={handleGemstoneRedirect}
-          className={`px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-3.5 rounded-[10px] text-xs sm:text-sm md:text-base font-bold transition-all duration-300 ease-in-out tracking-wider shadow-md hover:scale-105 inline-flex items-center justify-center gap-2 font-mulish cursor-pointer ${
+          className={`px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-3.5 rounded-[10px] text-xs sm:text-sm md:text-base font-bold transition-all duration-500 ease-in-out tracking-wider shadow-md hover:scale-105 inline-flex items-center justify-center gap-2 font-mulish cursor-pointer ${
             isDarkMode
               ? 'bg-[#FFF000] hover:bg-[#FFE000] text-black shadow-lg shadow-[#FFF000]/10'
               : 'bg-gradient-to-r from-black to-[#A30000] text-white hover:opacity-95 shadow-lg shadow-[#A30000]/10'
