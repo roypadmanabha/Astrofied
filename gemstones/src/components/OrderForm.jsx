@@ -50,6 +50,7 @@ export default function OrderForm({ onSubmitSuccess }) {
   const [pincode, setPincode] = useState('');
   const [country, setCountry] = useState('INDIA');
   const [consent, setConsent] = useState(false);
+  const [secretCode, setSecretCode] = useState('');
 
   // Dynamic districts list computed based on active state selection
   const districtsList = React.useMemo(() => {
@@ -412,7 +413,8 @@ export default function OrderForm({ onSubmitSuccess }) {
     city.trim() && !cityError &&
     state && !stateError &&
     pincode && pincode.length === 6 && !pincodeError &&
-    consent;
+    consent &&
+    secretCode.trim() === 'Astrofied154';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -855,6 +857,20 @@ export default function OrderForm({ onSubmitSuccess }) {
                     <option value="INDIA">INDIA</option>
                   </select>
                 </div>
+              </div>
+
+              {/* Enter Secret Code (Manual OTP) */}
+              <div className="flex flex-col gap-1.5 mt-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                  Enter Secret Code
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter secret code to enable payment"
+                  value={secretCode}
+                  onChange={(e) => setSecretCode(e.target.value)}
+                  className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base font-bold focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all"
+                />
               </div>
 
               {/* Consent Checkbox */}
