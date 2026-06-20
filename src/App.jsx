@@ -8,7 +8,6 @@ import Footer from './components/Footer';
 import Feedback from './components/Feedback';
 import PromoVideo from './components/PromoVideo';
 import AstrofiedJournals from './components/AstrofiedJournals';
-import AstrofiedGemstones from './components/AstrofiedGemstones';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
@@ -450,7 +449,6 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* Promo Video Section */}
       <PromoVideo />
       <AstrofiedJournals />
-      <AstrofiedGemstones />
 
       <Testimonials />
 
