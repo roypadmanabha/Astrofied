@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { AlertCircle } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import GemstoneGrid from './components/GemstoneGrid';
@@ -10,12 +12,27 @@ import LegalModal from './components/LegalModal';
 function App() {
   const [submittedOrder, setSubmittedOrder] = useState(null);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
-    // 1. Block right click (context menu) and show alert
+    let timeoutId;
+    
+    const triggerToast = () => {
+      setShowToast(false);
+      setTimeout(() => {
+        setShowToast(true);
+      }, 50);
+      
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
+    };
+
+    // 1. Block right click (context menu) and show toast
     const handleContextMenu = (e) => {
       e.preventDefault();
-      alert('not allowed-content protection-enabled');
+      triggerToast();
     };
 
     // 2. Block drag start (prevents dragging/grabbing of images/texts)
@@ -27,14 +44,14 @@ function App() {
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
         e.preventDefault();
-        alert('not allowed-content protection-enabled');
+        triggerToast();
       }
     };
 
     // 4. Block copy event
     const handleCopy = (e) => {
       e.preventDefault();
-      alert('not allowed-content protection-enabled');
+      triggerToast();
     };
 
     document.addEventListener('contextmenu', handleContextMenu);
@@ -47,6 +64,7 @@ function App() {
       document.removeEventListener('dragstart', handleDragStart);
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('copy', handleCopy);
+      clearTimeout(timeoutId);
     };
   }, []);
 
@@ -178,6 +196,24 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         title={legalModal.title}
         content={legalModal.content}
       />
+
+      {/* Toast Alert matching premium design block */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 350, damping: 25 }}
+            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[9999] w-[90%] max-w-sm bg-gradient-to-r from-[#8B0000] to-[#A30000] border border-[#ff3333]/50 rounded-2xl px-5 py-3 shadow-2xl flex items-center gap-3"
+          >
+            <AlertCircle className="text-white shrink-0" size={18} />
+            <span className="text-[12px] sm:text-xs font-mulish font-bold text-white tracking-wide leading-none pt-0.5">
+              Not allowed. Content protection enabled.
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
