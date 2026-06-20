@@ -5,7 +5,7 @@ export const gemstones = [
     planet: 'Jupiter',
     description: 'Enhances wisdom, prosperity, and marital harmony. Strengthens decision-making and attracts good fortune in career and finance.',
     imageName: 'pukhraj',
-    imagePath: '/gemstones/pukhraj.png'
+    imagePath: 'gemstones/pukhraj.png'
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export const gemstones = [
     planet: 'Sun',
     description: 'Boosts confidence, leadership, and vitality. Strengthens authority, health, and overall life force.',
     imageName: 'manik',
-    imagePath: '/gemstones/ruby.png'
+    imagePath: 'gemstones/ruby.png'
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export const gemstones = [
     planet: 'Moon',
     description: 'Calms the mind, improves emotional balance, and supports mental peace. Beneficial for stress relief and intuition.',
     imageName: 'moti',
-    imagePath: '/gemstones/mukta.png'
+    imagePath: 'gemstones/mukta.png'
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export const gemstones = [
     planet: 'Mars',
     description: 'Boosts courage, energy, and willpower. Supports career growth, physical strength, and removes obstacles.',
     imageName: 'moonga',
-    imagePath: '/gemstones/prabal.png'
+    imagePath: 'gemstones/prabal.png'
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const gemstones = [
     planet: 'Mercury',
     description: 'Sharpens intellect, communication, and analytical skills. Ideal for students, business owners, and professionals.',
     imageName: 'panna',
-    imagePath: '/gemstones/panna.png'
+    imagePath: 'gemstones/panna.png'
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ export const gemstones = [
     planet: 'Saturn',
     description: 'A powerful, fast-acting stone for discipline, focus, and removing long-standing obstacles. Recommended only after careful chart analysis.',
     imageName: 'neelam',
-    imagePath: '/gemstones/neelam.jpg'
+    imagePath: 'gemstones/neelam.jpg'
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ export const gemstones = [
     planet: 'Rahu',
     description: 'Helps control confusion and unexpected disruptions. Supports clarity, sudden gains, and protection from deception.',
     imageName: 'gomed',
-    imagePath: '/gemstones/gomed.png'
+    imagePath: 'gemstones/gomed.png'
   },
   {
     id: 8,
@@ -61,7 +61,7 @@ export const gemstones = [
     planet: 'Ketu',
     description: 'Protects against hidden enemies and unforeseen losses. Supports spiritual growth and sharp intuition.',
     imageName: 'cats-eye',
-    imagePath: '/gemstones/cats-eye.png'
+    imagePath: 'gemstones/cats-eye.png'
   },
   {
     id: 9,
@@ -69,7 +69,7 @@ export const gemstones = [
     planet: 'Venus',
     description: 'Enhances love, creativity, beauty, and relationship harmony. Favorable for artists and those seeking marital bliss.',
     imageName: 'opal',
-    imagePath: '/gemstones/opal.png'
+    imagePath: 'gemstones/opal.png'
   }
 ];
 
