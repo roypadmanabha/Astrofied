@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
@@ -143,6 +144,20 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
   const { isDarkMode } = useTheme();
 
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  const handleGemstoneRedirect = () => {
+    setIsRedirecting(true);
+    setTimeout(() => {
+      const destination = typeof window !== 'undefined' && 
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+          ? 'http://localhost:5002'
+          : typeof window !== 'undefined' && window.location.pathname.startsWith('/Astrofied')
+              ? '/Astrofied/gemstones/'
+              : '/gemstones/';
+      window.location.href = destination;
+    }, 2000);
+  };
 
   const isModalOpenRef = useRef(false);
 
@@ -449,6 +464,28 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* Promo Video Section */}
       <PromoVideo />
       <AstrofiedJournals />
+
+      {/* Gemstones redirect button section with 2s lazy load buffering */}
+      <div className="py-8 flex justify-center items-center">
+        <button
+          disabled={isRedirecting}
+          onClick={handleGemstoneRedirect}
+          className={`px-8 py-3.5 rounded-full text-base sm:text-lg font-bold transition-all duration-300 tracking-wider shadow-md hover:scale-105 inline-flex items-center justify-center gap-2 font-mulish cursor-pointer ${
+            isDarkMode
+              ? 'bg-[#FFF000] hover:bg-[#FFE000] text-black shadow-lg shadow-[#FFF000]/10'
+              : 'bg-gradient-to-r from-black to-[#A30000] text-white hover:opacity-95 shadow-lg shadow-[#A30000]/10'
+          }`}
+        >
+          {isRedirecting ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span>Redirecting...</span>
+            </>
+          ) : (
+            <span>Explore Gemstones</span>
+          )}
+        </button>
+      </div>
 
       <Testimonials />
 
