@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+@theme {
+  --color-parchment: #F4F1E1;
+  --color-brand-red: #A30000;
+  --color-gold: #ffd700;
+  --color-obsidian: #0A0A0A;
+  
+  --font-nunito: "Nunito", sans-serif;
+  --font-mulish: "Mulish", sans-serif;
+}
+
+:root {
+  --parchment: #F4F1E1;
+  --brand-red: #A30000;
+  --gold: #ffd700;
+  --text-black: #0A0A0A;
+  --text-gray: #555555;
+  --font-nunito: "Nunito", sans-serif;
+  --font-mulish: "Mulish", sans-serif;
+}
+
+/* Container styling to auto-center globally across all screens */
+.container {
+  width: 100%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+body {
+  font-family: var(--font-mulish);
+  background-color: var(--parchment);
+  color: var(--text-black);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-nunito);
+  color: var(--text-black);
+}
+
+/* Custom scrollbars (light mode only) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--parchment);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand-red);
+  border-radius: 4px;
+}
+
+/* Global utility classes to replicate original design structure */
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-header h2 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+  font-family: var(--font-nunito);
+}
+@media (min-width: 1024px) {
+  .section-header h2 {
+    font-size: 3rem;
+  }
+}
+
+.section-header h2 span {
+  color: var(--brand-red);
+}
+
+.section-header p {
+  color: var(--text-gray);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-family: var(--font-mulish);
+}
+
+/* Rounded geometric sans styling matching buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, #000000, #FF0000);
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 4px 12px rgba(163, 0, 0, 0.2);
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  opacity: 0.9;
+  box-shadow: 0 6px 16px rgba(163, 0, 0, 0.3);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+.btn-primary:disabled {
+  background: #A0A0A0;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  color: var(--text-black);
+  border: 1px solid var(--text-black);
+}
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--parchment);
+  transform: translateY(-2px);
+}
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* ==================== Footer Layout ==================== */
+
+/* Desktop row: hidden by default, shown at xl (1280px+) */
+.footer-desktop-row {
+  display: none;
+}
+
+/* Mobile/tablet grid: shown by default */
+.footer-mobile-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Tablet: 2-column grid */
+@media (min-width: 640px) {
+  .footer-mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Desktop (xl+): switch to single row with dividers */
+@media (min-width: 1280px) {
+  /* Let the footer container use full width */
+  #footer .container {
+    max-width: none;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .footer-desktop-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .footer-mobile-grid {
+    display: none !important;
+  }
+}
+
+
