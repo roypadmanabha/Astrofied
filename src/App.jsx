@@ -466,11 +466,11 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <AstrofiedJournals />
 
       {/* Gemstones redirect button section with 2s lazy load buffering */}
-      <div className="py-8 flex justify-center items-center">
+      <div className={`py-8 flex justify-center items-center ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
         <button
           disabled={isRedirecting}
           onClick={handleGemstoneRedirect}
-          className={`px-8 py-3.5 rounded-full text-base sm:text-lg font-bold transition-all duration-300 tracking-wider shadow-md hover:scale-105 inline-flex items-center justify-center gap-2 font-mulish cursor-pointer ${
+          className={`px-8 py-3.5 rounded-[15px] text-base sm:text-lg font-bold transition-all duration-300 ease-in-out tracking-wider shadow-md hover:scale-105 inline-flex items-center justify-center gap-2 font-mulish cursor-pointer ${
             isDarkMode
               ? 'bg-[#FFF000] hover:bg-[#FFE000] text-black shadow-lg shadow-[#FFF000]/10'
               : 'bg-gradient-to-r from-black to-[#A30000] text-white hover:opacity-95 shadow-lg shadow-[#A30000]/10'
