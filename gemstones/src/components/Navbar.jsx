@@ -1,8 +1,19 @@
 import React from 'react';
-import { Gem, ClipboardList } from 'lucide-react';
+import { Gem, ClipboardList, House } from 'lucide-react';
 import logo from '../assets/logo.png';
 
 export default function Navbar() {
+  const handleHomeClick = () => {
+    const isLocal = typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    const destination = isLocal
+      ? 'http://localhost:5174'
+      : typeof window !== 'undefined' && window.location.pathname.startsWith('/Astrofied')
+        ? '/Astrofied/'
+        : '/';
+    window.location.href = destination;
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full z-50 px-4 md:px-12 py-4 flex justify-between items-center bg-[#f5f5dd]/70 backdrop-blur-lg border-b shadow-sm border-black/10 shadow-black/5 transition-all duration-300">
       
@@ -32,6 +43,14 @@ export default function Navbar() {
 
       {/* Right Side Navigation Links */}
       <div className="flex gap-4 md:gap-6 font-semibold items-center font-mulish">
+        <button 
+          onClick={handleHomeClick}
+          className="hover:opacity-70 transition-opacity flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
+          title="Home"
+        >
+          <House size={18} className="sm:hidden text-black shrink-0" />
+          <span className="hidden sm:inline text-xs sm:text-sm md:text-base">Home</span>
+        </button>
         <button 
           onClick={() => {
             const gridSection = document.getElementById('gemstone-collection');
