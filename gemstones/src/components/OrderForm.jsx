@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Loader2, AlertCircle } from 'lucide-react';
+import { Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { isValidIndianMobile } from '../lib/constants';
 
 import statesAndDistrictsData from '../lib/states-districts.json';
@@ -51,6 +51,7 @@ export default function OrderForm({ onSubmitSuccess }) {
   const [country, setCountry] = useState('INDIA');
   const [consent, setConsent] = useState(false);
   const [secretCode, setSecretCode] = useState('');
+  const [showSecretCode, setShowSecretCode] = useState(false);
 
   // Dynamic districts list computed based on active state selection
   const districtsList = React.useMemo(() => {
@@ -864,13 +865,26 @@ export default function OrderForm({ onSubmitSuccess }) {
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
                   Enter Secret Code
                 </label>
-                <input
-                  type="text"
-                  placeholder="Enter secret code to enable payment"
-                  value={secretCode}
-                  onChange={(e) => setSecretCode(e.target.value)}
-                  className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base font-bold focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all"
-                />
+                <div className="relative w-full">
+                  <input
+                    type={showSecretCode ? 'text' : 'password'}
+                    placeholder="Enter secret code to enable payment"
+                    value={secretCode}
+                    onChange={(e) => setSecretCode(e.target.value)}
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl pl-3 pr-10 py-2.5 sm:pl-4 sm:pr-12 sm:py-3.5 text-sm sm:text-base font-bold focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowSecretCode(!showSecretCode)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black focus:outline-none transition-colors"
+                  >
+                    {showSecretCode ? (
+                      <EyeOff className="w-4 h-4 sm:w-5 h-5" />
+                    ) : (
+                      <Eye className="w-4 h-4 sm:w-5 h-5" />
+                    )}
+                  </button>
+                </div>
               </div>
 
               {/* Consent Checkbox */}
