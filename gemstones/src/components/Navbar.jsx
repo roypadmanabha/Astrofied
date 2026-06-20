@@ -19,13 +19,13 @@ export default function Navbar() {
       
       {/* Logo and Wordmark */}
       <div 
-        className="flex items-center gap-1.5 md:gap-3 cursor-pointer" 
+        className="flex items-center gap-0.5 sm:gap-1 cursor-pointer" 
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       >
         <img
           src={logo}
           alt="Astrofied Logo"
-          className="h-5 sm:h-6 md:h-8 mr-0 md:mr-1 object-contain select-none pointer-events-none"
+          className="h-5 sm:h-6 md:h-8 mr-0 object-contain select-none pointer-events-none"
           style={{ mixBlendMode: 'multiply' }}
           draggable={false}
         />
