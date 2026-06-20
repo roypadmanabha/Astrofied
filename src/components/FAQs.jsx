@@ -143,7 +143,9 @@ export default function FAQs() {
                             typeof window !== 'undefined' && 
                             (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
                                 ? 'http://localhost:5002'
-                                : '/gemstones/'
+                                : typeof window !== 'undefined' && window.location.pathname.startsWith('/Astrofied')
+                                    ? '/Astrofied/gemstones/'
+                                    : '/gemstones/'
                         }
                         className={`px-8 py-3.5 rounded-full text-base font-bold transition-all duration-300 tracking-wider shadow-md hover:scale-105 inline-flex items-center justify-center font-mulish ${
                             isDarkMode
