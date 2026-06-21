@@ -63,31 +63,30 @@ export default function Hero() {
             Every gemstone recommendation is based on your personal birth chart, planetary positions, and deep Vedic analysis. These are not generic decorative stones, but precise remedial tools selected to strengthen specific planetary energies and support your life path. Every gem is certified authentic and natural.
           </motion.p>
 
-          {/* Stats/Trust Badges */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-2.5 sm:gap-4 mt-4 w-full max-w-[96vw] sm:max-w-none px-2 sm:px-0"
+            className="grid grid-cols-3 justify-center gap-3 sm:gap-4 mt-6 w-full max-w-2xl px-2 sm:px-0 mx-auto"
           >
             {/* Stat Chip 1 */}
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 p-3 sm:px-5 sm:py-3 aspect-square sm:aspect-auto rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
-              <ShieldCheck className="w-6 h-6 sm:w-5 sm:h-5 text-[#A30000] shrink-0" />
-              <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal">
+            <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 p-3 sm:p-5 aspect-square rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
+              <ShieldCheck className="w-6 h-6 sm:w-8 sm:h-8 text-[#A30000] shrink-0" />
+              <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center leading-tight">
                 100% Certified Stones
               </span>
             </div>
 
             {/* Stat Chip 2 */}
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 p-3 sm:px-5 sm:py-3 aspect-square sm:aspect-auto rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
-              <UserCheck className="w-6 h-6 sm:w-5 sm:h-5 text-[#A30000] shrink-0" />
-              <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal">
+            <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 p-3 sm:p-5 aspect-square rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
+              <UserCheck className="w-6 h-6 sm:w-8 sm:h-8 text-[#A30000] shrink-0" />
+              <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center leading-tight">
                 Astrologer-Prescribed
               </span>
             </div>
 
             {/* Stat Chip 3 */}
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 p-3 sm:px-5 sm:py-3 aspect-square sm:aspect-auto rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
-              <Award className="w-6 h-6 sm:w-5 sm:h-5 text-[#A30000] shrink-0" />
-              <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal">
+            <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 p-3 sm:p-5 aspect-square rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
+              <Award className="w-6 h-6 sm:w-8 sm:h-8 text-[#A30000] shrink-0" />
+              <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center leading-tight">
                 Lab-Tested Authenticity
               </span>
             </div>
