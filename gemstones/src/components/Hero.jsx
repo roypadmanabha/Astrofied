@@ -70,7 +70,7 @@ export default function Hero() {
           >
             {/* Stat Chip 1 */}
             <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 p-3 sm:px-5 sm:py-3 aspect-square sm:aspect-auto rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
-              <ShieldCheck className="w-6 h-6 sm:w-5 sm:h-5 text-[#C9A227] shrink-0" />
+              <ShieldCheck className="w-6 h-6 sm:w-5 sm:h-5 text-[#A30000] shrink-0" />
               <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal">
                 100% Certified Stones
               </span>
@@ -86,7 +86,7 @@ export default function Hero() {
 
             {/* Stat Chip 3 */}
             <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 p-3 sm:px-5 sm:py-3 aspect-square sm:aspect-auto rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
-              <Award className="w-6 h-6 sm:w-5 sm:h-5 text-[#C9A227] shrink-0" />
+              <Award className="w-6 h-6 sm:w-5 sm:h-5 text-[#A30000] shrink-0" />
               <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal">
                 Lab-Tested Authenticity
               </span>
