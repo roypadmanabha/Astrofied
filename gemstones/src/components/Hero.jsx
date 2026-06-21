@@ -42,7 +42,7 @@ export default function Hero() {
           {/* Small Pill Badge */}
           <motion.div
             variants={itemVariants}
-            className="px-4 py-1.5 rounded-[20px] bg-[#A30000]/10 border border-[#A30000]/20 text-[#A30000] text-xs font-black tracking-[0.15em] uppercase font-mulish"
+            className="px-4 py-1.5 rounded-[10px] bg-[#A30000]/10 border border-[#A30000]/20 text-[#A30000] text-xs font-black tracking-[0.15em] uppercase font-mulish"
           >
             Gemstone Remedies
           </motion.div>

@@ -81,7 +81,7 @@ export default function GemstoneCard({ gemstone, index }) {
       </h3>
 
       {/* Planet Badge/Label */}
-      <div className="mb-4 px-3.5 py-1 rounded-[20px] bg-gradient-to-r from-black to-[#A30000] text-white text-[10px] font-mulish font-black tracking-[0.15em] uppercase border-none shadow-sm shadow-[#A30000]/10">
+      <div className="mb-4 px-3.5 py-1 rounded-[10px] bg-gradient-to-r from-black to-[#A30000] text-white text-[10px] font-mulish font-black tracking-[0.15em] uppercase border-none shadow-sm shadow-[#A30000]/10">
         <span className="hidden sm:inline">Planet: </span>{gemstone.planet}
       </div>
 
