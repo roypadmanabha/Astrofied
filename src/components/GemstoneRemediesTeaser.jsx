@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 // TODO: replace with the live deployed URL of the standalone "Astrofied Gemstones" page once hosted
@@ -7,11 +8,25 @@ const GEMSTONES_PAGE_URL = "/gemstones";
 
 export default function GemstoneRemediesTeaser() {
   const { isDarkMode } = useTheme();
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  const handleGemstoneRedirect = () => {
+    setIsRedirecting(true);
+    setTimeout(() => {
+      const destination = typeof window !== 'undefined' && 
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+          ? 'http://localhost:5002'
+          : typeof window !== 'undefined' && window.location.pathname.startsWith('/Astrofied')
+              ? '/Astrofied/gemstones/'
+              : '/gemstones/';
+      window.location.href = destination;
+    }, 2000);
+  };
 
   return (
     <section 
       id="gemstone-teaser" 
-      className="py-16 md:py-24 lg:py-28 px-6 relative flex justify-center items-center overflow-hidden z-10 bg-transparent"
+      className={`py-16 md:py-24 lg:py-28 px-6 relative flex justify-center items-center overflow-hidden z-10 transition-colors duration-500 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}
     >
       {/* Inline styles for lightweight pure CSS animations */}
       <style>{`
@@ -62,7 +77,7 @@ export default function GemstoneRemediesTeaser() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
           
           {/* Left Column (Content & CTA) */}
-          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1 animate-fade-in">
             
             {/* Pill Badge */}
             <div className={`inline-flex items-center px-4 py-1.5 rounded-full border text-xs font-bold tracking-widest uppercase mb-6 select-none font-mulish
@@ -95,24 +110,25 @@ export default function GemstoneRemediesTeaser() {
             
             {/* CTA Button */}
             <div className="flex w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] justify-center lg:justify-start">
-              <a 
-                href={GEMSTONES_PAGE_URL} 
-                className="w-full inline-block text-center decoration-none"
+              <button
+                disabled={isRedirecting}
+                onClick={handleGemstoneRedirect}
+                className={`w-full py-3.5 sm:py-4 px-6 sm:px-8 text-base sm:text-lg md:text-xl font-bold rounded-[10px] transition-all duration-500 ease-in-out hover:scale-105 active:scale-95 shadow-xl font-['Nunito'] flex items-center justify-center gap-2 cursor-pointer
+                  ${isDarkMode
+                    ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
+                    : 'bg-gradient-to-r from-black to-[#A91B0D] text-white hover:opacity-90'
+                  }
+                `}
               >
-                <motion.button
-                  whileHover={{ 
-                    scale: 1.03, 
-                    boxShadow: '0 0 24px rgba(201, 162, 39, 0.5)'
-                  }}
-                  whileTap={{ scale: 0.97 }}
-                  className="w-full py-3.5 sm:py-4 px-6 sm:px-8 text-base sm:text-lg md:text-xl font-bold text-white rounded-[10px] transition-all duration-300 font-['Nunito'] cursor-pointer flex items-center justify-center gap-2"
-                  style={{
-                    background: 'linear-gradient(135deg, #7A1206 0%, #C9A227 100%)'
-                  }}
-                >
-                  Explore Gemstones →
-                </motion.button>
-              </a>
+                {isRedirecting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 sm:w-5 h-5 animate-spin" />
+                    <span>Redirecting...</span>
+                  </>
+                ) : (
+                  <span>Explore Gemstones →</span>
+                )}
+              </button>
             </div>
           </div>
 
