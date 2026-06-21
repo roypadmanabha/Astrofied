@@ -80,7 +80,7 @@ export default function GemstoneRemediesTeaser() {
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1 animate-fade-in">
             
             {/* Pill Badge */}
-            <div className={`inline-flex items-center px-4 py-1.5 rounded-full border text-xs font-bold tracking-widest uppercase mb-6 select-none font-mulish
+            <div className={`inline-flex items-center px-4 py-1.5 rounded-[20px] border text-xs font-bold tracking-widest uppercase mb-6 select-none font-mulish
               ${isDarkMode 
                 ? 'border-[#C9A227]/40 bg-[#C9A227]/5 text-[#C9A227]' 
                 : 'border-[#A91B0D]/40 bg-[#A91B0D]/5 text-[#A91B0D]'
