@@ -36,6 +36,8 @@ try {
 const getJournalImage = (title, defaultUrl) => {
   if (!title) return defaultUrl;
   const t = title.toLowerCase();
+  if (t.includes('rahu')) return rahuImg;
+  if (t.includes('ketu')) return ketuImg;
   if (t.includes('house')) return houseSeriesImg;
   if (t.includes('planet')) return planetSeriesImg;
   if (t.includes('sign')) return signSeriesImg;
@@ -43,8 +45,6 @@ const getJournalImage = (title, defaultUrl) => {
   if (t.includes('jupiter') || t.includes('cancer')) return jupiterImg;
   if (t.includes('saturn') || t.includes('revati')) return saturnImg;
   if (t.includes('mahadasha')) return mahadashaImg;
-  if (t.includes('rahu')) return rahuImg;
-  if (t.includes('ketu')) return ketuImg;
   return defaultUrl;
 };
 
