@@ -66,28 +66,28 @@ export default function Hero() {
           {/* Stats/Trust Badges */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap justify-center gap-4 mt-4"
+            className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-2.5 sm:gap-4 mt-4 w-full max-w-[96vw] sm:max-w-none px-2 sm:px-0"
           >
             {/* Stat Chip 1 */}
-            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
-              <ShieldCheck className="w-5 h-5 text-[#C9A227]" />
-              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish">
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 p-3 sm:px-5 sm:py-3 aspect-square sm:aspect-auto rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
+              <ShieldCheck className="w-6 h-6 sm:w-5 sm:h-5 text-[#C9A227] shrink-0" />
+              <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal">
                 100% Certified Stones
               </span>
             </div>
 
             {/* Stat Chip 2 */}
-            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
-              <UserCheck className="w-5 h-5 text-[#A30000]" />
-              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish">
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 p-3 sm:px-5 sm:py-3 aspect-square sm:aspect-auto rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
+              <UserCheck className="w-6 h-6 sm:w-5 sm:h-5 text-[#A30000] shrink-0" />
+              <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal">
                 Astrologer-Prescribed
               </span>
             </div>
 
             {/* Stat Chip 3 */}
-            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
-              <Award className="w-5 h-5 text-[#C9A227]" />
-              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish">
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2.5 p-3 sm:px-5 sm:py-3 aspect-square sm:aspect-auto rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02]">
+              <Award className="w-6 h-6 sm:w-5 sm:h-5 text-[#C9A227] shrink-0" />
+              <span className="text-[9px] min-[360px]:text-[10px] sm:text-xs md:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal">
                 Lab-Tested Authenticity
               </span>
             </div>
