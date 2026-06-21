@@ -2,6 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { isValidIndianMobile } from '../lib/constants';
+import LegalModal from './LegalModal';
+
+const TERMS_CONTENT = `
+<ol class="list-decimal pl-5 space-y-4 text-justify font-mulish text-[#0A1931]/90">
+  <li><strong>Payment Agreement:</strong> You solely agree to bear the full cost and make the complete payment for the gemstone.</li>
+  <li><strong>Voluntary Decision:</strong> The gemstone was suggested by our astrologer, and you confirm that you are purchasing it voluntarily, with absolute personal consent and without any force or obligation.</li>
+  <li><strong>Realisation of Remedies:</strong> There is no guarantee that a gemstone can resolve your life's problems instantly or within a fraction of a second; astrological remedies work gradually over time.</li>
+  <li><strong>Planetary Energy:</strong> Our gemstones are designed to provide positive energy and strengthen your planetary influences.</li>
+  <li><strong>Lab Certified Authenticity:</strong> All our gemstones are lab-certified, tested, and guaranteed to be 100% authentic.</li>
+  <li><strong>Personal Use Only:</strong> These gemstones are sold for personal use only and are strictly not intended for resale or commercial purposes.</li>
+</ol>
+`;
 
 import statesAndDistrictsData from '../lib/states-districts.json';
 
@@ -39,6 +51,7 @@ const localPincodeDatabase = [
 
 export default function OrderForm({ onSubmitSuccess }) {
   // Form Field States
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [paymentType, setPaymentType] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -904,7 +917,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                   )}
                 </div>
                 <label className="text-xs text-[#555555] leading-relaxed cursor-pointer select-none text-justify">
-                  I hereby agree to the <a href="#terms" onClick={(e) => { e.preventDefault(); alert("Terms & Conditions: All gemstone shipments are handled with secure packaging. Certified authenticity is guaranteed. No reseller commercialization allowed."); }} className="text-[#A30000] font-extrabold underline hover:opacity-80 transition-opacity">Terms and Conditions</a> of Astrofied. I confirm that I am purchasing this gemstone strictly based on my own informed decision and the recommendation provided by my consulting astrologer, and that no one has influenced, pressured, or obligated me to make this purchase.
+                  I hereby agree to the <a href="#terms" onClick={(e) => { e.preventDefault(); setIsTermsModalOpen(true); }} className="text-[#A30000] font-extrabold underline hover:opacity-80 transition-opacity">Terms and Conditions</a> of Astrofied. I confirm that I am purchasing this gemstone strictly based on my own informed decision and the recommendation provided by my consulting astrologer, and that no one has influenced, pressured, or obligated me to make this purchase.
                 </label>
               </div>
 
@@ -937,6 +950,13 @@ export default function OrderForm({ onSubmitSuccess }) {
 
         </div>
       </div>
+
+      <LegalModal
+        isOpen={isTermsModalOpen}
+        onClose={() => setIsTermsModalOpen(false)}
+        title="Terms and Conditions"
+        content={TERMS_CONTENT}
+      />
 
       <style>{`
         .custom-checkbox {
