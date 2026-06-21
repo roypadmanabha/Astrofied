@@ -467,10 +467,10 @@ export default function OrderForm({ onSubmitSuccess }) {
     };
 
     try {
-      const url = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
+      const url = import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbwW0El1KSmoNWRGEeTAbBYd3FcTXiEL1luTtMHjFNozbfJ1SOPvHObA26jcXJWehsg/exec';
 
       if (!url) {
-        throw new Error('Google Apps Script URL is missing. Please configure VITE_GOOGLE_SCRIPT_URL in your .env file.');
+        throw new Error('Google Apps Script URL is missing. Please configure VITE_GOOGLE_SCRIPT_URL in your env settings.');
       }
 
       const formBody = new URLSearchParams(formData).toString();
