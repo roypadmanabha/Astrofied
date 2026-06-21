@@ -1,17 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 // TODO: replace with the live deployed URL of the standalone "Astrofied Gemstones" page once hosted
 const GEMSTONES_PAGE_URL = "/gemstones";
 
 export default function GemstoneRemediesTeaser() {
+  const { isDarkMode } = useTheme();
+
   return (
     <section 
       id="gemstone-teaser" 
-      className="py-16 md:py-24 lg:py-28 px-6 relative flex justify-center items-center overflow-hidden z-10"
-      style={{
-        background: 'radial-gradient(ellipse at center, #2B0805 0%, #150302 60%, #0A0101 100%)'
-      }}
+      className="py-16 md:py-24 lg:py-28 px-6 relative flex justify-center items-center overflow-hidden z-10 bg-transparent"
     >
       {/* Inline styles for lightweight pure CSS animations */}
       <style>{`
@@ -65,17 +65,22 @@ export default function GemstoneRemediesTeaser() {
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
             
             {/* Pill Badge */}
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-[#C9A227]/40 bg-[#C9A227]/5 text-[#C9A227] text-xs font-bold tracking-widest uppercase mb-6 select-none font-mulish">
+            <div className={`inline-flex items-center px-4 py-1.5 rounded-full border text-xs font-bold tracking-widest uppercase mb-6 select-none font-mulish
+              ${isDarkMode 
+                ? 'border-[#C9A227]/40 bg-[#C9A227]/5 text-[#C9A227]' 
+                : 'border-[#A91B0D]/40 bg-[#A91B0D]/5 text-[#A91B0D]'
+              }`}
+            >
               REMEDIAL ASTROLOGY
             </div>
             
             {/* Heading */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[45px] leading-tight font-bold tracking-tight text-white mb-6 font-['Nunito'] w-full">
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-[45px] leading-tight font-bold tracking-tight mb-6 font-['Nunito'] w-full ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}>
               Unlock Your Planetary{' '}
               <span 
                 className="bg-clip-text text-transparent bg-gradient-to-r from-[#D6321E] to-[#C9A227] font-bold"
                 style={{
-                  textShadow: '0 0 20px rgba(214, 50, 30, 0.4)',
+                  textShadow: isDarkMode ? '0 0 20px rgba(214, 50, 30, 0.4)' : 'none',
                   WebkitTextFillColor: 'transparent'
                 }}
               >
@@ -84,7 +89,7 @@ export default function GemstoneRemediesTeaser() {
             </h2>
             
             {/* Copy Paragraph */}
-            <p className="text-base md:text-lg xl:text-xl leading-relaxed text-justify lg:text-left font-mulish font-normal text-[#D8D0C0] mb-8 lg:mb-10 w-full">
+            <p className={`text-base md:text-lg xl:text-xl leading-relaxed text-justify lg:text-left font-mulish font-normal mb-8 lg:mb-10 w-full ${isDarkMode ? 'text-[#D8D0C0]' : 'text-[#5A5A5A]'}`}>
               Every gemstone is carefully prescribed by our astrologer based on your unique birth chart, serving as a personalized remedy rather than a generic accessory. The right stone works to align planetary energies, strengthen weak houses, and actively support your life goals—whether in career, health, relationships, or overall prosperity.
             </p>
             
@@ -118,20 +123,20 @@ export default function GemstoneRemediesTeaser() {
             <div className="relative w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] lg:w-[450px] lg:h-[450px] flex items-center justify-center select-none pointer-events-none">
               
               {/* Sparkle Twinkles */}
-              <svg viewBox="0 0 100 100" className="w-5 h-5 absolute text-white animate-star" style={{ '--star-dur': '2.1s', top: '10%', left: '42%' }}>
-                <path d="M50,0 L58,42 L100,50 L58,58 L50,100 L42,58 L0,50 L42,42 Z" fill="#FFFFFF" />
+              <svg viewBox="0 0 100 100" className="w-5 h-5 absolute animate-star" style={{ '--star-dur': '2.1s', top: '10%', left: '42%' }}>
+                <path d="M50,0 L58,42 L100,50 L58,58 L50,100 L42,58 L0,50 L42,42 Z" fill={isDarkMode ? '#FFFFFF' : '#A91B0D'} />
               </svg>
               <svg viewBox="0 0 100 100" className="w-4 h-4 absolute text-[#C9A227] animate-star" style={{ '--star-dur': '1.8s', top: '22%', right: '28%' }}>
                 <path d="M50,0 L58,42 L100,50 L58,58 L50,100 L42,58 L0,50 L42,42 Z" fill="#C9A227" />
               </svg>
-              <svg viewBox="0 0 100 100" className="w-3 h-3 absolute text-white animate-star" style={{ '--star-dur': '2.5s', bottom: '15%', left: '25%' }}>
-                <path d="M50,0 L58,42 L100,50 L58,58 L50,100 L42,58 L0,50 L42,42 Z" fill="#FFFFFF" />
+              <svg viewBox="0 0 100 100" className="w-3 h-3 absolute animate-star" style={{ '--star-dur': '2.5s', bottom: '15%', left: '25%' }}>
+                <path d="M50,0 L58,42 L100,50 L58,58 L50,100 L42,58 L0,50 L42,42 Z" fill={isDarkMode ? '#FFFFFF' : '#A91B0D'} />
               </svg>
               <svg viewBox="0 0 100 100" className="w-4 h-4 absolute text-[#C9A227] animate-star" style={{ '--star-dur': '1.5s', bottom: '8%', right: '35%' }}>
                 <path d="M50,0 L58,42 L100,50 L58,58 L50,100 L42,58 L0,50 L42,42 Z" fill="#C9A227" />
               </svg>
-              <svg viewBox="0 0 100 100" className="w-3 h-3 absolute text-white animate-star" style={{ '--star-dur': '2.3s', top: '45%', left: '15%' }}>
-                <path d="M50,0 L58,42 L100,50 L58,58 L50,100 L42,58 L0,50 L42,42 Z" fill="#FFFFFF" />
+              <svg viewBox="0 0 100 100" className="w-3 h-3 absolute animate-star" style={{ '--star-dur': '2.3s', top: '45%', left: '15%' }}>
+                <path d="M50,0 L58,42 L100,50 L58,58 L50,100 L42,58 L0,50 L42,42 Z" fill={isDarkMode ? '#FFFFFF' : '#A91B0D'} />
               </svg>
               <svg viewBox="0 0 100 100" className="w-5 h-5 absolute text-[#C9A227] animate-star" style={{ '--star-dur': '2.0s', bottom: '48%', right: '12%' }}>
                 <path d="M50,0 L58,42 L100,50 L58,58 L50,100 L42,58 L0,50 L42,42 Z" fill="#C9A227" />
