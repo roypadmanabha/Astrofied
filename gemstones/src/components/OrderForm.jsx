@@ -5,7 +5,7 @@ import { isValidIndianMobile } from '../lib/constants';
 import LegalModal from './LegalModal';
 
 const TERMS_CONTENT = `
-<ol class="list-decimal pl-5 space-y-4 text-justify font-mulish text-[#0A1931]/90">
+<ol class="list-decimal pl-4 sm:pl-5 space-y-3 sm:space-y-4 text-justify font-mulish text-[#0A1931]/90">
   <li><strong>Payment Agreement:</strong> You solely agree to bear the full cost and make the complete payment for the gemstone.</li>
   <li><strong>Voluntary Decision:</strong> The gemstone was suggested by our astrologer, and you confirm that you are purchasing it voluntarily, with absolute personal consent and without any force or obligation.</li>
   <li><strong>Realisation of Remedies:</strong> There is no guarantee that a gemstone can resolve your life's problems instantly or within a fraction of a second; astrological remedies work gradually over time.</li>
