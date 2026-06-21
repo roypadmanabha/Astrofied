@@ -22,11 +22,11 @@ export default function AstrofiedGemstones() {
   };
 
   const titleContent = (
-    <span className="whitespace-nowrap inline-flex items-center justify-center gap-3">
-      <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black via-[#7B0000] to-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 650, letterSpacing: '-0.03em' }}>
+    <span className="flex flex-col sm:flex-row sm:items-center justify-center lg:justify-start gap-2 sm:gap-3">
+      <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black via-[#7B0000] to-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700, letterSpacing: '-0.02em' }}>
         Astrofied
       </span>
-      <span className={`bg-clip-text text-transparent ${isDarkMode ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' : 'bg-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 650, letterSpacing: '-0.03em' }}>
+      <span className={`bg-clip-text text-transparent ${isDarkMode ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' : 'bg-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700, letterSpacing: '-0.02em' }}>
         Gemstones
       </span>
     </span>
@@ -35,37 +35,42 @@ export default function AstrofiedGemstones() {
   const textContent = "Astrofied Gemstones offers premium, 100% natural, lab-certified Vedic gemstones carefully selected to align with your planetary energies. Every gemstone is authentic, ethically sourced, and chosen specifically to help you overcome life's obstacles and bring positive alignment. Consult with our astrologer to find the perfect remedy that enhances your strength, health, wealth, and prosperity.";
 
   return (
-    <section id="gemstones-intro" className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
-      <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10">
+    <section id="gemstones-intro" className={`py-16 md:py-28 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
+      <div className="container mx-auto max-w-[1200px] relative z-10">
         <motion.div
-          className={`relative overflow-hidden flex flex-col lg:flex-row w-full gap-8 lg:gap-12 items-center lg:items-stretch p-6 md:p-10 lg:p-12 rounded-[30px] bg-transparent ${isDarkMode ? 'border border-white' : 'border-none'} shadow-none`}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
+          className="w-full relative"
         >
-          {/* Wrapper to keep content above backgrounds */}
-          <div className="relative z-10 w-full flex flex-col lg:flex-row items-center lg:items-stretch gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center w-full">
             
-            {/* Mobile Only: Title & Text (Shown before Image) */}
-            <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2 px-4">
-              <h2 className="text-[28px] sm:text-4xl md:text-5xl text-center w-full overflow-hidden text-ellipsis" style={{ fontFamily: '"Nunito", sans-serif' }}>
+            {/* Content Column (Title, Text, Button) */}
+            <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1 px-2 sm:px-6">
+              
+              {/* Theme-Adaptive Badge */}
+              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-bold tracking-widest uppercase mb-4 sm:mb-6 select-none font-mulish
+                ${isDarkMode 
+                  ? 'border-yellow-500/30 bg-yellow-500/5 text-[#ffd700]' 
+                  : 'border-red-600/30 bg-red-600/5 text-[#A30000]'
+                }`}
+              >
+                🪐 Planetary Remedies
+              </div>
+              
+              {/* Dynamic Title */}
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[45px] leading-tight font-bold tracking-tight mb-6 font-['Nunito'] w-full">
                 {titleContent}
               </h2>
-              <p className={`text-base md:text-lg text-justify leading-relaxed font-mulish font-normal ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
+              
+              {/* Main Description */}
+              <p className={`text-base md:text-lg xl:text-xl mb-8 lg:mb-10 text-justify lg:text-left leading-relaxed font-mulish font-normal w-full ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
                 {textContent}
               </p>
-            </div>
-
-            {/* Left Side - Text & Redirect Button (Desktop) / Buttons on Mobile */}
-            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-2 lg:pt-0">
-              {/* Desktop Only Text */}
-              <p className={`hidden lg:block text-lg xl:text-xl mb-12 text-justify leading-relaxed font-mulish font-normal px-4 ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
-                {textContent}
-              </p>
-
+              
               {/* Redirect Button */}
-              <div className="flex w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] mx-auto justify-center">
+              <div className="flex w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] justify-center lg:justify-start">
                 <button
                   disabled={isRedirecting}
                   onClick={handleGemstoneRedirect}
@@ -88,24 +93,41 @@ export default function AstrofiedGemstones() {
               </div>
             </div>
 
-            {/* Vertical Separator Line (Hidden on mobile) */}
-            <div className={`hidden lg:block w-px h-auto self-stretch mx-6 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
-
-            {/* Right Side - Title & Image (Desktop) / Image on Mobile */}
-            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center">
-              {/* Desktop Only Title */}
-              <h2 className="hidden lg:block lg:text-[37px] xl:text-[45px] mb-6 text-center w-[85%] leading-none tracking-tight" style={{ fontFamily: '"Nunito", sans-serif' }}>
-                {titleContent}
-              </h2>
-
-              <div className="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[28px] overflow-hidden shadow-2xl bg-transparent border-[1.5px] border-[#ffd700]">
-                <img
-                  src={gemstonesCover}
-                  alt="Astrofied Gemstones Collage"
-                  className="w-full h-auto object-contain"
-                  loading="lazy"
-                />
+            {/* Image Column */}
+            <div className="lg:col-span-5 flex flex-col items-center justify-center relative order-1 lg:order-2 mb-8 lg:mb-0">
+              
+              {/* Concentric planetary orbit SVG */}
+              <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-20 dark:opacity-30">
+                <svg className="w-[130%] h-[130%] text-[#ffd700]/40 dark:text-[#ffd700]/30 animate-[spin_120s_linear_infinite]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.15">
+                  <circle cx="50" cy="50" r="45" strokeDasharray="3 3" />
+                  <circle cx="50" cy="50" r="35" />
+                  <circle cx="50" cy="50" r="25" strokeDasharray="5 2" />
+                  <circle cx="50" cy="5" r="1" fill="currentColor" />
+                  <circle cx="25" cy="25" r="0.7" fill="currentColor" />
+                  <circle cx="85" cy="50" r="1.2" fill="currentColor" />
+                </svg>
               </div>
+
+              {/* Glowing radial backdrop */}
+              {isDarkMode && (
+                <div className="absolute w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(255,215,0,0.15)_0%,transparent_70%)] blur-[40px] -z-10 pointer-events-none" />
+              )}
+
+              {/* Interactive Frame Wrapper */}
+              <motion.div 
+                className="relative z-10 w-[85%] sm:w-[70%] lg:w-full rounded-[28px] p-1.5 bg-gradient-to-tr from-[#ffd700] via-[#ffd700]/20 to-[#ffd700] shadow-2xl"
+                whileHover={{ y: -8, rotate: 1, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <div className="w-full h-full rounded-[24px] overflow-hidden bg-transparent">
+                  <img
+                    src={gemstonesCover}
+                    alt="Astrofied Gemstones Collage"
+                    className="w-full h-auto object-contain"
+                    loading="lazy"
+                  />
+                </div>
+              </motion.div>
             </div>
 
           </div>
