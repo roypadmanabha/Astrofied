@@ -391,19 +391,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
               {/* Bio Cards list */}
               <div className="w-full space-y-4">
-                {/* Item 1: Expertise */}
-                <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
-                  }`}>
-                  <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
-                    <Briefcase className="w-5 h-5" />
-                  </div>
-                  <div className="text-left">
-                    <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Core Expertise</h4>
-                    <p className="font-semibold text-sm sm:text-base">Leads the Management, Marketing and Legal Operations of the business</p>
-                  </div>
-                </div>
-
-                {/* Item 2: Education */}
+                {/* Item 1: Education */}
                 <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
                   }`}>
                   <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
@@ -415,14 +403,38 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                 </div>
 
+                {/* Item 2: Expertise */}
+                <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
+                  }`}>
+                  <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
+                    <BookOpenCheck className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Expertise</h4>
+                    <p className="font-semibold text-sm sm:text-base">Leads the Management, Marketing and Legal Operations of the business</p>
+                  </div>
+                </div>
+
                 {/* Item 3: Experience */}
                 <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
                   }`}>
                   <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
-                    <Award className="w-5 h-5" />
+                    <Briefcase className="w-5 h-5" />
                   </div>
                   <div className="text-left">
-                    <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Track Record</h4>
+                    <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Experience</h4>
+                    <p className="font-semibold text-sm sm:text-base">Management, Technical, Marketing, Finance, Legal</p>
+                  </div>
+                </div>
+
+                {/* Item 4: Impact */}
+                <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
+                  }`}>
+                  <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Impact</h4>
                     <p className="font-semibold text-sm sm:text-base">Experienced in brand management for over 5 years</p>
                   </div>
                 </div>
