@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import { Home, Briefcase, GraduationCap, Award, ChartNoAxesCombined, CheckCircle, Heart, Star, BookOpenCheck, AlertCircle, Menu, X } from 'lucide-react';
+import { Home, Briefcase, GraduationCap, Award, ChartNoAxesCombined, CheckCircle, Heart, Star, BookOpenCheck, AlertCircle, Menu, X, Mail } from 'lucide-react';
 import LegalModal from './components/LegalModal';
 import Footer from './components/Footer';
 import { getWhatsAppLink } from './lib/constants';
@@ -299,52 +299,64 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             >
               <div className="flex flex-col space-y-6">
                 <div className="flex items-center justify-between">
-                  <span className="astrofied-brand-text text-xl font-bold">Astrofied Menu</span>
+                  <span className="astrofied-brand-text text-xl font-bold font-nunito tracking-tight">Astrofied</span>
                   <button
                     onClick={() => setIsMenuOpen(false)}
-                    className={`p-1 rounded-full border transition-all bg-transparent cursor-pointer ${
-                      isDarkMode ? 'border-gold/20 text-gold' : 'border-[#A30000]/20 text-[#A30000]'
+                    className={`p-1.5 rounded-full border transition-all bg-transparent cursor-pointer ${
+                      isDarkMode ? 'border-gold/20 text-gold hover:bg-gold/10' : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
                     }`}
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
 
-                <div className="flex flex-col space-y-4 pt-4">
+                <div className="flex flex-col space-y-2 pt-4">
                   <a
                     href={getHomeLink()}
-                    className={`text-lg font-bold py-2 border-b transition-all ${
-                      isDarkMode ? 'text-white border-white/5 hover:text-gold' : 'text-gray-900 border-black/5 hover:text-[#A30000]'
+                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
+                      isDarkMode 
+                        ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
+                        : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
+                    <Home className="w-4 h-4 opacity-75" />
                     Home
                   </a>
                   <a
                     href={getHomeLink('#services')}
-                    className={`text-lg font-bold py-2 border-b transition-all ${
-                      isDarkMode ? 'text-white border-white/5 hover:text-gold' : 'text-gray-900 border-black/5 hover:text-[#A30000]'
+                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
+                      isDarkMode 
+                        ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
+                        : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
+                    <Briefcase className="w-4 h-4 opacity-75" />
                     Services
                   </a>
                   <a
                     href={getHomeLink('#journals')}
-                    className={`text-lg font-bold py-2 border-b transition-all ${
-                      isDarkMode ? 'text-white border-white/5 hover:text-gold' : 'text-gray-900 border-black/5 hover:text-[#A30000]'
+                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
+                      isDarkMode 
+                        ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
+                        : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
+                    <BookOpenCheck className="w-4 h-4 opacity-75" />
                     Journals
                   </a>
                   <a
                     href={getHomeLink('#footer')}
-                    className={`text-lg font-bold py-2 transition-all ${
-                      isDarkMode ? 'text-white hover:text-gold' : 'text-gray-900 hover:text-[#A30000]'
+                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
+                      isDarkMode 
+                        ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
+                        : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
+                    <Mail className="w-4 h-4 opacity-75" />
                     Contact
                   </a>
                 </div>
