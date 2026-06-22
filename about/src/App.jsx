@@ -286,7 +286,8 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </div>
 
               <p className={`text-base md:text-lg leading-relaxed text-justify font-mulish ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                A highly intuitive and trusted Vedic scholar, expert in KP, Jaimini, Nakshatra Nadi, Bhrigu Nandi Nadi, Parashari, Palmistry and Numerology. Shri Prasanta Chakraborty has spent years decoding the cosmic patterns to help thousands find structural clarity. He specialises in mapping out root causes of career, marriage, health, and financial concerns, offering logical, actionable remedies instead of fear-based rituals.
+                A highly intuitive and trusted astrologer, Shri Prasanta Chakraborty has spent years helping individuals gain clarity, confidence, and direction in life. Through his deep understanding and practical guidance, he has assisted thousands of people in making informed decisions and navigating life's challenges with greater purpose and peace of mind.
+
               </p>
 
               {/* Bio Cards list */}
@@ -323,7 +324,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Expertise</h4>
-                    <p className="font-semibold text-sm sm:text-base">Vedic, KP, Jaimini, Nakshatra Nadi, BNN, Parashari, Numerology, Palmistry</p>
+                    <p className="font-semibold text-sm sm:text-base">Vedic, KP, Jaimini, Nakshatra Nadi, Bhrigu Nandi Nadi, Parashari, Numerology</p>
                   </div>
                 </div>
 
