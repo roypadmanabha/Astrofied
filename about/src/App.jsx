@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import { Home, Briefcase, GraduationCap, Award, ChartNoAxesCombined, CheckCircle, Heart, Star, BookOpenCheck, AlertCircle, CalendarCheck } from 'lucide-react';
+import { Home, Briefcase, GraduationCap, Award, ChartNoAxesCombined, CheckCircle, Heart, Star, BookOpenCheck, AlertCircle, Menu, X } from 'lucide-react';
 import LegalModal from './components/LegalModal';
 import Footer from './components/Footer';
 import { getWhatsAppLink } from './lib/constants';
@@ -16,13 +16,21 @@ function MainContent() {
   const [scrolled, setScrolled] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
   const [showRightClickPopup, setShowRightClickPopup] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode } = useTheme();
 
   // Redirect link back to Home page
   const homeUrl = (typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
     ? 'http://localhost:5174'
-    : '/';
+    : '';
+
+  const getHomeLink = (hash = '') => {
+    if (homeUrl) {
+      return `${homeUrl}/${hash}`;
+    }
+    return `/${hash}`;
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -198,55 +206,158 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2 sm:gap-4"
+            className="flex items-center gap-2 xs:gap-3 sm:gap-4"
           >
-            {/* Desktop link */}
-            <a
-              href={homeUrl}
-              className={`hidden md:inline-flex items-center gap-2 text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
-                }`}
-            >
-              Home
-              <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all group-hover:w-full ${isDarkMode ? 'bg-gold' : 'bg-[#A30000]'
-                }`} />
-            </a>
+            {/* Desktop Links (Visible only on lg screens and up) */}
+            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+              <a
+                href={getHomeLink()}
+                className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
+                  }`}
+              >
+                Home
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all group-hover:w-full ${isDarkMode ? 'bg-gold' : 'bg-[#A30000]'
+                  }`} />
+              </a>
+              <a
+                href={getHomeLink('#services')}
+                className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
+                  }`}
+              >
+                Services
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all group-hover:w-full ${isDarkMode ? 'bg-gold' : 'bg-[#A30000]'
+                  }`} />
+              </a>
+              <a
+                href={getHomeLink('#journals')}
+                className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
+                  }`}
+              >
+                Journals
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all group-hover:w-full ${isDarkMode ? 'bg-gold' : 'bg-[#A30000]'
+                  }`} />
+              </a>
+              <a
+                href={getHomeLink('#footer')}
+                className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
+                  }`}
+              >
+                Contact
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all group-hover:w-full ${isDarkMode ? 'bg-gold' : 'bg-[#A30000]'
+                  }`} />
+              </a>
+            </div>
 
-            {/* Desktop Consult Now Button */}
+            {/* Consult Now Button - Visible on all screens, size adjusted responsively */}
             <button
               onClick={() => window.open(getWhatsAppLink('Hi, I want to book a consultation with Astrofied.'), '_blank')}
-              className="hidden md:inline-flex items-center justify-center px-4 py-1.5 rounded-[10px] bg-[#FF0000] text-white hover:bg-[#E60000] font-bold text-sm md:text-base tracking-wider transition-all duration-300 shadow-md shadow-[#FF0000]/20 hover:scale-105 active:scale-95 cursor-pointer border-none font-mulish"
+              className="inline-flex items-center justify-center px-2.5 py-1 sm:px-4 sm:py-1.5 rounded-[8px] sm:rounded-[10px] bg-[#FF0000] text-white hover:bg-[#E60000] font-bold text-xs sm:text-sm md:text-base tracking-wider transition-all duration-300 shadow-md shadow-[#FF0000]/20 hover:scale-105 active:scale-95 cursor-pointer border-none font-mulish"
             >
-              Consult Now
+              <span className="xs:hidden">Consult</span>
+              <span className="hidden xs:inline">Consult Now</span>
             </button>
 
-            {/* Mobile icon link */}
-            <a
-              href={homeUrl}
-              className={`md:hidden flex items-center justify-center p-1 rounded-full border transition-all ${isDarkMode
-                ? 'border-gold/30 text-gold hover:bg-gold/10'
-                : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
-                }`}
-              aria-label="Home"
+            {/* Hamburger Toggle Button - Visible only below lg */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`lg:hidden p-1 rounded-full border transition-all bg-transparent cursor-pointer ${
+                isDarkMode
+                  ? 'border-gold/30 text-gold hover:bg-gold/10'
+                  : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
+              }`}
+              aria-label="Toggle Menu"
             >
-              <Home className="w-4 h-4" />
-            </a>
-
-            {/* Mobile Consult Now icon link */}
-            <a
-              href={getWhatsAppLink('Hi, I want to book a consultation with Astrofied.')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`md:hidden flex items-center justify-center p-1 rounded-full border transition-all ${isDarkMode
-                ? 'border-gold/30 text-gold hover:bg-gold/10'
-                : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
-                }`}
-              aria-label="Consult Now"
-            >
-              <CalendarCheck className="w-4 h-4" />
-            </a>
+              <Menu className="w-4 h-4" />
+            </button>
           </motion.div>
         </div>
       </nav>
+
+      {/* Mobile Menu Drawer (Visible only below lg) */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
+            />
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className={`fixed top-0 right-0 bottom-0 w-[280px] z-50 p-6 flex flex-col justify-between shadow-2xl lg:hidden ${
+                isDarkMode 
+                  ? 'bg-gradient-to-b from-[#0A0A0A] to-[#121212] border-l border-gold/10 text-white' 
+                  : 'bg-[#f5f5dc] border-l border-[#A30000]/10 text-[#0A0A0A]'
+              }`}
+            >
+              <div className="flex flex-col space-y-6">
+                <div className="flex items-center justify-between">
+                  <span className="astrofied-brand-text text-xl font-bold">Astrofied Menu</span>
+                  <button
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`p-1 rounded-full border transition-all bg-transparent cursor-pointer ${
+                      isDarkMode ? 'border-gold/20 text-gold' : 'border-[#A30000]/20 text-[#A30000]'
+                    }`}
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="flex flex-col space-y-4 pt-4">
+                  <a
+                    href={getHomeLink()}
+                    className={`text-lg font-bold py-2 border-b transition-all ${
+                      isDarkMode ? 'text-white border-white/5 hover:text-gold' : 'text-gray-900 border-black/5 hover:text-[#A30000]'
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Home
+                  </a>
+                  <a
+                    href={getHomeLink('#services')}
+                    className={`text-lg font-bold py-2 border-b transition-all ${
+                      isDarkMode ? 'text-white border-white/5 hover:text-gold' : 'text-gray-900 border-black/5 hover:text-[#A30000]'
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Services
+                  </a>
+                  <a
+                    href={getHomeLink('#journals')}
+                    className={`text-lg font-bold py-2 border-b transition-all ${
+                      isDarkMode ? 'text-white border-white/5 hover:text-gold' : 'text-gray-900 border-black/5 hover:text-[#A30000]'
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Journals
+                  </a>
+                  <a
+                    href={getHomeLink('#footer')}
+                    className={`text-lg font-bold py-2 transition-all ${
+                      isDarkMode ? 'text-white hover:text-gold' : 'text-gray-900 hover:text-[#A30000]'
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Contact
+                  </a>
+                </div>
+              </div>
+
+              {/* Bottom Brand */}
+              <div className="text-center text-xs opacity-50 font-mulish">
+                © {new Date().getFullYear()} Astrofied. All rights reserved.
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Hero Header */}
       <header className="pt-32 pb-16 md:pt-40 md:pb-24 text-center px-6 md:px-12 lg:px-16 relative">
