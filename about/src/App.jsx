@@ -386,7 +386,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </div>
 
               <p className={`text-base md:text-lg leading-relaxed text-justify font-mulish ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                Combining technical insights with marketing and management expertise, Roy designs the digital platform, manages brand compliance, legal frameworks, and guides <span className="astrofied-brand-text font-bold">Astrofied</span>'s overall growth. Under his operational management, <span className="astrofied-brand-text font-bold">Astrofied</span> has successfully expanded from Tripura to a pan-India digital presence.
+                With a strong blend of vision and leadership, Roy oversees <span className="astrofied-brand-text font-bold">Astrofied</span>'s digital journey and strategic direction. His dedication to innovation and growth has played a key role in shaping <span className="astrofied-brand-text font-bold">Astrofied</span> into a trusted and expanding platform, committed to delivering meaningful experiences to people across India.
               </p>
 
               {/* Bio Cards list */}
