@@ -300,7 +300,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Education</h4>
-                    <p className="font-semibold text-sm sm:text-base">B.Sc. in Physiology, Udaipur Government College, Gomati, Tripura</p>
+                    <p className="font-semibold text-sm sm:text-base">B.Sc. in Human Physiology, NSM, Udaipur, Gomati, Tripura</p>
                   </div>
                 </div>
 
@@ -399,7 +399,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Education</h4>
-                    <p className="font-semibold text-sm sm:text-base">B.E. CSE | Sathyabama University, Chennai</p>
+                    <p className="font-semibold text-sm sm:text-base">B.E. CSE | Sathyabama University, Chennai, TN</p>
                   </div>
                 </div>
 
