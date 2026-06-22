@@ -172,24 +172,24 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           : 'py-4 bg-transparent'
           }`}
       >
-        <div className="container mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 flex justify-between items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2 cursor-pointer"
+            className="flex items-center gap-1.5 sm:gap-2 cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <img
               src={logo}
               alt="Astrofied"
-              className="w-10 h-10 object-contain"
+              className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
               style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
             />
-            <div className="flex items-center gap-1.5">
-              <span className="astrofied-brand-text text-xl md:text-2xl font-bold">
+            <div className="flex items-center gap-1 sm:gap-1.5">
+              <span className="astrofied-brand-text text-lg sm:text-xl md:text-2xl font-bold">
                 Astrofied
               </span>
-              <span className={`text-xl md:text-2xl font-mulish font-bold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+              <span className={`text-lg sm:text-xl md:text-2xl font-mulish font-bold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
                 Team
               </span>
             </div>
@@ -198,7 +198,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-4"
+            className="flex items-center gap-2 sm:gap-4"
           >
             {/* Desktop link */}
             <a
@@ -222,7 +222,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             {/* Mobile icon link */}
             <a
               href={homeUrl}
-              className={`md:hidden flex items-center justify-center p-1.5 rounded-full border transition-all ${isDarkMode
+              className={`md:hidden flex items-center justify-center p-1 rounded-full border transition-all ${isDarkMode
                 ? 'border-gold/30 text-gold hover:bg-gold/10'
                 : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
                 }`}
@@ -236,7 +236,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               href={getWhatsAppLink('Hi, I want to book a consultation with Astrofied.')}
               target="_blank"
               rel="noopener noreferrer"
-              className={`md:hidden flex items-center justify-center p-1.5 rounded-full border transition-all ${isDarkMode
+              className={`md:hidden flex items-center justify-center p-1 rounded-full border transition-all ${isDarkMode
                 ? 'border-gold/30 text-gold hover:bg-gold/10'
                 : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
                 }`}
