@@ -200,6 +200,64 @@ const AstrofiedJournals = () => {
   const [showHomeModal, setShowHomeModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showRightClickPopup, setShowRightClickPopup] = useState(false);
+  const [googleLoaded, setGoogleLoaded] = useState(false);
+
+  const handleCredentialResponse = async (response) => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase.auth.signInWithIdToken({
+        provider: 'google',
+        token: response.credential,
+      });
+      if (error) throw error;
+      setUser(data.user);
+    } catch (err) {
+      console.error('Error logging in with native Google Sign-in:', err);
+      alert('Sign-in failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    let active = true;
+    const initializeGoogleSignIn = () => {
+      if (!active) return;
+      if (typeof window.google === 'undefined' || !window.google.accounts) {
+        setTimeout(initializeGoogleSignIn, 100);
+        return;
+      }
+
+      try {
+        window.google.accounts.id.initialize({
+          client_id: '31627390806-q78ra1qirg5740qrula9o2k93c6sqdv.apps.googleusercontent.com',
+          callback: handleCredentialResponse,
+        });
+
+        const btnParent = document.getElementById('google-signin-btn');
+        if (btnParent) {
+          window.google.accounts.id.renderButton(btnParent, {
+            theme: isDarkMode ? 'filled_black' : 'outline',
+            size: 'large',
+            shape: 'pill',
+            text: 'signin_with',
+            width: btnParent.offsetWidth || 300,
+          });
+          setGoogleLoaded(true);
+        }
+      } catch (err) {
+        console.error('Error initializing Google GIS:', err);
+      }
+    };
+
+    if (!user) {
+      setTimeout(initializeGoogleSignIn, 150);
+    }
+
+    return () => {
+      active = false;
+    };
+  }, [user, isDarkMode]);
 
   const filteredJournals = journals.filter(journal =>
     journal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -610,18 +668,21 @@ const AstrofiedJournals = () => {
                 </p>
 
                 {/* Buttons (Single button now) */}
-                <div className="flex w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] mx-auto justify-center">
-                  <button
-                    onClick={handleLogin}
-                    className={`w-full py-3 lg:py-4 text-base md:text-lg lg:text-xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito'] journals-explore-btn
-                  ${isDarkMode
-                        ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
-                        : 'bg-gradient-to-r from-black to-red-600 text-white shadow-none hover:opacity-90'
-                      }
-                `}
-                  >
-                    Sign In to Explore
-                  </button>
+                <div className="flex w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] mx-auto justify-center min-h-[50px]">
+                  <div id="google-signin-btn" className={`w-full flex justify-center ${googleLoaded ? '' : 'hidden'}`}></div>
+                  {!googleLoaded && (
+                    <button
+                      onClick={handleLogin}
+                      className={`w-full py-3 lg:py-4 text-base md:text-lg lg:text-xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito'] journals-explore-btn
+                    ${isDarkMode
+                          ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
+                          : 'bg-gradient-to-r from-black to-red-600 text-white shadow-none hover:opacity-90'
+                        }
+                  `}
+                    >
+                      Sign In to Explore
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
