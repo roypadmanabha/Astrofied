@@ -323,6 +323,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                     <Home className="w-4 h-4 opacity-75" />
                     Home
                   </a>
+
+                  <div className={`h-[0.5px] w-[92%] mx-auto ${isDarkMode ? 'bg-white/10' : 'bg-black/5'}`} />
+
                   <a
                     href={getHomeLink('#services')}
                     className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
@@ -335,6 +338,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                     <Briefcase className="w-4 h-4 opacity-75" />
                     Services
                   </a>
+
+                  <div className={`h-[0.5px] w-[92%] mx-auto ${isDarkMode ? 'bg-white/10' : 'bg-black/5'}`} />
+
                   <a
                     href={getHomeLink('#journals')}
                     className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
@@ -347,6 +353,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                     <BookOpenCheck className="w-4 h-4 opacity-75" />
                     Journals
                   </a>
+
+                  <div className={`h-[0.5px] w-[92%] mx-auto ${isDarkMode ? 'bg-white/10' : 'bg-black/5'}`} />
+
                   <a
                     href={getHomeLink('#footer')}
                     className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
