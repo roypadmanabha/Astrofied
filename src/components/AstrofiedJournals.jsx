@@ -15,6 +15,7 @@ import signSeriesImg from '../assets/journals/sign-series.jpg';
 import malMaasImg from '../assets/journals/mal-maas.jpg';
 import jupiterImg from '../assets/journals/jupiter-cancer.jpg';
 import saturnImg from '../assets/journals/saturn-revati.jpg';
+import saturnHousesImg from '../assets/journals/saturn-houses.jpg';
 import mahadashaImg from '../assets/journals/mahadasha.jpg';
 import rahuImg from '../assets/journals/rahu.jpg';
 import ketuImg from '../assets/journals/ketu.jpg';
@@ -38,6 +39,7 @@ const getJournalImage = (title, defaultUrl) => {
   const t = title.toLowerCase();
   if (t.includes('rahu')) return rahuImg;
   if (t.includes('ketu')) return ketuImg;
+  if (t.includes('saturn') && t.includes('house')) return saturnHousesImg;
   if (t.includes('saturn') || t.includes('revati')) return saturnImg;
   if (t.includes('jupiter') || t.includes('cancer')) return jupiterImg;
   if (t.includes('mahadasha')) return mahadashaImg;
