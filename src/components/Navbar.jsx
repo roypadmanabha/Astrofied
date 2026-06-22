@@ -8,7 +8,7 @@ import logo from '../assets/logo.png';
 const desktopNavLinks = [
     { name: 'Services', href: '#services' },
     { name: 'Pricing', href: '#pricing' },
-    { name: 'About', href: '/about' },
+    { name: 'Team', href: '/about' },
     { name: 'Panchang', href: '#panchang' },
     { name: 'Journals', href: '#journals' },
     { name: 'Contact', href: '#footer' },
@@ -18,7 +18,7 @@ const mobileNavLinks = [
     { name: 'Book Consultation', href: '#', icon: ChevronsRight },
     { name: 'Services', href: '#services', icon: ChevronsRight },
     { name: 'Pricing', href: '#pricing', icon: ChevronsRight },
-    { name: 'About', href: '/about', icon: ChevronsRight },
+    { name: 'Team', href: '/about', icon: ChevronsRight },
     { name: 'Panchang', href: '#panchang', icon: ChevronsRight },
     { name: 'Contact', href: '#footer', icon: ChevronsRight },
     { name: 'Feedback', href: '#feedback', icon: ChevronsRight },
