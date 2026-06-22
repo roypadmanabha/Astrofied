@@ -403,19 +403,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                 </div>
 
-                {/* Item 2: Expertise */}
-                <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
-                  }`}>
-                  <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
-                    <BookOpenCheck className="w-5 h-5" />
-                  </div>
-                  <div className="text-left">
-                    <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Expertise</h4>
-                    <p className="font-semibold text-sm sm:text-base">Leads the Management, Marketing and Legal Operations of the business</p>
-                  </div>
-                </div>
-
-                {/* Item 3: Experience */}
+                {/* Item 2: Experience */}
                 <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
                   }`}>
                   <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
@@ -424,6 +412,18 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Experience</h4>
                     <p className="font-semibold text-sm sm:text-base">Management, Technical, Marketing, Finance, Legal</p>
+                  </div>
+                </div>
+
+                {/* Item 3: Expertise */}
+                <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
+                  }`}>
+                  <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
+                    <BookOpenCheck className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Expertise</h4>
+                    <p className="font-semibold text-sm sm:text-base">Leads the Management, Marketing and Legal Operations of the business</p>
                   </div>
                 </div>
 
