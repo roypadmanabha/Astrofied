@@ -433,8 +433,11 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
                     <Users className="w-5 h-5" />
                   </div>
-                  <div className="text-left flex items-center h-full min-h-[2.5rem]">
+                  <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Impact</h4>
+                    <p className="font-semibold text-sm sm:text-base">
+                      Expanded <span className="astrofied-brand-text font-bold">Astrofied</span> into a pan-India digital platform
+                    </p>
                   </div>
                 </div>
               </div>
