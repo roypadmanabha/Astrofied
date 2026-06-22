@@ -260,11 +260,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             {/* Hamburger Toggle Button - Visible only below lg */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`lg:hidden p-1.5 rounded-lg transition-all bg-transparent cursor-pointer border-none ${
-                isDarkMode
+              className={`lg:hidden p-1.5 rounded-lg transition-all bg-transparent cursor-pointer border-none ${isDarkMode
                   ? 'text-gold hover:bg-white/5'
                   : 'text-[#A30000] hover:bg-black/5'
-              }`}
+                }`}
               aria-label="Toggle Menu"
             >
               <Menu className="w-5 h-5" />
@@ -291,20 +290,18 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className={`fixed top-0 right-0 bottom-0 w-[280px] z-50 p-6 flex flex-col justify-between shadow-2xl lg:hidden ${
-                isDarkMode 
-                  ? 'bg-gradient-to-b from-[#0A0A0A] to-[#121212] border-l border-gold/10 text-white' 
+              className={`fixed top-0 right-0 bottom-0 w-[280px] z-50 p-6 flex flex-col justify-between shadow-2xl lg:hidden ${isDarkMode
+                  ? 'bg-gradient-to-b from-[#0A0A0A] to-[#121212] border-l border-gold/10 text-white'
                   : 'bg-[#f5f5dc] border-l border-[#A30000]/10 text-[#0A0A0A]'
-              }`}
+                }`}
             >
               <div className="flex flex-col space-y-6">
                 <div className="flex items-center justify-between">
                   <span className="astrofied-brand-text text-xl font-bold font-nunito tracking-tight">Astrofied</span>
                   <button
                     onClick={() => setIsMenuOpen(false)}
-                    className={`p-1.5 rounded-full border transition-all bg-transparent cursor-pointer ${
-                      isDarkMode ? 'border-gold/20 text-gold hover:bg-gold/10' : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
-                    }`}
+                    className={`p-1.5 rounded-full border transition-all bg-transparent cursor-pointer ${isDarkMode ? 'border-gold/20 text-gold hover:bg-gold/10' : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
+                      }`}
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -313,11 +310,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 <div className="flex flex-col space-y-2 pt-4">
                   <a
                     href={getHomeLink()}
-                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
-                      isDarkMode 
-                        ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
+                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
+                        ? 'text-gray-300 hover:text-gold hover:bg-white/5'
                         : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
-                    }`}
+                      }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <Home className="w-4 h-4 opacity-75" />
@@ -328,11 +324,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
                   <a
                     href={getHomeLink('#services')}
-                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
-                      isDarkMode 
-                        ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
+                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
+                        ? 'text-gray-300 hover:text-gold hover:bg-white/5'
                         : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
-                    }`}
+                      }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <Briefcase className="w-4 h-4 opacity-75" />
@@ -343,11 +338,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
                   <a
                     href={getHomeLink('#journals')}
-                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
-                      isDarkMode 
-                        ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
+                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
+                        ? 'text-gray-300 hover:text-gold hover:bg-white/5'
                         : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
-                    }`}
+                      }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <BookOpenCheck className="w-4 h-4 opacity-75" />
@@ -358,11 +352,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
                   <a
                     href={getHomeLink('#footer')}
-                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${
-                      isDarkMode 
-                        ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
+                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
+                        ? 'text-gray-300 hover:text-gold hover:bg-white/5'
                         : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
-                    }`}
+                      }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <Mail className="w-4 h-4 opacity-75" />
@@ -484,7 +477,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Experience</h4>
-                    <p className="font-semibold text-sm sm:text-base">Astrologer since 2019</p>
+                    <p className="font-semibold text-sm sm:text-base">Professional Astrologer since 2019</p>
                   </div>
                 </div>
 
