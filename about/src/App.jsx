@@ -260,14 +260,14 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             {/* Hamburger Toggle Button - Visible only below lg */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`lg:hidden p-1 rounded-full border transition-all bg-transparent cursor-pointer ${
+              className={`lg:hidden p-1.5 rounded-lg transition-all bg-transparent cursor-pointer border-none ${
                 isDarkMode
-                  ? 'border-gold/30 text-gold hover:bg-gold/10'
-                  : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
+                  ? 'text-gold hover:bg-white/5'
+                  : 'text-[#A30000] hover:bg-black/5'
               }`}
               aria-label="Toggle Menu"
             >
-              <Menu className="w-4 h-4" />
+              <Menu className="w-5 h-5" />
             </button>
           </motion.div>
         </div>
