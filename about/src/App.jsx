@@ -286,7 +286,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </div>
 
               <p className={`text-base md:text-lg leading-relaxed text-justify font-mulish ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                A highly intuitive and trusted Vedic scholar, expert in KP, Jaimini, Nakshatra Nadi, Bhrigu Nandi Nadi, Parashari and Numerology. Shri Prasanta Chakraborty has spent years decoding the cosmic patterns to help thousands find structural clarity. He specialises in mapping out root causes of career, marriage, health, and financial concerns, offering logical, actionable remedies instead of fear-based rituals.
+                A highly intuitive and trusted Vedic scholar, expert in KP, Jaimini, Nakshatra Nadi, Bhrigu Nandi Nadi, Parashari, Palmistry and Numerology. Shri Prasanta Chakraborty has spent years decoding the cosmic patterns to help thousands find structural clarity. He specialises in mapping out root causes of career, marriage, health, and financial concerns, offering logical, actionable remedies instead of fear-based rituals.
               </p>
 
               {/* Bio Cards list */}
@@ -315,7 +315,19 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                 </div>
 
-                {/* Item 3: Impact */}
+                {/* Item 3: Expertise */}
+                <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
+                  }`}>
+                  <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Expertise</h4>
+                    <p className="font-semibold text-sm sm:text-base">Vedic, KP, Jaimini, Nakshatra Nadi, BNN, Parashari, Numerology, Palmistry</p>
+                  </div>
+                </div>
+
+                {/* Item 4: Impact */}
                 <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
                   }`}>
                   <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
