@@ -2,9 +2,10 @@ import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import { Home, Briefcase, GraduationCap, Award, ChartNoAxesCombined, CheckCircle, Heart, Star, BookOpenCheck, AlertCircle } from 'lucide-react';
+import { Home, Briefcase, GraduationCap, Award, ChartNoAxesCombined, CheckCircle, Heart, Star, BookOpenCheck, AlertCircle, CalendarCheck } from 'lucide-react';
 import LegalModal from './components/LegalModal';
 import Footer from './components/Footer';
+import { getWhatsAppLink } from './lib/constants';
 
 // Import assets
 import logo from './assets/logo.png';
@@ -210,6 +211,14 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 }`} />
             </a>
 
+            {/* Desktop Consult Now Button */}
+            <button
+              onClick={() => window.open(getWhatsAppLink('Hi, I want to book a consultation with Astrofied.'), '_blank')}
+              className="hidden md:inline-flex items-center justify-center px-4 py-1.5 rounded-[10px] bg-[#FF0000] text-white hover:bg-[#E60000] font-bold text-sm md:text-base tracking-wider transition-all duration-300 shadow-md shadow-[#FF0000]/20 hover:scale-105 active:scale-95 cursor-pointer border-none font-mulish"
+            >
+              Consult Now
+            </button>
+
             {/* Mobile icon link */}
             <a
               href={homeUrl}
@@ -220,6 +229,20 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               aria-label="Home"
             >
               <Home className="w-4 h-4" />
+            </a>
+
+            {/* Mobile Consult Now icon link */}
+            <a
+              href={getWhatsAppLink('Hi, I want to book a consultation with Astrofied.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`md:hidden flex items-center justify-center p-1.5 rounded-full border transition-all ${isDarkMode
+                ? 'border-gold/30 text-gold hover:bg-gold/10'
+                : 'border-[#A30000]/20 text-[#A30000] hover:bg-[#A30000]/5'
+                }`}
+              aria-label="Consult Now"
+            >
+              <CalendarCheck className="w-4 h-4" />
             </a>
           </motion.div>
         </div>
@@ -403,7 +426,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             <div className="md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1 space-y-6">
               <div>
                 <span className={`text-sm font-bold uppercase tracking-widest font-mulish ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}>
-                  DIRECTOR OF TECHNOLOGY & MANAGEMENT
+                  Management Lead
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-3 font-['Nunito'] font-extrabold">Padmanabha Roy</h2>
                 <div className={`h-1 w-20 rounded-full bg-gradient-to-r ${isDarkMode ? 'from-gold to-transparent' : 'from-[#A30000] to-transparent'} mx-auto md:mx-0`} />
@@ -447,7 +470,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Expertise</h4>
-                    <p className="font-semibold text-sm sm:text-base">Management, Technology, Finance, Marketing and Legal</p>
+                    <p className="font-semibold text-sm sm:text-base">Technology, Marketing, Finance and Legal Management</p>
                   </div>
                 </div>
 
