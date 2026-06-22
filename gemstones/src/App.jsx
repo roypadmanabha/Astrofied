@@ -40,16 +40,24 @@ function App() {
       e.preventDefault();
     };
 
-    // 3. Block copy keyboard shortcut (Ctrl+C, Cmd+C)
+    // 3. Block copy and other shortcuts (Ctrl+C, Cmd+C, Ctrl+X, Ctrl+V, F12, Inspect, Save, Print, View Source)
     const handleKeyDown = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
+      const key = e.key.toLowerCase();
+      const isCtrlOrMeta = e.ctrlKey || e.metaKey;
+
+      if (
+        (isCtrlOrMeta && ['c', 'v', 'x', 'p', 's', 'u'].includes(key)) ||
+        (isCtrlOrMeta && e.shiftKey && ['i', 'j', 'c'].includes(key)) ||
+        e.key === 'F12'
+      ) {
         e.preventDefault();
         triggerToast();
+        return false;
       }
     };
 
-    // 4. Block copy event
-    const handleCopy = (e) => {
+    // 4. Block copy, cut, and paste events
+    const handleClipboardEvent = (e) => {
       e.preventDefault();
       triggerToast();
     };
@@ -57,13 +65,17 @@ function App() {
     document.addEventListener('contextmenu', handleContextMenu);
     document.addEventListener('dragstart', handleDragStart);
     document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('copy', handleCopy);
+    document.addEventListener('copy', handleClipboardEvent);
+    document.addEventListener('cut', handleClipboardEvent);
+    document.addEventListener('paste', handleClipboardEvent);
 
     return () => {
       document.removeEventListener('contextmenu', handleContextMenu);
       document.removeEventListener('dragstart', handleDragStart);
       document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('copy', handleCopy);
+      document.removeEventListener('copy', handleClipboardEvent);
+      document.removeEventListener('cut', handleClipboardEvent);
+      document.removeEventListener('paste', handleClipboardEvent);
       clearTimeout(timeoutId);
     };
   }, []);

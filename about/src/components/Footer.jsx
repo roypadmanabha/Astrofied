@@ -1,0 +1,183 @@
+import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
+import { Phone, Mail, MapPin } from 'lucide-react';
+import { CONTACT_PHONE } from '../lib/constants';
+import logo from '../assets/logo.png';
+
+export default function Footer({ onOpenLegal, forceLightMode = false, isJournalsPage = false }) {
+    const theme = useTheme();
+    const isDarkMode = forceLightMode ? false : theme.isDarkMode;
+
+    const socialLinks = [
+        {
+            icon: (
+                <svg viewBox="0 0 24 24" className={isJournalsPage ? "w-3 h-3 sm:w-4 sm:h-4 md:w-8 md:h-8" : "w-[18px] h-[18px] md:w-8 md:h-8"}>
+                    <defs>
+                        <radialGradient id="ig-gradient" cx="0%" cy="100%" r="150%">
+                            <stop offset="0%" stopColor="#f09433" />
+                            <stop offset="25%" stopColor="#e6683c" />
+                            <stop offset="50%" stopColor="#dc2743" />
+                            <stop offset="75%" stopColor="#cc2366" />
+                            <stop offset="100%" stopColor="#bc1888" />
+                        </radialGradient>
+                    </defs>
+                    <path fill="url(#ig-gradient)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+            ),
+            href: 'https://instagram.com/astrofied___'
+        },
+        {
+            icon: (
+                <svg viewBox="0 0 24 24" className={isJournalsPage ? "w-3.5 h-3.5 sm:w-5 sm:h-5 md:w-9 md:h-9" : "w-[20px] h-[20px] md:w-9 md:h-9"}>
+                    <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" />
+                    <path fill="#FFF" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+            ),
+            href: 'https://www.youtube.com/channel/UC4qpHGM_v7YqlT0OvjfLYqg'
+        },
+        {
+            icon: (
+                <svg viewBox="0 0 24 24" className={isJournalsPage ? "w-3.5 h-3.5 sm:w-5 sm:h-5 md:w-9 md:h-9" : "w-[20px] h-[20px] md:w-9 md:h-9"}>
+                    <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    <path fill="#FFF" d="M16.671 15.458l.532-3.47h-3.328V9.738c0-.949.465-1.874 1.956-1.874h1.513V4.91s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.669v2.645H7.078v3.47h3.047v8.385a12.09 12.09 0 001.438.086c.49 0 .969-.03 1.437-.086v-8.385h2.796z" />
+                </svg>
+            ),
+            href: 'https://www.facebook.com/profile.php?id=61572572734535'
+        },
+    ];
+
+    return (
+        <footer id="footer" className={`py-8 md:py-12 ${isDarkMode ? 'bg-black' : 'bg-[#f5f5dd]'} border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/10'}`}>
+            <div className={`container mx-auto ${isJournalsPage ? 'px-2' : 'px-6 md:px-12 lg:px-16'}`}>
+                <div className={`${isJournalsPage ? 'flex flex-nowrap justify-between items-center md:items-start gap-1 md:gap-4' : 'grid grid-cols-1 sm:grid-cols-2 xl:flex xl:flex-row xl:justify-between gap-8 xl:gap-4'} mb-8 md:mb-10`}>
+                    <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[20%]' : 'w-full xl:w-auto'}`}>
+                        <div className={`flex ${isJournalsPage ? 'flex-col md:flex-row' : ''} items-center gap-0`}>
+                            <img
+                                src={logo}
+                                alt="Astrofied Logo"
+                                className={`${isJournalsPage ? 'w-6 h-6 sm:w-8 sm:h-8 md:w-24 md:h-24 lg:w-32 lg:h-32' : 'w-24 h-24 lg:w-32 lg:h-32'} object-contain select-none pointer-events-none`}
+                                draggable={false}
+                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: isJournalsPage ? '0' : '-6px' }}
+                                loading="lazy"
+                            />
+                            <h4
+                                className={`${isJournalsPage ? 'text-[7px] sm:text-[9px] md:text-xl lg:text-3xl mt-1 md:mt-0' : 'text-xl md:text-xl lg:text-3xl'} astrofied-brand-text font-bold`}
+                            >
+                                Astrofied
+                            </h4>
+                        </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div
+                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-24' : 'hidden xl:block h-24'} w-[1px] self-center transition-colors duration-300`}
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
+                    />
+
+                    {/* Legal Links Column */}
+                    <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto' : 'w-full xl:w-auto'}`}>
+                        <h4
+                            className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
+                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
+                        >
+                            Legal
+                        </h4>
+                        <div className={`flex flex-col ${isJournalsPage ? 'gap-1 md:gap-4' : 'gap-4'}`}>
+                            <a
+                                href="/terms"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    onOpenLegal('terms');
+                                }}
+                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors cursor-pointer`}
+                            >
+                                Terms and Conditions
+                            </a>
+                            <a
+                                href="/privacy"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    onOpenLegal('privacy');
+                                }}
+                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors cursor-pointer`}
+                            >
+                                Privacy Policy
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div
+                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-24' : 'hidden xl:block h-24'} w-[1px] self-center transition-colors duration-300`}
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
+                    />
+
+                    <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full xl:w-auto'}`}>
+                        <h4
+                            className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
+                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
+                        >
+                            Contact Details
+                        </h4>
+                        <div className={`flex flex-col ${isJournalsPage ? 'gap-1 md:gap-4' : 'gap-4'}`}>
+                            <button onClick={() => window.location.href = `tel:${CONTACT_PHONE.replace(/\s+/g, '')}`} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0 cursor-pointer`}>
+                                <Phone className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#A30000]')}`} />
+                                <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>{CONTACT_PHONE}</span>
+                            </button>
+                            <button onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'} className={`flex items-center ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0 cursor-pointer text-left`}>
+                                <Mail className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 shrink-0' : 'w-4 h-4 md:w-5 md:h-5'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#A30000]')}`} />
+                                <span className={`${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg break-all' : 'text-xs md:text-sm lg:text-lg'}`}>contact.astrofied@gmail.com</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div
+                        className={`${isJournalsPage ? 'block h-10 sm:h-12 md:h-24' : 'hidden xl:block h-24'} w-[1px] self-center transition-colors duration-300`}
+                        style={{ backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)' }}
+                    />
+
+                    <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full xl:w-auto'}`}>
+                        <h4
+                            className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
+                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
+                        >
+                            Address
+                        </h4>
+                        <button
+                            onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')}
+                            className={`flex items-start ${isJournalsPage ? 'gap-1 md:gap-3' : 'gap-3'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors block bg-transparent border-none p-0 cursor-pointer text-left`}
+                        >
+                            <MapPin className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 mt-0 shrink-0' : 'w-4 h-4 md:w-5 md:h-5 mt-1 shrink-0'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#A30000]')}`} />
+                            <address className={`not-italic ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg leading-tight' : 'text-xs md:text-sm lg:text-lg'}`}>
+                                Dakbanglow Road, near Rajarshi Hall,<br className={isJournalsPage ? "hidden md:block" : ""} />
+                                Udaipur, Gomati, Tripura - 799120
+                            </address>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div className={`flex justify-center ${isJournalsPage ? 'gap-6 sm:gap-8 md:gap-16 mb-4 md:mb-8' : 'gap-12 md:gap-16 mb-6 md:mb-10'}`}>
+                    {socialLinks.map((social, index) => (
+                        <motion.button
+                            key={index}
+                            onClick={() => window.open(social.href, '_blank')}
+                            className="flex items-center justify-center cursor-pointer relative group bg-transparent border-none p-0"
+                            whileHover={{ scale: 1.5 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                            <span className="relative z-10 flex items-center justify-center">
+                                {social.icon}
+                            </span>
+                        </motion.button>
+                    ))}
+                </div>
+
+                <div className={`border-t ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/20'} pt-4 md:pt-8 text-center ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm' : 'text-[10px] md:text-sm'} text-gray-500`}>
+                    © {new Date().getFullYear()} <span className="astrofied-brand-text font-bold">Astrofied</span>. All rights reserved | <span className="opacity-90">Made by Vignette</span>
+                </div>
+            </div>
+        </footer>
+    );
+}

@@ -8,7 +8,7 @@ import logo from '../assets/logo.png';
 const desktopNavLinks = [
     { name: 'Services', href: '#services' },
     { name: 'Pricing', href: '#pricing' },
-    { name: 'About', href: '#about' },
+    { name: 'About', href: '/about' },
     { name: 'Panchang', href: '#panchang' },
     { name: 'Journals', href: '#journals' },
     { name: 'Contact', href: '#footer' },
@@ -18,7 +18,7 @@ const mobileNavLinks = [
     { name: 'Book Consultation', href: '#', icon: ChevronsRight },
     { name: 'Services', href: '#services', icon: ChevronsRight },
     { name: 'Pricing', href: '#pricing', icon: ChevronsRight },
-    { name: 'About', href: '#about', icon: ChevronsRight },
+    { name: 'About', href: '/about', icon: ChevronsRight },
     { name: 'Panchang', href: '#panchang', icon: ChevronsRight },
     { name: 'Contact', href: '#footer', icon: ChevronsRight },
     { name: 'Feedback', href: '#feedback', icon: ChevronsRight },
@@ -113,9 +113,16 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                             } else if (isLegal) {
                                                 onOpenLegal(type);
                                             } else {
-                                                const element = document.querySelector(link.href);
-                                                if (element) {
-                                                    element.scrollIntoView({ behavior: 'smooth' });
+                                                const targetHref = link.href === '/about'
+                                                    ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
+                                                    : link.href;
+                                                if (targetHref.startsWith('#')) {
+                                                    const element = document.querySelector(targetHref);
+                                                    if (element) {
+                                                        element.scrollIntoView({ behavior: 'smooth' });
+                                                    }
+                                                } else {
+                                                    window.location.href = targetHref;
                                                 }
                                             }
                                             setIsOpen(false);
@@ -204,9 +211,16 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                             <motion.button
                                 key={link.name}
                                 onClick={() => {
-                                    const element = document.querySelector(link.href);
-                                    if (element) {
-                                        element.scrollIntoView({ behavior: 'smooth' });
+                                    const targetHref = link.href === '/about'
+                                        ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
+                                        : link.href;
+                                    if (targetHref.startsWith('#')) {
+                                        const element = document.querySelector(targetHref);
+                                        if (element) {
+                                            element.scrollIntoView({ behavior: 'smooth' });
+                                        }
+                                    } else {
+                                        window.location.href = targetHref;
                                     }
                                 }}
                                 className={`text-lg font-bold transition-all relative group bg-transparent border-none p-0 cursor-pointer ${
