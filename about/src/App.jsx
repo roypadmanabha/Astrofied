@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import { Home, Briefcase, GraduationCap, Award, Users, CheckCircle, Heart, Star, BookOpenCheck } from 'lucide-react';
+import { Home, Briefcase, GraduationCap, Award, Users, CheckCircle, Heart, Star, BookOpenCheck, AlertCircle } from 'lucide-react';
 import LegalModal from './components/LegalModal';
 import Footer from './components/Footer';
 
@@ -14,6 +14,7 @@ import padmanabhaImg from './assets/padmanabha.jpg';
 function MainContent() {
   const [scrolled, setScrolled] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
+  const [showRightClickPopup, setShowRightClickPopup] = useState(false);
   const { isDarkMode } = useTheme();
 
   // Redirect link back to Home page
@@ -27,6 +28,18 @@ function MainContent() {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
+
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      setShowRightClickPopup(true);
+      if (window.rightClickTimeout) {
+        clearTimeout(window.rightClickTimeout);
+      }
+      window.rightClickTimeout = setTimeout(() => {
+        setShowRightClickPopup(false);
+      }, 3000);
+    };
+    document.addEventListener('contextmenu', handleContextMenu);
 
     // Only use Lenis on Desktop (Non-touch/Large screens)
     let lenis = null;
@@ -48,6 +61,10 @@ function MainContent() {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('contextmenu', handleContextMenu);
+      if (window.rightClickTimeout) {
+        clearTimeout(window.rightClickTimeout);
+      }
       if (window.lenis) {
         window.lenis.destroy();
         window.lenis = null;
@@ -457,6 +474,24 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         title={legalModal.title}
         content={legalModal.content}
       />
+
+      {/* Right Click Protection Popup */}
+      <AnimatePresence>
+        {showRightClickPopup && (
+          <motion.div
+            initial={{ opacity: 0, y: -50, x: '-50%', scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
+            exit={{ opacity: 0, y: -30, x: '-50%', scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 350, damping: 25 }}
+            className="fixed top-6 left-1/2 z-[100] w-[90%] max-w-sm sm:max-w-md bg-[#A30000] border border-[#ff3333]/30 rounded-full px-6 py-3 shadow-2xl flex items-center gap-3 justify-center"
+          >
+            <AlertCircle className="text-white shrink-0" size={18} />
+            <span className="text-xs sm:text-sm font-mulish font-bold text-white tracking-wide leading-none pt-0.5 whitespace-nowrap">
+              Not allowed. Content protection enabled.
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

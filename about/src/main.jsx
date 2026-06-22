@@ -4,8 +4,7 @@ import './index.css'
 import App from './App.jsx'
 
 // Security & Content Protection for All Screen Sizes
-// 1. Block Right Click (Context Menu)
-document.addEventListener('contextmenu', (e) => e.preventDefault());
+// 1. Block Right Click (Context Menu) - Handled dynamically in App.jsx to show custom warning UI
 
 // 2. Block Keyboard Shortcuts (Copy, Paste, Cut, Print, Save, View Source, Developer Tools)
 document.addEventListener('keydown', (e) => {
