@@ -48,7 +48,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
 
     return (
         <footer id="footer" className={`py-8 md:py-12 ${isDarkMode ? 'bg-black' : 'bg-[#f5f5dd]'} border-t font-mulish ${isDarkMode ? 'border-gold/20' : 'border-[#A30000]/10'}`}>
-            <div className={`container mx-auto ${isJournalsPage ? 'px-2' : 'px-6 md:px-12 lg:px-16'}`}>
+            <div className={`container mx-auto ${isJournalsPage ? 'px-2' : 'px-6'}`}>
                 <div className={`${isJournalsPage ? 'flex flex-nowrap justify-between items-center md:items-start gap-1 md:gap-4' : 'grid grid-cols-1 sm:grid-cols-2 xl:flex xl:flex-row xl:justify-between gap-8 xl:gap-4'} mb-8 md:mb-10`}>
                     <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[20%]' : 'w-full xl:w-auto'}`}>
                         <div className={`flex ${isJournalsPage ? 'flex-col md:flex-row' : ''} items-center gap-0`}>
@@ -89,7 +89,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                                     e.preventDefault();
                                     onOpenLegal('terms');
                                 }}
-                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors cursor-pointer`}
+                                className={`text-left whitespace-nowrap ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors cursor-pointer`}
                             >
                                 Terms and Conditions
                             </a>
@@ -99,7 +99,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                                     e.preventDefault();
                                     onOpenLegal('privacy');
                                 }}
-                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors cursor-pointer`}
+                                className={`text-left whitespace-nowrap ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors cursor-pointer`}
                             >
                                 Privacy Policy
                             </a>
@@ -150,8 +150,8 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                         >
                             <MapPin className={`${isJournalsPage ? 'w-2 h-2 sm:w-3 sm:h-3 md:w-5 md:h-5 mt-0 shrink-0' : 'w-4 h-4 md:w-5 md:h-5 mt-1 shrink-0'} ${isDarkMode ? 'text-gold' : (isJournalsPage ? 'text-[#591000]' : 'text-[#A30000]')}`} />
                             <address className={`not-italic ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg leading-tight' : 'text-xs md:text-sm lg:text-lg'}`}>
-                                Dakbanglow Road, near Rajarshi Hall,<br className={isJournalsPage ? "hidden md:block" : ""} />
-                                Udaipur, Gomati, Tripura - 799120
+                                <span className="whitespace-nowrap">Dakbanglow Road, near Rajarshi Hall,</span><br className={isJournalsPage ? "hidden md:block" : ""} />
+                                <span className="whitespace-nowrap">Udaipur, Gomati, Tripura - 799120</span>
                             </address>
                         </button>
                     </div>
