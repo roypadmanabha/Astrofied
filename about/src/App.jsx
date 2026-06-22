@@ -180,7 +180,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           : 'py-4 bg-transparent'
           }`}
       >
-        <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 flex justify-between items-center">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:pl-16 lg:pr-6 xl:pl-20 xl:pr-8 flex justify-between items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -206,10 +206,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2 xs:gap-3 sm:gap-4"
+            className="flex items-center gap-2 xs:gap-3 sm:gap-4 lg:gap-6 xl:gap-8"
           >
             {/* Desktop Links (Visible only on lg screens and up) */}
-            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <div className="hidden lg:flex items-center gap-8 xl:gap-10">
               <a
                 href={getHomeLink()}
                 className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
@@ -251,7 +251,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             {/* Consult Now Button - Visible on all screens, size adjusted responsively */}
             <button
               onClick={() => window.open(getWhatsAppLink('Hi, I want to book a consultation with Astrofied.'), '_blank')}
-              className="inline-flex items-center justify-center px-2.5 py-1 sm:px-4 sm:py-1.5 rounded-[8px] sm:rounded-[10px] bg-[#FF0000] text-white hover:bg-[#E60000] font-bold text-xs sm:text-sm md:text-base tracking-wider transition-all duration-300 shadow-md shadow-[#FF0000]/20 hover:scale-105 active:scale-95 cursor-pointer border-none font-mulish"
+              className="inline-flex items-center justify-center px-2.5 py-1 sm:px-4 sm:py-1.5 rounded-[8px] sm:rounded-[10px] bg-[#FF0000] text-white hover:bg-white hover:text-[#FF0000] border border-[#FF0000] font-bold text-xs sm:text-sm md:text-base tracking-wider transition-all duration-300 shadow-md shadow-[#FF0000]/20 hover:scale-105 active:scale-95 cursor-pointer font-mulish"
             >
               <span className="xs:hidden">Consult</span>
               <span className="hidden xs:inline">Consult Now</span>
