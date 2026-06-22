@@ -259,7 +259,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
       {/* Team Profiles Container */}
       <main className="pb-24 px-6 md:px-12 lg:px-16 relative">
-        <div className="container mx-auto max-w-[1100px] space-y-24 md:space-y-36">
+        <div className="container mx-auto max-w-[1100px]">
 
           <motion.section
             initial={{ opacity: 0, y: 50 }}
@@ -361,7 +361,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           </motion.section>
 
           {/* Elegant Divider */}
-          <div className="flex items-center justify-center my-10 md:my-16 select-none">
+          <div className="w-full py-16 md:py-24 flex items-center justify-center select-none">
             <div className="h-[1.5px] w-24 sm:w-36 md:w-48 bg-gradient-to-r from-transparent to-[#C9A227]/60" />
             <div className="w-2.5 h-2.5 bg-[#C9A227] rotate-45 mx-4 shrink-0 shadow-[0_0_8px_rgba(201,162,39,0.3)]" />
             <div className="h-[1.5px] w-24 sm:w-36 md:w-48 bg-gradient-to-l from-transparent to-[#C9A227]/60" />
