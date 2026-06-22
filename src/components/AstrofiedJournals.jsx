@@ -230,7 +230,7 @@ const AstrofiedJournals = () => {
 
       try {
         window.google.accounts.id.initialize({
-          client_id: '31627390806-q78ra1qirg5740qrula9o2k93c6sqdv.apps.googleusercontent.com',
+          client_id: '31627390806-q78ra1qirig5740qrula9o2k93c6sqdv.apps.googleusercontent.com',
           callback: handleCredentialResponse,
         });
 
