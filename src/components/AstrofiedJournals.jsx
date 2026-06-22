@@ -38,13 +38,13 @@ const getJournalImage = (title, defaultUrl) => {
   const t = title.toLowerCase();
   if (t.includes('rahu')) return rahuImg;
   if (t.includes('ketu')) return ketuImg;
+  if (t.includes('saturn') || t.includes('revati')) return saturnImg;
+  if (t.includes('jupiter') || t.includes('cancer')) return jupiterImg;
+  if (t.includes('mahadasha')) return mahadashaImg;
+  if (t.includes('maas') || t.includes('mal')) return malMaasImg;
   if (t.includes('house')) return houseSeriesImg;
   if (t.includes('planet')) return planetSeriesImg;
   if (t.includes('sign')) return signSeriesImg;
-  if (t.includes('maas') || t.includes('mal')) return malMaasImg;
-  if (t.includes('jupiter') || t.includes('cancer')) return jupiterImg;
-  if (t.includes('saturn') || t.includes('revati')) return saturnImg;
-  if (t.includes('mahadasha')) return mahadashaImg;
   return defaultUrl;
 };
 
