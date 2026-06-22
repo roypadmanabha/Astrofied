@@ -86,18 +86,26 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                             Legal
                         </h4>
                         <div className={`flex flex-col ${isJournalsPage ? 'gap-1 md:gap-4' : 'gap-4'}`}>
-                            <button
-                                onClick={() => onOpenLegal('terms')}
-                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0`}
+                            <a
+                                href="/terms"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    onOpenLegal('terms');
+                                }}
+                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors cursor-pointer`}
                             >
                                 Terms and Conditions
-                            </button>
-                            <button
-                                onClick={() => onOpenLegal('privacy')}
-                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors bg-transparent border-none p-0`}
+                            </a>
+                            <a
+                                href="/privacy"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    onOpenLegal('privacy');
+                                }}
+                                className={`text-left ${isJournalsPage ? 'text-[6px] sm:text-[8px] md:text-sm lg:text-lg' : 'text-xs md:text-sm lg:text-lg'} ${isDarkMode ? 'hover:text-gold' : ''} transition-colors cursor-pointer`}
                             >
                                 Privacy Policy
-                            </button>
+                            </a>
                         </div>
                     </div>
 

@@ -80,20 +80,28 @@ export default function Footer({ onOpenLegal }) {
               Legal
             </h4>
             <div className="flex flex-col gap-4">
-              <button
-                onClick={() => onOpenLegal('terms')}
-                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer whitespace-nowrap"
+              <a
+                href="/terms"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenLegal('terms');
+                }}
+                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors cursor-pointer whitespace-nowrap"
                 style={{ color: '#0A0A0A' }}
               >
                 Terms and Conditions
-              </button>
-              <button
-                onClick={() => onOpenLegal('privacy')}
-                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer whitespace-nowrap"
+              </a>
+              <a
+                href="/privacy"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenLegal('privacy');
+                }}
+                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors cursor-pointer whitespace-nowrap"
                 style={{ color: '#0A0A0A' }}
               >
                 Privacy Policy
-              </button>
+              </a>
             </div>
           </div>
 
