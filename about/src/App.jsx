@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import { Home, Briefcase, GraduationCap, Award, Users, CheckCircle, Heart, Star, Sparkles } from 'lucide-react';
+import { Home, Briefcase, GraduationCap, Award, Users, CheckCircle, Heart, Star, BookOpenCheck } from 'lucide-react';
 import LegalModal from './components/LegalModal';
 import Footer from './components/Footer';
 
@@ -319,7 +319,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 <div className={`glass p-4 rounded-xl flex items-start gap-4 transition-all duration-300 hover:translate-x-1 ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
                   }`}>
                   <div className={`p-2.5 rounded-lg shrink-0 ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
-                    <Sparkles className="w-5 h-5" />
+                    <BookOpenCheck className="w-5 h-5" />
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Expertise</h4>
