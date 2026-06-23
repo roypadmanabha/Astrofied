@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { isValidIndianMobile } from '../lib/constants';
 import LegalModal from './LegalModal';
-import { jsPDF } from 'jspdf';
 
 const TERMS_CONTENT = `
 <ol class="list-decimal pl-4 sm:pl-5 space-y-3 sm:space-y-4 text-justify font-mulish text-[#0A1931]/90">
@@ -50,148 +49,6 @@ const localPincodeDatabase = [
   { pincode: '799277', office: 'Ambassa', district: 'Dhalai', state: 'Tripura' }
 ];
 
-// Helper to generate terms & conditions signed PDF silently as base64
-const generateTermsPdfBase64 = (formData) => {
-  const doc = new jsPDF({
-    orientation: 'portrait',
-    unit: 'mm',
-    format: 'a4'
-  });
-
-  const margin = 20;
-  const pageWidth = 210;
-  const contentWidth = pageWidth - (margin * 2);
-  let y = 25;
-
-  // Header - Brand Title
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.setTextColor(163, 0, 0); // Brand Red #A30000
-  doc.text("Astrofied", margin, y);
-  
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(100, 100, 100);
-  doc.text("Premium Vedic Astrology & Gemstones", margin + 35, y - 1);
-  
-  y += 6;
-  doc.setDrawColor(229, 223, 194); // Border color #E5DFC2
-  doc.setLineWidth(0.5);
-  doc.line(margin, y, pageWidth - margin, y);
-  
-  y += 12;
-  
-  // Document Title
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.setTextColor(10, 10, 10);
-  doc.text("ORDER TERMS & CONDITIONS AGREEMENT", margin, y);
-  
-  y += 8;
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor(80, 80, 80);
-  const formattedDate = new Date(formData.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-  doc.text(`Agreement Date: ${formattedDate} (IST)`, margin, y);
-  
-  y += 10;
-  
-  // Box for Customer & Order Details
-  doc.setFillColor(250, 249, 242);
-  doc.setDrawColor(229, 223, 194);
-  doc.rect(margin, y, contentWidth, 54, "F");
-  doc.rect(margin, y, contentWidth, 54, "D");
-  
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
-  doc.setTextColor(163, 0, 0);
-  doc.text("CUSTOMER & ORDER DETAILS", margin + 6, y + 8);
-  
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9.5);
-  doc.setTextColor(10, 10, 10);
-  
-  let boxY = y + 15;
-  const drawDetailRow = (label, value) => {
-    doc.setFont("helvetica", "bold");
-    doc.text(label, margin + 6, boxY);
-    doc.setFont("helvetica", "normal");
-    doc.text(value, margin + 50, boxY);
-    boxY += 7;
-  };
-  
-  const totalAmountVal = parseInt(formData.totalAmount) || 0;
-  const advanceAmountVal = parseInt(formData.advanceAmount) || 0;
-  const pendingAmountVal = parseInt(formData.pendingAmount) || 0;
-
-  drawDetailRow("Customer Name:", formData.name);
-  drawDetailRow("Mobile Number:", formData.mobile);
-  drawDetailRow("Delivery Address:", formData.streetAddress || formData.address);
-  drawDetailRow("Payment Type:", formData.paymentType);
-  drawDetailRow("Total Order Amount:", totalAmountVal > 0 ? `INR ${totalAmountVal.toLocaleString('en-IN')}` : 'N/A');
-  drawDetailRow("Amount Paid Now:", `INR ${(formData.paymentType === 'Advance Payment' ? advanceAmountVal : pendingAmountVal).toLocaleString('en-IN')}`);
-  
-  y += 66;
-  
-  // Terms & Conditions Header
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(11);
-  doc.setTextColor(163, 0, 0);
-  doc.text("AGREED TERMS STATEMENTS", margin, y);
-  y += 6;
-  
-  // Terms List
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor(40, 40, 40);
-  
-  const terms = [
-    "1. Payment Agreement: You solely agree to bear the full cost and make the complete payment for the gemstone.",
-    "2. Voluntary Decision: The gemstone was suggested by our astrologer, and you confirm that you are purchasing it voluntarily, with absolute personal consent and without any force or obligation.",
-    "3. Realisation of Remedies: There is no guarantee that a gemstone can resolve your life's problems instantly or within a fraction of a second; astrological remedies work gradually over time.",
-    "4. Planetary Energy: Our gemstones are designed to provide positive energy and strengthen your planetary influences.",
-    "5. Lab Certified Authenticity: All our gemstones are lab-certified, tested, and guaranteed to be 100% authentic.",
-    "6. Personal Use Only: These gemstones are sold for personal use only and are strictly not intended for resale or commercial purposes."
-  ];
-  
-  terms.forEach((term) => {
-    const lines = doc.splitTextToSize(term, contentWidth);
-    lines.forEach((line) => {
-      if (y > 275) {
-        doc.addPage();
-        y = 20;
-      }
-      doc.text(line, margin, y);
-      y += 5.5;
-    });
-    y += 2.5;
-  });
-  
-  y += 6;
-  
-  // Signature Box
-  doc.setFillColor(242, 240, 225);
-  doc.rect(margin, y, contentWidth, 24, "F");
-  doc.rect(margin, y, contentWidth, 24, "D");
-  
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.setTextColor(10, 10, 10);
-  doc.text("DIGITAL SIGNATURE & CONSENT CONFIRMATION", margin + 6, y + 7);
-  
-  doc.setFont("helvetica", "italic");
-  doc.setFontSize(9.5);
-  doc.setTextColor(163, 0, 0);
-  doc.text(`Electronically Signed by: ${formData.name}`, margin + 6, y + 14);
-  
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
-  doc.setTextColor(100, 100, 100);
-  doc.text("Consent Checkbox: Checked ('I agree to the Terms and Conditions of Astrofied')", margin + 6, y + 20);
-  
-  return doc.output('datauristring').split(',')[1];
-};
-
 export default function OrderForm({ onSubmitSuccess }) {
   // Form Field States
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
@@ -226,6 +83,14 @@ export default function OrderForm({ onSubmitSuccess }) {
   const [advanceAmountTouched, setAdvanceAmountTouched] = useState(false);
   const [totalAmountError, setTotalAmountError] = useState('');
   const [advanceAmountError, setAdvanceAmountError] = useState('');
+
+  // Gemstone and Size state
+  const [gemstone, setGemstone] = useState('');
+  const [size, setSize] = useState('');
+  const [gemstoneTouched, setGemstoneTouched] = useState(false);
+  const [sizeTouched, setSizeTouched] = useState(false);
+  const [gemstoneError, setGemstoneError] = useState('');
+  const [sizeError, setSizeError] = useState('');
 
   // Autocomplete suggestions state
   const [pincodeSuggestions, setPincodeSuggestions] = useState([]);
@@ -469,6 +334,33 @@ export default function OrderForm({ onSubmitSuccess }) {
     }
   }, [totalAmount, totalAmountTouched]);
 
+  // Validate Gemstone Dropdown
+  useEffect(() => {
+    if (gemstoneTouched) {
+      if (!gemstone) {
+        setGemstoneError('Gemstone selection is required');
+      } else {
+        setGemstoneError('');
+      }
+    }
+  }, [gemstone, gemstoneTouched]);
+
+  // Validate Size Input
+  useEffect(() => {
+    if (sizeTouched) {
+      if (!size) {
+        setSizeError('Size is required');
+      } else {
+        const num = parseFloat(size);
+        if (isNaN(num) || num <= 0) {
+          setSizeError('Enter a valid size');
+        } else {
+          setSizeError('');
+        }
+      }
+    }
+  }, [size, sizeTouched]);
+
   // Calculate Advance Amount (50% of Total) dynamically
   useEffect(() => {
     const total = parseInt(totalAmount) || 0;
@@ -536,6 +428,50 @@ export default function OrderForm({ onSubmitSuccess }) {
     handleAmountChange(e, setTotalAmount);
   };
 
+  const handleSizeChange = (e) => {
+    const val = e.target.value;
+    // Allow digits and at most one decimal point
+    const clean = val.replace(/[^0-9.]/g, '');
+    const parts = clean.split('.');
+    if (parts.length > 2) return;
+    
+    let beforeDecimal = parts[0] || '';
+    let afterDecimal = parts[1] || '';
+    
+    // Enforce max 2 digits before decimal
+    if (beforeDecimal.length > 2) {
+      beforeDecimal = beforeDecimal.slice(0, 2);
+    }
+    // Enforce max 2 digits after decimal
+    if (afterDecimal.length > 2) {
+      afterDecimal = afterDecimal.slice(0, 2);
+    }
+    
+    const finalVal = parts.length === 2 ? `${beforeDecimal}.${afterDecimal}` : beforeDecimal;
+    setSize(finalVal);
+  };
+
+  const handleSizeBlur = () => {
+    setSizeTouched(true);
+    if (!size) {
+      setSizeError('Size is required');
+      return;
+    }
+    const num = parseFloat(size);
+    if (isNaN(num) || num <= 0) {
+      setSizeError('Please enter a valid size');
+    } else {
+      const parts = num.toFixed(2).split('.');
+      const before = parts[0].padStart(2, '0');
+      const after = parts[1];
+      if (before.length > 2) {
+        setSizeError('Size cannot exceed 99.99 mm');
+      } else {
+        setSize(`${before}.${after}`);
+        setSizeError('');
+      }
+    }
+  };
 
   const handleMobileChange = (e) => {
     const val = e.target.value.replace(/\D/g, '');
@@ -560,7 +496,9 @@ export default function OrderForm({ onSubmitSuccess }) {
   const isFormValid =
     paymentType && paymentType !== '' &&
     (!['Advance Payment', 'Pending Payment'].includes(paymentType) || (
-      totalAmount && !totalAmountError
+      totalAmount && !totalAmountError &&
+      gemstone && !gemstoneError &&
+      size && !sizeError
     )) &&
     firstName.trim() && !firstNameError &&
     lastName.trim() && !lastNameError &&
@@ -605,21 +543,10 @@ export default function OrderForm({ onSubmitSuccess }) {
       totalAmount: totalAmount || '0',
       advanceAmount: advanceAmount || '0',
       pendingAmount: calculatedPendingAmount.toString(),
+      gemstone: gemstone,
+      size: size ? `${size} mm` : '',
       consent: consent ? 'Yes' : 'No',
       timestamp: new Date().toISOString()
-    };
-
-    // Generate signed agreement PDF silently as a proof
-    let pdfBase64 = '';
-    try {
-      pdfBase64 = generateTermsPdfBase64(formData);
-    } catch (err) {
-      console.error('Failed to generate PDF agreement:', err);
-    }
-
-    const formDataWithPdf = {
-      ...formData,
-      pdfData: pdfBase64
     };
 
     try {
@@ -629,7 +556,7 @@ export default function OrderForm({ onSubmitSuccess }) {
         throw new Error('Google Apps Script URL is missing. Please configure VITE_GOOGLE_SCRIPT_URL in your env settings.');
       }
 
-      const formBody = new URLSearchParams(formDataWithPdf).toString();
+      const formBody = new URLSearchParams(formData).toString();
 
       await fetch(url, {
         method: 'POST',
@@ -644,6 +571,8 @@ export default function OrderForm({ onSubmitSuccess }) {
         totalAmount: formData.totalAmount,
         advanceAmount: formData.advanceAmount,
         pendingAmount: formData.pendingAmount,
+        gemstone: gemstone,
+        size: size,
         amountToPay: formData.paymentType === 'Advance Payment' ? formData.advanceAmount : formData.pendingAmount
       });
     } catch (err) {
@@ -701,6 +630,13 @@ export default function OrderForm({ onSubmitSuccess }) {
                     setAdvanceAmountTouched(false);
                     setTotalAmountError('');
                     setAdvanceAmountError('');
+                    // Also reset gemstone and size fields
+                    setGemstone('');
+                    setSize('');
+                    setGemstoneTouched(false);
+                    setSizeTouched(false);
+                    setGemstoneError('');
+                    setSizeError('');
                   }}
                   className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-pointer font-bold"
                 >
@@ -710,71 +646,133 @@ export default function OrderForm({ onSubmitSuccess }) {
                 </select>
               </div>
 
-              {/* Conditional Amount Fields */}
+              {/* Conditional Amount & Gemstone Fields */}
               {(paymentType === 'Advance Payment' || paymentType === 'Pending Payment') && (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-[fadeIn_0.3s_ease-out]">
-                  {/* Total Amount */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
-                      Total Amount
-                    </label>
-                    <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
-                      <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
-                        ₹
-                      </span>
-                      <input
-                        type="text"
-                        placeholder="0"
-                        value={totalAmount ? parseInt(totalAmount).toLocaleString('en-IN') : ''}
-                        onChange={handleTotalAmountChange}
-                        onBlur={() => setTotalAmountTouched(true)}
-                        className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold"
-                      />
-                    </div>
-                    {totalAmountError && (
-                      <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
-                        <AlertCircle size={12} />
-                        <span>{totalAmountError}</span>
+                <div className="flex flex-col gap-4 sm:gap-5 animate-[fadeIn_0.3s_ease-out]">
+                  {/* Amount Fields Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {/* Total Amount */}
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                        Total Amount
+                      </label>
+                      <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
+                        <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
+                          ₹
+                        </span>
+                        <input
+                          type="text"
+                          placeholder="0"
+                          value={totalAmount ? parseInt(totalAmount).toLocaleString('en-IN') : ''}
+                          onChange={handleTotalAmountChange}
+                          onBlur={() => setTotalAmountTouched(true)}
+                          className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold"
+                        />
                       </div>
-                    )}
-                  </div>
+                      {totalAmountError && (
+                        <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                          <AlertCircle size={12} />
+                          <span>{totalAmountError}</span>
+                        </div>
+                      )}
+                    </div>
 
-                  {/* Advance Amount */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
-                      Advance Amount
-                    </label>
-                    <div className="flex rounded-xl bg-white border border-[#E5DFC2] overflow-hidden">
-                      <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
-                        ₹
-                      </span>
-                      <input
-                        type="text"
-                        placeholder="0"
-                        value={advanceAmount ? parseInt(advanceAmount).toLocaleString('en-IN') : '0'}
-                        readOnly
-                        disabled
-                        className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
-                      />
+                    {/* Advance Amount */}
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                        Advance Amount
+                      </label>
+                      <div className="flex rounded-xl bg-white border border-[#E5DFC2] overflow-hidden">
+                        <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
+                          ₹
+                        </span>
+                        <input
+                          type="text"
+                          placeholder="0"
+                          value={advanceAmount ? parseInt(advanceAmount).toLocaleString('en-IN') : '0'}
+                          readOnly
+                          disabled
+                          className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Pending Amount */}
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                        Pending Amount
+                      </label>
+                      <div className="flex rounded-xl bg-white border border-[#E5DFC2] overflow-hidden">
+                        <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
+                          ₹
+                        </span>
+                        <input
+                          type="text"
+                          value={calculatedPendingAmount ? parseInt(calculatedPendingAmount).toLocaleString('en-IN') : '0'}
+                          readOnly
+                          disabled
+                          className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  {/* Pending Amount */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
-                      Pending Amount
-                    </label>
-                    <div className="flex rounded-xl bg-white border border-[#E5DFC2] overflow-hidden">
-                      <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
-                        ₹
-                      </span>
-                      <input
-                        type="text"
-                        value={calculatedPendingAmount ? parseInt(calculatedPendingAmount).toLocaleString('en-IN') : '0'}
-                        readOnly
-                        disabled
-                        className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
-                      />
+                  {/* Gemstone & Size Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Gemstone Dropdown */}
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                        Gemstone
+                      </label>
+                      <select
+                        value={gemstone}
+                        onChange={(e) => setGemstone(e.target.value)}
+                        onBlur={() => setGemstoneTouched(true)}
+                        className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-pointer font-bold"
+                      >
+                        <option value="" disabled>Select Gemstone</option>
+                        <option value="Ruby">Ruby</option>
+                        <option value="Mukta">Mukta</option>
+                        <option value="Prabal">Prabal</option>
+                        <option value="Panna">Panna</option>
+                        <option value="Pukhraj">Pukhraj</option>
+                        <option value="Opal">Opal</option>
+                        <option value="Neelam">Neelam</option>
+                        <option value="Gomed">Gomed</option>
+                        <option value="Cat's Eye">Cat's Eye</option>
+                      </select>
+                      {gemstoneError && (
+                        <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                          <AlertCircle size={12} />
+                          <span>{gemstoneError}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Size Input */}
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                        Size (mm)
+                      </label>
+                      <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
+                        <input
+                          type="text"
+                          placeholder="00.00"
+                          value={size}
+                          onChange={handleSizeChange}
+                          onBlur={handleSizeBlur}
+                          className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold"
+                        />
+                        <span className="bg-[#E5DFC2]/50 border-l border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
+                          mm
+                        </span>
+                      </div>
+                      {sizeError && (
+                        <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                          <AlertCircle size={12} />
+                          <span>{sizeError}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

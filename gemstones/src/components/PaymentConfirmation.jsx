@@ -178,10 +178,23 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
               <span className="text-[#5A5A5A]">Payment Type:</span>
               <span className="font-bold text-[#A30000]">{orderInfo.paymentType}</span>
             </div>
+
+            {orderInfo.gemstone && (
+              <div className="flex justify-between border-t border-[#E5DFC2]/30 pt-2">
+                <span className="text-[#5A5A5A]">Gemstone:</span>
+                <span className="font-bold text-black">{orderInfo.gemstone}</span>
+              </div>
+            )}
+            {orderInfo.size && (
+              <div className="flex justify-between">
+                <span className="text-[#5A5A5A]">Size:</span>
+                <span className="font-bold text-black">{orderInfo.size} mm</span>
+              </div>
+            )}
             
             {orderInfo.totalAmount && (
               <>
-                <div className="flex justify-between border-t border-[#E5DFC2]/30 pt-2">
+                <div className={`flex justify-between ${orderInfo.gemstone ? '' : 'border-t border-[#E5DFC2]/30 pt-2'}`}>
                   <span className="text-[#5A5A5A]">Total Order Value:</span>
                   <span className="font-bold text-black">₹{parseInt(orderInfo.totalAmount).toLocaleString('en-IN')}</span>
                 </div>
