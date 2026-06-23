@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronsRight, Calendar, Users, Tag } from 'lucide-react';
+import { Sun, Moon, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronsRight, Calendar, Users, Tag, Hash, Gem } from 'lucide-react';
 
 import logo from '../assets/logo.png';
 
@@ -15,15 +15,15 @@ const desktopNavLinks = [
 ];
 
 const mobileNavLinks = [
-    { name: 'Book Consultation', href: '#', icon: Calendar },
     { name: 'Services', href: '#services', icon: Briefcase },
     { name: 'Pricing', href: '#pricing', icon: Tag },
-    { name: 'Team', href: '/about', icon: Users },
+    { name: 'Numerology', href: '#numerology', icon: Hash },
     { name: 'Panchang', href: '#panchang', icon: Compass },
-    { name: 'Contact', href: '#footer', icon: Mail },
+    { name: 'Journals', href: '#journals', icon: BookOpen },
+    { name: 'Gemstones', href: '/gemstones', icon: Gem },
     { name: 'Feedback', href: '#feedback', icon: MessageSquare },
-    { name: 'Terms & Conditions', href: '/terms-and-conditions.html', icon: Scale },
-    { name: 'Privacy Policy', href: '/privacy-policy.html', icon: ShieldCheck },
+    { name: 'Team', href: '/about', icon: Users },
+    { name: 'Contact', href: '#footer', icon: Mail },
 ];
 
 export default function Navbar({ onOpenLegal, onOpenConsultation }) {
@@ -104,9 +104,6 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
 
                         <div className="flex flex-col w-full max-w-[300px] mt-2">
                             {mobileNavLinks.map((link, index) => {
-                                const isLegal = link.href.includes('.html');
-                                const type = link.name.includes('Terms') ? 'terms' : 'privacy';
-                                
                                 return (
                                     <div key={link.name} className="flex flex-col w-full">
                                         {index > 0 && (
@@ -117,22 +114,18 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: index * 0.03, type: 'spring', stiffness: 120 }}
                                             onClick={(e) => {
-                                                if (link.name === 'Book Consultation') {
-                                                    onOpenConsultation();
-                                                } else if (isLegal) {
-                                                    onOpenLegal(type);
-                                                } else {
-                                                    const targetHref = link.href === '/about'
-                                                        ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
+                                                const targetHref = link.href === '/about'
+                                                    ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
+                                                    : link.href === '/gemstones'
+                                                        ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5002' : '/gemstones/')
                                                         : link.href;
-                                                    if (targetHref.startsWith('#')) {
-                                                        const element = document.querySelector(targetHref);
-                                                        if (element) {
-                                                            element.scrollIntoView({ behavior: 'smooth' });
-                                                        }
-                                                    } else {
-                                                        window.location.href = targetHref;
+                                                if (targetHref.startsWith('#')) {
+                                                    const element = document.querySelector(targetHref);
+                                                    if (element) {
+                                                        element.scrollIntoView({ behavior: 'smooth' });
                                                     }
+                                                } else {
+                                                    window.location.href = targetHref;
                                                 }
                                                 setIsOpen(false);
                                             }}
