@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { House, LogOut, Search, X, AlertCircle, Play, Pause } from 'lucide-react';
+import { House, LogOut, Search, X, AlertCircle, Play, Pause, ChevronsLeft } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { createClient } from '@supabase/supabase-js';
 import journalsCollage from '../assets/journal-hero-new.jpg';
@@ -33,6 +33,20 @@ try {
 } catch (error) {
   console.error("Supabase initialization error:", error);
 }
+
+const PowerIcon = ({ className }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    strokeWidth="2.8" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M18.36 6.64a9 9 0 1 1-12.73 0" stroke="#788896" />
+    <line x1="12" y1="2" x2="12" y2="12" stroke="#E63900" />
+  </svg>
+);
 
 const getJournalImage = (title, defaultUrl) => {
   if (!title) return defaultUrl;
@@ -362,11 +376,11 @@ const AstrofiedJournals = () => {
           <div className="flex gap-4 md:gap-6 font-semibold items-center">
             <button onClick={() => setShowHomeModal(true)} className="hover:opacity-70 transition-opacity flex items-center" aria-label="Home">
               <span className="hidden md:inline">Home</span>
-              <House className="md:hidden w-5 h-5" />
+              <ChevronsLeft className="md:hidden w-4 h-4 text-black dark:text-white" style={{ strokeWidth: 3 }} />
             </button>
             <button onClick={handleLogout} className="text-[#A30000] hover:opacity-70 transition-opacity flex items-center" aria-label="Logout">
               <span className="hidden md:inline">Logout</span>
-              <LogOut className="md:hidden w-5 h-5" />
+              <PowerIcon className="md:hidden w-4 h-4" />
             </button>
           </div>
         </header>
