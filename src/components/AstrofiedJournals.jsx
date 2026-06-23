@@ -366,14 +366,14 @@ const AstrofiedJournals = () => {
     return (
       <div className={`astrofied-journals-container font-['Nunito'] min-h-screen w-full ${isDarkMode ? 'bg-transparent text-white' : 'bg-[#F4F1E1] text-black'}`}>
         {/* Top Nav */}
-        <header className={`fixed top-0 left-0 w-full z-50 px-4 md:px-12 py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/70' : 'bg-[#F4F1E1]/70'} backdrop-blur-lg border-b shadow-sm ${isDarkMode ? 'border-white/10 shadow-black/20' : 'border-black/10 shadow-black/5'} transition-all duration-300`}>
+        <header className={`fixed top-0 left-0 w-full z-50 px-2 sm:px-4 md:px-12 py-3 sm:py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/70' : 'bg-[#F4F1E1]/70'} backdrop-blur-lg border-b shadow-sm ${isDarkMode ? 'border-white/10 shadow-black/20' : 'border-black/10 shadow-black/5'} transition-all duration-300`}>
           <div className="flex items-center">
-            <img src={logo} alt="Astrofied Logo" className="h-6 md:h-8 mr-1.5 md:mr-4 object-contain" />
-            <h1 className={`text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-white to-[#E50000]' : 'from-black to-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
+            <img src={logo} alt="Astrofied Logo" className="h-5 sm:h-6 md:h-8 mr-1 sm:mr-1.5 md:mr-4 object-contain" />
+            <h1 className={`text-sm min-[360px]:text-base sm:text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-white to-[#E50000]' : 'from-black to-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
               Astrofied Journals
             </h1>
           </div>
-          <div className="flex gap-4 md:gap-6 font-semibold items-center">
+          <div className="flex gap-2.5 sm:gap-4 md:gap-6 font-semibold items-center">
             <button onClick={() => setShowHomeModal(true)} className="hover:opacity-70 transition-opacity flex items-center" aria-label="Home">
               <span className="hidden md:inline">Home</span>
               <ChevronsLeft className="md:hidden w-4 h-4 text-[#FF0000]" style={{ strokeWidth: 3 }} />
