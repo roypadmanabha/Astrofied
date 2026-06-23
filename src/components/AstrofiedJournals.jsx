@@ -409,25 +409,40 @@ const AstrofiedJournals = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+              className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-md px-4 sm:px-6"
             >
               <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
+                initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className={`w-full max-w-sm p-6 md:p-8 rounded-2xl shadow-2xl text-center ${isDarkMode ? 'bg-[#1a1a1a] text-white border border-white/10' : 'bg-white text-black'}`}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className={`w-[90%] max-w-[340px] sm:max-w-[380px] md:max-w-[420px] p-6 sm:p-8 md:p-10 rounded-[24px] sm:rounded-[32px] shadow-2xl text-center border transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'bg-gradient-to-b from-[#1c1c1c] to-[#121212] text-white border-white/10' 
+                    : 'bg-white text-black border-black/5'
+                }`}
               >
-                <h3 className="text-xl md:text-2xl font-bold mb-8 font-['Nunito']">Are you sure you want to quit?</h3>
-                <div className="flex justify-center gap-4">
+                <div className={`mx-auto mb-5 w-12 h-12 rounded-full flex items-center justify-center ${isDarkMode ? 'bg-[#FF0000]/10 text-[#FF0000]' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
+                  <LogOut className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 font-['Nunito'] tracking-tight">Are you sure you want to quit?</h3>
+                <p className={`text-xs sm:text-sm mb-6 sm:mb-8 font-mulish leading-relaxed ${isDarkMode ? 'text-white/60' : 'text-black/60'}`}>
+                  You will be logged out of your current session and redirected back to the main page.
+                </p>
+                <div className="flex justify-center gap-3 sm:gap-4">
                   <button
                     onClick={handleQuit}
-                    className="flex-1 py-3 bg-[#A30000] hover:bg-red-700 text-white rounded-xl font-bold transition-colors"
+                    className="flex-1 py-3 sm:py-3.5 bg-[#A30000] hover:bg-red-700 text-white rounded-xl sm:rounded-2xl font-bold transition-all hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base shadow-lg shadow-[#A30000]/10"
                   >
                     Yes
                   </button>
                   <button
                     onClick={() => setShowHomeModal(false)}
-                    className={`flex-1 py-3 rounded-xl font-bold transition-colors ${isDarkMode ? 'bg-white/10 hover:bg-white/20' : 'bg-black/5 hover:bg-black/10'}`}
+                    className={`flex-1 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-bold transition-all hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base border ${
+                      isDarkMode 
+                        ? 'bg-white/5 hover:bg-white/10 border-white/10 text-white' 
+                        : 'bg-black/5 hover:bg-black/10 border-black/5 text-black'
+                    }`}
                   >
                     No
                   </button>
