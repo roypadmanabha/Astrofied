@@ -41,7 +41,7 @@ export default function GemstoneCard({ gemstone, index }) {
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ y: -6, boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)' }}
-      className="gemstone-card relative overflow-hidden bg-[#f5f5dd] rounded-3xl border border-[#E5DFC2] p-6 flex flex-col items-center text-center shadow-md hover:shadow-xl transition-all duration-300"
+      className="gemstone-card relative overflow-hidden bg-white rounded-3xl border border-[#E5DFC2] p-6 flex flex-col items-center text-center shadow-md hover:shadow-xl transition-all duration-300"
     >
       
       {/* Top-Left Ribbon "ASTROFIED" */}
