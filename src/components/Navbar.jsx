@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronsRight } from 'lucide-react';
+import { Sun, Moon, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronsRight, Calendar, Users, Tag } from 'lucide-react';
 
 import logo from '../assets/logo.png';
 
@@ -15,15 +15,15 @@ const desktopNavLinks = [
 ];
 
 const mobileNavLinks = [
-    { name: 'Book Consultation', href: '#', icon: ChevronsRight },
-    { name: 'Services', href: '#services', icon: ChevronsRight },
-    { name: 'Pricing', href: '#pricing', icon: ChevronsRight },
-    { name: 'Team', href: '/about', icon: ChevronsRight },
-    { name: 'Panchang', href: '#panchang', icon: ChevronsRight },
-    { name: 'Contact', href: '#footer', icon: ChevronsRight },
-    { name: 'Feedback', href: '#feedback', icon: ChevronsRight },
-    { name: 'Terms & Conditions', href: '/terms-and-conditions.html', icon: ChevronsRight },
-    { name: 'Privacy Policy', href: '/privacy-policy.html', icon: ChevronsRight },
+    { name: 'Book Consultation', href: '#', icon: Calendar },
+    { name: 'Services', href: '#services', icon: Briefcase },
+    { name: 'Pricing', href: '#pricing', icon: Tag },
+    { name: 'Team', href: '/about', icon: Users },
+    { name: 'Panchang', href: '#panchang', icon: Compass },
+    { name: 'Contact', href: '#footer', icon: Mail },
+    { name: 'Feedback', href: '#feedback', icon: MessageSquare },
+    { name: 'Terms & Conditions', href: '/terms-and-conditions.html', icon: Scale },
+    { name: 'Privacy Policy', href: '/privacy-policy.html', icon: ShieldCheck },
 ];
 
 export default function Navbar({ onOpenLegal, onOpenConsultation }) {
@@ -61,7 +61,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '-100%' }}
                         transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                        className={`fixed inset-0 z-[100] flex flex-col items-start justify-start pt-32 gap-0 lg:hidden overflow-y-auto px-8 ${
+                        className={`fixed inset-0 z-[100] flex flex-col items-start justify-start pt-24 gap-0 lg:hidden overflow-y-auto px-8 ${
                             isDarkMode 
                                 ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-r border-gold/10' 
                                 : 'bg-[#f5f5dd] border-r border-[#A30000]/10'
@@ -73,11 +73,17 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
 
                         {/* Mobile Menu Header */}
                         <div 
-                            className="absolute top-10 left-8 flex items-center gap-0 cursor-pointer"
+                            className="absolute top-8 left-8 flex items-center gap-2 cursor-pointer"
                             onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                         >
+                            <img
+                                src={logo}
+                                alt="Astrofied Logo"
+                                className="w-9 h-9 object-contain"
+                                style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
+                            />
                             <span
-                                className={`text-3xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
+                                className={`text-2xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
                                     isDarkMode 
                                         ? 'from-red-600 to-yellow-500' 
                                         : 'from-black to-red-600'
@@ -89,58 +95,64 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
 
                         <button
                             onClick={() => setIsOpen(false)}
-                            className={`absolute top-10 right-8 p-2 focus:outline-none transition-all border-none bg-transparent ${
-                                isDarkMode ? 'text-gold' : 'text-black'
+                            className={`absolute top-8 right-8 p-1.5 focus:outline-none transition-all duration-300 border-none bg-transparent cursor-pointer rounded-full hover:scale-110 ${
+                                isDarkMode ? 'text-gold hover:bg-white/5' : 'text-black hover:bg-black/5'
                             }`}
                         >
-                            <X size={24} />
+                            <X size={20} />
                         </button>
 
-                        <div className="flex flex-col gap-1 w-full max-w-[280px]">
+                        <div className="flex flex-col w-full max-w-[300px] mt-2">
                             {mobileNavLinks.map((link, index) => {
                                 const isLegal = link.href.includes('.html');
                                 const type = link.name.includes('Terms') ? 'terms' : 'privacy';
                                 
                                 return (
-                                    <motion.div
-                                        key={link.name}
-                                        initial={{ opacity: 0, x: -30 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.04, type: 'spring', stiffness: 100 }}
-                                        onClick={(e) => {
-                                            if (link.name === 'Book Consultation') {
-                                                onOpenConsultation();
-                                            } else if (isLegal) {
-                                                onOpenLegal(type);
-                                            } else {
-                                                const targetHref = link.href === '/about'
-                                                    ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
-                                                    : link.href;
-                                                if (targetHref.startsWith('#')) {
-                                                    const element = document.querySelector(targetHref);
-                                                    if (element) {
-                                                        element.scrollIntoView({ behavior: 'smooth' });
-                                                    }
+                                    <div key={link.name} className="flex flex-col w-full">
+                                        {index > 0 && (
+                                            <div className={`h-[0.5px] w-[92%] my-1.5 mx-auto ${isDarkMode ? 'bg-white/10' : 'bg-black/5'}`} />
+                                        )}
+                                        <motion.div
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.03, type: 'spring', stiffness: 120 }}
+                                            onClick={(e) => {
+                                                if (link.name === 'Book Consultation') {
+                                                    onOpenConsultation();
+                                                } else if (isLegal) {
+                                                    onOpenLegal(type);
                                                 } else {
-                                                    window.location.href = targetHref;
+                                                    const targetHref = link.href === '/about'
+                                                        ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
+                                                        : link.href;
+                                                    if (targetHref.startsWith('#')) {
+                                                        const element = document.querySelector(targetHref);
+                                                        if (element) {
+                                                            element.scrollIntoView({ behavior: 'smooth' });
+                                                        }
+                                                    } else {
+                                                        window.location.href = targetHref;
+                                                    }
                                                 }
-                                            }
-                                            setIsOpen(false);
-                                        }}
-                                        className={`group flex items-center gap-4 text-base font-bold tracking-wide transition-all py-3 px-4 rounded-2xl cursor-pointer ${
-                                            isDarkMode 
-                                                ? 'text-gray-300 hover:text-gold hover:bg-gold/5' 
-                                                : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
-                                        }`}
-                                        whileTap={{ scale: 0.96 }}
-                                    >
-                                        <div className={`p-2 rounded-xl transition-all group-hover:scale-110 ${
-                                            isDarkMode ? 'bg-gold/10 text-gold shadow-[0_0_10px_rgba(212,175,55,0.1)]' : 'bg-[#DC143C] text-white'
-                                        }`}>
-                                            <link.icon size={18} strokeWidth={3} />
-                                        </div>
-                                        <span>{link.name}</span>
-                                    </motion.div>
+                                                setIsOpen(false);
+                                            }}
+                                            className={`group flex items-center gap-3.5 text-sm sm:text-base font-bold uppercase tracking-wider font-mulish py-2 px-3 sm:py-2.5 sm:px-4 rounded-xl cursor-pointer transition-all duration-300 ${
+                                                isDarkMode 
+                                                    ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
+                                                    : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
+                                            }`}
+                                            whileTap={{ scale: 0.97 }}
+                                        >
+                                            <div className={`p-2 rounded-xl transition-all duration-300 group-hover:scale-110 shrink-0 ${
+                                                isDarkMode 
+                                                    ? 'bg-gold/10 text-gold shadow-[0_0_12px_rgba(212,175,55,0.08)]' 
+                                                    : 'bg-[#FF0000]/10 text-[#FF0000] shadow-[0_0_12px_rgba(255,0,0,0.05)]'
+                                            }`}>
+                                                <link.icon size={16} strokeWidth={2.5} />
+                                            </div>
+                                            <span>{link.name}</span>
+                                        </motion.div>
+                                    </div>
                                 );
                             })}
                         </div>
