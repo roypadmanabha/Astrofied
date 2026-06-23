@@ -310,7 +310,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 <div className="flex flex-col space-y-2 pt-4">
                   <a
                     href={getHomeLink()}
-                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
+                    className={`flex items-center gap-3 text-sm font-bold tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
                       ? 'text-gray-300 hover:text-gold hover:bg-white/5'
                       : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
                       }`}
@@ -324,7 +324,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
                   <a
                     href={getHomeLink('#services')}
-                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
+                    className={`flex items-center gap-3 text-sm font-bold tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
                       ? 'text-gray-300 hover:text-gold hover:bg-white/5'
                       : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
                       }`}
@@ -338,7 +338,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
                   <a
                     href={getHomeLink('#journals')}
-                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
+                    className={`flex items-center gap-3 text-sm font-bold tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
                       ? 'text-gray-300 hover:text-gold hover:bg-white/5'
                       : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
                       }`}
@@ -352,7 +352,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
                   <a
                     href={getHomeLink('#footer')}
-                    className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
+                    className={`flex items-center gap-3 text-sm font-bold tracking-wider font-mulish py-3 px-4 rounded-xl transition-all duration-300 ${isDarkMode
                       ? 'text-gray-300 hover:text-gold hover:bg-white/5'
                       : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
                       }`}
