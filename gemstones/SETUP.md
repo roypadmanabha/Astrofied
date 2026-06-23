@@ -17,29 +17,81 @@ Follow these instructions to connect your **Astrofied Gemstones** web form to a 
 
 ```javascript
 function doPost(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  const data = e.parameter;
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheets()[0];
+    
+    // Get parameters from incoming request
+    var data = e.parameter;
+    
+    // Extract values with safe fallbacks
+    var timestamp = data.timestamp || new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+    var paymentType = data.paymentType || "";
+    var totalAmount = data.totalAmount || "0";
+    var advancePayment = data.advanceAmount || "0";
+    var pendingPayment = data.pendingAmount || "0";
+    var firstName = data.firstName || "";
+    var lastName = data.lastName || "";
+    var mobile = data.mobile || "";
+    var fullAddress = data.address || "";
+    var city = data.city || "";
+    var district = data.district || "";
+    var state = data.state || "";
+    var pincode = data.pincode || "";
+    
+    // Newly added Gemstone and Size parameters
+    var gemstone = data.gemstone || "";
+    var size = data.size || ""; // formatted as "XX.XX mm"
 
-  // Write header row once if sheet is empty
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(['Timestamp', 'Payment Type', 'Name', 'Mobile', 'Address', 'Total Amount', 'Advance Payment Amount', 'Pending Payment Amount', 'Consent']);
+    // Write header row once if sheet is empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        'Timestamp',
+        'Payment Type',
+        'Total Amount',
+        'Advance Payment',
+        'Pending Payment',
+        'First Name',
+        'Last Name',
+        'Mobile No.',
+        'Full Address',
+        'City',
+        'District',
+        'State',
+        'Pincode',
+        'Gemstone',
+        'Size'
+      ]);
+    }
+
+    // Prepare row data aligning with headers
+    var rowData = [
+      timestamp,
+      paymentType,
+      totalAmount,
+      advancePayment,
+      pendingPayment,
+      firstName,
+      lastName,
+      mobile,
+      fullAddress,
+      city,
+      district,
+      state,
+      pincode,
+      gemstone,
+      size
+    ];
+
+    sheet.appendRow(rowData);
+
+    return ContentService.createTextOutput(JSON.stringify({ "status": "success" }))
+                         .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ "status": "error", "message": error.toString() }))
+                         .setMimeType(ContentService.MimeType.JSON);
   }
-
-  sheet.appendRow([
-    data.timestamp || new Date().toISOString(),
-    data.paymentType,
-    data.name,
-    data.mobile,
-    data.address,
-    data.totalAmount || '0',
-    data.advanceAmount || '0',
-    data.pendingAmount || '0',
-    data.consent,
-  ]);
-
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: 'success' }))
-    .setMimeType(ContentService.MimeType.JSON);
 }
 ```
 
