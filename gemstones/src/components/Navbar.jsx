@@ -1,6 +1,7 @@
 import React from 'react';
-import { Gem, ClipboardList, House } from 'lucide-react';
+import { ClipboardList, ChevronsLeft } from 'lucide-react';
 import logo from '../assets/logo.png';
+import gemstoneIcon from '../assets/gemstone-icon.png';
 
 export default function Navbar() {
   const handleHomeClick = () => {
@@ -48,7 +49,7 @@ export default function Navbar() {
           className="hover:opacity-70 transition-opacity flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
           title="Home"
         >
-          <House size={18} className="sm:hidden text-black shrink-0" />
+          <ChevronsLeft size={16} className="sm:hidden text-black shrink-0" style={{ strokeWidth: 3 }} />
           <span className="hidden sm:inline text-xs sm:text-sm md:text-base">Home</span>
         </button>
         <button 
@@ -59,7 +60,7 @@ export default function Navbar() {
           className="hover:opacity-70 transition-opacity flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
           title="Collection"
         >
-          <Gem size={18} className="sm:hidden text-black shrink-0" />
+          <img src={gemstoneIcon} alt="Collection" className="sm:hidden w-4 h-4 shrink-0 object-contain" />
           <span className="hidden sm:inline text-xs sm:text-sm md:text-base">Collection</span>
         </button>
         <button 
@@ -70,7 +71,7 @@ export default function Navbar() {
           className="hover:opacity-70 transition-opacity flex items-center gap-1.5 text-[#A30000] bg-transparent border-none p-0 cursor-pointer font-bold"
           title="Order Form"
         >
-          <ClipboardList size={18} className="sm:hidden text-[#A30000] shrink-0" />
+          <ClipboardList size={16} className="sm:hidden text-[#A30000] shrink-0" />
           <span className="hidden sm:inline text-xs sm:text-sm md:text-base">Order Form</span>
         </button>
       </div>
