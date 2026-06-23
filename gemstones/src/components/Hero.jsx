@@ -68,7 +68,7 @@ export default function Hero() {
             className="flex flex-wrap justify-center gap-4 mt-4 max-sm:grid max-sm:grid-cols-3 max-sm:gap-2.5 max-sm:w-full max-sm:max-w-2xl max-sm:px-2 max-sm:mt-6 max-sm:mx-auto"
           >
             {/* Stat Chip 1 */}
-            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02] max-sm:flex-col max-sm:justify-center max-sm:gap-2 max-sm:p-3 max-sm:aspect-square shiny-3d-box overflow-hidden">
+            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-[#f5f5dd] border border-[#E5DFC2] shadow-md shadow-black/[0.02] max-sm:flex-col max-sm:justify-center max-sm:gap-2 max-sm:p-3 max-sm:aspect-square shiny-3d-box overflow-hidden">
               <div className="hidden max-sm:block shiny-shine-overlay shiny-shine-overlay-1" />
               <ShieldCheck className="w-5 h-5 max-sm:w-6 max-sm:h-6 text-[#A30000] shrink-0 z-20" />
               <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal max-sm:text-[9px] max-sm:min-[360px]:text-[10px] z-20">
@@ -77,7 +77,7 @@ export default function Hero() {
             </div>
 
             {/* Stat Chip 2 */}
-            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02] max-sm:flex-col max-sm:justify-center max-sm:gap-2 max-sm:p-3 max-sm:aspect-square shiny-3d-box overflow-hidden">
+            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-[#f5f5dd] border border-[#E5DFC2] shadow-md shadow-black/[0.02] max-sm:flex-col max-sm:justify-center max-sm:gap-2 max-sm:p-3 max-sm:aspect-square shiny-3d-box overflow-hidden">
               <div className="hidden max-sm:block shiny-shine-overlay shiny-shine-overlay-2" />
               <UserCheck className="w-5 h-5 max-sm:w-6 max-sm:h-6 text-[#A30000] shrink-0 z-20" />
               <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal max-sm:text-[9px] max-sm:min-[360px]:text-[10px] z-20">
@@ -86,7 +86,7 @@ export default function Hero() {
             </div>
 
             {/* Stat Chip 3 */}
-            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white border border-[#E5DFC2] shadow-md shadow-black/[0.02] max-sm:flex-col max-sm:justify-center max-sm:gap-2 max-sm:p-3 max-sm:aspect-square shiny-3d-box overflow-hidden">
+            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-[#f5f5dd] border border-[#E5DFC2] shadow-md shadow-black/[0.02] max-sm:flex-col max-sm:justify-center max-sm:gap-2 max-sm:p-3 max-sm:aspect-square shiny-3d-box overflow-hidden">
               <div className="hidden max-sm:block shiny-shine-overlay shiny-shine-overlay-3" />
               <Award className="w-5 h-5 max-sm:w-6 max-sm:h-6 text-[#A30000] shrink-0 z-20" />
               <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal max-sm:text-[9px] max-sm:min-[360px]:text-[10px] z-20">
