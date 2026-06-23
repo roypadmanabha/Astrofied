@@ -43,8 +43,8 @@ const PowerIcon = ({ className }) => (
     strokeLinejoin="round" 
     className={className}
   >
-    <path d="M18.36 6.64a9 9 0 1 1-12.73 0" stroke="#788896" />
-    <line x1="12" y1="2" x2="12" y2="12" stroke="#E63900" />
+    <path d="M18.36 6.64a9 9 0 1 1-12.73 0" stroke="currentColor" className="text-black dark:text-white" />
+    <line x1="12" y1="2" x2="12" y2="12" stroke="#FF0000" />
   </svg>
 );
 
@@ -376,7 +376,7 @@ const AstrofiedJournals = () => {
           <div className="flex gap-4 md:gap-6 font-semibold items-center">
             <button onClick={() => setShowHomeModal(true)} className="hover:opacity-70 transition-opacity flex items-center" aria-label="Home">
               <span className="hidden md:inline">Home</span>
-              <ChevronsLeft className="md:hidden w-4 h-4 text-black dark:text-white" style={{ strokeWidth: 3 }} />
+              <ChevronsLeft className="md:hidden w-4 h-4 text-[#FF0000]" style={{ strokeWidth: 3 }} />
             </button>
             <button onClick={handleLogout} className="text-[#A30000] hover:opacity-70 transition-opacity flex items-center" aria-label="Logout">
               <span className="hidden md:inline">Logout</span>
