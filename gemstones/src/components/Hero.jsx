@@ -65,32 +65,32 @@ export default function Hero() {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap justify-center gap-4 mt-4 max-sm:grid max-sm:grid-cols-3 max-sm:gap-2.5 max-sm:w-full max-sm:max-w-2xl max-sm:px-2 max-sm:mt-6 max-sm:mx-auto"
+            className="flex flex-wrap justify-center gap-4 mt-6 sm:gap-6 w-full max-w-2xl mx-auto max-sm:grid max-sm:grid-cols-3 max-sm:gap-2.5 max-sm:px-2"
           >
             {/* Stat Chip 1 */}
-            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-[#f5f5dd] border border-[#E5DFC2] shadow-[0_12px_28px_rgba(229,223,194,0.6),_0_4px_10px_rgba(201,162,39,0.1)] max-sm:flex-col max-sm:justify-center max-sm:gap-2 max-sm:p-3 max-sm:aspect-square shiny-3d-box overflow-hidden">
+            <div className="trust-card shiny-3d-box overflow-hidden">
               <div className="hidden max-sm:block shiny-shine-overlay shiny-shine-overlay-1" />
-              <ShieldCheck className="w-5 h-5 max-sm:w-6 max-sm:h-6 text-[#A30000] shrink-0 z-20" />
-              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal max-sm:text-[9px] max-sm:min-[360px]:text-[10px] z-20">
-                100% Certified Stones
+              <ShieldCheck className="w-6 h-6 sm:w-9 sm:h-9 text-[#A30000] shrink-0 z-20 mb-1.5 sm:mb-3" />
+              <span className="text-[10px] sm:text-[15px] font-extrabold tracking-wide text-black font-mulish text-center leading-tight sm:leading-snug z-20">
+                100%<br />Certified<br />Stones
               </span>
             </div>
 
             {/* Stat Chip 2 */}
-            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-[#f5f5dd] border border-[#E5DFC2] shadow-[0_12px_28px_rgba(229,223,194,0.6),_0_4px_10px_rgba(201,162,39,0.1)] max-sm:flex-col max-sm:justify-center max-sm:gap-2 max-sm:p-3 max-sm:aspect-square shiny-3d-box overflow-hidden">
+            <div className="trust-card shiny-3d-box overflow-hidden">
               <div className="hidden max-sm:block shiny-shine-overlay shiny-shine-overlay-2" />
-              <UserCheck className="w-5 h-5 max-sm:w-6 max-sm:h-6 text-[#A30000] shrink-0 z-20" />
-              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal max-sm:text-[9px] max-sm:min-[360px]:text-[10px] z-20">
-                Astrologer-Prescribed
+              <UserCheck className="w-6 h-6 sm:w-9 sm:h-9 text-[#A30000] shrink-0 z-20 mb-1.5 sm:mb-3" />
+              <span className="text-[10px] sm:text-[15px] font-extrabold tracking-wide text-black font-mulish text-center leading-tight sm:leading-snug z-20">
+                Astrologer-<br />Prescribed
               </span>
             </div>
 
             {/* Stat Chip 3 */}
-            <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-[#f5f5dd] border border-[#E5DFC2] shadow-[0_12px_28px_rgba(229,223,194,0.6),_0_4px_10px_rgba(201,162,39,0.1)] max-sm:flex-col max-sm:justify-center max-sm:gap-2 max-sm:p-3 max-sm:aspect-square shiny-3d-box overflow-hidden">
+            <div className="trust-card shiny-3d-box overflow-hidden">
               <div className="hidden max-sm:block shiny-shine-overlay shiny-shine-overlay-3" />
-              <Award className="w-5 h-5 max-sm:w-6 max-sm:h-6 text-[#A30000] shrink-0 z-20" />
-              <span className="text-xs sm:text-sm font-bold tracking-wide text-black font-mulish text-center sm:text-left leading-tight sm:leading-normal max-sm:text-[9px] max-sm:min-[360px]:text-[10px] z-20">
-                Lab-Tested Authenticity
+              <Award className="w-6 h-6 sm:w-9 sm:h-9 text-[#A30000] shrink-0 z-20 mb-1.5 sm:mb-3" />
+              <span className="text-[10px] sm:text-[15px] font-extrabold tracking-wide text-black font-mulish text-center leading-tight sm:leading-snug z-20">
+                Lab-Tested<br />Authenticity
               </span>
             </div>
           </motion.div>

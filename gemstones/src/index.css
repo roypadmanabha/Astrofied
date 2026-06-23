@@ -264,29 +264,61 @@ img {
   }
 }
 
+/* Trust Card Base Styles (Universal for both desktop and mobile) */
+.trust-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  border-radius: 28px;
+  background-color: #f5f5dd;
+  border: 1px solid #E5DFC2;
+  box-shadow: 
+    0 12px 28px rgba(229, 223, 194, 0.6),
+    0 4px 10px rgba(201, 162, 39, 0.12),
+    inset 0 3px 6px rgba(255, 255, 255, 0.95),
+    inset 0 -3px 6px rgba(201, 162, 39, 0.08);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Desktop sizing and hover behavior */
+@media (min-width: 640px) {
+  .trust-card {
+    width: 12rem; /* 192px - w-48 */
+    height: 12rem;
+    border-radius: 32px;
+  }
+  .trust-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: #C9A227;
+    box-shadow: 
+      0 20px 35px rgba(229, 223, 194, 0.7),
+      0 8px 18px rgba(201, 162, 39, 0.22),
+      inset 0 3px 6px rgba(255, 255, 255, 0.95),
+      inset 0 -3px 6px rgba(201, 162, 39, 0.12);
+  }
+}
+
+/* Mobile specific interactions */
 @media (max-width: 639px) {
   .shiny-3d-box {
     position: relative;
-    background: #f5f5dd;
-    border: 1px solid #E5DFC2;
-    box-shadow: 
-      0 10px 25px -5px rgba(229, 223, 194, 0.45),
-      0 4px 10px -3px rgba(201, 162, 39, 0.15),
-      inset 0 3px 6px rgba(255, 255, 255, 0.95),
-      inset 0 -3px 6px rgba(201, 162, 39, 0.1);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     transform-style: preserve-3d;
     perspective: 1000px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
   .shiny-3d-box:hover {
-    transform: translateY(-6px) scale(1.03) rotateX(4deg) rotateY(-2deg);
+    transform: translateY(-4px) scale(1.02) rotateX(4deg) rotateY(-2deg);
     border-color: #C9A227;
     box-shadow: 
-      0 20px 35px -5px rgba(229, 223, 194, 0.6),
-      0 8px 18px -3px rgba(201, 162, 39, 0.25),
+      0 16px 30px rgba(229, 223, 194, 0.65),
+      0 6px 14px rgba(201, 162, 39, 0.18),
       inset 0 3px 6px rgba(255, 255, 255, 0.95),
-      inset 0 -3px 6px rgba(201, 162, 39, 0.15);
+      inset 0 -3px 6px rgba(201, 162, 39, 0.1);
   }
 
   .shiny-shine-overlay {
