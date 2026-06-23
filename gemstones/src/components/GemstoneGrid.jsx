@@ -16,7 +16,7 @@ export default function GemstoneGrid() {
         </div>
 
         {/* Responsive Grid Layout */}
-        <div className="grid grid-cols-1 min-[380px]:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
           {gemstones.map((gem, index) => (
             <GemstoneCard key={gem.id} gemstone={gem} index={index} />
           ))}

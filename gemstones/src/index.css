@@ -267,9 +267,7 @@ img {
 @media (max-width: 639px) {
   .shiny-3d-box {
     position: relative;
-    background: linear-gradient(135deg, #f5f5dd 0%, #FFF2B2 25%, #E5C060 50%, #FFF2B2 75%, #f5f5dd 100%);
-    background-size: 300% 300%;
-    animation: goldShimmer 10s ease infinite;
+    background: #f5f5dd;
     border: 1px solid #E5DFC2;
     box-shadow: 
       0 10px 25px -5px rgba(229, 223, 194, 0.45),
