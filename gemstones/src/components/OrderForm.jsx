@@ -533,7 +533,7 @@ export default function OrderForm({ onSubmitSuccess }) {
       name: `${firstName.trim()} ${lastName.trim()}`,
       firstName: firstName.trim(),
       lastName: lastName.trim(),
-      mobile: `+91 ${mobile}`,
+      mobile: mobile.trim(),
       address: formattedAddress,
       streetAddress: streetAddress.trim(),
       city: city.trim(),
