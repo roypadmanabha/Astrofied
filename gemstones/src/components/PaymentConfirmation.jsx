@@ -57,6 +57,18 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
+  // Lock body scroll when warning modal is open to prevent background scrolling
+  useEffect(() => {
+    if (showWarningModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showWarningModal]);
+
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -84,8 +96,8 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   };
 
   return (
-    <section id="payment-confirmation" className="py-16 bg-white border-t border-[#E5DFC2] transition-colors duration-300">
-      <div className="w-full max-w-md mx-auto px-4 sm:px-6">
+    <section id="payment-confirmation" className="py-16 md:py-24 bg-white border-t border-[#E5DFC2] min-h-[80vh] flex items-center justify-center transition-colors duration-300">
+      <div className="w-full max-w-md mx-auto px-4 sm:px-6 py-6">
         
         <motion.div
           id="printable-bill"
@@ -248,7 +260,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 </button>
                 <button
                   onClick={handleDismissWarning}
-                  className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#5A5A5A] hover:text-black border border-[#E5DFC2] transition-colors cursor-pointer"
+                  className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#5A5A5A] hover:text-black hover:bg-gray-50 border border-[#E5DFC2] transition-colors cursor-pointer"
                 >
                   No, Keep Payment
                 </button>
