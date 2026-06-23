@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, Clock } from 'lucide-react';
-import paymentQr from '../assets/payment_qr.png';
+import { QRCodeSVG } from 'qrcode.react';
 import logo from '../assets/logo.png';
  
 export default function PaymentConfirmation({ orderInfo, onDone }) {
   const amount = '₹' + (parseInt(orderInfo.amountToPay) || 0).toLocaleString('en-IN');
+  const numericAmount = orderInfo.amountToPay || '0';
+  
+  // Format amount to exactly 2 decimal places as required by NPCI UPI specifications
+  const formattedAmount = parseFloat(numericAmount).toFixed(2);
+  // Generate a unique transaction reference ID to lock/validate merchant transaction
+  const transactionRef = `ASTRO_${(orderInfo.name || '').replace(/[^a-zA-Z0-9]/g, '')}_${Date.now()}`;
+  // Properly construct the UPI link with mc, tr, and tn parameters to enforce non-editable payments in GPay/PhonePe
+  const upiLink = `upi://pay?pa=prasantachakraborty.udp@okicici&pn=Prasanta%20Chakraborty&am=${formattedAmount}&cu=INR&mc=8999&tr=${transactionRef}&tn=Astrofied%20Gemstone%20Payment`;
+
   const [timeLeft, setTimeLeft] = useState(900); // 15 minutes = 900 seconds
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showWarningModal, setShowWarningModal] = useState(false);
@@ -55,10 +64,6 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   };
 
   const handlePay = () => {
-    const numericAmount = orderInfo.amountToPay || '0';
-    // Construct UPI deep link
-    const upiLink = `upi://pay?pa=prasantachakraborty.udp@okicici&pn=Prasanta%20Chakraborty&am=${numericAmount}&cu=INR`;
-    
     // Detect mobile device
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     
@@ -120,13 +125,20 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
           </div>
 
           {/* QR Code Container */}
-          <div className="p-2 bg-white rounded-2xl border border-[#E5DFC2] shadow-md flex items-center justify-center overflow-hidden max-w-[200px]">
-            <img 
-              src={paymentQr} 
-              alt="Payment QR Code" 
-              className="w-full h-auto rounded-xl object-contain select-none pointer-events-none"
-              draggable={false}
-              loading="lazy"
+          <div className="p-3 bg-white rounded-2xl border border-[#E5DFC2] shadow-md flex items-center justify-center overflow-hidden w-[200px] h-[200px]">
+            <QRCodeSVG 
+              value={upiLink} 
+              size={176}
+              level="H"
+              includeMargin={false}
+              imageSettings={{
+                src: logo,
+                x: undefined,
+                y: undefined,
+                height: 28,
+                width: 28,
+                excavate: true,
+              }}
             />
           </div>
 
