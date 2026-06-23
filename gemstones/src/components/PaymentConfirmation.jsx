@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, Clock } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import logo from '../assets/logo.png';
- 
+
 export default function PaymentConfirmation({ orderInfo, onDone }) {
   const amount = '₹' + (parseInt(orderInfo.amountToPay) || 0).toLocaleString('en-IN');
   const numericAmount = orderInfo.amountToPay || '0';
-  
+
   // Format amount to exactly 2 decimal places as required by NPCI UPI specifications
   const formattedAmount = parseFloat(numericAmount).toFixed(2);
   // Generate a unique transaction reference ID to lock/validate merchant transaction
@@ -31,7 +31,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const month = months[date.getMonth()];
     const year = date.getFullYear();
-    
+
     let hours = date.getHours();
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const seconds = date.getSeconds().toString().padStart(2, '0');
@@ -39,7 +39,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
     hours = hours % 12;
     hours = hours ? hours : 12;
     const strTime = hours.toString().padStart(2, '0') + ':' + minutes + ':' + seconds + ' ' + ampm;
-    
+
     return `${days}-${month}-${year}, ${strTime}`;
   };
 
@@ -78,7 +78,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   const handlePay = () => {
     // Detect mobile device
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
+
     if (isMobile) {
       window.location.href = upiLink;
     } else {
@@ -98,7 +98,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   return (
     <section id="payment-confirmation" className="py-16 md:py-24 bg-white border-t border-[#E5DFC2] min-h-[80vh] flex items-center justify-center transition-colors duration-300">
       <div className="w-full max-w-md mx-auto px-4 sm:px-6 py-6">
-        
+
         <motion.div
           id="printable-bill"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -108,9 +108,9 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
         >
           {/* Astrofied Logo in Top Right */}
           <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
-            <img 
-              src={logo} 
-              alt="Astrofied Logo" 
+            <img
+              src={logo}
+              alt="Astrofied Logo"
               className="h-6 sm:h-8 w-auto object-contain select-none pointer-events-none"
               style={{ mixBlendMode: 'multiply' }}
               draggable={false}
@@ -138,8 +138,8 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
 
           {/* QR Code Container */}
           <div className="p-3 bg-white rounded-2xl border border-[#E5DFC2] shadow-md flex items-center justify-center overflow-hidden w-[200px] h-[200px]">
-            <QRCodeSVG 
-              value={upiLink} 
+            <QRCodeSVG
+              value={upiLink}
               size={176}
               level="H"
               includeMargin={false}
@@ -191,7 +191,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 <span className="font-bold text-black">{orderInfo.size} mm</span>
               </div>
             )}
-            
+
             {orderInfo.totalAmount && (
               <>
                 <div className={`flex justify-between ${orderInfo.gemstone ? '' : 'border-t border-[#E5DFC2]/30 pt-2'}`}>

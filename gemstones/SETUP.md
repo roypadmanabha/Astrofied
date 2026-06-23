@@ -19,50 +19,14 @@ Follow these instructions to connect your **Astrofied Gemstones** web form to a 
 function doPost(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   const data = e.parameter;
-  const timestamp = data.timestamp || new Date().toISOString();
 
   // Write header row once if sheet is empty
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow(['Timestamp', 'Payment Type', 'Name', 'Mobile', 'Address', 'Total Amount', 'Advance Payment Amount', 'Pending Payment Amount', 'Consent', 'PDF Agreement Link']);
-  }
-
-  let pdfLink = '';
-
-  // Parse and save the signed PDF agreement if pdfData is sent
-  if (data.pdfData) {
-    try {
-      const folderName = "Astrofied Gemstone Agreements";
-      let folders = DriveApp.getFoldersByName(folderName);
-      let folder;
-      if (folders.hasNext()) {
-        folder = folders.next();
-      } else {
-        folder = DriveApp.createFolder(folderName);
-      }
-
-      // Convert base64 to PDF blob
-      const pdfBlob = Utilities.newBlob(Utilities.base64Decode(data.pdfData), 'application/pdf', `Agreement_${data.name.replace(/\s+/g, '_')}_${timestamp.replace(/[:.]/g, '-')}.pdf`);
-      const file = folder.createFile(pdfBlob);
-      pdfLink = file.getUrl();
-
-      // Instantly email the PDF copy to the business owner
-      const ownerEmail = "contact.astrofied@gmail.com";
-      const subject = `Signed T&C Agreement - ${data.name}`;
-      const body = `Hello,\n\nPlease find attached the signed Terms and Conditions agreement PDF for ${data.name}.\n\nOrder Details:\n- Payment Type: ${data.paymentType}\n- Mobile: ${data.mobile}\n- Amount Paid Now: INR ${data.paymentType === 'Advance Payment' ? data.advanceAmount : data.pendingAmount}\n- Date: ${timestamp}\n\nGoogle Drive Folder Link: ${pdfLink}\n\nRegards,\nAstrofied Automated System`;
-
-      MailApp.sendEmail({
-        to: ownerEmail,
-        subject: subject,
-        body: body,
-        attachments: [pdfBlob]
-      });
-    } catch (err) {
-      pdfLink = "Error generating PDF: " + err.toString();
-    }
+    sheet.appendRow(['Timestamp', 'Payment Type', 'Name', 'Mobile', 'Address', 'Total Amount', 'Advance Payment Amount', 'Pending Payment Amount', 'Consent']);
   }
 
   sheet.appendRow([
-    timestamp,
+    data.timestamp || new Date().toISOString(),
     data.paymentType,
     data.name,
     data.mobile,
@@ -71,11 +35,10 @@ function doPost(e) {
     data.advanceAmount || '0',
     data.pendingAmount || '0',
     data.consent,
-    pdfLink
   ]);
 
   return ContentService
-    .createTextOutput(JSON.stringify({ status: 'success', pdfUrl: pdfLink }))
+    .createTextOutput(JSON.stringify({ status: 'success' }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 ```
