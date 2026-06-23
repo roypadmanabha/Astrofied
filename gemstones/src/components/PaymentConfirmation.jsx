@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, Clock } from 'lucide-react';
 import paymentQr from '../assets/payment_qr.png';
 import logo from '../assets/logo.png';
-
+ 
 export default function PaymentConfirmation({ orderInfo, onDone }) {
   const amount = '₹' + (parseInt(orderInfo.amountToPay) || 0).toLocaleString('en-IN');
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes = 300 seconds
+  const [timeLeft, setTimeLeft] = useState(900); // 15 minutes = 900 seconds
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [showWarningModal, setShowWarningModal] = useState(false);
 
   useEffect(() => {
     const clockTimer = setInterval(() => {
@@ -66,6 +67,15 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
     } else {
       alert(`UPI Payment link is designed for mobile devices. Please scan the QR code shown below with Google Pay or any other UPI app on your phone to complete your payment of ₹${parseInt(numericAmount).toLocaleString('en-IN')}.`);
     }
+  };
+
+  const handleConfirmCancel = () => {
+    setShowWarningModal(false);
+    onDone();
+  };
+
+  const handleDismissWarning = () => {
+    setShowWarningModal(false);
   };
 
   return (
@@ -177,7 +187,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
               PAY {amount}
             </button>
             <button
-              onClick={onDone}
+              onClick={() => setShowWarningModal(true)}
               className="text-xs text-[#5A5A5A] hover:text-black font-semibold underline font-mulish transition-colors"
             >
               Go Back
@@ -187,6 +197,54 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
         </motion.div>
 
       </div>
+
+      {/* Alert Warning Modal */}
+      <AnimatePresence>
+        {showWarningModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm no-print">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+              className="w-full max-w-sm bg-[#f5f5dd] border border-[#E5DFC2] rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col items-center gap-5 text-center font-mulish"
+            >
+              {/* Alert Icon */}
+              <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                </svg>
+              </div>
+
+              {/* Text Content */}
+              <div className="flex flex-col gap-2">
+                <h4 className="text-lg font-extrabold text-black font-mulish leading-tight">
+                  Cancel Payment Session?
+                </h4>
+                <p className="text-xs sm:text-sm text-[#5A5A5A] leading-relaxed font-medium">
+                  If you go back, your ongoing payment session and order details will be cancelled. Are you sure you want to cancel?
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex w-full gap-3 mt-1">
+                <button
+                  onClick={handleConfirmCancel}
+                  className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#A30000] text-white hover:bg-[#800000] transition-colors cursor-pointer border-none shadow-sm shadow-[#A30000]/10"
+                >
+                  Yes, Cancel
+                </button>
+                <button
+                  onClick={handleDismissWarning}
+                  className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#5A5A5A] hover:text-black border border-[#E5DFC2] transition-colors cursor-pointer"
+                >
+                  No, Keep Payment
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
