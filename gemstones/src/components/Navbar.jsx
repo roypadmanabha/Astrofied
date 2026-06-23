@@ -68,10 +68,10 @@ export default function Navbar() {
             const formSection = document.getElementById('order-form');
             if (formSection) formSection.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="hover:opacity-70 transition-opacity flex items-center gap-1.5 text-[#A30000] bg-transparent border-none p-0 cursor-pointer font-bold"
+          className="hover:opacity-70 transition-opacity flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
           title="Order Form"
         >
-          <ClipboardList size={16} className="sm:hidden text-[#A30000] shrink-0" />
+          <ClipboardList size={16} className="sm:hidden text-black shrink-0" />
           <span className="hidden sm:inline text-xs sm:text-sm md:text-base">Order Form</span>
         </button>
       </div>
