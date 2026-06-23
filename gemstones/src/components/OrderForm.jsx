@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { isValidIndianMobile } from '../lib/constants';
 import LegalModal from './LegalModal';
+import { jsPDF } from 'jspdf';
 
 const TERMS_CONTENT = `
 <ol class="list-decimal pl-4 sm:pl-5 space-y-3 sm:space-y-4 text-justify font-mulish text-[#0A1931]/90">
@@ -48,6 +49,148 @@ const localPincodeDatabase = [
   { pincode: '799210', office: 'Kamalpur', district: 'Dhalai', state: 'Tripura' },
   { pincode: '799277', office: 'Ambassa', district: 'Dhalai', state: 'Tripura' }
 ];
+
+// Helper to generate terms & conditions signed PDF silently as base64
+const generateTermsPdfBase64 = (formData) => {
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4'
+  });
+
+  const margin = 20;
+  const pageWidth = 210;
+  const contentWidth = pageWidth - (margin * 2);
+  let y = 25;
+
+  // Header - Brand Title
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.setTextColor(163, 0, 0); // Brand Red #A30000
+  doc.text("Astrofied", margin, y);
+  
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(100, 100, 100);
+  doc.text("Premium Vedic Astrology & Gemstones", margin + 35, y - 1);
+  
+  y += 6;
+  doc.setDrawColor(229, 223, 194); // Border color #E5DFC2
+  doc.setLineWidth(0.5);
+  doc.line(margin, y, pageWidth - margin, y);
+  
+  y += 12;
+  
+  // Document Title
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.setTextColor(10, 10, 10);
+  doc.text("ORDER TERMS & CONDITIONS AGREEMENT", margin, y);
+  
+  y += 8;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(80, 80, 80);
+  const formattedDate = new Date(formData.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+  doc.text(`Agreement Date: ${formattedDate} (IST)`, margin, y);
+  
+  y += 10;
+  
+  // Box for Customer & Order Details
+  doc.setFillColor(250, 249, 242);
+  doc.setDrawColor(229, 223, 194);
+  doc.rect(margin, y, contentWidth, 54, "F");
+  doc.rect(margin, y, contentWidth, 54, "D");
+  
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.setTextColor(163, 0, 0);
+  doc.text("CUSTOMER & ORDER DETAILS", margin + 6, y + 8);
+  
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9.5);
+  doc.setTextColor(10, 10, 10);
+  
+  let boxY = y + 15;
+  const drawDetailRow = (label, value) => {
+    doc.setFont("helvetica", "bold");
+    doc.text(label, margin + 6, boxY);
+    doc.setFont("helvetica", "normal");
+    doc.text(value, margin + 50, boxY);
+    boxY += 7;
+  };
+  
+  const totalAmountVal = parseInt(formData.totalAmount) || 0;
+  const advanceAmountVal = parseInt(formData.advanceAmount) || 0;
+  const pendingAmountVal = parseInt(formData.pendingAmount) || 0;
+
+  drawDetailRow("Customer Name:", formData.name);
+  drawDetailRow("Mobile Number:", formData.mobile);
+  drawDetailRow("Delivery Address:", formData.streetAddress || formData.address);
+  drawDetailRow("Payment Type:", formData.paymentType);
+  drawDetailRow("Total Order Amount:", totalAmountVal > 0 ? `INR ${totalAmountVal.toLocaleString('en-IN')}` : 'N/A');
+  drawDetailRow("Amount Paid Now:", `INR ${(formData.paymentType === 'Advance Payment' ? advanceAmountVal : pendingAmountVal).toLocaleString('en-IN')}`);
+  
+  y += 66;
+  
+  // Terms & Conditions Header
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.setTextColor(163, 0, 0);
+  doc.text("AGREED TERMS STATEMENTS", margin, y);
+  y += 6;
+  
+  // Terms List
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(40, 40, 40);
+  
+  const terms = [
+    "1. Payment Agreement: You solely agree to bear the full cost and make the complete payment for the gemstone.",
+    "2. Voluntary Decision: The gemstone was suggested by our astrologer, and you confirm that you are purchasing it voluntarily, with absolute personal consent and without any force or obligation.",
+    "3. Realisation of Remedies: There is no guarantee that a gemstone can resolve your life's problems instantly or within a fraction of a second; astrological remedies work gradually over time.",
+    "4. Planetary Energy: Our gemstones are designed to provide positive energy and strengthen your planetary influences.",
+    "5. Lab Certified Authenticity: All our gemstones are lab-certified, tested, and guaranteed to be 100% authentic.",
+    "6. Personal Use Only: These gemstones are sold for personal use only and are strictly not intended for resale or commercial purposes."
+  ];
+  
+  terms.forEach((term) => {
+    const lines = doc.splitTextToSize(term, contentWidth);
+    lines.forEach((line) => {
+      if (y > 275) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(line, margin, y);
+      y += 5.5;
+    });
+    y += 2.5;
+  });
+  
+  y += 6;
+  
+  // Signature Box
+  doc.setFillColor(242, 240, 225);
+  doc.rect(margin, y, contentWidth, 24, "F");
+  doc.rect(margin, y, contentWidth, 24, "D");
+  
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(10, 10, 10);
+  doc.text("DIGITAL SIGNATURE & CONSENT CONFIRMATION", margin + 6, y + 7);
+  
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(9.5);
+  doc.setTextColor(163, 0, 0);
+  doc.text(`Electronically Signed by: ${formData.name}`, margin + 6, y + 14);
+  
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(100, 100, 100);
+  doc.text("Consent Checkbox: Checked ('I agree to the Terms and Conditions of Astrofied')", margin + 6, y + 20);
+  
+  return doc.output('datauristring').split(',')[1];
+};
 
 export default function OrderForm({ onSubmitSuccess }) {
   // Form Field States
@@ -466,6 +609,19 @@ export default function OrderForm({ onSubmitSuccess }) {
       timestamp: new Date().toISOString()
     };
 
+    // Generate signed agreement PDF silently as a proof
+    let pdfBase64 = '';
+    try {
+      pdfBase64 = generateTermsPdfBase64(formData);
+    } catch (err) {
+      console.error('Failed to generate PDF agreement:', err);
+    }
+
+    const formDataWithPdf = {
+      ...formData,
+      pdfData: pdfBase64
+    };
+
     try {
       const url = import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbwW0El1KSmoNWRGEeTAbBYd3FcTXiEL1luTtMHjFNozbfJ1SOPvHObA26jcXJWehsg/exec';
 
@@ -473,7 +629,7 @@ export default function OrderForm({ onSubmitSuccess }) {
         throw new Error('Google Apps Script URL is missing. Please configure VITE_GOOGLE_SCRIPT_URL in your env settings.');
       }
 
-      const formBody = new URLSearchParams(formData).toString();
+      const formBody = new URLSearchParams(formDataWithPdf).toString();
 
       await fetch(url, {
         method: 'POST',
