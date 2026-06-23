@@ -129,7 +129,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                                 }
                                                 setIsOpen(false);
                                             }}
-                                            className={`group flex items-center gap-3.5 text-sm sm:text-base font-bold uppercase tracking-wider font-mulish py-2 px-3 sm:py-2.5 sm:px-4 rounded-xl cursor-pointer transition-all duration-300 ${
+                                            className={`group flex items-center gap-3.5 text-sm sm:text-base font-bold tracking-wider font-mulish py-2 px-3 sm:py-2.5 sm:px-4 rounded-xl cursor-pointer transition-all duration-300 ${
                                                 isDarkMode 
                                                     ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
                                                     : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
