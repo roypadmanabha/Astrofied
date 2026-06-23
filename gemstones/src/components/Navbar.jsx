@@ -46,33 +46,36 @@ export default function Navbar() {
       <div className="flex gap-4 md:gap-6 font-semibold items-center font-mulish">
         <button 
           onClick={handleHomeClick}
-          className="hover:opacity-70 transition-opacity flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
+          className="hover:text-[#FF0000] transition-all relative group flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
           title="Home"
         >
-          <ChevronsLeft size={16} className="sm:hidden text-black shrink-0" style={{ strokeWidth: 3 }} />
+          <ChevronsLeft size={16} className="sm:hidden text-black shrink-0 group-hover:text-[#FF0000] transition-colors" style={{ strokeWidth: 3 }} />
           <span className="hidden sm:inline text-xs sm:text-sm md:text-base">Home</span>
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-[#FF0000] hidden sm:block" />
         </button>
         <button 
           onClick={() => {
             const gridSection = document.getElementById('gemstone-collection');
             if (gridSection) gridSection.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="hover:opacity-70 transition-opacity flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
+          className="hover:text-[#FF0000] transition-all relative group flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
           title="Collection"
         >
-          <img src={gemstoneIcon} alt="Collection" className="sm:hidden w-4 h-4 shrink-0 object-contain" />
+          <img src={gemstoneIcon} alt="Collection" className="sm:hidden w-4 h-4 shrink-0 object-contain group-hover:opacity-80 transition-opacity" />
           <span className="hidden sm:inline text-xs sm:text-sm md:text-base">Collection</span>
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-[#FF0000] hidden sm:block" />
         </button>
         <button 
           onClick={() => {
             const formSection = document.getElementById('order-form');
             if (formSection) formSection.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="hover:opacity-70 transition-opacity flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
+          className="hover:text-[#FF0000] transition-all relative group flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
           title="Order Form"
         >
-          <ClipboardList size={16} className="sm:hidden text-black shrink-0" />
+          <ClipboardList size={16} className="sm:hidden text-black shrink-0 group-hover:text-[#FF0000] transition-colors" />
           <span className="hidden sm:inline text-xs sm:text-sm md:text-base">Order Form</span>
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-[#FF0000] hidden sm:block" />
         </button>
       </div>
 
