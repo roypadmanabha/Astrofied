@@ -6,7 +6,7 @@ import { jsPDF } from 'jspdf';
 import logo from '../assets/logo.png';
 
 const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL ||
-  'https://script.google.com/macros/s/AKfycbwW0El1KSmoNWRGEeTAbBYd3FcTXiEL1luTtMHjFNozbfJ1SOPvHObA26jcXJWehsg/exec';
+  'https://script.google.com/macros/s/AKfycbxjE1LXc_laW63KW6P5kyh-G7VvsfL25qDCuLEYhd8jEBRken4IRQpos3Z_x23FM6E/exec';
 
 const POLL_INTERVAL_MS = 5000; // check every 5 seconds
 
