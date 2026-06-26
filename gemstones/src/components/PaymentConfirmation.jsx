@@ -35,9 +35,9 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   const [paymentDateTime, setPaymentDateTime] = useState(null);
   const [isVerifying, setIsVerifying] = useState(false);
   const [pdfAutoDownloaded, setPdfAutoDownloaded] = useState(false);
-  const [showManualConfirm, setShowManualConfirm] = useState(false); // fallback after 30s
-  const [secondsWaiting, setSecondsWaiting] = useState(0); // waiting counter for debug
+  const [showContactPrompt, setShowContactPrompt] = useState(false); // appears after 60s if still unpaid
   const pollRef = useRef(null);
+  const waitTimerRef = useRef(null);
 
   // ── Clock ──────────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -112,17 +112,13 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
   }, [transactionRef, paymentConfirmed, confirmPayment]);
 
-  // ── Waiting counter + show manual confirm button after 30 s ───────────────
+  // ── Show WhatsApp contact prompt after 60 s (NON-interactive — not a confirm button) ──
+  // This is ONLY a help message. The ONLY way to reach the success screen is
+  // via backend polling (admin marking column Q as 'paid' in the sheet).
   useEffect(() => {
     if (paymentConfirmed) return;
-    const t = setInterval(() => {
-      setSecondsWaiting(s => {
-        const next = s + 1;
-        if (next >= 30) setShowManualConfirm(true);
-        return next;
-      });
-    }, 1000);
-    return () => clearInterval(t);
+    waitTimerRef.current = setTimeout(() => setShowContactPrompt(true), 60000);
+    return () => { if (waitTimerRef.current) clearTimeout(waitTimerRef.current); };
   }, [paymentConfirmed]);
 
   // ── Auto-download PDF once payment confirmed ───────────────────────────────
@@ -520,40 +516,6 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                   <span className="font-black text-[#A30000] text-sm font-mulish">{amount}</span>
                 </div>
               </div>
-
-              {/* ── Manual confirm fallback (appears after 30 s) ─────────── */}
-              <AnimatePresence>
-                {showManualConfirm && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="w-full flex flex-col items-center gap-3"
-                  >
-                    {/* Plain text status line */}
-                    <div className="flex items-center justify-center gap-2 font-mulish">
-                      <CheckCircle size={20} className="text-emerald-600 flex-shrink-0" strokeWidth={2.5} />
-                      <span className="text-base font-extrabold text-black tracking-tight">Payment Successful</span>
-                    </div>
-
-                    {/* Download Bill PDF button */}
-                    <button
-                      onClick={() => {
-                        setIsVerifying(true);
-                        setTimeout(() => confirmPayment(), 1800);
-                      }}
-                      className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-black hover:bg-[#1a1a1a] active:scale-95 text-white font-mulish font-bold text-sm tracking-wide transition-all shadow-lg border-none cursor-pointer"
-                    >
-                      <Download size={17} />
-                      Download Bill PDF
-                    </button>
-
-                    <p className="text-[10px] text-[#5A5A5A] font-mulish text-center max-w-xs leading-relaxed">
-                      Click only after you have successfully paid <strong className="text-[#A30000]">{amount}</strong> via the QR code above.
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
 
               {/* Go Back */}
               <button
