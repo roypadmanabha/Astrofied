@@ -33,8 +33,10 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
   const [paymentDateTime, setPaymentDateTime] = useState(null);
-  const [isVerifying, setIsVerifying] = useState(false); // shows "Verifying..." state briefly
+  const [isVerifying, setIsVerifying] = useState(false);
   const [pdfAutoDownloaded, setPdfAutoDownloaded] = useState(false);
+  const [showManualConfirm, setShowManualConfirm] = useState(false); // fallback after 30s
+  const [secondsWaiting, setSecondsWaiting] = useState(0); // waiting counter for debug
   const pollRef = useRef(null);
 
   // ── Clock ──────────────────────────────────────────────────────────────────
@@ -81,8 +83,6 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   }, []);
 
   // ── Poll Google Apps Script every 5 s for payment status ──────────────────
-  // The Apps Script doGet endpoint accepts ?action=checkPayment&ref=TRANSACTION_REF
-  // and returns JSON: { status: "paid" | "pending" }
   useEffect(() => {
     if (!transactionRef || paymentConfirmed) return;
 
@@ -92,22 +92,38 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
           `${SCRIPT_URL}?action=checkPayment&ref=${encodeURIComponent(transactionRef)}`,
           { method: 'GET', redirect: 'follow' }
         );
-        if (!res.ok) return;
-        const data = await res.json();
+        if (!res.ok) {
+          console.warn('[Astrofied] Payment poll: non-ok response', res.status);
+          return;
+        }
+        const text = await res.text();
+        console.log('[Astrofied] Payment poll response:', text.slice(0, 120));
+        const data = JSON.parse(text);
         if (data && data.status === 'paid') {
           setIsVerifying(true);
-          // Brief "verifying" state for UX polish, then confirm
           setTimeout(() => confirmPayment(), 1800);
         }
-      } catch (_) {
-        // Network error — silently retry next tick
+      } catch (err) {
+        console.warn('[Astrofied] Payment poll error (Apps Script may not have doGet yet):', err.message);
       }
     };
 
-    // First check after 5 s, then every POLL_INTERVAL_MS
     pollRef.current = setInterval(checkPayment, POLL_INTERVAL_MS);
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
   }, [transactionRef, paymentConfirmed, confirmPayment]);
+
+  // ── Waiting counter + show manual confirm button after 30 s ───────────────
+  useEffect(() => {
+    if (paymentConfirmed) return;
+    const t = setInterval(() => {
+      setSecondsWaiting(s => {
+        const next = s + 1;
+        if (next >= 30) setShowManualConfirm(true);
+        return next;
+      });
+    }, 1000);
+    return () => clearInterval(t);
+  }, [paymentConfirmed]);
 
   // ── Auto-download PDF once payment confirmed ───────────────────────────────
   useEffect(() => {
@@ -505,7 +521,33 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 </div>
               </div>
 
-              {/* Go Back — only link, no PAY button */}
+              {/* ── Manual confirm fallback (appears after 30 s) ─────────── */}
+              <AnimatePresence>
+                {showManualConfirm && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="w-full flex flex-col items-center gap-3"
+                  >
+                    <button
+                      onClick={() => {
+                        setIsVerifying(true);
+                        setTimeout(() => confirmPayment(), 1800);
+                      }}
+                      className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-mulish font-bold text-sm tracking-wide transition-all shadow-lg shadow-emerald-200 border-none cursor-pointer"
+                    >
+                      <CheckCircle size={18} />
+                      I've Completed the Payment — Get My Receipt
+                    </button>
+                    <p className="text-[10px] text-[#5A5A5A] font-mulish text-center max-w-xs leading-relaxed">
+                      Tap above only after you have successfully paid <strong className="text-[#A30000]">{amount}</strong> to the UPI ID shown in the QR code.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Go Back */}
               <button
                 onClick={() => setShowWarningModal(true)}
                 className="text-xs text-[#5A5A5A] hover:text-black font-semibold underline font-mulish transition-colors"
