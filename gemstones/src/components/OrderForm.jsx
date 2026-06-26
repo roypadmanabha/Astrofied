@@ -567,6 +567,8 @@ export default function OrderForm({ onSubmitSuccess }) {
 
       onSubmitSuccess({
         name: formData.name,
+        mobile: formData.mobile,
+        address: formattedAddress,
         paymentType: formData.paymentType,
         totalAmount: formData.totalAmount,
         advanceAmount: formData.advanceAmount,
