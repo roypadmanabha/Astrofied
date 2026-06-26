@@ -555,7 +555,7 @@ export default function OrderForm({ onSubmitSuccess }) {
     };
 
     try {
-      const url = import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxK7mhVVphN5T16-wCsO0PrVRc4T2y-_QHKjOr0WeNZFmtE1ZWsX9AcQweo9frtx1c/exec';
+      const url = import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxzy6lXEbLmAsDw1fDdhRXRB1Lqum4fFo_oMFlkY9i8XpnY7gYSoxuciy4c69rejUI/exec';
 
       if (!url) {
         throw new Error('Google Apps Script URL is missing. Please configure VITE_GOOGLE_SCRIPT_URL in your env settings.');
