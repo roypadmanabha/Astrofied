@@ -528,6 +528,9 @@ export default function OrderForm({ onSubmitSuccess }) {
       country
     ].filter(Boolean).join(', ');
 
+    // Unique transaction reference — stored in the sheet so admin can mark it paid
+    const transactionRef = `ASTRO_${(firstName.trim() + lastName.trim()).replace(/[^a-zA-Z0-9]/g, '')}_${Date.now()}`;
+
     const formData = {
       paymentType,
       name: `${firstName.trim()} ${lastName.trim()}`,
@@ -546,6 +549,8 @@ export default function OrderForm({ onSubmitSuccess }) {
       gemstone: gemstone,
       size: size ? `${size} mm` : '',
       consent: consent ? 'Yes' : 'No',
+      transactionRef: transactionRef,
+      paymentStatus: 'pending',
       timestamp: new Date().toISOString()
     };
 
@@ -575,6 +580,7 @@ export default function OrderForm({ onSubmitSuccess }) {
         pendingAmount: formData.pendingAmount,
         gemstone: gemstone,
         size: size,
+        transactionRef: transactionRef,
         amountToPay: formData.paymentType === 'Advance Payment' ? formData.advanceAmount : formData.pendingAmount
       });
     } catch (err) {

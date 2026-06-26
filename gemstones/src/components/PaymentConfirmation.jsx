@@ -1,9 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, Clock, Download } from 'lucide-react';
+import { CheckCircle, Clock, Download, Loader2 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { jsPDF } from 'jspdf';
 import logo from '../assets/logo.png';
+
+const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL ||
+  'https://script.google.com/macros/s/AKfycbwW0El1KSmoNWRGEeTAbBYd3FcTXiEL1luTtMHjFNozbfJ1SOPvHObA26jcXJWehsg/exec';
+
+const POLL_INTERVAL_MS = 5000; // check every 5 seconds
 
 const TERMS_TEXT =
   '1. Payment Agreement: You solely agree to bear the full cost and make the complete payment for the gemstone. ' +
@@ -17,7 +22,10 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   const amount = '₹' + (parseInt(orderInfo.amountToPay) || 0).toLocaleString('en-IN');
   const numericAmount = orderInfo.amountToPay || '0';
   const formattedAmount = parseFloat(numericAmount).toFixed(2);
-  const transactionRef = `ASTRO_${(orderInfo.name || '').replace(/[^a-zA-Z0-9]/g, '')}_${Date.now()}`;
+
+  // Use the transactionRef that was generated at order submission and passed via orderInfo
+  const transactionRef = orderInfo.transactionRef;
+
   const upiLink = `upi://pay?pa=prasantachakraborty.udp@okicici&pn=Prasanta%20Chakraborty&am=${formattedAmount}&cu=INR&mc=8999&tr=${transactionRef}&tn=Astrofied%20Gemstone%20Payment`;
 
   const [timeLeft, setTimeLeft] = useState(900);
@@ -25,72 +33,102 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
   const [paymentDateTime, setPaymentDateTime] = useState(null);
+  const [isVerifying, setIsVerifying] = useState(false); // shows "Verifying..." state briefly
+  const [pdfAutoDownloaded, setPdfAutoDownloaded] = useState(false);
+  const pollRef = useRef(null);
 
-  // Ref used to load logo as base64 for jsPDF
-  const logoRef = useRef(null);
-
+  // ── Clock ──────────────────────────────────────────────────────────────────
   useEffect(() => {
-    const clockTimer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(clockTimer);
+    const t = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(t);
   }, []);
 
-  const formatDateTime = (date) => {
-    const days = date.getDate().toString().padStart(2, '0');
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    let hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    return `${days}-${month}-${year}, ${hours.toString().padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
-  };
-
+  // ── Countdown timer ────────────────────────────────────────────────────────
   useEffect(() => {
-    if (paymentConfirmed) return; // Stop countdown after payment confirmed
+    if (paymentConfirmed) return;
     if (timeLeft <= 0) { window.location.reload(); return; }
-    const timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
-    return () => clearInterval(timer);
+    const t = setInterval(() => setTimeLeft(p => p - 1), 1000);
+    return () => clearInterval(t);
   }, [timeLeft, paymentConfirmed]);
 
+  // ── Scroll lock for modal ──────────────────────────────────────────────────
   useEffect(() => {
-    if (showWarningModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = showWarningModal ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [showWarningModal]);
 
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  const formatTime = (s) => `${Math.floor(s / 60).toString().padStart(2, '0')}:${(s % 60).toString().padStart(2, '0')}`;
+
+  const formatDateTime = (date) => {
+    const d = date.getDate().toString().padStart(2, '0');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const m = months[date.getMonth()];
+    const y = date.getFullYear();
+    let h = date.getHours();
+    const min = date.getMinutes().toString().padStart(2, '0');
+    const sec = date.getSeconds().toString().padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return `${d}-${m}-${y}, ${h.toString().padStart(2, '0')}:${min}:${sec} ${ampm}`;
   };
 
-  // Called when user taps "PAY" — on mobile opens UPI deep link, on desktop shows alert; both mark confirmed
-  const handlePay = () => {
-    const confirmedAt = new Date();
-    setPaymentDateTime(confirmedAt);
+  // ── Confirm payment (transition to success) ────────────────────────────────
+  const confirmPayment = useCallback(() => {
+    if (pollRef.current) { clearInterval(pollRef.current); pollRef.current = null; }
+    setPaymentDateTime(new Date());
+    setIsVerifying(false);
     setPaymentConfirmed(true);
+  }, []);
 
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (isMobile) {
-      window.location.href = upiLink;
+  // ── Poll Google Apps Script every 5 s for payment status ──────────────────
+  // The Apps Script doGet endpoint accepts ?action=checkPayment&ref=TRANSACTION_REF
+  // and returns JSON: { status: "paid" | "pending" }
+  useEffect(() => {
+    if (!transactionRef || paymentConfirmed) return;
+
+    const checkPayment = async () => {
+      try {
+        const res = await fetch(
+          `${SCRIPT_URL}?action=checkPayment&ref=${encodeURIComponent(transactionRef)}`,
+          { method: 'GET', redirect: 'follow' }
+        );
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && data.status === 'paid') {
+          setIsVerifying(true);
+          // Brief "verifying" state for UX polish, then confirm
+          setTimeout(() => confirmPayment(), 1800);
+        }
+      } catch (_) {
+        // Network error — silently retry next tick
+      }
+    };
+
+    // First check after 5 s, then every POLL_INTERVAL_MS
+    pollRef.current = setInterval(checkPayment, POLL_INTERVAL_MS);
+    return () => { if (pollRef.current) clearInterval(pollRef.current); };
+  }, [transactionRef, paymentConfirmed, confirmPayment]);
+
+  // ── Auto-download PDF once payment confirmed ───────────────────────────────
+  useEffect(() => {
+    if (paymentConfirmed && !pdfAutoDownloaded) {
+      setPdfAutoDownloaded(true);
+      // Small delay so the success animation has time to play
+      setTimeout(() => handleDownloadPDF(), 1200);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paymentConfirmed]);
 
   const handleConfirmCancel = () => { setShowWarningModal(false); onDone(); };
   const handleDismissWarning = () => setShowWarningModal(false);
 
-  // ─── PDF Bill Generator ───────────────────────────────────────────────────
+  // ─── PDF Bill Generator ────────────────────────────────────────────────────
   const handleDownloadPDF = async () => {
     try {
       const doc = new jsPDF({ unit: 'mm', format: 'a4' });
       const W = doc.internal.pageSize.getWidth();
 
-      // ── Load logo via fetch → FileReader (avoids canvas CORS issues) ────────
+      // Load logo via fetch → FileReader (CORS-safe)
       let logoDataURL = null;
       try {
         const res = await fetch(logo);
@@ -101,18 +139,16 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
           reader.onerror = reject;
           reader.readAsDataURL(blob);
         });
-      } catch (_) { /* logo missing — skip */ }
+      } catch (_) {}
 
-      // ── Header cream background band ────────────────────────────────────────
+      // Header band
       doc.setFillColor(245, 245, 221);
       doc.rect(0, 0, W, 45, 'F');
 
-      // ── Logo (top-left) ──────────────────────────────────────────────────────
       if (logoDataURL) {
         try { doc.addImage(logoDataURL, 'PNG', 12, 8, 22, 22); } catch (_) {}
       }
 
-      // ── Brand heading ────────────────────────────────────────────────────────
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(20);
       doc.setTextColor(163, 0, 0);
@@ -124,25 +160,21 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
       doc.text('Certified Vedic Gemstone Remedies', W / 2, 28, { align: 'center' });
       doc.text('prasantachakraborty.udp@okicici  |  +91 96127 36566', W / 2, 34, { align: 'center' });
 
-      // ── Red divider ──────────────────────────────────────────────────────────
       doc.setDrawColor(163, 0, 0);
       doc.setLineWidth(0.7);
       doc.line(12, 41, W - 12, 41);
 
-      // ── PAYMENT RECEIPT label ────────────────────────────────────────────────
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(14);
       doc.setTextColor(30, 30, 30);
       doc.text('PAYMENT RECEIPT', W / 2, 52, { align: 'center' });
 
-      // ── Light divider ────────────────────────────────────────────────────────
       doc.setDrawColor(210, 210, 210);
       doc.setLineWidth(0.3);
       doc.line(12, 56, W - 12, 56);
 
       let y = 66;
 
-      // ── Helpers ──────────────────────────────────────────────────────────────
       const sectionHeader = (label) => {
         doc.setFillColor(245, 245, 221);
         doc.rect(12, y - 5, W - 24, 10, 'F');
@@ -154,16 +186,14 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
       };
 
       const row = (label, value, highlight = false) => {
-        if (!value && value !== 0) return;
+        if (value === null || value === undefined || value === '') return;
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(10);
         doc.setTextColor(90, 90, 90);
         doc.text(String(label), 15, y);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(highlight ? 163 : 25, highlight ? 0 : 25, highlight ? 0 : 25);
-        const valStr = String(value);
-        const maxW = W - 30;
-        const lines = doc.splitTextToSize(valStr, 75);
+        const lines = doc.splitTextToSize(String(value), 90);
         doc.text(lines, W - 15, y, { align: 'right' });
         y += lines.length > 1 ? lines.length * 6 : 8;
       };
@@ -177,14 +207,11 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
 
       const pageCheck = (needed = 20) => {
         if (y + needed > doc.internal.pageSize.getHeight() - 25) {
-          doc.addPage();
-          y = 20;
+          doc.addPage(); y = 20;
         }
       };
 
-      // ═══════════════════════════════════════════════════════════════════════
       // SECTION 1 — CUSTOMER DETAILS
-      // ═══════════════════════════════════════════════════════════════════════
       sectionHeader('Customer Details');
       row('Customer Name:', orderInfo.name);
       row('Mobile No.:', orderInfo.mobile ? `+91 ${orderInfo.mobile}` : null);
@@ -199,12 +226,9 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
         doc.text(addrLines, W - 15, y, { align: 'right' });
         y += Math.max(addrLines.length * 6, 8);
       }
-      y += 2;
-      lightDivider();
+      y += 2; lightDivider();
 
-      // ═══════════════════════════════════════════════════════════════════════
       // SECTION 2 — ORDER DETAILS
-      // ═══════════════════════════════════════════════════════════════════════
       pageCheck(50);
       sectionHeader('Order Details');
       row('Payment Type:', orderInfo.paymentType);
@@ -215,27 +239,21 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
         row('Advance Amount (50%):', `Rs. ${parseInt(orderInfo.advanceAmount || 0).toLocaleString('en-IN')}`);
         row('Pending Amount (50%):', `Rs. ${parseInt(orderInfo.pendingAmount || 0).toLocaleString('en-IN')}`);
       }
-      y += 2;
-      lightDivider();
+      y += 2; lightDivider();
 
-      // ═══════════════════════════════════════════════════════════════════════
       // SECTION 3 — PAYMENT SUMMARY
-      // ═══════════════════════════════════════════════════════════════════════
       pageCheck(40);
       sectionHeader('Payment Summary');
       row('Amount Paid:', `Rs. ${parseInt(numericAmount).toLocaleString('en-IN')}`, true);
       const paidAt = paymentDateTime || new Date();
       row('Payment Date & Time:', formatDateTime(paidAt));
+      row('Transaction Ref:', transactionRef || '—');
       row('UPI Merchant ID:', 'prasantachakraborty.udp@okicici');
-      y += 2;
-      lightDivider();
+      y += 2; lightDivider();
 
-      // ═══════════════════════════════════════════════════════════════════════
-      // SECTION 4 — CUSTOMER AGREEMENT (Terms & Conditions)
-      // ═══════════════════════════════════════════════════════════════════════
+      // SECTION 4 — CUSTOMER AGREEMENT
       pageCheck(60);
       sectionHeader('Customer Agreement');
-
       doc.setFont('helvetica', 'italic');
       doc.setFontSize(9);
       doc.setTextColor(90, 90, 90);
@@ -249,21 +267,18 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
       doc.setFontSize(8.5);
       doc.setTextColor(60, 60, 60);
       const termsLines = doc.splitTextToSize(TERMS_TEXT, W - 27);
-      // Paginate terms if needed
       let remaining = [...termsLines];
       while (remaining.length > 0) {
-        const pageH = doc.internal.pageSize.getHeight();
-        const linesPerPage = Math.floor((pageH - y - 25) / 5);
+        const pH = doc.internal.pageSize.getHeight();
+        const linesPerPage = Math.floor((pH - y - 25) / 5);
         const chunk = remaining.splice(0, Math.max(1, linesPerPage));
         doc.text(chunk, 15, y);
         y += chunk.length * 5;
         if (remaining.length > 0) { doc.addPage(); y = 20; }
       }
+      y += 6; lightDivider();
 
-      y += 6;
-      lightDivider();
-
-      // ── Footer on every page ─────────────────────────────────────────────────
+      // Footer on every page
       const totalPages = doc.internal.getNumberOfPages();
       for (let i = 1; i <= totalPages; i++) {
         doc.setPage(i);
@@ -280,17 +295,13 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
         doc.text(`Astrofied  |  contact.astrofied@gmail.com  |  Page ${i} of ${totalPages}`, W / 2, pH - 5, { align: 'center' });
       }
 
-      // ── Save ─────────────────────────────────────────────────────────────────
       const safeName = (orderInfo.name || 'Customer').replace(/[^a-zA-Z0-9]/g, '_');
       doc.save(`Astrofied_Receipt_${safeName}.pdf`);
-
     } catch (err) {
       console.error('PDF generation error:', err);
-      alert('Could not generate PDF. Please try again.\n\nError: ' + (err.message || err));
     }
   };
   // ─── End PDF Generator ────────────────────────────────────────────────────
-
 
   return (
     <section id="payment-confirmation" className="py-16 md:py-24 bg-white border-t border-[#E5DFC2] min-h-[80vh] flex items-center justify-center transition-colors duration-300">
@@ -298,8 +309,27 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
 
         <AnimatePresence mode="wait">
 
-          {/* ── PAYMENT SUCCESS STATE ─────────────────────────────────────── */}
-          {paymentConfirmed ? (
+          {/* ── VERIFYING STATE (brief transition) ────────────────────────── */}
+          {isVerifying && !paymentConfirmed && (
+            <motion.div
+              key="verifying"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              className="relative bg-[#f5f5dd] rounded-3xl border border-[#E5DFC2] p-10 shadow-xl text-center flex flex-col items-center gap-6"
+            >
+              <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center">
+                <Loader2 size={44} className="text-blue-500 animate-spin" />
+              </div>
+              <div>
+                <h3 className="text-xl font-mulish font-black text-black">Verifying Payment…</h3>
+                <p className="text-sm text-[#5A5A5A] mt-2 font-mulish">Please wait a moment.</p>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ── SUCCESS STATE ─────────────────────────────────────────────── */}
+          {paymentConfirmed && (
             <motion.div
               key="success"
               initial={{ opacity: 0, scale: 0.92 }}
@@ -308,12 +338,10 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
               transition={{ duration: 0.45, ease: 'easeOut' }}
               className="relative bg-[#f5f5dd] rounded-3xl border border-[#E5DFC2] p-6 sm:p-10 shadow-xl shadow-black/[0.04] text-center flex flex-col items-center gap-6"
             >
-              {/* Logo top-right */}
               <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
                 <img src={logo} alt="Astrofied Logo" className="h-6 sm:h-8 w-auto object-contain select-none pointer-events-none" style={{ mixBlendMode: 'multiply' }} draggable={false} />
               </div>
 
-              {/* Green tick */}
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -323,7 +351,6 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 <CheckCircle size={44} strokeWidth={2} />
               </motion.div>
 
-              {/* Heading */}
               <div className="flex flex-col gap-1.5">
                 <h3 className="text-2xl font-mulish font-black text-black">Payment Successful!</h3>
                 <p className="text-sm text-[#5A5A5A] leading-relaxed max-w-xs mx-auto font-mulish">
@@ -371,7 +398,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 )}
               </div>
 
-              {/* Download Bill PDF button */}
+              {/* Download Bill PDF button (also auto-downloaded on mount) */}
               <button
                 onClick={handleDownloadPDF}
                 className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-black text-white font-mulish font-bold text-sm tracking-wide hover:bg-[#1a1a1a] active:scale-95 transition-all cursor-pointer border-none shadow-lg"
@@ -379,19 +406,11 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 <Download size={18} />
                 Download Bill PDF
               </button>
-
-              {/* Go Back */}
-              <button
-                onClick={() => setShowWarningModal(true)}
-                className="text-xs text-[#5A5A5A] hover:text-black font-semibold underline font-mulish transition-colors"
-              >
-                Go Back
-              </button>
             </motion.div>
+          )}
 
-          ) : (
-
-            /* ── QR / PRE-PAYMENT STATE ─────────────────────────────────── */
+          {/* ── QR / WAITING STATE ───────────────────────────────────────── */}
+          {!isVerifying && !paymentConfirmed && (
             <motion.div
               key="qr"
               id="printable-bill"
@@ -401,12 +420,10 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
               transition={{ duration: 0.4 }}
               className="relative bg-[#f5f5dd] rounded-3xl border border-[#E5DFC2] p-6 sm:p-10 shadow-xl shadow-black/[0.04] text-center flex flex-col items-center gap-6"
             >
-              {/* Astrofied Logo in Top Right */}
               <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
                 <img src={logo} alt="Astrofied Logo" className="h-6 sm:h-8 w-auto object-contain select-none pointer-events-none" style={{ mixBlendMode: 'multiply' }} draggable={false} />
               </div>
 
-              {/* Success Header Icon */}
               <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
                 <CheckCircle size={36} />
               </div>
@@ -414,18 +431,17 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
               <div className="flex flex-col gap-2">
                 <h3 className="text-xl md:text-2xl font-mulish font-extrabold text-black">Order Submitted!</h3>
                 <p className="text-sm text-[#5A5A5A] leading-relaxed max-w-sm mx-auto font-mulish">
-                  Your details have been saved. Please scan the QR code below to complete the payment and share the screenshot in the WhatsApp chat at{' '}
-                  <a href="https://wa.me/919612736566" target="_blank" rel="noopener noreferrer" className="text-[#A30000] hover:underline font-bold">9612736566</a>.
+                  Please scan the QR code below with Google Pay, PhonePe, or any UPI app to complete your payment. The receipt will appear automatically once payment is confirmed.
                 </p>
               </div>
 
-              {/* Countdown Timer Badge */}
-              <div className="no-print w-full flex items-center justify-center gap-2 bg-[#A30000]/5 border border-[#A30000]/10 px-4 py-3 rounded-2xl text-[11px] font-mulish font-extrabold text-[#A30000]">
+              {/* Countdown Timer */}
+              <div className="w-full flex items-center justify-center gap-2 bg-[#A30000]/5 border border-[#A30000]/10 px-4 py-3 rounded-2xl text-[11px] font-mulish font-extrabold text-[#A30000]">
                 <Clock size={14} className="animate-spin" style={{ animationDuration: '6s' }} />
                 <span>PAYMENT SESSION EXPIRES IN: <span className="font-mono text-xs">{formatTime(timeLeft)}</span></span>
               </div>
 
-              {/* QR Code Container */}
+              {/* QR Code */}
               <div className="p-3 bg-white rounded-2xl border border-[#E5DFC2] shadow-md flex items-center justify-center overflow-hidden w-[200px] h-[200px]">
                 <QRCodeSVG
                   value={upiLink}
@@ -436,19 +452,16 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 />
               </div>
 
-              {/* Live Date and Time & Download PDF */}
-              <div className="flex flex-col items-center gap-1 font-mulish">
-                <span className="text-[11px] text-[#5A5A5A] font-bold">{formatDateTime(currentTime)}</span>
-                <button
-                  onClick={() => window.print()}
-                  type="button"
-                  className="no-print text-[11px] font-black text-black hover:text-[#A30000] underline cursor-pointer uppercase tracking-wider mt-1"
-                >
-                  Download PDF
-                </button>
+              {/* Waiting for payment indicator */}
+              <div className="flex flex-col items-center gap-2 font-mulish">
+                <div className="flex items-center gap-2 text-[11px] text-[#5A5A5A] font-bold">
+                  <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Waiting for payment confirmation…
+                </div>
+                <span className="text-[10px] text-[#5A5A5A]">{formatDateTime(currentTime)}</span>
               </div>
 
-              {/* Details list */}
+              {/* Order details */}
               <div className="w-full bg-white rounded-2xl p-4 border border-[#E5DFC2] text-left text-xs flex flex-col gap-2.5 font-mulish">
                 <div className="flex justify-between">
                   <span className="text-[#5A5A5A]">Customer Name:</span>
@@ -492,31 +505,22 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 </div>
               </div>
 
-              {/* Action buttons */}
-              <div className="no-print w-full flex flex-col gap-3">
-                <button
-                  onClick={handlePay}
-                  className="btn btn-primary w-full h-14 font-mulish text-base tracking-wide"
-                >
-                  PAY {amount}
-                </button>
-                <button
-                  onClick={() => setShowWarningModal(true)}
-                  className="text-xs text-[#5A5A5A] hover:text-black font-semibold underline font-mulish transition-colors"
-                >
-                  Go Back
-                </button>
-              </div>
+              {/* Go Back — only link, no PAY button */}
+              <button
+                onClick={() => setShowWarningModal(true)}
+                className="text-xs text-[#5A5A5A] hover:text-black font-semibold underline font-mulish transition-colors"
+              >
+                Go Back
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
-
       </div>
 
-      {/* Alert Warning Modal */}
+      {/* Cancel Warning Modal */}
       <AnimatePresence>
         {showWarningModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm no-print">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -530,22 +534,16 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 </svg>
               </div>
               <div className="flex flex-col gap-2">
-                <h4 className="text-lg font-extrabold text-black font-mulish leading-tight">Cancel Payment Session?</h4>
+                <h4 className="text-lg font-extrabold text-black leading-tight">Cancel Payment Session?</h4>
                 <p className="text-xs sm:text-sm text-[#5A5A5A] leading-relaxed font-medium">
-                  If you go back, your ongoing payment session and order details will be cancelled. Are you sure you want to cancel?
+                  If you go back, your payment session will be cancelled. Are you sure?
                 </p>
               </div>
               <div className="flex w-full gap-3 mt-1">
-                <button
-                  onClick={handleConfirmCancel}
-                  className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#A30000] text-white hover:bg-[#800000] transition-colors cursor-pointer border-none shadow-sm shadow-[#A30000]/10"
-                >
+                <button onClick={handleConfirmCancel} className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#A30000] text-white hover:bg-[#800000] transition-colors cursor-pointer border-none">
                   Yes, Cancel
                 </button>
-                <button
-                  onClick={handleDismissWarning}
-                  className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#5A5A5A] hover:text-black hover:bg-gray-50 border border-[#E5DFC2] transition-colors cursor-pointer"
-                >
+                <button onClick={handleDismissWarning} className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#5A5A5A] hover:text-black hover:bg-gray-50 border border-[#E5DFC2] transition-colors cursor-pointer">
                   No, Keep Payment
                 </button>
               </div>
