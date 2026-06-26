@@ -5,7 +5,7 @@ import GemstoneCard from './GemstoneCard';
 export default function GemstoneGrid() {
   return (
     <section id="gemstone-collection" className="bg-transparent py-16 md:py-24">
-      <div className="container">
+      <div className="container mx-auto px-4 md:px-12">
         
         {/* Section Header */}
         <div className="section-header">

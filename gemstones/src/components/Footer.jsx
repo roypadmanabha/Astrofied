@@ -44,7 +44,7 @@ export default function Footer({ onOpenLegal }) {
 
   return (
     <footer id="footer" className="py-8 md:py-12 bg-[#f5f5dd] border-t font-mulish border-[#A30000]/10">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 md:px-12">
         
         <div className="flex flex-col sm:grid sm:grid-cols-2 xl:flex xl:flex-row xl:justify-between gap-8 xl:gap-4 mb-8 md:mb-10">
           

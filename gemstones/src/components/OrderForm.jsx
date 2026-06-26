@@ -585,8 +585,8 @@ export default function OrderForm({ onSubmitSuccess }) {
 
   return (
     <section id="order-form" className="py-10 sm:py-16 md:py-24 bg-white border-t border-[#E5DFC2] transition-colors duration-300">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="flex flex-col lg:flex-row gap-x-16 gap-y-6 sm:gap-y-12 items-start lg:items-center justify-between">
+      <div className="container mx-auto px-4 md:px-12 max-w-6xl">
+        <div className="flex flex-col lg:flex-row gap-x-8 xl:gap-x-16 gap-y-6 sm:gap-y-12 items-start lg:items-center justify-between">
 
           {/* Left Column: Heading Text */}
           <motion.div
@@ -602,6 +602,14 @@ export default function OrderForm({ onSubmitSuccess }) {
             <p className="text-sm sm:text-base md:text-lg lg:text-xl opacity-80 leading-relaxed text-[#555555] font-mulish">
               Please fill in your personal details to complete your gemstone order. Our support team will confirm and assist you.
             </p>
+            <div className="bg-[#FAF9F6] border border-[#E5DFC2]/60 rounded-2xl p-5 text-left space-y-2 shadow-sm">
+              <h4 className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#A30000] font-mulish">
+                Payment Policy
+              </h4>
+              <p className="text-xs sm:text-sm leading-relaxed text-[#666666] font-mulish font-medium text-justify">
+                We offer a flexible split-payment option for the convenience of our clients. You must pay <strong>50% of the total amount</strong> of a prescribed gemstone as an advance payment, while the remaining <strong>50%</strong> is due just before receiving the gemstone.
+              </p>
+            </div>
           </motion.div>
 
           {/* Right Column: Form Panel Card */}

@@ -2,11 +2,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import astrologer from '../assets/hero-astrologer.png';
 import zodiacBg from '../assets/zodiac-wheel.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ExploreModal from './ExploreModal';
 
 export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDetailsModalOpen }) {
     const { isDarkMode } = useTheme();
+
+    // Disable wheel rotation on mobile (< 768px) to prevent lag/hanging
+    const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+    useEffect(() => {
+        const mq = window.matchMedia('(max-width: 767px)');
+        const handler = (e) => setIsMobile(e.matches);
+        mq.addEventListener('change', handler);
+        return () => mq.removeEventListener('change', handler);
+    }, []);
 
     return (
         <section id="hero" className="relative min-h-screen flex items-center pt-28 pb-12 md:pb-20 overflow-hidden">
@@ -76,8 +85,8 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             src={zodiacBg}
                             alt=""
                             className="absolute w-[120%] h-[120%] max-w-none opacity-20 pointer-events-none select-none blur-[2px]"
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+                            animate={isMobile ? {} : { rotate: 360 }}
+                            transition={isMobile ? {} : { duration: 50, repeat: Infinity, ease: "linear" }}
                         />
 
                         <div className="relative w-full max-w-[500px] flex flex-col items-center">
