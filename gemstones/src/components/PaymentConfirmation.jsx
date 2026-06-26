@@ -86,169 +86,211 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
 
   // ─── PDF Bill Generator ───────────────────────────────────────────────────
   const handleDownloadPDF = async () => {
-    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-    const W = doc.internal.pageSize.getWidth();
-    const brandRed = [163, 0, 0];
-    const darkGray = [40, 40, 40];
-    const midGray = [100, 100, 100];
-    const lightGray = [200, 200, 200];
-    const cream = [245, 245, 221];
-
-    // ── Header background band ──────────────────────────────────────────────
-    doc.setFillColor(...cream);
-    doc.rect(0, 0, W, 42, 'F');
-
-    // ── Logo (load from img element as dataURL via canvas) ──────────────────
     try {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.src = logo;
-      await new Promise((res, rej) => { img.onload = res; img.onerror = rej; });
-      const canvas = document.createElement('canvas');
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      canvas.getContext('2d').drawImage(img, 0, 0);
-      const dataURL = canvas.toDataURL('image/png');
-      const logoH = 18;
-      const logoW = (img.naturalWidth / img.naturalHeight) * logoH;
-      doc.addImage(dataURL, 'PNG', 14, 10, logoW, logoH);
-    } catch (_) { /* if logo fails, skip gracefully */ }
+      const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+      const W = doc.internal.pageSize.getWidth();
 
-    // ── Brand name ──────────────────────────────────────────────────────────
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(20);
-    doc.setTextColor(...brandRed);
-    doc.text('ASTROFIED GEMSTONES', W / 2, 22, { align: 'center' });
+      // ── Load logo via fetch → FileReader (avoids canvas CORS issues) ────────
+      let logoDataURL = null;
+      try {
+        const res = await fetch(logo);
+        const blob = await res.blob();
+        logoDataURL = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      } catch (_) { /* logo missing — skip */ }
 
-    doc.setFontSize(9);
-    doc.setTextColor(...midGray);
-    doc.setFont('helvetica', 'normal');
-    doc.text('Certified Vedic Gemstone Remedies', W / 2, 29, { align: 'center' });
+      // ── Header cream background band ────────────────────────────────────────
+      doc.setFillColor(245, 245, 221);
+      doc.rect(0, 0, W, 45, 'F');
 
-    // ── Divider ─────────────────────────────────────────────────────────────
-    doc.setDrawColor(...brandRed);
-    doc.setLineWidth(0.6);
-    doc.line(14, 38, W - 14, 38);
+      // ── Logo (top-left) ──────────────────────────────────────────────────────
+      if (logoDataURL) {
+        try { doc.addImage(logoDataURL, 'PNG', 12, 8, 22, 22); } catch (_) {}
+      }
 
-    // ── PAYMENT RECEIPT label ───────────────────────────────────────────────
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(13);
-    doc.setTextColor(...darkGray);
-    doc.text('PAYMENT RECEIPT', W / 2, 48, { align: 'center' });
-
-    let y = 58;
-
-    // ── Section helper ──────────────────────────────────────────────────────
-    const sectionTitle = (label) => {
-      doc.setFillColor(...cream);
-      doc.roundedRect(14, y - 4, W - 28, 9, 1, 1, 'F');
+      // ── Brand heading ────────────────────────────────────────────────────────
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9);
-      doc.setTextColor(...brandRed);
-      doc.text(label.toUpperCase(), 17, y + 2);
-      y += 10;
-    };
+      doc.setFontSize(20);
+      doc.setTextColor(163, 0, 0);
+      doc.text('ASTROFIED GEMSTONES', W / 2, 20, { align: 'center' });
 
-    const row = (label, value, highlight = false) => {
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(10);
-      doc.setTextColor(...midGray);
-      doc.text(label, 17, y);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(highlight ? brandRed : darkGray);
-      doc.text(String(value || '—'), W - 17, y, { align: 'right' });
-      y += 7;
-    };
+      doc.setFontSize(9);
+      doc.setTextColor(100, 100, 100);
+      doc.text('Certified Vedic Gemstone Remedies', W / 2, 28, { align: 'center' });
+      doc.text('prasantachakraborty.udp@okicici  |  +91 96127 36566', W / 2, 34, { align: 'center' });
 
-    const divider = () => {
-      doc.setDrawColor(...lightGray);
-      doc.setLineWidth(0.2);
-      doc.line(14, y - 1, W - 14, y - 1);
+      // ── Red divider ──────────────────────────────────────────────────────────
+      doc.setDrawColor(163, 0, 0);
+      doc.setLineWidth(0.7);
+      doc.line(12, 41, W - 12, 41);
+
+      // ── PAYMENT RECEIPT label ────────────────────────────────────────────────
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(30, 30, 30);
+      doc.text('PAYMENT RECEIPT', W / 2, 52, { align: 'center' });
+
+      // ── Light divider ────────────────────────────────────────────────────────
+      doc.setDrawColor(210, 210, 210);
+      doc.setLineWidth(0.3);
+      doc.line(12, 56, W - 12, 56);
+
+      let y = 66;
+
+      // ── Helpers ──────────────────────────────────────────────────────────────
+      const sectionHeader = (label) => {
+        doc.setFillColor(245, 245, 221);
+        doc.rect(12, y - 5, W - 24, 10, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(163, 0, 0);
+        doc.text(label.toUpperCase(), 15, y + 1);
+        y += 12;
+      };
+
+      const row = (label, value, highlight = false) => {
+        if (!value && value !== 0) return;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(90, 90, 90);
+        doc.text(String(label), 15, y);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(highlight ? 163 : 25, highlight ? 0 : 25, highlight ? 0 : 25);
+        const valStr = String(value);
+        const maxW = W - 30;
+        const lines = doc.splitTextToSize(valStr, 75);
+        doc.text(lines, W - 15, y, { align: 'right' });
+        y += lines.length > 1 ? lines.length * 6 : 8;
+      };
+
+      const lightDivider = () => {
+        doc.setDrawColor(220, 220, 220);
+        doc.setLineWidth(0.2);
+        doc.line(12, y - 2, W - 12, y - 2);
+        y += 4;
+      };
+
+      const pageCheck = (needed = 20) => {
+        if (y + needed > doc.internal.pageSize.getHeight() - 25) {
+          doc.addPage();
+          y = 20;
+        }
+      };
+
+      // ═══════════════════════════════════════════════════════════════════════
+      // SECTION 1 — CUSTOMER DETAILS
+      // ═══════════════════════════════════════════════════════════════════════
+      sectionHeader('Customer Details');
+      row('Customer Name:', orderInfo.name);
+      row('Mobile No.:', orderInfo.mobile ? `+91 ${orderInfo.mobile}` : null);
+      if (orderInfo.address) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(90, 90, 90);
+        doc.text('Full Address:', 15, y);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(25, 25, 25);
+        const addrLines = doc.splitTextToSize(orderInfo.address, 100);
+        doc.text(addrLines, W - 15, y, { align: 'right' });
+        y += Math.max(addrLines.length * 6, 8);
+      }
       y += 2;
-    };
+      lightDivider();
 
-    // ── Customer Details ────────────────────────────────────────────────────
-    sectionTitle('Customer Details');
-    row('Customer Name:', orderInfo.name);
-    row('Mobile No.:', orderInfo.mobile ? `+91 ${orderInfo.mobile}` : '—');
-    row('Full Address:', '');
-    // Wrap address
-    if (orderInfo.address) {
-      const addrLines = doc.splitTextToSize(orderInfo.address, W - 34);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(10);
-      doc.setTextColor(...darkGray);
-      doc.text(addrLines, W - 17, y - 6, { align: 'right' });
-      y += (addrLines.length - 1) * 6;
+      // ═══════════════════════════════════════════════════════════════════════
+      // SECTION 2 — ORDER DETAILS
+      // ═══════════════════════════════════════════════════════════════════════
+      pageCheck(50);
+      sectionHeader('Order Details');
+      row('Payment Type:', orderInfo.paymentType);
+      if (orderInfo.gemstone) row('Gemstone:', orderInfo.gemstone);
+      if (orderInfo.size) row('Gemstone Size:', `${orderInfo.size} mm`);
+      if (orderInfo.totalAmount && parseInt(orderInfo.totalAmount) > 0) {
+        row('Total Order Value:', `Rs. ${parseInt(orderInfo.totalAmount).toLocaleString('en-IN')}`);
+        row('Advance Amount (50%):', `Rs. ${parseInt(orderInfo.advanceAmount || 0).toLocaleString('en-IN')}`);
+        row('Pending Amount (50%):', `Rs. ${parseInt(orderInfo.pendingAmount || 0).toLocaleString('en-IN')}`);
+      }
+      y += 2;
+      lightDivider();
+
+      // ═══════════════════════════════════════════════════════════════════════
+      // SECTION 3 — PAYMENT SUMMARY
+      // ═══════════════════════════════════════════════════════════════════════
+      pageCheck(40);
+      sectionHeader('Payment Summary');
+      row('Amount Paid:', `Rs. ${parseInt(numericAmount).toLocaleString('en-IN')}`, true);
+      const paidAt = paymentDateTime || new Date();
+      row('Payment Date & Time:', formatDateTime(paidAt));
+      row('UPI Merchant ID:', 'prasantachakraborty.udp@okicici');
+      y += 2;
+      lightDivider();
+
+      // ═══════════════════════════════════════════════════════════════════════
+      // SECTION 4 — CUSTOMER AGREEMENT (Terms & Conditions)
+      // ═══════════════════════════════════════════════════════════════════════
+      pageCheck(60);
+      sectionHeader('Customer Agreement');
+
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(9);
+      doc.setTextColor(90, 90, 90);
+      const agreeLine = `${orderInfo.name || 'Customer'} has agreed to the following Terms & Conditions of Astrofied at the time of order:`;
+      const agreeLines = doc.splitTextToSize(agreeLine, W - 27);
+      doc.text(agreeLines, 15, y);
+      y += agreeLines.length * 5 + 4;
+
+      pageCheck(30);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(60, 60, 60);
+      const termsLines = doc.splitTextToSize(TERMS_TEXT, W - 27);
+      // Paginate terms if needed
+      let remaining = [...termsLines];
+      while (remaining.length > 0) {
+        const pageH = doc.internal.pageSize.getHeight();
+        const linesPerPage = Math.floor((pageH - y - 25) / 5);
+        const chunk = remaining.splice(0, Math.max(1, linesPerPage));
+        doc.text(chunk, 15, y);
+        y += chunk.length * 5;
+        if (remaining.length > 0) { doc.addPage(); y = 20; }
+      }
+
+      y += 6;
+      lightDivider();
+
+      // ── Footer on every page ─────────────────────────────────────────────────
+      const totalPages = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        const pH = doc.internal.pageSize.getHeight();
+        doc.setFillColor(245, 245, 221);
+        doc.rect(0, pH - 18, W, 18, 'F');
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(7.5);
+        doc.setTextColor(130, 130, 130);
+        doc.text('This is a computer-generated receipt. No signature required.', W / 2, pH - 11, { align: 'center' });
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        doc.setTextColor(163, 0, 0);
+        doc.text(`Astrofied  |  contact.astrofied@gmail.com  |  Page ${i} of ${totalPages}`, W / 2, pH - 5, { align: 'center' });
+      }
+
+      // ── Save ─────────────────────────────────────────────────────────────────
+      const safeName = (orderInfo.name || 'Customer').replace(/[^a-zA-Z0-9]/g, '_');
+      doc.save(`Astrofied_Receipt_${safeName}.pdf`);
+
+    } catch (err) {
+      console.error('PDF generation error:', err);
+      alert('Could not generate PDF. Please try again.\n\nError: ' + (err.message || err));
     }
-    y += 2;
-    divider();
-
-    // ── Order Details ───────────────────────────────────────────────────────
-    sectionTitle('Order Details');
-    row('Payment Type:', orderInfo.paymentType);
-    if (orderInfo.gemstone) row('Gemstone:', orderInfo.gemstone);
-    if (orderInfo.size) row('Size:', `${orderInfo.size} mm`);
-    if (orderInfo.totalAmount && parseInt(orderInfo.totalAmount) > 0) {
-      row('Total Order Value:', `Rs. ${parseInt(orderInfo.totalAmount).toLocaleString('en-IN')}`);
-      row('Advance Amount:', `Rs. ${parseInt(orderInfo.advanceAmount || 0).toLocaleString('en-IN')}`);
-      row('Pending Amount:', `Rs. ${parseInt(orderInfo.pendingAmount || 0).toLocaleString('en-IN')}`);
-    }
-    y += 2;
-    divider();
-
-    // ── Payment Summary ─────────────────────────────────────────────────────
-    sectionTitle('Payment Summary');
-    row('Amount Paid:', `Rs. ${parseInt(numericAmount).toLocaleString('en-IN')}`, true);
-    row(
-      'Payment Date & Time:',
-      paymentDateTime ? formatDateTime(paymentDateTime) : formatDateTime(new Date())
-    );
-    row('UPI Merchant:', 'prasantachakraborty.udp@okicici');
-    y += 2;
-    divider();
-
-    // ── Terms Agreement ─────────────────────────────────────────────────────
-    sectionTitle('Customer Agreement');
-
-    const agreeLabel = `${orderInfo.name} has agreed to the following Terms & Conditions:`;
-    doc.setFont('helvetica', 'italic');
-    doc.setFontSize(9);
-    doc.setTextColor(...midGray);
-    const agreeLabelLines = doc.splitTextToSize(agreeLabel, W - 28);
-    doc.text(agreeLabelLines, 17, y);
-    y += agreeLabelLines.length * 5 + 2;
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(...darkGray);
-    const termsLines = doc.splitTextToSize(TERMS_TEXT, W - 28);
-    // Check if we need a new page
-    if (y + termsLines.length * 4.5 > doc.internal.pageSize.getHeight() - 20) {
-      doc.addPage();
-      y = 20;
-    }
-    doc.text(termsLines, 17, y);
-    y += termsLines.length * 4.5 + 4;
-
-    divider();
-
-    // ── Footer ──────────────────────────────────────────────────────────────
-    const footerY = doc.internal.pageSize.getHeight() - 18;
-    doc.setFillColor(...cream);
-    doc.rect(0, footerY - 4, W, 22, 'F');
-    doc.setFont('helvetica', 'italic');
-    doc.setFontSize(8);
-    doc.setTextColor(...midGray);
-    doc.text('This is a computer-generated receipt. No signature is required.', W / 2, footerY + 2, { align: 'center' });
-    doc.setTextColor(...brandRed);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Astrofied | contact.astrofied@gmail.com | +91 96127 36566', W / 2, footerY + 8, { align: 'center' });
-
-    const safeName = (orderInfo.name || 'Customer').replace(/[^a-zA-Z0-9]/g, '_');
-    doc.save(`Astrofied_Gemstone_Receipt_${safeName}.pdf`);
   };
   // ─── End PDF Generator ────────────────────────────────────────────────────
+
 
   return (
     <section id="payment-confirmation" className="py-16 md:py-24 bg-white border-t border-[#E5DFC2] min-h-[80vh] flex items-center justify-center transition-colors duration-300">
