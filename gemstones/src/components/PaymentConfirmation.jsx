@@ -82,38 +82,40 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
     setPaymentConfirmed(true);
   }, []);
 
-  // ── Poll Google Apps Script every 5 s for payment status (JSONP — bypasses CORS) ──
+  // ── Poll Google Apps Script every 5 s for payment status ──────────────────
   useEffect(() => {
     if (!transactionRef || paymentConfirmed) return;
 
-    const checkPayment = () => {
-      const cbName = `__astrofied_cb_${Date.now()}`;
-      // Register global callback that the script tag will invoke
-      window[cbName] = (data) => {
-        delete window[cbName];
-        console.log('[Astrofied] Payment poll response (JSONP):', data);
+    const checkPayment = async () => {
+      try {
+        // Use callback param so Apps Script returns text/javascript content-type
+        // (which has proper CORS headers on Google's side)
+        const pollUrl = `${SCRIPT_URL}?action=checkPayment&ref=${encodeURIComponent(transactionRef)}&callback=__parse`;
+        console.log('[Astrofied] Polling:', pollUrl.slice(0, 80) + '...');
+
+        const res = await fetch(pollUrl);
+        const text = await res.text();
+        console.log('[Astrofied] Raw response:', text.slice(0, 200));
+
+        // Response is either:
+        //   __parse({"status":"paid"});   (JSONP format)
+        //   {"status":"paid"}              (plain JSON)
+        let data;
+        const jsonpMatch = text.match(/__parse\((.+)\);?/);
+        if (jsonpMatch) {
+          data = JSON.parse(jsonpMatch[1]);
+        } else {
+          data = JSON.parse(text);
+        }
+
+        console.log('[Astrofied] Parsed status:', data.status);
         if (data && data.status === 'paid') {
           setIsVerifying(true);
           setTimeout(() => confirmPayment(), 1800);
         }
-      };
-      // Create script tag — JSONP bypasses CORS entirely
-      const script = document.createElement('script');
-      script.src = `${SCRIPT_URL}?action=checkPayment&ref=${encodeURIComponent(transactionRef)}&callback=${cbName}`;
-      script.onerror = () => {
-        delete window[cbName];
-        console.warn('[Astrofied] JSONP poll: script load error');
-      };
-      // Auto-cleanup after 10 s (in case callback never fires)
-      const cleanup = setTimeout(() => {
-        delete window[cbName];
-        if (script.parentNode) script.parentNode.removeChild(script);
-      }, 10000);
-      script.onload = () => {
-        clearTimeout(cleanup);
-        if (script.parentNode) script.parentNode.removeChild(script);
-      };
-      document.head.appendChild(script);
+      } catch (err) {
+        console.warn('[Astrofied] Payment poll error:', err.message);
+      }
     };
 
     pollRef.current = setInterval(checkPayment, POLL_INTERVAL_MS);
