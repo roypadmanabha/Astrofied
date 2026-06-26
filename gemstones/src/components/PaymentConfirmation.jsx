@@ -82,30 +82,38 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
     setPaymentConfirmed(true);
   }, []);
 
-  // ── Poll Google Apps Script every 5 s for payment status ──────────────────
+  // ── Poll Google Apps Script every 5 s for payment status (JSONP — bypasses CORS) ──
   useEffect(() => {
     if (!transactionRef || paymentConfirmed) return;
 
-    const checkPayment = async () => {
-      try {
-        const res = await fetch(
-          `${SCRIPT_URL}?action=checkPayment&ref=${encodeURIComponent(transactionRef)}`,
-          { method: 'GET', redirect: 'follow' }
-        );
-        if (!res.ok) {
-          console.warn('[Astrofied] Payment poll: non-ok response', res.status);
-          return;
-        }
-        const text = await res.text();
-        console.log('[Astrofied] Payment poll response:', text.slice(0, 120));
-        const data = JSON.parse(text);
+    const checkPayment = () => {
+      const cbName = `__astrofied_cb_${Date.now()}`;
+      // Register global callback that the script tag will invoke
+      window[cbName] = (data) => {
+        delete window[cbName];
+        console.log('[Astrofied] Payment poll response (JSONP):', data);
         if (data && data.status === 'paid') {
           setIsVerifying(true);
           setTimeout(() => confirmPayment(), 1800);
         }
-      } catch (err) {
-        console.warn('[Astrofied] Payment poll error (Apps Script may not have doGet yet):', err.message);
-      }
+      };
+      // Create script tag — JSONP bypasses CORS entirely
+      const script = document.createElement('script');
+      script.src = `${SCRIPT_URL}?action=checkPayment&ref=${encodeURIComponent(transactionRef)}&callback=${cbName}`;
+      script.onerror = () => {
+        delete window[cbName];
+        console.warn('[Astrofied] JSONP poll: script load error');
+      };
+      // Auto-cleanup after 10 s (in case callback never fires)
+      const cleanup = setTimeout(() => {
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+      }, 10000);
+      script.onload = () => {
+        clearTimeout(cleanup);
+        if (script.parentNode) script.parentNode.removeChild(script);
+      };
+      document.head.appendChild(script);
     };
 
     pollRef.current = setInterval(checkPayment, POLL_INTERVAL_MS);
