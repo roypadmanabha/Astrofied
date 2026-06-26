@@ -530,18 +530,26 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                     transition={{ duration: 0.4 }}
                     className="w-full flex flex-col items-center gap-3"
                   >
+                    {/* Plain text status line */}
+                    <div className="flex items-center justify-center gap-2 font-mulish">
+                      <CheckCircle size={20} className="text-emerald-600 flex-shrink-0" strokeWidth={2.5} />
+                      <span className="text-base font-extrabold text-black tracking-tight">Payment Successful</span>
+                    </div>
+
+                    {/* Download Bill PDF button */}
                     <button
                       onClick={() => {
                         setIsVerifying(true);
                         setTimeout(() => confirmPayment(), 1800);
                       }}
-                      className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-mulish font-bold text-sm tracking-wide transition-all shadow-lg shadow-emerald-200 border-none cursor-pointer"
+                      className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-black hover:bg-[#1a1a1a] active:scale-95 text-white font-mulish font-bold text-sm tracking-wide transition-all shadow-lg border-none cursor-pointer"
                     >
-                      <CheckCircle size={18} />
-                      I've Completed the Payment — Get My Receipt
+                      <Download size={17} />
+                      Download Bill PDF
                     </button>
+
                     <p className="text-[10px] text-[#5A5A5A] font-mulish text-center max-w-xs leading-relaxed">
-                      Tap above only after you have successfully paid <strong className="text-[#A30000]">{amount}</strong> to the UPI ID shown in the QR code.
+                      Click only after you have successfully paid <strong className="text-[#A30000]">{amount}</strong> via the QR code above.
                     </p>
                   </motion.div>
                 )}
