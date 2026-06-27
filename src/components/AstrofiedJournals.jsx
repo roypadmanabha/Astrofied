@@ -14,7 +14,8 @@ import venusHousesImg from '../assets/journals/venus-houses.jpg';
 import planetSeriesImg from '../assets/journals/planet-series.jpg';
 import signSeriesImg from '../assets/journals/sign-series.jpg';
 import malMaasImg from '../assets/journals/mal-maas.jpg';
-import jupiterImg from '../assets/journals/jupiter-cancer.jpg';
+import jupiterCancerImg from '../assets/journals/jupiter-cancer.jpg';
+import jupiterHousesImg from '../assets/journals/jupiter-houses.jpg';
 import saturnImg from '../assets/journals/saturn-revati.jpg';
 import saturnHousesImg from '../assets/journals/saturn-houses.jpg';
 import mahadashaImg from '../assets/journals/mahadasha.jpg';
@@ -52,18 +53,19 @@ const PowerIcon = ({ className }) => (
 
 const getJournalImage = (title, defaultUrl) => {
   if (!title) return defaultUrl || defaultCoverImg;
-  const t = title.toLowerCase();
-  if (t.includes('rahu')) return rahuImg;
-  if (t.includes('ketu')) return ketuImg;
-  if (t.includes('saturn') && t.includes('house')) return saturnHousesImg;
-  if (t.includes('saturn') || t.includes('revati')) return saturnImg;
-  if (t.includes('jupiter') || t.includes('cancer')) return jupiterImg;
-  if (t.includes('mahadasha')) return mahadashaImg;
-  if (t.includes('maas') || t.includes('mal')) return malMaasImg;
-  if (t.includes('venus') && t.includes('house')) return venusHousesImg;
+  const t = title.toLowerCase().trim();
+  if (t === 'rahu in houses' || t === 'rahu') return rahuImg;
+  if (t === 'ketu in houses' || t === 'ketu') return ketuImg;
+  if (t === 'saturn in houses') return saturnHousesImg;
+  if (t === 'saturn in revati' || t === 'saturn') return saturnImg;
+  if (t === 'jupiter in cancer') return jupiterCancerImg;
+  if (t === 'jupiter in houses' || t === 'jupiter in all houses') return jupiterHousesImg;
+  if (t === 'venus in houses' || t === 'venus in all houses') return venusHousesImg;
   if (t === 'the house series' || t === 'house series') return houseSeriesImg;
-  if (t.includes('planet')) return planetSeriesImg;
-  if (t.includes('sign')) return signSeriesImg;
+  if (t === 'mahadasha' || t === 'mahadasha series') return mahadashaImg;
+  if (t === 'mal maas' || t === 'malmaas' || t === 'mal-maas') return malMaasImg;
+  if (t === 'planet series') return planetSeriesImg;
+  if (t === 'sign series') return signSeriesImg;
   return defaultUrl || defaultCoverImg;
 };
 
