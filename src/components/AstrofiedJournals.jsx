@@ -62,10 +62,10 @@ const getJournalImage = (title, defaultUrl) => {
   if (t === 'jupiter in houses' || t === 'jupiter in all houses') return jupiterHousesImg;
   if (t === 'venus in houses' || t === 'venus in all houses') return venusHousesImg;
   if (t === 'the house series' || t === 'house series') return houseSeriesImg;
-  if (t === 'mahadasha' || t === 'mahadasha series') return mahadashaImg;
+  if (t === 'mahadasha' || t === 'mahadasha series' || t === 'mahadasha born in') return mahadashaImg;
   if (t === 'mal maas' || t === 'malmaas' || t === 'mal-maas') return malMaasImg;
-  if (t === 'planet series') return planetSeriesImg;
-  if (t === 'sign series') return signSeriesImg;
+  if (t === 'planet series' || t === 'the planet series') return planetSeriesImg;
+  if (t === 'sign series' || t === 'the sign series') return signSeriesImg;
   return defaultUrl || defaultCoverImg;
 };
 
