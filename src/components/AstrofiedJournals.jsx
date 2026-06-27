@@ -59,7 +59,7 @@ const getJournalImage = (title, defaultUrl) => {
   if (t.includes('jupiter') || t.includes('cancer')) return jupiterImg;
   if (t.includes('mahadasha')) return mahadashaImg;
   if (t.includes('maas') || t.includes('mal')) return malMaasImg;
-  if (t.includes('house')) return houseSeriesImg;
+  if (t.includes('venus') && t.includes('house')) return houseSeriesImg;
   if (t.includes('planet')) return planetSeriesImg;
   if (t.includes('sign')) return signSeriesImg;
   return defaultUrl || defaultCoverImg;
