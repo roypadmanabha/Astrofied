@@ -80,13 +80,12 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
 
                     {/* Right Image Segment */}
                     <div className="w-full xl:w-1/2 relative flex justify-center items-center order-2 mt-12 xl:mt-0">
-                        {/* Background Rotating Wheel */}
                         <motion.img
                             src={zodiacBg}
                             alt=""
                             className="absolute w-[120%] h-[120%] max-w-none opacity-20 pointer-events-none select-none blur-[2px]"
-                            animate={isMobile ? {} : { rotate: 360 }}
-                            transition={isMobile ? {} : { duration: 50, repeat: Infinity, ease: "linear" }}
+                            animate={isMobile ? { rotate: 0 } : { rotate: 360 }}
+                            transition={isMobile ? { duration: 0 } : { duration: 50, repeat: Infinity, ease: "linear" }}
                         />
 
                         <div className="relative w-full max-w-[500px] flex flex-col items-center">

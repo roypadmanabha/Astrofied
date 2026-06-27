@@ -43,7 +43,7 @@ export default function Navbar() {
       </div>
 
       {/* Right Side Navigation Links */}
-      <div className="flex gap-7 md:gap-6 font-semibold items-center font-mulish">
+      <div className="flex gap-10 sm:gap-7 md:gap-6 font-semibold items-center font-mulish">
         <button 
           onClick={handleHomeClick}
           className="hover:text-[#FF0000] transition-all relative group flex items-center gap-1.5 text-black bg-transparent border-none p-0 cursor-pointer font-bold"
