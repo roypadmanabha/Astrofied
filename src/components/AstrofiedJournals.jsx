@@ -19,6 +19,7 @@ import saturnHousesImg from '../assets/journals/saturn-houses.jpg';
 import mahadashaImg from '../assets/journals/mahadasha.jpg';
 import rahuImg from '../assets/journals/rahu.jpg';
 import ketuImg from '../assets/journals/ketu.jpg';
+import defaultCoverImg from '../assets/journals/default-cover.jpg';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://tbavyzcyjkkxnhctkiwo.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRiYXZ5emN5amtreG5oY3RraXdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjg5ODgsImV4cCI6MjA5MzY0NDk4OH0.a0cMgX9qDRzOKujWkVpzau0b-frV6tPCZeyvAYJ9hbc';
@@ -49,7 +50,7 @@ const PowerIcon = ({ className }) => (
 );
 
 const getJournalImage = (title, defaultUrl) => {
-  if (!title) return defaultUrl;
+  if (!title) return defaultUrl || defaultCoverImg;
   const t = title.toLowerCase();
   if (t.includes('rahu')) return rahuImg;
   if (t.includes('ketu')) return ketuImg;
@@ -61,7 +62,7 @@ const getJournalImage = (title, defaultUrl) => {
   if (t.includes('house')) return houseSeriesImg;
   if (t.includes('planet')) return planetSeriesImg;
   if (t.includes('sign')) return signSeriesImg;
-  return defaultUrl;
+  return defaultUrl || defaultCoverImg;
 };
 
 const HighlightText = ({ text, highlight }) => {
@@ -98,7 +99,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
             style={{ maxWidth: '923px', aspectRatio: '923/1024' }}
           >
             <img
-              src={getJournalImage(journal.title, journal.image_url) || journalsCollage}
+              src={getJournalImage(journal.title, journal.image_url) || defaultCoverImg}
               alt={journal.title}
               className="w-full h-full object-cover"
               loading="lazy"
