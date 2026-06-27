@@ -9,7 +9,7 @@ import logo from '../assets/logo.png';
 import Footer from './Footer';
 import journalsPromoVideo from '../assets/astrofied_journals_promo.mp4';
 
-import houseSeriesImg from '../assets/journals/house-series.png';
+import houseSeriesImg from '../assets/journals/house-series.jpg';
 import planetSeriesImg from '../assets/journals/planet-series.jpg';
 import signSeriesImg from '../assets/journals/sign-series.jpg';
 import malMaasImg from '../assets/journals/mal-maas.jpg';
@@ -35,12 +35,12 @@ try {
 }
 
 const PowerIcon = ({ className }) => (
-  <svg 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    strokeWidth="2.8" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    strokeWidth="2.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className={className}
   >
     <path d="M18.36 6.64a9 9 0 1 1-12.73 0" stroke="#000000" />
@@ -97,10 +97,10 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
             className="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#ffd700] bg-white"
             style={{ maxWidth: '923px', aspectRatio: '923/1024' }}
           >
-            <img 
-              src={getJournalImage(journal.title, journal.image_url) || journalsCollage} 
-              alt={journal.title} 
-              className="w-full h-full object-cover" 
+            <img
+              src={getJournalImage(journal.title, journal.image_url) || journalsCollage}
+              alt={journal.title}
+              className="w-full h-full object-cover"
               loading="lazy"
             />
           </div>
@@ -165,7 +165,7 @@ const JournalsPromo = () => {
 
   return (
     <div className="w-full max-w-xl md:max-w-2xl mx-auto mb-12 px-4">
-      <div 
+      <div
         className="relative w-full rounded-[20px] overflow-hidden border border-[#A30000] shadow-lg bg-black cursor-pointer group"
         onContextMenu={(e) => e.preventDefault()}
         onClick={togglePlay}
@@ -180,7 +180,7 @@ const JournalsPromo = () => {
           preload="metadata"
           onEnded={handleEnded}
         />
-        
+
         {/* Play Button Overlay (when paused) */}
         {!isPlaying && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition-colors">
@@ -416,11 +416,10 @@ const AstrofiedJournals = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
-                className={`w-[90%] max-w-[340px] sm:max-w-[380px] md:max-w-[420px] p-6 sm:p-8 md:p-10 rounded-[24px] sm:rounded-[32px] shadow-2xl text-center border transition-all duration-300 ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-b from-[#1c1c1c] to-[#121212] text-white border-white/10' 
-                    : 'bg-white text-black border-black/5'
-                }`}
+                className={`w-[90%] max-w-[340px] sm:max-w-[380px] md:max-w-[420px] p-6 sm:p-8 md:p-10 rounded-[24px] sm:rounded-[32px] shadow-2xl text-center border transition-all duration-300 ${isDarkMode
+                  ? 'bg-gradient-to-b from-[#1c1c1c] to-[#121212] text-white border-white/10'
+                  : 'bg-white text-black border-black/5'
+                  }`}
               >
                 <div className={`mx-auto mb-5 w-12 h-12 rounded-full flex items-center justify-center ${isDarkMode ? 'bg-[#FF0000]/10 text-[#FF0000]' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
                   <LogOut className="w-6 h-6" />
@@ -438,11 +437,10 @@ const AstrofiedJournals = () => {
                   </button>
                   <button
                     onClick={() => setShowHomeModal(false)}
-                    className={`flex-1 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-bold transition-all hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base border ${
-                      isDarkMode 
-                        ? 'bg-white/5 hover:bg-white/10 border-white/10 text-white' 
-                        : 'bg-black/5 hover:bg-black/10 border-black/5 text-black'
-                    }`}
+                    className={`flex-1 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-bold transition-all hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base border ${isDarkMode
+                      ? 'bg-white/5 hover:bg-white/10 border-white/10 text-white'
+                      : 'bg-black/5 hover:bg-black/10 border-black/5 text-black'
+                      }`}
                   >
                     No
                   </button>
@@ -605,10 +603,10 @@ const AstrofiedJournals = () => {
               {/* Mobile Only: Title & Text (Shown before Image) */}
               <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2 px-4">
                 <h2 className="text-[28px] sm:text-4xl md:text-5xl nunito-custom text-center w-full overflow-hidden text-ellipsis" style={{ fontFamily: '"Nunito", sans-serif' }}>
-                  {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p,i)=>p==="Astrofied"?<span key={i} className="brand-text">Astrofied</span>:p) : titleContent}
+                  {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p, i) => p === "Astrofied" ? <span key={i} className="brand-text">Astrofied</span> : p) : titleContent}
                 </h2>
                 <p className={`text-base md:text-lg text-justify leading-relaxed font-mulish font-normal ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
-                  {typeof textContent === "string" ? textContent.split(/(Astrofied)/g).map((p,i)=>p==="Astrofied"?<span key={i} className="brand-text">Astrofied</span>:p) : textContent}
+                  {typeof textContent === "string" ? textContent.split(/(Astrofied)/g).map((p, i) => p === "Astrofied" ? <span key={i} className="brand-text">Astrofied</span> : p) : textContent}
                 </p>
               </div>
 
@@ -616,7 +614,7 @@ const AstrofiedJournals = () => {
               <div className="w-full lg:w-1/2 flex flex-col items-center">
                 {/* Desktop Only Title */}
                 <h2 className="hidden lg:block lg:text-[37px] xl:text-[45px] nunito-custom mb-6 text-center w-[85%] leading-none tracking-tight" style={{ fontFamily: '"Nunito", sans-serif' }}>
-                  {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p,i)=>p==="Astrofied"?<span key={i} className="brand-text">Astrofied</span>:p) : titleContent}
+                  {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p, i) => p === "Astrofied" ? <span key={i} className="brand-text">Astrofied</span> : p) : titleContent}
                 </h2>
 
                 <div className="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[28px] overflow-hidden shadow-2xl bg-transparent border-[1.5px] border-[#ffd700]">
@@ -636,7 +634,7 @@ const AstrofiedJournals = () => {
               <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-2 lg:pt-0">
                 {/* Desktop Only Text */}
                 <p className={`hidden lg:block text-lg xl:text-xl mb-12 text-justify leading-relaxed font-mulish font-normal px-4 ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
-                  {typeof textContent === "string" ? textContent.split(/(Astrofied)/g).map((p,i)=>p==="Astrofied"?<span key={i} className="brand-text">Astrofied</span>:p) : textContent}
+                  {typeof textContent === "string" ? textContent.split(/(Astrofied)/g).map((p, i) => p === "Astrofied" ? <span key={i} className="brand-text">Astrofied</span> : p) : textContent}
                 </p>
 
                 {/* Buttons (Single button now) */}
