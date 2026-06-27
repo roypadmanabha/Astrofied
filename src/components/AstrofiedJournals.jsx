@@ -58,7 +58,7 @@ const getJournalImage = (title, defaultUrl) => {
   if (t === 'ketu in houses' || t === 'ketu') return ketuImg;
   if (t === 'saturn in houses') return saturnHousesImg;
   if (t === 'saturn in revati' || t === 'saturn') return saturnImg;
-  if (t === 'jupiter in cancer') return jupiterCancerImg;
+  if (t === 'jupiter in cancer' || t === 'jupiter transits to cancer' || t === 'jupiter transit to cancer') return jupiterCancerImg;
   if (t === 'jupiter in houses' || t === 'jupiter in all houses') return jupiterHousesImg;
   if (t === 'venus in houses' || t === 'venus in all houses') return venusHousesImg;
   if (t === 'the house series' || t === 'house series') return houseSeriesImg;
