@@ -22,6 +22,7 @@ import mahadashaImg from '../assets/journals/mahadasha.jpg';
 import rahuImg from '../assets/journals/rahu.jpg';
 import ketuImg from '../assets/journals/ketu.jpg';
 import defaultCoverImg from '../assets/journals/default-cover.jpg';
+import mercuryHousesImg from '../assets/journals/mercury_in_houses_cover.png';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://tbavyzcyjkkxnhctkiwo.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRiYXZ5emN5amtreG5oY3RraXdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjg5ODgsImV4cCI6MjA5MzY0NDk4OH0.a0cMgX9qDRzOKujWkVpzau0b-frV6tPCZeyvAYJ9hbc';
@@ -66,6 +67,7 @@ const getJournalImage = (title, defaultUrl) => {
   if (t === 'mal maas' || t === 'malmaas' || t === 'mal-maas') return malMaasImg;
   if (t === 'planet series' || t === 'the planet series') return planetSeriesImg;
   if (t === 'sign series' || t === 'the sign series') return signSeriesImg;
+  if (t === 'mercury in houses' || t === 'mercury in all houses') return mercuryHousesImg;
   return defaultUrl || defaultCoverImg;
 };
 
