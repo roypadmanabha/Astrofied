@@ -10,6 +10,7 @@ import Footer from './Footer';
 import journalsPromoVideo from '../assets/astrofied_journals_promo.mp4';
 
 import houseSeriesImg from '../assets/journals/house-series.jpg';
+import venusHousesImg from '../assets/journals/venus-houses.jpg';
 import planetSeriesImg from '../assets/journals/planet-series.jpg';
 import signSeriesImg from '../assets/journals/sign-series.jpg';
 import malMaasImg from '../assets/journals/mal-maas.jpg';
@@ -59,7 +60,8 @@ const getJournalImage = (title, defaultUrl) => {
   if (t.includes('jupiter') || t.includes('cancer')) return jupiterImg;
   if (t.includes('mahadasha')) return mahadashaImg;
   if (t.includes('maas') || t.includes('mal')) return malMaasImg;
-  if (t.includes('venus') && t.includes('house')) return houseSeriesImg;
+  if (t.includes('venus') && t.includes('house')) return venusHousesImg;
+  if (t === 'the house series' || t === 'house series') return houseSeriesImg;
   if (t.includes('planet')) return planetSeriesImg;
   if (t.includes('sign')) return signSeriesImg;
   return defaultUrl || defaultCoverImg;
