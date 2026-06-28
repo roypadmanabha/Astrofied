@@ -12,7 +12,7 @@ import GemstoneRemediesTeaser from './components/GemstoneRemediesTeaser';
 import FAQs from './components/FAQs';
 import SolarSystem from './components/SolarSystem';
 import Testimonials from './components/Testimonials';
-import GoogleReviews from './components/GoogleReviews';
+import GoogleReview from './components/GoogleReview';
 import Hero from './components/Hero';
 import Kundali from './components/Kundali';
 import Numerology from './components/Numerology';
@@ -453,7 +453,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <GemstoneRemediesTeaser />
 
       <Testimonials />
-      <GoogleReviews />
+      <GoogleReview />
 
       {/* FAQs Section */}
       <FAQs />
