@@ -128,7 +128,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                                     const targetHref = link.href === '/about'
                                                         ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
                                                         : link.href === '/gemstones'
-                                                            ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5002' : '/gemstones/')
+                                                            ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5004' : '/gemstones/')
                                                             : link.href;
                                                     if (targetHref.startsWith('#')) {
                                                         const element = document.querySelector(targetHref);

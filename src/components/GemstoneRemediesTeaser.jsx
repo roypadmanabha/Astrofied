@@ -15,7 +15,7 @@ export default function GemstoneRemediesTeaser() {
     setTimeout(() => {
       const destination = typeof window !== 'undefined' && 
         (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-          ? 'http://localhost:5002'
+          ? 'http://localhost:5004'
           : typeof window !== 'undefined' && window.location.pathname.startsWith('/Astrofied')
               ? '/Astrofied/gemstones/'
               : '/gemstones/';

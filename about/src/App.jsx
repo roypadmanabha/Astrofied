@@ -595,7 +595,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Expertise</h4>
-                    <p className="font-semibold text-sm sm:text-base">Technology, Marketing, Finance and Legal Management</p>
+                    <p className="font-semibold text-sm sm:text-base">Technology, Marketing, and Brand Management</p>
                   </div>
                 </div>
 
