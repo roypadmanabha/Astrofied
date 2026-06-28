@@ -30,9 +30,12 @@ export default function GooglePresence() {
         <motion.div
           className={`relative overflow-hidden w-full p-6 md:p-10 lg:p-12 rounded-[30px] transition-all duration-500
             ${isDarkMode 
-              ? 'border border-white/20 bg-transparent' 
-              : 'border border-[#A30000]/15 bg-transparent'
+              ? 'border border-white bg-transparent' 
+              : 'border-none'
             }`}
+          style={{
+            backgroundColor: isDarkMode ? 'transparent' : '#f5f5dd'
+          }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
