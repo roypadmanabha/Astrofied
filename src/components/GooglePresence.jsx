@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import googleQr from '../assets/google_qr.png';
+import googleQrComposite from '../assets/google_qr_composite.jpg';
 
 export default function GooglePresence() {
   const { isDarkMode } = useTheme();
@@ -41,15 +41,15 @@ export default function GooglePresence() {
           {/* Main Flex Layout (Responsive columns) */}
           <div className="w-full flex flex-col lg:flex-row items-center lg:items-stretch gap-10 lg:gap-16">
             
-            {/* Left Column - Hexagonal Image Section (Responsive dimensions) */}
+            {/* Left Column - Hexagonal Image Placeholder (Responsive dimensions) */}
             <div className="w-full lg:w-[40%] flex justify-center items-center">
               <div 
-                className="relative w-[210px] h-[210px] sm:w-[250px] sm:h-[250px] md:w-[270px] md:h-[270px] flex items-center justify-center animate-hexagon-float select-none filter drop-shadow-xl"
-                style={{ filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.15))' }}
+                className="relative w-[210px] h-[210px] sm:w-[250px] sm:h-[250px] md:w-[270px] md:h-[270px] flex items-center justify-center animate-hexagon-float select-none"
+                style={{ filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.12))' }}
               >
                 {/* Outer Hexagon with gradient border */}
                 <div 
-                  className={`w-full h-full p-[2.5px] bg-gradient-to-br ${
+                  className={`w-full h-full p-[2px] bg-gradient-to-br ${
                     isDarkMode 
                       ? 'from-[#ffd700] via-[#A30000] to-[#ffd700]' 
                       : 'from-[#A30000] via-[#ffd700] to-[#A30000]'
@@ -58,22 +58,34 @@ export default function GooglePresence() {
                     clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                   }}
                 >
-                  {/* Inner Hexagon container holding the image */}
+                  {/* Inner Hexagon container */}
                   <div 
-                    className="w-full h-full bg-white flex items-center justify-center"
+                    className={`w-full h-full flex flex-col items-center justify-center p-4 ${
+                      isDarkMode ? 'bg-[#121212]' : 'bg-[#FAF9F5]'
+                    }`}
                     style={{
                       clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                     }}
                   >
-                    <img 
-                      src={googleQr} 
-                      alt="Astrofied Google Review QR Code" 
-                      className="w-[98%] h-[98%] object-contain"
+                    {/* Composite QR Code */}
+                    <div 
+                      className="w-[125px] h-[125px] sm:w-[155px] sm:h-[155px] md:w-[165px] md:h-[165px] relative bg-no-repeat rounded-[20px] flex items-center justify-center overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
                       style={{
-                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
+                        backgroundImage: `url(${googleQrComposite})`,
+                        backgroundSize: '200% 100%',
+                        backgroundPosition: 'right center',
                       }}
-                      loading="lazy"
-                    />
+                    >
+                      {/* Inner Raw QR Code */}
+                      <div 
+                        className="w-[88%] h-[88%] bg-no-repeat rounded-[12px]"
+                        style={{
+                          backgroundImage: `url(${googleQrComposite})`,
+                          backgroundSize: '200% 100%',
+                          backgroundPosition: 'left center',
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
