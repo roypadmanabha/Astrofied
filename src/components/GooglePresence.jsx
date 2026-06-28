@@ -28,10 +28,10 @@ export default function GooglePresence() {
 
       <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10">
         <motion.div
-          className={`relative overflow-hidden w-full p-6 md:p-10 lg:p-12 rounded-[30px] transition-all duration-500
+          className={`relative overflow-hidden w-full p-6 md:p-10 lg:p-12 rounded-[30px] transition-all duration-500 border
             ${isDarkMode 
-              ? 'border border-white bg-transparent' 
-              : 'border-none'
+              ? 'border-white bg-transparent' 
+              : 'border-[#969000]'
             }`}
           style={{
             backgroundColor: isDarkMode ? 'transparent' : '#f5f5dd'
@@ -89,7 +89,7 @@ export default function GooglePresence() {
             </div>
 
             {/* Vertical Separator Line (Hidden on mobile) */}
-            <div className={`hidden lg:block w-px self-stretch ${isDarkMode ? 'bg-white/10' : 'bg-black/10'}`}></div>
+            <div className={`hidden lg:block w-px self-stretch ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
 
             {/* Right Column - Text & Content (Responsive items alignment) */}
             <div className="w-full lg:w-[60%] flex flex-col justify-center text-center lg:text-left">
@@ -114,8 +114,13 @@ export default function GooglePresence() {
                 isDarkMode ? 'text-white' : 'text-[#1A1A1A]'
               }`}>
                 Find us on{' '}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#4285F4] via-[#EA4335] to-[#FBBC05] font-extrabold">
-                  Google
+                <span className="font-['Product_Sans','ProductSans','Nunito',sans-serif] font-bold tracking-tight text-[1.05em]">
+                  <span className="text-[#4285F4]">G</span>
+                  <span className="text-[#EA4335]">o</span>
+                  <span className="text-[#FBBC05]">o</span>
+                  <span className="text-[#4285F4]">g</span>
+                  <span className="text-[#34A853]">l</span>
+                  <span className="text-[#EA4335]">e</span>
                 </span>
               </h2>
 
