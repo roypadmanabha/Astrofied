@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import googleQrComposite from '../assets/google_qr_composite.jpg';
+import googleQr from '../assets/google_qr.jpg';
 
 export default function GooglePresence() {
   const { isDarkMode } = useTheme();
@@ -60,30 +60,24 @@ export default function GooglePresence() {
                 >
                   {/* Inner Hexagon container */}
                   <div 
-                    className={`w-full h-full flex flex-col items-center justify-center p-4 ${
+                    className={`w-full h-full flex flex-col items-center justify-center p-6 ${
                       isDarkMode ? 'bg-[#121212]' : 'bg-[#FAF9F5]'
                     }`}
                     style={{
                       clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                     }}
                   >
-                    {/* Composite QR Code */}
+                    {/* The square QR image itself (unclipped, fully visible and scannable) */}
                     <div 
-                      className="w-[125px] h-[125px] sm:w-[155px] sm:h-[155px] md:w-[165px] md:h-[165px] relative bg-no-repeat rounded-[20px] flex items-center justify-center overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
-                      style={{
-                        backgroundImage: `url(${googleQrComposite})`,
-                        backgroundSize: '200% 100%',
-                        backgroundPosition: 'right center',
-                      }}
+                      className={`w-[66%] h-[66%] bg-white rounded-2xl p-2 md:p-3 shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-105 ${
+                        isDarkMode ? 'shadow-black/50' : 'shadow-black/10'
+                      }`}
                     >
-                      {/* Inner Raw QR Code */}
-                      <div 
-                        className="w-[88%] h-[88%] bg-no-repeat rounded-[12px]"
-                        style={{
-                          backgroundImage: `url(${googleQrComposite})`,
-                          backgroundSize: '200% 100%',
-                          backgroundPosition: 'left center',
-                        }}
+                      <img 
+                        src={googleQr} 
+                        alt="Google Reviews QR Code" 
+                        className="w-full h-full object-contain rounded-lg"
+                        loading="lazy"
                       />
                     </div>
                   </div>
