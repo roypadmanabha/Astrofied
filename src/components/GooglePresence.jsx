@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import googleQr from '../assets/google_qr.png';
 
 export default function GooglePresence() {
   const { isDarkMode } = useTheme();
@@ -40,15 +41,15 @@ export default function GooglePresence() {
           {/* Main Flex Layout (Responsive columns) */}
           <div className="w-full flex flex-col lg:flex-row items-center lg:items-stretch gap-10 lg:gap-16">
             
-            {/* Left Column - Hexagonal Image Placeholder (Responsive dimensions) */}
+            {/* Left Column - Hexagonal Image Section (Responsive dimensions) */}
             <div className="w-full lg:w-[40%] flex justify-center items-center">
               <div 
-                className="relative w-[210px] h-[210px] sm:w-[250px] sm:h-[250px] md:w-[270px] md:h-[270px] flex items-center justify-center animate-hexagon-float select-none"
-                style={{ filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.12))' }}
+                className="relative w-[210px] h-[210px] sm:w-[250px] sm:h-[250px] md:w-[270px] md:h-[270px] flex items-center justify-center animate-hexagon-float select-none filter drop-shadow-xl"
+                style={{ filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.15))' }}
               >
                 {/* Outer Hexagon with gradient border */}
                 <div 
-                  className={`w-full h-full p-[2px] bg-gradient-to-br ${
+                  className={`w-full h-full p-[2.5px] bg-gradient-to-br ${
                     isDarkMode 
                       ? 'from-[#ffd700] via-[#A30000] to-[#ffd700]' 
                       : 'from-[#A30000] via-[#ffd700] to-[#A30000]'
@@ -57,44 +58,22 @@ export default function GooglePresence() {
                     clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                   }}
                 >
-                  {/* Inner Hexagon container */}
+                  {/* Inner Hexagon container holding the image */}
                   <div 
-                    className={`w-full h-full flex flex-col items-center justify-center p-6 ${
-                      isDarkMode ? 'bg-[#121212]' : 'bg-[#FAF9F5]'
-                    }`}
+                    className="w-full h-full bg-white flex items-center justify-center"
                     style={{
                       clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                     }}
                   >
-                    {/* Placeholder content inner boundary */}
-                    <div 
-                      className={`w-[85%] h-[85%] border-2 border-dashed rounded-xl flex flex-col items-center justify-center p-4 transition-all duration-300 ${
-                        isDarkMode ? 'border-white/10 hover:border-[#ffd700]/30' : 'border-black/10 hover:border-[#A30000]/30'
-                      }`}
+                    <img 
+                      src={googleQr} 
+                      alt="Astrofied Google Review QR Code" 
+                      className="w-[98%] h-[98%] object-contain"
                       style={{
                         clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                       }}
-                    >
-                      <span className={`text-[10px] md:text-xs font-mulish font-extrabold tracking-widest uppercase mb-1 ${
-                        isDarkMode ? 'text-[#ffd700]' : 'text-[#A30000]'
-                      }`}>
-                        QR Code
-                      </span>
-                      <span className={`text-[9px] md:text-[10px] font-mulish opacity-60 max-w-[120px] leading-tight ${
-                        isDarkMode ? 'text-white' : 'text-black'
-                      }`}>
-                        Image Placeholder
-                      </span>
-                      
-                      {/* Interactive indicator icon */}
-                      <div className={`w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center mt-3 bg-gradient-to-br transition-transform duration-300 hover:scale-110 ${
-                        isDarkMode 
-                          ? 'from-[#ffd700]/10 to-[#A30000]/10 text-[#ffd700]' 
-                          : 'from-[#A30000]/10 to-[#ffd700]/10 text-[#A30000]'
-                      }`}>
-                        <span className="text-sm font-bold font-mulish">+</span>
-                      </div>
-                    </div>
+                      loading="lazy"
+                    />
                   </div>
                 </div>
               </div>
