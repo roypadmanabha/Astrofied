@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { MessageSquare, TrendingUp, ShieldCheck, Heart, Star, Compass, RefreshCw, Search, MapPin, Clock, Globe, ArrowRight } from 'lucide-react';
+import { MessageSquare, TrendingUp, ShieldCheck, Heart, Star, Compass, RefreshCw, Search, MapPin, Clock, Globe, ArrowRight, Share } from 'lucide-react';
 import googleQrImg from '../assets/google_qr.jpg';
 
 const GoogleGLogo = ({ className = "w-5 h-5" }) => (
