@@ -292,7 +292,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className={`fixed top-0 right-0 bottom-0 w-[280px] z-50 p-6 flex flex-col justify-between shadow-2xl lg:hidden ${isDarkMode
                 ? 'bg-gradient-to-b from-[#0A0A0A] to-[#121212] border-l border-gold/10 text-white'
-                : 'bg-[#f5f5dc] border-l border-[#A30000]/10 text-[#0A0A0A]'
+                : 'bg-[#f5f5dd] border-l border-[#A30000]/10 text-[#0A0A0A]'
                 }`}
             >
               <div className="flex flex-col space-y-6">
