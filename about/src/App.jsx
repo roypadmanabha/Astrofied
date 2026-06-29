@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import { Home, Briefcase, GraduationCap, Award, ChartNoAxesCombined, CheckCircle, Heart, Star, BookOpenCheck, AlertCircle, Menu, X, Mail } from 'lucide-react';
+import { Home, Briefcase, GraduationCap, Award, ChartNoAxesCombined, CheckCircle, Heart, Star, BookOpenCheck, CircleAlert, Menu, X, Mail } from 'lucide-react';
 import LegalModal from './components/LegalModal';
 import Footer from './components/Footer';
 import { getWhatsAppLink } from './lib/constants';
@@ -38,17 +38,55 @@ function MainContent() {
     };
     window.addEventListener('scroll', handleScroll);
 
-    const handleContextMenu = (e) => {
-      e.preventDefault();
+    const triggerToast = () => {
       setShowRightClickPopup(true);
       if (window.rightClickTimeout) {
         clearTimeout(window.rightClickTimeout);
       }
       window.rightClickTimeout = setTimeout(() => {
         setShowRightClickPopup(false);
-      }, 3000);
+      }, 2500);
     };
+
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      triggerToast();
+    };
+
+    const handleCopyCut = (e) => {
+      e.preventDefault();
+      triggerToast();
+    };
+
+    const handleDragDrop = (e) => {
+      e.preventDefault();
+      triggerToast();
+    };
+
+    const handleKeyDown = (e) => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      const cmdOrCtrl = isMac ? e.metaKey : e.ctrlKey;
+
+      if (
+        (e.key === 'p' && cmdOrCtrl) ||
+        (e.key === 'c' && cmdOrCtrl) ||
+        (e.key === 'x' && cmdOrCtrl) ||
+        (e.key === 'u' && cmdOrCtrl) ||
+        (e.key === 's' && cmdOrCtrl) ||
+        e.key === 'F12' ||
+        (e.shiftKey && cmdOrCtrl && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c'))
+      ) {
+        e.preventDefault();
+        triggerToast();
+      }
+    };
+
     document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('copy', handleCopyCut);
+    document.addEventListener('cut', handleCopyCut);
+    document.addEventListener('dragstart', handleDragDrop);
+    document.addEventListener('drop', handleDragDrop);
+    window.addEventListener('keydown', handleKeyDown);
 
     // Only use Lenis on Desktop (Non-touch/Large screens)
     let lenis = null;
@@ -71,6 +109,11 @@ function MainContent() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('copy', handleCopyCut);
+      document.removeEventListener('cut', handleCopyCut);
+      document.removeEventListener('dragstart', handleDragDrop);
+      document.removeEventListener('drop', handleDragDrop);
+      window.removeEventListener('keydown', handleKeyDown);
       if (window.rightClickTimeout) {
         clearTimeout(window.rightClickTimeout);
       }
@@ -633,18 +676,20 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* Right Click Protection Popup */}
       <AnimatePresence>
         {showRightClickPopup && (
-          <motion.div
-            initial={{ opacity: 0, y: -50, x: '-50%', scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
-            exit={{ opacity: 0, y: -30, x: '-50%', scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 350, damping: 25 }}
-            className="fixed top-6 left-1/2 z-[100] w-[90%] max-w-sm sm:max-w-md bg-[#A30000] border border-[#ff3333]/30 rounded-full px-6 py-3 shadow-2xl flex items-center gap-3 justify-center"
-          >
-            <AlertCircle className="text-white shrink-0" size={18} />
-            <span className="text-xs sm:text-sm font-mulish font-bold text-white tracking-wide leading-none pt-0.5 whitespace-nowrap">
-              Not allowed. Content protection enabled.
-            </span>
-          </motion.div>
+          <div className="fixed top-28 left-0 right-0 z-[9999] flex justify-center px-4 pointer-events-none select-none">
+            <motion.div
+              initial={{ opacity: 0, y: -40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="pointer-events-auto flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#A30000] text-white shadow-2xl rounded-full max-w-[90vw] md:max-w-md border border-white/10"
+            >
+              <CircleAlert className="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" />
+              <span className="text-xs sm:text-sm md:text-base font-bold font-['Mulish'] tracking-wide">
+                Not allowed. Content protection enabled.
+              </span>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>

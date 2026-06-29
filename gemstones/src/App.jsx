@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle } from 'lucide-react';
+import { CircleAlert } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import GemstoneGrid from './components/GemstoneGrid';
@@ -212,18 +212,20 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       {/* Toast Alert matching premium design block */}
       <AnimatePresence>
         {showToast && (
-          <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 350, damping: 25 }}
-            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[9999] w-[90%] max-w-sm bg-gradient-to-r from-[#8B0000] to-[#A30000] border border-[#ff3333]/50 rounded-2xl px-5 py-3 shadow-2xl flex items-center gap-3"
-          >
-            <AlertCircle className="text-white shrink-0" size={18} />
-            <span className="text-[12px] sm:text-xs font-mulish font-bold text-white tracking-wide leading-none pt-0.5">
-              Not allowed. Content protection enabled.
-            </span>
-          </motion.div>
+          <div className="fixed top-28 left-0 right-0 z-[9999] flex justify-center px-4 pointer-events-none select-none">
+            <motion.div
+              initial={{ opacity: 0, y: -40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="pointer-events-auto flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#A30000] text-white shadow-2xl rounded-full max-w-[90vw] md:max-w-md border border-white/10"
+            >
+              <CircleAlert className="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" />
+              <span className="text-xs sm:text-sm md:text-base font-bold font-['Mulish'] tracking-wide">
+                Not allowed. Content protection enabled.
+              </span>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>
