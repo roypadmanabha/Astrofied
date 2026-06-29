@@ -583,7 +583,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Experience</h4>
-                    <p className="font-semibold text-sm sm:text-base">Handled brand management for over 5 years</p>
+                    <p className="font-semibold text-sm sm:text-base">Product Analyst with Proficiency in SaaS Solutions</p>
                   </div>
                 </div>
 
