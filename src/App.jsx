@@ -21,6 +21,7 @@ import LegalModal from './components/LegalModal';
 import StarfieldBg from './components/StarfieldBg';
 import Panchang from './components/Panchang';
 import WhatsAppButton from './components/WhatsAppButton';
+import ContentProtection from './components/ContentProtection';
 import { getWhatsAppLink } from './lib/constants';
 
 import logo from './assets/logo.png';
@@ -465,6 +466,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         content={legalModal.content}
       />
       <WhatsAppButton />
+      <ContentProtection />
     </div>
   );
 }
