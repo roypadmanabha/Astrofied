@@ -520,7 +520,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   </div>
                   <div className="text-left">
                     <h4 className="text-sm font-bold uppercase tracking-wide opacity-60">Experience</h4>
-                    <p className="font-semibold text-sm sm:text-base">Professional Astrologer since 2019</p>
+                    <p className="font-semibold text-sm sm:text-base">Certified Professional Astrologer since 2019</p>
                   </div>
                 </div>
 
