@@ -45,7 +45,7 @@ export const gemstones = [
     planet: 'Saturn',
     description: 'A powerful, fast-acting stone for discipline, focus, and removing long-standing obstacles. Recommended only after careful chart analysis.',
     imageName: 'neelam',
-    imagePath: 'gemstones/neelam.jpg'
+    imagePath: 'gemstones/neelam.png'
   },
   {
     id: 7,

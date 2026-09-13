@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, LayoutGroup } from 'framer-motion';
 import { Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { isValidIndianMobile } from '../lib/constants';
 import LegalModal from './LegalModal';
+import OfflineReceiptModal from './OfflineReceiptModal';
 
 const TERMS_CONTENT = `
 <ol class="list-decimal pl-4 sm:pl-5 space-y-3 sm:space-y-4 text-justify font-mulish text-[#0A1931]/90">
@@ -51,6 +52,9 @@ const localPincodeDatabase = [
 
 export default function OrderForm({ onSubmitSuccess }) {
   // Form Field States
+  const [formPurchaseMode, setFormPurchaseMode] = useState('online'); // 'online' | 'offline'
+  const [isOfflineModalOpen, setIsOfflineModalOpen] = useState(false);
+  const [offlineOrderInfo, setOfflineOrderInfo] = useState(null);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [paymentType, setPaymentType] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -119,6 +123,61 @@ export default function OrderForm({ onSubmitSuccess }) {
 
   // Loading state
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Auto-reset all form fields to null/empty values
+  const resetForm = () => {
+    setPaymentType('');
+    setFirstName('');
+    setLastName('');
+    setMobile('');
+    setStreetAddress('');
+    setDistrict('');
+    setCity('');
+    setState('');
+    setPincode('');
+    setConsent(false);
+    setSecretCode('');
+    setShowSecretCode(false);
+
+    setTotalAmount('');
+    setAdvanceAmount('');
+    setGemstone('');
+    setSize('');
+
+    setFirstNameTouched(false);
+    setLastNameTouched(false);
+    setMobileTouched(false);
+    setStreetAddressTouched(false);
+    setDistrictTouched(false);
+    setCityTouched(false);
+    setStateTouched(false);
+    setPincodeTouched(false);
+    setTotalAmountTouched(false);
+    setAdvanceAmountTouched(false);
+    setGemstoneTouched(false);
+    setSizeTouched(false);
+
+    setFirstNameError('');
+    setLastNameError('');
+    setMobileError('');
+    setStreetAddressError('');
+    setDistrictError('');
+    setCityError('');
+    setStateError('');
+    setPincodeError('');
+    setTotalAmountError('');
+    setAdvanceAmountError('');
+    setGemstoneError('');
+    setSizeError('');
+    setSubmitError('');
+    setPincodeSuggestions([]);
+  };
+
+  const handleOfflineDownloadComplete = () => {
+    setIsOfflineModalOpen(false);
+    setOfflineOrderInfo(null);
+    resetForm();
+  };
 
   // Handle suggestion click/selection (Auto-fill remaining fields)
   const handlePincodeSelect = (suggestion) => {
@@ -326,10 +385,13 @@ export default function OrderForm({ onSubmitSuccess }) {
     if (totalAmountTouched) {
       if (!totalAmount) {
         setTotalAmountError('Total Amount is required');
-      } else if (parseInt(totalAmount) <= 0) {
-        setTotalAmountError('Must be greater than 0');
       } else {
-        setTotalAmountError('');
+        const num = parseFloat(totalAmount);
+        if (isNaN(num) || num <= 0) {
+          setTotalAmountError('Must be greater than 0');
+        } else {
+          setTotalAmountError('');
+        }
       }
     }
   }, [totalAmount, totalAmountTouched]);
@@ -361,20 +423,39 @@ export default function OrderForm({ onSubmitSuccess }) {
     }
   }, [size, sizeTouched]);
 
-  // Calculate Advance Amount (50% of Total) dynamically
+  // Calculate Advance Amount (50% of Total) dynamically with 2-decimal support
   useEffect(() => {
-    const total = parseInt(totalAmount) || 0;
-    const half = Math.round(total * 0.5);
-    setAdvanceAmount(half > 0 ? half.toString() : '');
+    const total = parseFloat(totalAmount);
+    if (!isNaN(total) && total > 0) {
+      const half = total * 0.5;
+      const rounded = Math.round(half * 100) / 100;
+      setAdvanceAmount(rounded.toString());
+    } else {
+      setAdvanceAmount('');
+    }
   }, [totalAmount]);
 
-  // Derived calculated pending amount
+  // Derived calculated pending amount with 2-decimal support
   const calculatedPendingAmount = React.useMemo(() => {
-    const total = parseInt(totalAmount) || 0;
-    const advance = parseInt(advanceAmount) || 0;
+    const total = parseFloat(totalAmount) || 0;
+    const advance = parseFloat(advanceAmount) || 0;
     const pending = total - advance;
-    return pending >= 0 ? pending : 0;
+    if (pending <= 0) return '0';
+    const rounded = Math.round(pending * 100) / 100;
+    return rounded.toString();
   }, [totalAmount, advanceAmount]);
+
+  // Format amount string for display with comma separation and 2-digit decimals
+  const formatAmountDisplay = (val) => {
+    if (val === null || val === undefined || val === '') return '';
+    const str = val.toString();
+    const parts = str.split('.');
+    const intFormatted = parts[0] ? parseInt(parts[0], 10).toLocaleString('en-IN') : '0';
+    if (parts.length === 2) {
+      return `${intFormatted}.${parts[1]}`;
+    }
+    return intFormatted;
+  };
 
   // Key filtering inputs on keystroke
   const handleFirstNameChange = (e) => {
@@ -391,41 +472,27 @@ export default function OrderForm({ onSubmitSuccess }) {
     setLastName(formatted);
   };
 
-  const handleAmountChange = (e, setter) => {
-    const input = e.target;
-    const rawValue = input.value.replace(/\D/g, ''); // get only digits
-    if (rawValue.length > 7) return;
-
-    // Calculate cursor offset before state change
-    const cursorPosition = input.selectionStart;
-    const valueBeforeCursor = input.value.substring(0, cursorPosition);
-    const digitsBeforeCursor = valueBeforeCursor.replace(/\D/g, '').length;
-
-    // Calculate new formatted value
-    const formattedValue = rawValue ? parseInt(rawValue).toLocaleString('en-IN') : '';
-
-    // Update State
-    setter(rawValue);
-
-    // Keep cursor aligned after rerender
-    requestAnimationFrame(() => {
-      let newCursorPosition = 0;
-      let digitsFound = 0;
-      for (let i = 0; i < formattedValue.length; i++) {
-        if (/\d/.test(formattedValue[i])) {
-          digitsFound++;
-        }
-        newCursorPosition = i + 1;
-        if (digitsFound === digitsBeforeCursor) {
-          break;
-        }
-      }
-      input.setSelectionRange(newCursorPosition, newCursorPosition);
-    });
-  };
-
   const handleTotalAmountChange = (e) => {
-    handleAmountChange(e, setTotalAmount);
+    const val = e.target.value;
+    // Allow digits and at most one decimal point
+    const clean = val.replace(/[^0-9.]/g, '');
+    const parts = clean.split('.');
+    if (parts.length > 2) return;
+    
+    let beforeDecimal = parts[0] || '';
+    let afterDecimal = parts[1];
+    
+    // Max 7 digits before decimal
+    if (beforeDecimal.length > 7) {
+      beforeDecimal = beforeDecimal.slice(0, 7);
+    }
+    // Max 2 digits after decimal
+    if (afterDecimal !== undefined && afterDecimal.length > 2) {
+      afterDecimal = afterDecimal.slice(0, 2);
+    }
+    
+    const finalVal = parts.length === 2 ? `${beforeDecimal}.${afterDecimal}` : beforeDecimal;
+    setTotalAmount(finalVal);
   };
 
   const handleSizeChange = (e) => {
@@ -550,39 +617,79 @@ export default function OrderForm({ onSubmitSuccess }) {
       size: size ? `${size} mm` : '',
       consent: consent ? 'Yes' : 'No',
       transactionRef: transactionRef,
-      paymentStatus: 'pending',
+      paymentStatus: formPurchaseMode === 'offline' ? 'offline_cash' : 'pending',
+      purchaseMode: formPurchaseMode === 'offline' ? 'Offline / Cash Purchase' : 'Online QR Payment',
       timestamp: new Date().toISOString()
     };
 
     try {
-      const url = import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxzy6lXEbLmAsDw1fDdhRXRB1Lqum4fFo_oMFlkY9i8XpnY7gYSoxuciy4c69rejUI/exec';
+      if (formPurchaseMode === 'offline') {
+        // OFFLINE MODE: Strictly DO NOT post or add any data to Google Sheet
+        setOfflineOrderInfo({
+          name: formData.name,
+          mobile: formData.mobile,
+          address: formattedAddress,
+          paymentType: formData.paymentType,
+          totalAmount: formData.totalAmount,
+          advanceAmount: formData.advanceAmount,
+          pendingAmount: formData.pendingAmount,
+          gemstone: gemstone,
+          size: size,
+          transactionRef: transactionRef,
+          timestamp: formData.timestamp
+        });
+        setIsOfflineModalOpen(true);
+      } else {
+        // ONLINE QR PAYMENT MODE ONLY: Submit customer data to Online Payment Google Sheet
+        const onlineFormData = {
+          paymentType: formData.paymentType,
+          totalAmount: formData.totalAmount,
+          advanceAmount: formData.advanceAmount,
+          pendingAmount: formData.pendingAmount,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          name: formData.name,
+          mobile: formData.mobile,
+          address: formData.address,
+          streetAddress: formData.streetAddress,
+          city: formData.city,
+          district: formData.district,
+          state: formData.state,
+          pincode: formData.pincode,
+          gemstone: formData.gemstone,
+          size: formData.size,
+          consent: formData.consent,
+          transactionRef: formData.transactionRef,
+          paymentStatus: 'pending',
+          timestamp: formData.timestamp
+        };
 
-      if (!url) {
-        throw new Error('Google Apps Script URL is missing. Please configure VITE_GOOGLE_SCRIPT_URL in your env settings.');
+        const url = import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxBjY30B8xAp3V2a_gKD_x7t2MS2YMOuaoqHjCIKhXrekBbuUThM_d3KY4RqOckCR2_uw/exec';
+        if (url) {
+          const formBody = new URLSearchParams(onlineFormData).toString();
+          await fetch(url, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formBody,
+          });
+        }
+
+        // Online QR Payment Flow
+        onSubmitSuccess({
+          name: formData.name,
+          mobile: formData.mobile,
+          address: formattedAddress,
+          paymentType: formData.paymentType,
+          totalAmount: formData.totalAmount,
+          advanceAmount: formData.advanceAmount,
+          pendingAmount: formData.pendingAmount,
+          gemstone: gemstone,
+          size: size,
+          transactionRef: transactionRef,
+          amountToPay: formData.paymentType === 'Advance Payment' ? formData.advanceAmount : formData.pendingAmount
+        });
       }
-
-      const formBody = new URLSearchParams(formData).toString();
-
-      await fetch(url, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formBody,
-      });
-
-      onSubmitSuccess({
-        name: formData.name,
-        mobile: formData.mobile,
-        address: formattedAddress,
-        paymentType: formData.paymentType,
-        totalAmount: formData.totalAmount,
-        advanceAmount: formData.advanceAmount,
-        pendingAmount: formData.pendingAmount,
-        gemstone: gemstone,
-        size: size,
-        transactionRef: transactionRef,
-        amountToPay: formData.paymentType === 'Advance Payment' ? formData.advanceAmount : formData.pendingAmount
-      });
     } catch (err) {
       console.error('Order submission failed:', err);
       setSubmitError(err.message || 'Network error occurred. Please check your internet connection and try again.');
@@ -594,6 +701,47 @@ export default function OrderForm({ onSubmitSuccess }) {
   return (
     <section id="order-form" className="py-10 sm:py-16 md:py-24 bg-white border-t border-[#E5DFC2] transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-12 max-w-6xl">
+
+        {/* Purchase Mode Selector Tabs */}
+        <div className="flex justify-center mb-6 sm:mb-12">
+          <LayoutGroup id="purchaseModeTabs">
+            <div className="relative grid grid-cols-2 p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-[#f5f5dd] border border-[#E5DFC2] shadow-sm w-full max-w-[220px] sm:max-w-sm">
+              <button
+                type="button"
+                onClick={() => setFormPurchaseMode('online')}
+                className={`relative z-10 py-1.5 sm:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-base font-mulish transition-colors duration-300 flex items-center justify-center cursor-pointer select-none ${
+                  formPurchaseMode === 'online' ? 'text-white' : 'text-[#555555] hover:text-black'
+                }`}
+              >
+                <span>Online</span>
+                {formPurchaseMode === 'online' && (
+                  <motion.div
+                    layoutId="activeTabPill"
+                    className="absolute inset-0 bg-[#D10000] rounded-lg sm:rounded-xl shadow-md -z-10"
+                    transition={{ type: "spring", stiffness: 500, damping: 35, mass: 0.8 }}
+                  />
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormPurchaseMode('offline')}
+                className={`relative z-10 py-1.5 sm:py-3 rounded-lg sm:rounded-xl font-bold text-xs sm:text-base font-mulish transition-colors duration-300 flex items-center justify-center cursor-pointer select-none ${
+                  formPurchaseMode === 'offline' ? 'text-white' : 'text-[#555555] hover:text-black'
+                }`}
+              >
+                <span>Offline</span>
+                {formPurchaseMode === 'offline' && (
+                  <motion.div
+                    layoutId="activeTabPill"
+                    className="absolute inset-0 bg-[#D10000] rounded-lg sm:rounded-xl shadow-md -z-10"
+                    transition={{ type: "spring", stiffness: 500, damping: 35, mass: 0.8 }}
+                  />
+                )}
+              </button>
+            </div>
+          </LayoutGroup>
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-x-8 xl:gap-x-16 gap-y-6 sm:gap-y-12 items-start lg:items-center justify-between">
 
           {/* Left Column: Heading Text */}
@@ -604,18 +752,23 @@ export default function OrderForm({ onSubmitSuccess }) {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="w-full lg:w-5/12 text-center lg:text-left space-y-6"
           >
-            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-black font-mulish leading-[1.1] text-black">
-              <span className="text-[#A30000]">Complete</span> Your Purchase
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold font-mulish leading-[1.1] text-black">
+              <span className="text-[#D10000]">Complete</span> Your Purchase
             </h2>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl opacity-80 leading-relaxed text-[#555555] font-mulish">
               Please fill in your personal details to complete your gemstone order. Our support team will confirm and assist you.
             </p>
+            <p className="text-xs sm:text-sm font-semibold text-[#D10000] font-mulish">
+              {formPurchaseMode === 'offline'
+                ? '* Explicitly for offline or cash purchase of remedies & gemstones.'
+                : '* This is explicitly for online payment purchase and not for cash.'}
+            </p>
             <div className="bg-[#FAF9F6] border border-[#E5DFC2]/60 rounded-2xl p-5 text-left space-y-2 shadow-sm">
-              <h4 className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#A30000] font-mulish">
-                Payment Policy
+              <h4 className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#D10000] font-mulish">
+                PAYMENT POLICY
               </h4>
               <p className="text-xs sm:text-sm leading-relaxed text-[#666666] font-mulish font-medium text-justify">
-                We offer a flexible split-payment option for the convenience of our clients. You must pay <strong>50% of the total amount</strong> of a prescribed gemstone as an advance payment, while the remaining <strong>50%</strong> is due just before receiving the gemstone.
+                We offer a flexible split-payment option for the convenience of our clients. You must pay 50% of the total amount of a prescribed gemstone as an advance payment, while the remaining 50% is due just before receiving the gemstone.
               </p>
             </div>
           </motion.div>
@@ -632,7 +785,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
               {/* Payment Type */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                   Payment Type
                 </label>
                 <select
@@ -654,7 +807,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     setGemstoneError('');
                     setSizeError('');
                   }}
-                  className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-pointer font-bold"
+                  className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all cursor-pointer font-bold"
                 >
                   <option value="" disabled>Select one</option>
                   <option value="Advance Payment">Advance Payment</option>
@@ -669,24 +822,24 @@ export default function OrderForm({ onSubmitSuccess }) {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {/* Total Amount */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                         Total Amount
                       </label>
-                      <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
+                      <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#D10000] transition-all overflow-hidden">
                         <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
                           ₹
                         </span>
                         <input
                           type="text"
-                          placeholder="0"
-                          value={totalAmount ? parseInt(totalAmount).toLocaleString('en-IN') : ''}
+                          placeholder="0.00"
+                          value={formatAmountDisplay(totalAmount)}
                           onChange={handleTotalAmountChange}
                           onBlur={() => setTotalAmountTouched(true)}
                           className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold"
                         />
                       </div>
                       {totalAmountError && (
-                        <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                        <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                           <AlertCircle size={12} />
                           <span>{totalAmountError}</span>
                         </div>
@@ -695,7 +848,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                     {/* Advance Amount */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                         Advance Amount
                       </label>
                       <div className="flex rounded-xl bg-white border border-[#E5DFC2] overflow-hidden">
@@ -704,8 +857,8 @@ export default function OrderForm({ onSubmitSuccess }) {
                         </span>
                         <input
                           type="text"
-                          placeholder="0"
-                          value={advanceAmount ? parseInt(advanceAmount).toLocaleString('en-IN') : '0'}
+                          placeholder="0.00"
+                          value={advanceAmount ? formatAmountDisplay(advanceAmount) : '0'}
                           readOnly
                           disabled
                           className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
@@ -715,7 +868,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                     {/* Pending Amount */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                         Pending Amount
                       </label>
                       <div className="flex rounded-xl bg-white border border-[#E5DFC2] overflow-hidden">
@@ -724,7 +877,8 @@ export default function OrderForm({ onSubmitSuccess }) {
                         </span>
                         <input
                           type="text"
-                          value={calculatedPendingAmount ? parseInt(calculatedPendingAmount).toLocaleString('en-IN') : '0'}
+                          placeholder="0.00"
+                          value={calculatedPendingAmount ? formatAmountDisplay(calculatedPendingAmount) : '0'}
                           readOnly
                           disabled
                           className="w-full bg-transparent text-black px-3.5 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none border-none font-extrabold cursor-not-allowed"
@@ -737,14 +891,14 @@ export default function OrderForm({ onSubmitSuccess }) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Gemstone Dropdown */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                         Gemstone
                       </label>
                       <select
                         value={gemstone}
                         onChange={(e) => setGemstone(e.target.value)}
                         onBlur={() => setGemstoneTouched(true)}
-                        className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-pointer font-bold"
+                        className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all cursor-pointer font-bold"
                       >
                         <option value="" disabled>Select Gemstone</option>
                         <option value="Ruby">Ruby</option>
@@ -758,7 +912,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                         <option value="Cat's Eye">Cat's Eye</option>
                       </select>
                       {gemstoneError && (
-                        <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                        <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                           <AlertCircle size={12} />
                           <span>{gemstoneError}</span>
                         </div>
@@ -767,10 +921,10 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                     {/* Size Input */}
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                         Size (mm)
                       </label>
-                      <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
+                      <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#D10000] transition-all overflow-hidden">
                         <input
                           type="text"
                           placeholder="00.00"
@@ -784,7 +938,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                         </span>
                       </div>
                       {sizeError && (
-                        <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                        <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                           <AlertCircle size={12} />
                           <span>{sizeError}</span>
                         </div>
@@ -798,7 +952,7 @@ export default function OrderForm({ onSubmitSuccess }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* First Name */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                     First Name
                   </label>
                   <input
@@ -809,10 +963,10 @@ export default function OrderForm({ onSubmitSuccess }) {
                     onBlur={() => setFirstNameTouched(true)}
                     onPaste={(e) => e.preventDefault()}
                     autoComplete="given-name"
-                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all font-bold"
                   />
                   {firstNameError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                    <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{firstNameError}</span>
                     </div>
@@ -821,7 +975,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                 {/* Last Name */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                     Last Name
                   </label>
                   <input
@@ -832,10 +986,10 @@ export default function OrderForm({ onSubmitSuccess }) {
                     onBlur={() => setLastNameTouched(true)}
                     onPaste={(e) => e.preventDefault()}
                     autoComplete="family-name"
-                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all font-bold"
                   />
                   {lastNameError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                    <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{lastNameError}</span>
                     </div>
@@ -845,10 +999,10 @@ export default function OrderForm({ onSubmitSuccess }) {
 
               {/* Mobile Number */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                   Mobile No.
                 </label>
-                <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#A30000] transition-all overflow-hidden">
+                <div className="flex rounded-xl bg-white border border-[#E5DFC2] focus-within:ring-2 focus-within:ring-[#D10000] transition-all overflow-hidden">
                   <span className="bg-[#E5DFC2]/50 border-r border-[#E5DFC2] text-[#555555] px-3 py-2.5 sm:px-3.5 sm:py-3.5 text-sm sm:text-base font-extrabold select-none flex items-center justify-center font-mulish">
                     +91
                   </span>
@@ -862,7 +1016,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                   />
                 </div>
                 {mobileError && (
-                  <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                  <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                     <AlertCircle size={12} />
                     <span>{mobileError}</span>
                   </div>
@@ -872,7 +1026,7 @@ export default function OrderForm({ onSubmitSuccess }) {
               {/* Address (Max 500 chars) */}
               <div className="flex flex-col gap-1.5">
                 <div className="flex justify-between items-center">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                     Address
                   </label>
                   <span className="text-[9px] font-bold text-gray-400">
@@ -886,10 +1040,10 @@ export default function OrderForm({ onSubmitSuccess }) {
                   onBlur={() => setStreetAddressTouched(true)}
                   rows={2}
                   maxLength={500}
-                  className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all resize-none leading-relaxed font-bold"
+                  className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all resize-none leading-relaxed font-bold"
                 />
                 {streetAddressError && (
-                  <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                  <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                     <AlertCircle size={12} />
                     <span>{streetAddressError}</span>
                   </div>
@@ -900,7 +1054,7 @@ export default function OrderForm({ onSubmitSuccess }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* State Dropdown */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                     State
                   </label>
                   <select
@@ -912,7 +1066,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                       setDistrictTouched(false);
                     }}
                     onBlur={() => setStateTouched(true)}
-                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-pointer font-bold"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all cursor-pointer font-bold"
                   >
                     <option value="">Select State</option>
                     {indianStatesAndUTs.map((s) => (
@@ -920,7 +1074,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     ))}
                   </select>
                   {stateError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                    <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{stateError}</span>
                     </div>
@@ -929,7 +1083,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                 {/* District Dropdown */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                     District
                   </label>
                   <select
@@ -937,7 +1091,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     onChange={(e) => setDistrict(e.target.value)}
                     onBlur={() => setDistrictTouched(true)}
                     disabled={!state}
-                    className={`w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold ${!state ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
+                    className={`w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all font-bold ${!state ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                   >
                     <option value="">Select District</option>
                     {districtsList.map((d) => (
@@ -945,7 +1099,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     ))}
                   </select>
                   {districtError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                    <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{districtError}</span>
                     </div>
@@ -958,11 +1112,11 @@ export default function OrderForm({ onSubmitSuccess }) {
                 {/* PIN Code with Autocomplete suggestions */}
                 <div className="flex flex-col gap-1.5 relative">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                       PIN Code
                     </label>
                     {isSearchingPincode && (
-                      <Loader2 className="w-3 h-3 animate-spin text-[#A30000]" />
+                      <Loader2 className="w-3 h-3 animate-spin text-[#D10000]" />
                     )}
                   </div>
                   <input
@@ -976,10 +1130,10 @@ export default function OrderForm({ onSubmitSuccess }) {
                       setTimeout(() => setPincodeSuggestions([]), 200);
                       setPincodeTouched(true);
                     }}
-                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all font-bold"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all font-bold"
                   />
                   {pincodeError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                    <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{pincodeError}</span>
                     </div>
@@ -997,9 +1151,9 @@ export default function OrderForm({ onSubmitSuccess }) {
                             e.preventDefault();
                             handlePincodeSelect(s);
                           }}
-                          className="w-full text-left px-4 py-3 text-xs font-semibold transition-all border-b border-[#E5DFC2]/50 last:border-0 text-black hover:bg-[#A30000]/10 hover:text-[#A30000]"
+                          className="w-full text-left px-4 py-3 text-xs font-semibold transition-all border-b border-[#E5DFC2]/50 last:border-0 text-black hover:bg-[#D10000]/10 hover:text-[#D10000]"
                         >
-                          <span className="font-extrabold text-[#A30000]">{s.pincode}</span>
+                          <span className="font-extrabold text-[#D10000]">{s.pincode}</span>
                           <span className="text-gray-500 font-medium"> - {s.office}, {s.district}, {s.state}</span>
                         </button>
                       ))}
@@ -1009,7 +1163,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                 {/* City/Town/Village Input (Read-only) */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                     City/Town/Village
                   </label>
                   <input
@@ -1020,7 +1174,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base font-bold cursor-not-allowed opacity-100 focus:outline-none"
                   />
                   {cityError && (
-                    <div className="flex items-center gap-1 text-[#A30000] text-[10px] font-bold font-mulish mt-0.5">
+                    <div className="flex items-center gap-1 text-[#D10000] text-[10px] font-bold font-mulish mt-0.5">
                       <AlertCircle size={12} />
                       <span>{cityError}</span>
                     </div>
@@ -1029,13 +1183,13 @@ export default function OrderForm({ onSubmitSuccess }) {
 
                 {/* Country */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                     Country
                   </label>
                   <select
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
-                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all cursor-not-allowed font-bold"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl px-3 py-2.5 sm:px-4 sm:py-3.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all cursor-not-allowed font-bold"
                     disabled
                   >
                     <option value="INDIA">INDIA</option>
@@ -1045,7 +1199,7 @@ export default function OrderForm({ onSubmitSuccess }) {
 
               {/* Enter Secret Code (Manual OTP) */}
               <div className="flex flex-col gap-1.5 mt-2">
-                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#A30000] font-mulish">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D10000] font-mulish">
                   Enter Secret Code
                 </label>
                 <div className="relative w-full">
@@ -1054,7 +1208,7 @@ export default function OrderForm({ onSubmitSuccess }) {
                     placeholder="Enter secret code to enable payment"
                     value={secretCode}
                     onChange={(e) => setSecretCode(e.target.value)}
-                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl pl-3 pr-10 py-2.5 sm:pl-4 sm:pr-12 sm:py-3.5 text-sm sm:text-base font-bold focus:outline-none focus:ring-2 focus:ring-[#A30000] transition-all"
+                    className="w-full bg-white border border-[#E5DFC2] text-black rounded-xl pl-3 pr-10 py-2.5 sm:pl-4 sm:pr-12 sm:py-3.5 text-sm sm:text-base font-bold focus:outline-none focus:ring-2 focus:ring-[#D10000] transition-all"
                   />
                   <button
                     type="button"
@@ -1087,13 +1241,13 @@ export default function OrderForm({ onSubmitSuccess }) {
                   )}
                 </div>
                 <label className="text-xs text-[#555555] leading-relaxed cursor-pointer select-none text-justify">
-                  I hereby agree to the <a href="#terms" onClick={(e) => { e.preventDefault(); setIsTermsModalOpen(true); }} className="text-[#A30000] font-extrabold underline hover:opacity-80 transition-opacity">Terms and Conditions</a> of Astrofied. I confirm that I am purchasing this gemstone strictly based on my own informed decision and the recommendation provided by my consulting astrologer, and that no one has influenced, pressured, or obligated me to make this purchase.
+                  I hereby agree to the <a href="#terms" onClick={(e) => { e.preventDefault(); setIsTermsModalOpen(true); }} className="text-[#D10000] font-extrabold underline hover:opacity-80 transition-opacity">Terms and Conditions</a> of Astrofied. I confirm that I am purchasing this gemstone strictly based on my own informed decision and the recommendation provided by my consulting astrologer, and that no one has influenced, pressured, or obligated me to make this purchase.
                 </label>
               </div>
 
               {/* Submission error */}
               {submitError && (
-                <div className="p-4 rounded-xl bg-[#A30000]/5 border border-[#A30000]/20 text-[#A30000] text-sm flex items-start gap-3 mt-2 leading-relaxed font-semibold">
+                <div className="p-4 rounded-xl bg-[#D10000]/5 border border-[#D10000]/20 text-[#D10000] text-sm flex items-start gap-3 mt-2 leading-relaxed font-semibold">
                   <AlertCircle size={20} className="shrink-0 mt-0.5" />
                   <span>{submitError}</span>
                 </div>
@@ -1111,7 +1265,9 @@ export default function OrderForm({ onSubmitSuccess }) {
                     <span className="whitespace-nowrap text-sm sm:text-base">Processing...</span>
                   </>
                 ) : (
-                  <span className="whitespace-nowrap text-sm sm:text-base">Proceed to Pay</span>
+                  <span className="whitespace-nowrap text-sm sm:text-base uppercase tracking-wider font-extrabold">
+                    Proceed
+                  </span>
                 )}
               </button>
 
@@ -1126,6 +1282,13 @@ export default function OrderForm({ onSubmitSuccess }) {
         onClose={() => setIsTermsModalOpen(false)}
         title="Terms and Conditions"
         content={TERMS_CONTENT}
+      />
+
+      <OfflineReceiptModal
+        isOpen={isOfflineModalOpen}
+        onClose={() => setIsOfflineModalOpen(false)}
+        orderInfo={offlineOrderInfo}
+        onDownloadComplete={handleOfflineDownloadComplete}
       />
 
       <style>{`

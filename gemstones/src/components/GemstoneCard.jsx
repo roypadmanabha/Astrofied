@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // A map of beautiful gradients representing the gemstones' color profile
 const gemstoneColorGradients = {
@@ -16,6 +16,7 @@ const gemstoneColorGradients = {
 
 export default function GemstoneCard({ gemstone, index }) {
   const [imgError, setImgError] = useState(false);
+  const [showFullDesc, setShowFullDesc] = useState(false);
 
   // Animation variants
   const cardVariants = {
@@ -41,7 +42,8 @@ export default function GemstoneCard({ gemstone, index }) {
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ y: -6, boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)' }}
-      className="gemstone-card relative overflow-hidden bg-white rounded-3xl border border-[#E5DFC2] p-6 flex flex-col items-center text-center shadow-md hover:shadow-xl transition-all duration-300"
+      className="gemstone-card relative overflow-hidden bg-[#f5f5dd] rounded-2xl sm:rounded-3xl border border-[#E5DFC2] p-2.5 sm:p-6 flex flex-col items-center text-center shadow-md hover:shadow-xl transition-all duration-300"
+      style={{ backgroundColor: '#f5f5dd' }}
     >
       
       {/* Top-Left Ribbon "ASTROFIED" */}
@@ -53,13 +55,13 @@ export default function GemstoneCard({ gemstone, index }) {
       <div className="card-gold-corner" />
 
       {/* Gemstone Image Frame */}
-      <div className="w-32 h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden shadow-inner border border-black/5 flex items-center justify-center p-2 mb-6 relative bg-gradient-to-br from-black/5 to-transparent">
+      <div className="w-20 h-20 sm:w-32 sm:h-32 md:w-36 md:h-36 flex items-center justify-center mb-2 sm:mb-6 relative">
         {gemstone.imagePath && !imgError ? (
           <img
             src={gemstone.imagePath}
             alt={gemstone.name}
             onError={() => setImgError(true)}
-            className="w-full h-full object-cover rounded-xl select-none"
+            className="w-full h-full object-contain select-none"
             loading="lazy"
           />
         ) : (
@@ -76,17 +78,43 @@ export default function GemstoneCard({ gemstone, index }) {
       </div>
 
       {/* Gemstone Name */}
-      <h3 className="text-lg md:text-xl font-mulish font-extrabold mb-2 text-black">
+      <h3 className="text-base sm:text-lg md:text-xl font-mulish font-extrabold mb-1 sm:mb-2 text-black leading-tight">
         {gemstone.name}
       </h3>
 
       {/* Planet Badge/Label */}
-      <div className="mb-4 px-3.5 py-1 rounded-[10px] bg-gradient-to-r from-black to-[#A30000] text-white text-[10px] font-mulish font-black tracking-[0.15em] uppercase border-none shadow-sm shadow-[#A30000]/10">
+      <div className="mb-2 sm:mb-4 px-2 sm:px-3.5 py-0.5 sm:py-1 rounded-[8px] sm:rounded-[10px] bg-gradient-to-r from-black to-[#D10000] text-white text-[8px] sm:text-[10px] font-mulish font-black tracking-[0.1em] sm:tracking-[0.15em] uppercase border-none shadow-sm shadow-[#D10000]/10">
         <span className="hidden sm:inline">Planet: </span>{gemstone.planet}
       </div>
 
-      {/* Description */}
-      <p className="text-xs md:text-sm text-[#555555] leading-relaxed text-justify font-mulish font-medium flex-grow">
+      {/* Mobile Description & Read More Toggle */}
+      <div className="sm:hidden w-full flex flex-col items-center mt-1">
+        <AnimatePresence initial={false}>
+          {showFullDesc && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.04, 0.62, 0.23, 0.98] }}
+              className="overflow-hidden w-full"
+            >
+              <p className="text-[10px] sm:text-xs text-[#555555] leading-normal text-left font-mulish font-medium mb-2.5 pt-1">
+                {gemstone.description}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <button
+          type="button"
+          onClick={() => setShowFullDesc(!showFullDesc)}
+          className="text-[10px] font-bold text-[#D10000] hover:underline font-mulish focus:outline-none py-0.5"
+        >
+          {showFullDesc ? 'Read Less' : 'Read More'}
+        </button>
+      </div>
+
+      {/* Desktop Description */}
+      <p className="hidden sm:block text-xs md:text-sm text-[#555555] leading-relaxed text-justify font-mulish font-medium flex-grow">
         {gemstone.description}
       </p>
 
@@ -107,6 +135,15 @@ export default function GemstoneCard({ gemstone, index }) {
           padding: 3px 0;
           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
           z-index: 10;
+        }
+        @media (max-width: 639px) {
+          .card-ribbon {
+            top: 10px;
+            left: -32px;
+            width: 92px;
+            font-size: 7px;
+            padding: 2px 0;
+          }
         }
         .card-gold-corner {
           position: absolute;

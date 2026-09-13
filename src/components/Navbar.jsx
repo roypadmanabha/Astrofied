@@ -8,21 +8,20 @@ import logo from '../assets/logo.png';
 const desktopNavLinks = [
     { name: 'Services', href: '#services' },
     { name: 'Pricing', href: '#pricing' },
-    { name: 'Team', href: '/about' },
+    { name: 'Numero', href: '#numerology', isGradient: true },
     { name: 'Panchang', href: '#panchang' },
-    { name: 'Journals', href: '#journals' },
+    { name: 'Journals', href: '#journals', isGradient: true },
     { name: 'Contact', href: '#footer' },
 ];
 
 const mobileNavLinks = [
     { name: 'Services', href: '#services', icon: Briefcase },
     { name: 'Pricing', href: '#pricing', icon: Tag },
-    { name: 'Numerology', href: '#numerology', icon: Hash },
+    { name: 'Numero', href: '#numerology', icon: Hash, isGradient: true },
     { name: 'Panchang', href: '#panchang', icon: Compass },
-    { name: 'Journals', href: '#journals', icon: BookOpen },
+    { name: 'Journals', href: '#journals', icon: BookOpen, isGradient: true },
     { name: 'Gemstones', href: '/gemstones', icon: Gem },
     { name: 'Feedback', href: '#feedback', icon: MessageSquare },
-    { name: 'Team', href: '/about', icon: Users },
     { name: 'Contact', href: '#footer', icon: Mail },
 ];
 
@@ -125,6 +124,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                                 animate={{ opacity: 1, x: 0 }}
                                                 transition={{ delay: index * 0.03, type: 'spring', stiffness: 120 }}
                                                 onClick={(e) => {
+                                                    if (link.disabled) return;
                                                     const targetHref = link.href === '/about'
                                                         ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
                                                         : link.href === '/gemstones'
@@ -140,21 +140,27 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                                     }
                                                     setIsOpen(false);
                                                 }}
-                                                className={`group flex items-center gap-3.5 text-sm sm:text-base font-bold tracking-wider font-mulish py-2 px-3 sm:py-2.5 sm:px-4 rounded-xl cursor-pointer transition-all duration-300 ${
-                                                    isDarkMode 
-                                                        ? 'text-gray-300 hover:text-gold hover:bg-white/5' 
-                                                        : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5'
+                                                className={`group flex items-center gap-3.5 text-sm sm:text-base font-bold tracking-wider font-mulish py-2 px-3 sm:py-2.5 sm:px-4 rounded-xl transition-all duration-300 ${
+                                                    link.disabled
+                                                        ? 'opacity-40 cursor-not-allowed pointer-events-none text-gray-400'
+                                                        : (isDarkMode 
+                                                            ? 'text-gray-300 hover:text-gold hover:bg-white/5 cursor-pointer' 
+                                                            : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5 cursor-pointer')
                                                 }`}
-                                                whileTap={{ scale: 0.97 }}
+                                                whileTap={link.disabled ? {} : { scale: 0.97 }}
                                             >
-                                                <div className={`p-2 rounded-xl transition-all duration-300 group-hover:scale-110 shrink-0 ${
-                                                    isDarkMode 
-                                                        ? 'bg-gold/10 text-gold shadow-[0_0_12px_rgba(212,175,55,0.08)]' 
-                                                        : 'bg-[#FF0000]/10 text-[#FF0000] shadow-[0_0_12px_rgba(255,0,0,0.05)]'
+                                                <div className={`p-2 rounded-xl transition-all duration-300 shrink-0 ${
+                                                    link.disabled
+                                                        ? 'bg-gray-200 dark:bg-gray-800 text-gray-400'
+                                                        : (isDarkMode 
+                                                            ? 'bg-gold/10 text-gold shadow-[0_0_12px_rgba(212,175,55,0.08)] group-hover:scale-110' 
+                                                            : 'bg-[#FF0000]/10 text-[#FF0000] shadow-[0_0_12px_rgba(255,0,0,0.05)] group-hover:scale-110')
                                                 }`}>
                                                     <link.icon size={16} strokeWidth={2.5} />
                                                 </div>
-                                                <span>{link.name}</span>
+                                                <span className={link.isGradient ? `bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-red-600'}` : ''}>
+                                                    {link.name}
+                                                </span>
                                             </motion.div>
                                         </div>
                                     );
@@ -227,7 +233,9 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         {desktopNavLinks.map((link) => (
                             <motion.button
                                 key={link.name}
+                                disabled={link.disabled}
                                 onClick={() => {
+                                    if (link.disabled) return;
                                     const targetHref = link.href === '/about'
                                         ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
                                         : link.href;
@@ -240,15 +248,23 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                         window.location.href = targetHref;
                                     }
                                 }}
-                                className={`text-lg font-bold transition-all relative group bg-transparent border-none p-0 cursor-pointer ${
-                                    isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#FF0000]'
+                                className={`text-lg font-bold transition-all relative group bg-transparent border-none p-0 ${
+                                    link.disabled
+                                        ? 'opacity-40 cursor-not-allowed text-gray-400 select-none'
+                                        : link.isGradient
+                                            ? `bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-red-600'} cursor-pointer`
+                                            : (isDarkMode ? 'text-gray-100 hover:text-gold cursor-pointer' : 'text-black hover:text-[#FF0000] cursor-pointer')
                                 }`}
-                                whileHover={{ scale: 1.05 }}
+                                whileHover={link.disabled ? {} : { scale: 1.05 }}
                             >
                                 {link.name}
-                                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
-                                    isDarkMode ? 'bg-gold' : 'bg-[#FF0000]'
-                                }`} />
+                                {!link.disabled && (
+                                    <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
+                                        link.isGradient
+                                            ? (isDarkMode ? 'bg-yellow-500' : 'bg-red-600')
+                                            : (isDarkMode ? 'bg-gold' : 'bg-[#FF0000]')
+                                    }`} />
+                                )}
                             </motion.button>
                         ))}
                     </div>

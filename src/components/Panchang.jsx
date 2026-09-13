@@ -269,7 +269,7 @@ export default function Panchang() {
           viewport={{ once: true }}
           className="text-center mb-8 md:mb-16"
         >
-          <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black font-mulish mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+          <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold font-mulish mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
             Live Vedic <span className={isDarkMode ? 'text-gold' : 'text-[#FF0000]'}>Panchang</span>
           </h2>
           <p className={`text-lg md:text-xl font-mulish opacity-70 max-w-3xl mx-auto mb-8 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>

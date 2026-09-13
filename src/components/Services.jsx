@@ -213,7 +213,7 @@ export default function Services() {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className={`text-center mb-16 max-w-4xl mx-auto text-base md:text-lg opacity-80 font-mulish ${isDarkMode ? 'text-gray-300' : 'text-black/80'}`}
                 >
-                    Here's what we cover in a single online consultation based on the questions you ask.
+                    Here's what we cover in a single consultation based on the questions you ask.
                 </motion.p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">

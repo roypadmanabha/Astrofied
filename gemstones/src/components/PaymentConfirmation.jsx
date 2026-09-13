@@ -6,7 +6,7 @@ import { jsPDF } from 'jspdf';
 import logo from '../assets/logo.png';
 
 const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL ||
-  'https://script.google.com/macros/s/AKfycbxzy6lXEbLmAsDw1fDdhRXRB1Lqum4fFo_oMFlkY9i8XpnY7gYSoxuciy4c69rejUI/exec';
+  'https://script.google.com/macros/s/AKfycbxBjY30B8xAp3V2a_gKD_x7t2MS2YMOuaoqHjCIKhXrekBbuUThM_d3KY4RqOckCR2_uw/exec';
 
 const POLL_INTERVAL_MS = 5000; // check every 5 seconds
 
@@ -18,8 +18,22 @@ const TERMS_TEXT =
   '5. Lab Certified Authenticity: All our gemstones are lab-certified, tested, and guaranteed to be 100% authentic. ' +
   '6. Personal Use Only: These gemstones are sold for personal use only and are strictly not intended for resale or commercial purposes.';
 
+const formatCurrency = (val) => {
+  if (val === null || val === undefined || val === '') return '0';
+  const num = parseFloat(val);
+  if (isNaN(num) || num <= 0) return '0';
+  const str = val.toString();
+  const parts = str.split('.');
+  const intPart = (parseInt(parts[0], 10) || 0).toLocaleString('en-IN');
+  if (parts.length === 2 && parts[1]) {
+    const dec = parts[1].padEnd(2, '0').slice(0, 2);
+    return `${intPart}.${dec}`;
+  }
+  return intPart;
+};
+
 export default function PaymentConfirmation({ orderInfo, onDone }) {
-  const amount = '₹' + (parseInt(orderInfo.amountToPay) || 0).toLocaleString('en-IN');
+  const amount = '₹' + formatCurrency(orderInfo.amountToPay);
   const numericAmount = orderInfo.amountToPay || '0';
   const formattedAmount = parseFloat(numericAmount).toFixed(2);
 
@@ -34,6 +48,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
   const [paymentDateTime, setPaymentDateTime] = useState(null);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [isCancelled, setIsCancelled] = useState(false);
   const [pdfAutoDownloaded, setPdfAutoDownloaded] = useState(false);
   const [showContactPrompt, setShowContactPrompt] = useState(false); // appears after 60s if still unpaid
   const pollRef = useRef(null);
@@ -45,25 +60,37 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
     return () => clearInterval(t);
   }, []);
 
+  // ── Handle Cancellation & Page Reload ──────────────────────────────────────
+  const triggerCancellation = useCallback(() => {
+    if (pollRef.current) { clearInterval(pollRef.current); pollRef.current = null; }
+    setIsCancelled(true);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1800);
+  }, []);
+
   // ── Countdown timer ────────────────────────────────────────────────────────
   useEffect(() => {
-    if (paymentConfirmed) return;
-    if (timeLeft <= 0) { window.location.reload(); return; }
+    if (paymentConfirmed || isCancelled) return;
+    if (timeLeft <= 0) {
+      triggerCancellation();
+      return;
+    }
     const t = setInterval(() => setTimeLeft(p => p - 1), 1000);
     return () => clearInterval(t);
-  }, [timeLeft, paymentConfirmed]);
+  }, [timeLeft, paymentConfirmed, isCancelled, triggerCancellation]);
 
   // ── Scroll lock for modal ──────────────────────────────────────────────────
   useEffect(() => {
-    document.body.style.overflow = showWarningModal ? 'hidden' : '';
+    document.body.style.overflow = (showWarningModal || isCancelled) ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [showWarningModal]);
+  }, [showWarningModal, isCancelled]);
 
   const formatTime = (s) => `${Math.floor(s / 60).toString().padStart(2, '0')}:${(s % 60).toString().padStart(2, '0')}`;
 
   const formatDateTime = (date) => {
     const d = date.getDate().toString().padStart(2, '0');
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const m = months[date.getMonth()];
     const y = date.getFullYear();
     let h = date.getHours();
@@ -83,72 +110,115 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
   }, []);
 
   // ── Poll Google Apps Script every 5 s for payment status ──────────────────
-  useEffect(() => {
-    if (!transactionRef || paymentConfirmed) return;
+  const checkPaymentStatus = useCallback(async () => {
+    if (!transactionRef || paymentConfirmed || isCancelled) return;
+    try {
+      const pollUrl = `${SCRIPT_URL}?action=checkPayment&ref=${encodeURIComponent(transactionRef)}&callback=__parse`;
+      console.log('[Astrofied] Polling status:', pollUrl.slice(0, 80) + '...');
 
-    const checkPayment = async () => {
-      try {
-        // Use callback param so Apps Script returns text/javascript content-type
-        // (which has proper CORS headers on Google's side)
-        const pollUrl = `${SCRIPT_URL}?action=checkPayment&ref=${encodeURIComponent(transactionRef)}&callback=__parse`;
-        console.log('[Astrofied] Polling:', pollUrl.slice(0, 80) + '...');
+      const res = await fetch(pollUrl);
+      const text = await res.text();
 
-        const res = await fetch(pollUrl);
-        const text = await res.text();
-        console.log('[Astrofied] Raw response:', text.slice(0, 200));
-
-        // Response is either:
-        //   __parse({"status":"paid"});   (JSONP format)
-        //   {"status":"paid"}              (plain JSON)
-        let data;
-        const jsonpMatch = text.match(/__parse\((.+)\);?/);
-        if (jsonpMatch) {
-          data = JSON.parse(jsonpMatch[1]);
-        } else {
-          data = JSON.parse(text);
-        }
-
-        console.log('[Astrofied] Parsed status:', data.status);
-        if (data && data.status === 'paid') {
-          setIsVerifying(true);
-          setTimeout(() => confirmPayment(), 1800);
-        }
-      } catch (err) {
-        console.warn('[Astrofied] Payment poll error:', err.message);
+      let data;
+      const jsonpMatch = text.match(/__parse\((.+)\);?/);
+      if (jsonpMatch) {
+        data = JSON.parse(jsonpMatch[1]);
+      } else {
+        data = JSON.parse(text);
       }
-    };
 
-    pollRef.current = setInterval(checkPayment, POLL_INTERVAL_MS);
-    return () => { if (pollRef.current) clearInterval(pollRef.current); };
-  }, [transactionRef, paymentConfirmed, confirmPayment]);
+      console.log('[Astrofied] Parsed payment status:', data);
+      const statusStr = (data && data.status ? data.status.toString().toUpperCase() : '');
+      if (data && (data.paid === true || statusStr === 'PAID' || statusStr === 'SUCCESS' || statusStr === 'COMPLETED' || statusStr === 'CONFIRMED')) {
+        setIsVerifying(true);
+        setTimeout(() => confirmPayment(), 1500);
+      } else if (data && (statusStr === 'CANCELLED' || statusStr === 'REJECTED')) {
+        triggerCancellation();
+      }
+    } catch (err) {
+      console.warn('[Astrofied] Payment poll error:', err.message);
+    }
+  }, [transactionRef, paymentConfirmed, isCancelled, confirmPayment, triggerCancellation]);
 
-  // ── Show WhatsApp contact prompt after 60 s (NON-interactive — not a confirm button) ──
-  // This is ONLY a help message. The ONLY way to reach the success screen is
-  // via backend polling (admin marking column Q as 'paid' in the sheet).
   useEffect(() => {
-    if (paymentConfirmed) return;
+    if (!transactionRef || paymentConfirmed || isCancelled) return;
+    pollRef.current = setInterval(checkPaymentStatus, POLL_INTERVAL_MS);
+    return () => { if (pollRef.current) clearInterval(pollRef.current); };
+  }, [transactionRef, paymentConfirmed, isCancelled, checkPaymentStatus]);
+
+  // ── Show WhatsApp contact prompt after 60 s (NON-interactive help) ───────
+  useEffect(() => {
+    if (paymentConfirmed || isCancelled) return;
     waitTimerRef.current = setTimeout(() => setShowContactPrompt(true), 60000);
     return () => { if (waitTimerRef.current) clearTimeout(waitTimerRef.current); };
-  }, [paymentConfirmed]);
+  }, [paymentConfirmed, isCancelled]);
+
+  const [downloadCompleted, setDownloadCompleted] = useState(false);
 
   // ── Auto-download PDF once payment confirmed ───────────────────────────────
   useEffect(() => {
     if (paymentConfirmed && !pdfAutoDownloaded) {
       setPdfAutoDownloaded(true);
-      // Small delay so the success animation has time to play
       setTimeout(() => handleDownloadPDF(), 1200);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paymentConfirmed]);
 
-  const handleConfirmCancel = () => { setShowWarningModal(false); onDone(); };
+  const handleConfirmCancel = () => {
+    setShowWarningModal(false);
+    triggerCancellation();
+  };
   const handleDismissWarning = () => setShowWarningModal(false);
 
-  // ─── PDF Bill Generator ────────────────────────────────────────────────────
+  // ─── PDF Font Helper ───────────────────────────────────────────────────────
+  const fetchFontAsBase64 = async (url) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) return null;
+      const buffer = await response.arrayBuffer();
+      let binary = '';
+      const bytes = new Uint8Array(buffer);
+      for (let i = 0; i < bytes.byteLength; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    } catch (e) {
+      console.warn('[Astrofied] Font fetch warning:', url, e);
+      return null;
+    }
+  };
+
+  // ─── Online Payment Official Tax Bill & Receipt Generator ──────────────────
   const handleDownloadPDF = async () => {
     try {
       const doc = new jsPDF({ unit: 'mm', format: 'a4' });
       const W = doc.internal.pageSize.getWidth();
+
+      // Load fonts
+      let nunitoBase64 = null;
+      let mulishRegBase64 = null;
+      let mulishBoldBase64 = null;
+      try {
+        [nunitoBase64, mulishRegBase64, mulishBoldBase64] = await Promise.all([
+          fetchFontAsBase64('https://fonts.gstatic.com/s/nunito/v32/XRXI3I6Li01BKofiOc5wtlZ2di8HDDsmRTM.ttf'),
+          fetchFontAsBase64('https://fonts.gstatic.com/s/mulish/v18/1Ptwg83HX_SGhgqk2hAjQlW_mEuZ0FsSKeOvHg.ttf'),
+          fetchFontAsBase64('https://fonts.gstatic.com/s/mulish/v18/1Ptyg83HX_SGhgqO0yLcmjzUAuWexRNWwaA.ttf')
+        ]);
+      } catch (_) { }
+
+      if (nunitoBase64) {
+        doc.addFileToVFS('Nunito-ExtraBold.ttf', nunitoBase64);
+        doc.addFont('Nunito-ExtraBold.ttf', 'Nunito', 'bold');
+      }
+      if (mulishRegBase64 && mulishBoldBase64) {
+        doc.addFileToVFS('Mulish-Regular.ttf', mulishRegBase64);
+        doc.addFont('Mulish-Regular.ttf', 'Mulish', 'normal');
+        doc.addFileToVFS('Mulish-Bold.ttf', mulishBoldBase64);
+        doc.addFont('Mulish-Bold.ttf', 'Mulish', 'bold');
+      }
+
+      const titleFont = nunitoBase64 ? 'Nunito' : 'helvetica';
+      const bodyFont = mulishRegBase64 ? 'Mulish' : 'helvetica';
 
       // Load logo via fetch → FileReader (CORS-safe)
       let logoDataURL = null;
@@ -161,164 +231,159 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
           reader.onerror = reject;
           reader.readAsDataURL(blob);
         });
-      } catch (_) {}
+      } catch (_) { }
 
       // Header band
       doc.setFillColor(245, 245, 221);
-      doc.rect(0, 0, W, 45, 'F');
+      doc.rect(0, 0, W, 32, 'F');
 
       if (logoDataURL) {
-        try { doc.addImage(logoDataURL, 'PNG', 12, 8, 22, 22); } catch (_) {}
+        try { doc.addImage(logoDataURL, 'PNG', 12, 5, 20, 20); } catch (_) { }
       }
 
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(20);
+      doc.setFont(titleFont, 'bold');
+      doc.setFontSize(18);
       doc.setTextColor(163, 0, 0);
-      doc.text('ASTROFIED GEMSTONES', W / 2, 20, { align: 'center' });
+      doc.text('ASTROFIED GEMSTONES', W / 2, 14, { align: 'center' });
 
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9);
+      doc.setFont(bodyFont, 'normal');
+      doc.setFontSize(8.5);
       doc.setTextColor(100, 100, 100);
-      doc.text('Certified Vedic Gemstone Remedies', W / 2, 28, { align: 'center' });
-      doc.text('prasantachakraborty.udp@okicici  |  +91 96127 36566', W / 2, 34, { align: 'center' });
+      doc.text('Certified Vedic Gemstone Remedies (Online Bill)', W / 2, 21, { align: 'center' });
+      doc.text('Phone: +91 96127 36566  |  contact.astrofied@gmail.com', W / 2, 26, { align: 'center' });
 
       doc.setDrawColor(163, 0, 0);
-      doc.setLineWidth(0.7);
-      doc.line(12, 41, W - 12, 41);
+      doc.setLineWidth(0.6);
+      doc.line(12, 30, W - 12, 30);
 
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(14);
+      doc.setFont(titleFont, 'bold');
+      doc.setFontSize(12);
       doc.setTextColor(30, 30, 30);
-      doc.text('PAYMENT RECEIPT', W / 2, 52, { align: 'center' });
+      doc.text('ONLINE GEMSTONE BILL', W / 2, 38, { align: 'center' });
 
       doc.setDrawColor(210, 210, 210);
       doc.setLineWidth(0.3);
-      doc.line(12, 56, W - 12, 56);
+      doc.line(12, 41, W - 12, 41);
 
-      let y = 66;
+      let y = 49;
 
       const sectionHeader = (label) => {
         doc.setFillColor(245, 245, 221);
-        doc.rect(12, y - 5, W - 24, 10, 'F');
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(9);
+        doc.rect(12, y - 4, W - 24, 7, 'F');
+        doc.setFont(titleFont, 'bold');
+        doc.setFontSize(8.5);
         doc.setTextColor(163, 0, 0);
         doc.text(label.toUpperCase(), 15, y + 1);
-        y += 12;
+        y += 8.5;
       };
 
       const row = (label, value, highlight = false) => {
         if (value === null || value === undefined || value === '') return;
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(10);
+        doc.setFont(bodyFont, 'normal');
+        doc.setFontSize(8.5);
         doc.setTextColor(90, 90, 90);
         doc.text(String(label), 15, y);
-        doc.setFont('helvetica', 'bold');
+        doc.setFont(bodyFont, 'bold');
         doc.setTextColor(highlight ? 163 : 25, highlight ? 0 : 25, highlight ? 0 : 25);
-        const lines = doc.splitTextToSize(String(value), 90);
+        const lines = doc.splitTextToSize(String(value), 95);
         doc.text(lines, W - 15, y, { align: 'right' });
-        y += lines.length > 1 ? lines.length * 6 : 8;
+        y += lines.length > 1 ? lines.length * 4.5 : 5.5;
       };
 
       const lightDivider = () => {
-        doc.setDrawColor(220, 220, 220);
+        doc.setDrawColor(230, 230, 230);
         doc.setLineWidth(0.2);
-        doc.line(12, y - 2, W - 12, y - 2);
-        y += 4;
+        doc.line(12, y - 1.5, W - 12, y - 1.5);
+        y += 3;
       };
 
-      const pageCheck = (needed = 20) => {
-        if (y + needed > doc.internal.pageSize.getHeight() - 25) {
-          doc.addPage(); y = 20;
-        }
-      };
-
-      // SECTION 1 — CUSTOMER DETAILS
-      sectionHeader('Customer Details');
+      // SECTION 1 — CUSTOMER & SHIPPING DETAILS
+      sectionHeader('Customer & Delivery Information');
       row('Customer Name:', orderInfo.name);
-      row('Mobile No.:', orderInfo.mobile ? `+91 ${orderInfo.mobile}` : null);
-      if (orderInfo.address) {
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(10);
+      row('Mobile Number:', orderInfo.mobile ? `+91 ${orderInfo.mobile}` : null);
+      if (orderInfo.streetAddress) row('Street Address:', orderInfo.streetAddress);
+      if (orderInfo.city || orderInfo.district) row('City / District:', [orderInfo.city, orderInfo.district].filter(Boolean).join(', '));
+      if (orderInfo.state || orderInfo.pincode) row('State & Pincode:', [orderInfo.state, orderInfo.pincode].filter(Boolean).join(' - '));
+      if (orderInfo.address && !orderInfo.streetAddress) {
+        doc.setFont(bodyFont, 'normal');
+        doc.setFontSize(8.5);
         doc.setTextColor(90, 90, 90);
         doc.text('Full Address:', 15, y);
-        doc.setFont('helvetica', 'bold');
+        doc.setFont(bodyFont, 'bold');
         doc.setTextColor(25, 25, 25);
         const addrLines = doc.splitTextToSize(orderInfo.address, 100);
         doc.text(addrLines, W - 15, y, { align: 'right' });
-        y += Math.max(addrLines.length * 6, 8);
+        y += Math.max(addrLines.length * 4.5, 5.5);
       }
-      y += 2; lightDivider();
+      lightDivider();
 
-      // SECTION 2 — ORDER DETAILS
-      pageCheck(50);
-      sectionHeader('Order Details');
-      row('Payment Type:', orderInfo.paymentType);
-      if (orderInfo.gemstone) row('Gemstone:', orderInfo.gemstone);
-      if (orderInfo.size) row('Gemstone Size:', `${orderInfo.size} mm`);
-      if (orderInfo.totalAmount && parseInt(orderInfo.totalAmount) > 0) {
-        row('Total Order Value:', `Rs. ${parseInt(orderInfo.totalAmount).toLocaleString('en-IN')}`);
-        row('Advance Amount (50%):', `Rs. ${parseInt(orderInfo.advanceAmount || 0).toLocaleString('en-IN')}`);
-        row('Pending Amount (50%):', `Rs. ${parseInt(orderInfo.pendingAmount || 0).toLocaleString('en-IN')}`);
+      // SECTION 2 — GEMSTONE REMEDY DETAILS
+      sectionHeader('Gemstone & Remedy Specifications');
+      if (orderInfo.gemstone) row('Gemstone Name:', orderInfo.gemstone);
+      if (orderInfo.size) row('Size / Dimensions:', `${orderInfo.size} mm`);
+      lightDivider();
+
+      // SECTION 3 — FINANCIAL & PAYMENT BREAKDOWN
+      sectionHeader('Payment & Financial Breakdown');
+      row('Payment Type:', orderInfo.paymentType || 'Online Payment');
+
+      const totVal = parseFloat(orderInfo.totalAmount || 0);
+      const advVal = parseFloat(orderInfo.advanceAmount || 0);
+      const pendVal = parseFloat(orderInfo.pendingAmount || 0);
+      const paidVal = parseFloat(orderInfo.amountToPay || numericAmount || 0);
+
+      if (totVal > 0) row('Total Gemstone Order Value:', `Rs. ${formatCurrency(totVal)}`);
+
+      // Highlight amount paid online now
+      row('Amount Paid Online (GPay/UPI):', `Rs. ${formatCurrency(paidVal)}`, true);
+
+      // Show remaining balance if applicable
+      let remainingBalance = 0;
+      if (orderInfo.paymentType === 'Advance Payment') {
+        remainingBalance = pendVal > 0 ? pendVal : (totVal - paidVal);
+      } else if (orderInfo.paymentType === 'Pending Amount') {
+        remainingBalance = 0;
       }
-      y += 2; lightDivider();
+      row('Remaining Balance Payable on Delivery:', remainingBalance > 0 ? `Rs. ${formatCurrency(remainingBalance)}` : 'Rs. 0.00 (Fully Paid)');
 
-      // SECTION 3 — PAYMENT SUMMARY
-      pageCheck(40);
-      sectionHeader('Payment Summary');
-      row('Amount Paid:', `Rs. ${parseInt(numericAmount).toLocaleString('en-IN')}`, true);
       const paidAt = paymentDateTime || new Date();
       row('Payment Date & Time:', formatDateTime(paidAt));
-      row('Transaction Ref:', transactionRef || '—');
-      row('UPI Merchant ID:', 'prasantachakraborty.udp@okicici');
-      y += 2; lightDivider();
+      row('Transaction Ref No.:', transactionRef || '—');
+      row('Payment Channel:', 'Online UPI / GPay / PhonePe / Paytm');
+      row('Payment Status:', 'PAID (CONFIRMED)');
+      lightDivider();
 
-      // SECTION 4 — CUSTOMER AGREEMENT
-      pageCheck(60);
-      sectionHeader('Customer Agreement');
-      doc.setFont('helvetica', 'italic');
-      doc.setFontSize(9);
-      doc.setTextColor(90, 90, 90);
-      const agreeLine = `${orderInfo.name || 'Customer'} has agreed to the following Terms & Conditions of Astrofied at the time of order:`;
-      const agreeLines = doc.splitTextToSize(agreeLine, W - 27);
-      doc.text(agreeLines, 15, y);
-      y += agreeLines.length * 5 + 4;
-
-      pageCheck(30);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8.5);
-      doc.setTextColor(60, 60, 60);
+      // SECTION 4 — TERMS & CONDITIONS
+      sectionHeader('Terms & Conditions of Vedic Remedies');
+      doc.setFont(bodyFont, 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(70, 70, 70);
       const termsLines = doc.splitTextToSize(TERMS_TEXT, W - 27);
-      let remaining = [...termsLines];
-      while (remaining.length > 0) {
-        const pH = doc.internal.pageSize.getHeight();
-        const linesPerPage = Math.floor((pH - y - 25) / 5);
-        const chunk = remaining.splice(0, Math.max(1, linesPerPage));
-        doc.text(chunk, 15, y);
-        y += chunk.length * 5;
-        if (remaining.length > 0) { doc.addPage(); y = 20; }
-      }
-      y += 6; lightDivider();
+      doc.text(termsLines, 15, y);
+      y += termsLines.length * 3.4 + 3;
 
-      // Footer on every page
-      const totalPages = doc.internal.getNumberOfPages();
-      for (let i = 1; i <= totalPages; i++) {
-        doc.setPage(i);
-        const pH = doc.internal.pageSize.getHeight();
-        doc.setFillColor(245, 245, 221);
-        doc.rect(0, pH - 18, W, 18, 'F');
-        doc.setFont('helvetica', 'italic');
-        doc.setFontSize(7.5);
-        doc.setTextColor(130, 130, 130);
-        doc.text('This is a computer-generated receipt. No signature required.', W / 2, pH - 11, { align: 'center' });
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(7.5);
-        doc.setTextColor(163, 0, 0);
-        doc.text(`Astrofied  |  contact.astrofied@gmail.com  |  Page ${i} of ${totalPages}`, W / 2, pH - 5, { align: 'center' });
-      }
+      // Footer strictly at bottom of Page 1
+      const pH = doc.internal.pageSize.getHeight();
+      doc.setFillColor(245, 245, 221);
+      doc.rect(0, pH - 15, W, 15, 'F');
+      doc.setFont(bodyFont, 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(130, 130, 130);
+      doc.text('This is an official computer-generated Online Payment Tax Invoice & Receipt.', W / 2, pH - 9, { align: 'center' });
+      doc.setFont(titleFont, 'bold');
+      doc.setFontSize(7);
+      doc.setTextColor(163, 0, 0);
+      doc.text('Astrofied Gemstones  |  contact.astrofied@gmail.com  |  Page 1 of 1', W / 2, pH - 4, { align: 'center' });
 
       const safeName = (orderInfo.name || 'Customer').replace(/[^a-zA-Z0-9]/g, '_');
-      doc.save(`Astrofied_Receipt_${safeName}.pdf`);
+      doc.save(`Astrofied_Online_Tax_Invoice_${safeName}.pdf`);
+
+      // Mark download as completed and trigger auto page refresh after 2 seconds
+      setDownloadCompleted(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+
     } catch (err) {
       console.error('PDF generation error:', err);
     }
@@ -376,7 +441,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
               <div className="flex flex-col gap-1.5">
                 <h3 className="text-2xl font-mulish font-black text-black">Payment Successful!</h3>
                 <p className="text-sm text-[#5A5A5A] leading-relaxed max-w-xs mx-auto font-mulish">
-                  Thank you, <strong className="text-black">{orderInfo.name}</strong>. Your payment of <strong className="text-[#A30000]">{amount}</strong> has been received. Our team will contact you shortly.
+                  Thank you, <strong className="text-black">{orderInfo.name}</strong>. Your payment of <strong className="text-[#D10000]">{amount}</strong> has been received. Our team will contact you shortly.
                 </p>
               </div>
 
@@ -394,7 +459,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 )}
                 <div className="flex justify-between">
                   <span className="text-[#5A5A5A]">Payment Type:</span>
-                  <span className="font-bold text-[#A30000]">{orderInfo.paymentType}</span>
+                  <span className="font-bold text-[#D10000]">{orderInfo.paymentType}</span>
                 </div>
                 {orderInfo.gemstone && (
                   <div className="flex justify-between border-t border-[#E5DFC2]/30 pt-2">
@@ -409,8 +474,8 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                   </div>
                 )}
                 <div className="flex justify-between border-t border-[#E5DFC2]/50 pt-2.5">
-                  <span className="font-extrabold text-[#A30000] uppercase tracking-[0.1em] text-[10px]">Amount Paid:</span>
-                  <span className="font-black text-[#A30000] text-sm">{amount}</span>
+                  <span className="font-extrabold text-[#D10000] uppercase tracking-[0.1em] text-[10px]">Amount Paid:</span>
+                  <span className="font-black text-[#D10000] text-sm">{amount}</span>
                 </div>
                 {paymentDateTime && (
                   <div className="flex justify-between">
@@ -420,14 +485,27 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 )}
               </div>
 
-              {/* Download Bill PDF button (also auto-downloaded on mount) */}
-              <button
-                onClick={handleDownloadPDF}
-                className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-black text-white font-mulish font-bold text-sm tracking-wide hover:bg-[#1a1a1a] active:scale-95 transition-all cursor-pointer border-none shadow-lg"
-              >
-                <Download size={18} />
-                Download Bill PDF
-              </button>
+              {/* Download Bill PDF button */}
+              {!downloadCompleted ? (
+                <button
+                  onClick={handleDownloadPDF}
+                  className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-black text-white font-mulish font-bold text-sm tracking-wide hover:bg-[#1a1a1a] active:scale-95 transition-all cursor-pointer border-none shadow-lg"
+                >
+                  <Download size={18} />
+                  Download Official Tax Invoice (PDF)
+                </button>
+              ) : (
+                <div className="w-full flex flex-col items-center gap-2 py-3 px-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 font-mulish">
+                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider">
+                    <CheckCircle size={16} className="text-emerald-600" />
+                    <span>Tax Invoice Downloaded!</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-800">
+                    <Loader2 size={13} className="animate-spin" />
+                    <span>Reloading order page…</span>
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
 
@@ -458,7 +536,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
               </div>
 
               {/* Countdown Timer */}
-              <div className="w-full flex items-center justify-center gap-2 bg-[#A30000]/5 border border-[#A30000]/10 px-4 py-3 rounded-2xl text-[11px] font-mulish font-extrabold text-[#A30000]">
+              <div className="w-full flex items-center justify-center gap-2 bg-[#D10000]/5 border border-[#D10000]/10 px-4 py-3 rounded-2xl text-[11px] font-mulish font-extrabold text-[#D10000]">
                 <Clock size={14} className="animate-spin" style={{ animationDuration: '6s' }} />
                 <span>PAYMENT SESSION EXPIRES IN: <span className="font-mono text-xs">{formatTime(timeLeft)}</span></span>
               </div>
@@ -491,7 +569,7 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[#5A5A5A]">Payment Type:</span>
-                  <span className="font-bold text-[#A30000]">{orderInfo.paymentType}</span>
+                  <span className="font-bold text-[#D10000]">{orderInfo.paymentType}</span>
                 </div>
                 {orderInfo.gemstone && (
                   <div className="flex justify-between border-t border-[#E5DFC2]/30 pt-2">
@@ -505,25 +583,25 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                     <span className="font-bold text-black">{orderInfo.size} mm</span>
                   </div>
                 )}
-                {orderInfo.totalAmount && (
+                {orderInfo.totalAmount && parseFloat(orderInfo.totalAmount) > 0 && (
                   <>
                     <div className={`flex justify-between ${orderInfo.gemstone ? '' : 'border-t border-[#E5DFC2]/30 pt-2'}`}>
                       <span className="text-[#5A5A5A]">Total Order Value:</span>
-                      <span className="font-bold text-black">₹{parseInt(orderInfo.totalAmount).toLocaleString('en-IN')}</span>
+                      <span className="font-bold text-black">₹{formatCurrency(orderInfo.totalAmount)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[#5A5A5A]">Advance Amount:</span>
-                      <span className="font-bold text-black">₹{parseInt(orderInfo.advanceAmount).toLocaleString('en-IN')}</span>
+                      <span className="font-bold text-black">₹{formatCurrency(orderInfo.advanceAmount)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[#5A5A5A]">Pending Amount:</span>
-                      <span className="font-bold text-black">₹{parseInt(orderInfo.pendingAmount).toLocaleString('en-IN')}</span>
+                      <span className="font-bold text-black">₹{formatCurrency(orderInfo.pendingAmount)}</span>
                     </div>
                   </>
                 )}
                 <div className="flex justify-between border-t border-[#E5DFC2]/50 pt-2.5">
-                  <span className="text-[#5A5A5A] font-extrabold text-[#A30000] uppercase tracking-[0.1em] text-[10px]">Amount to Pay Now:</span>
-                  <span className="font-black text-[#A30000] text-sm font-mulish">{amount}</span>
+                  <span className="text-[#5A5A5A] font-extrabold text-[#D10000] uppercase tracking-[0.1em] text-[10px]">Amount to Pay Now:</span>
+                  <span className="font-black text-[#D10000] text-sm font-mulish">{amount}</span>
                 </div>
               </div>
 
@@ -562,12 +640,43 @@ export default function PaymentConfirmation({ orderInfo, onDone }) {
                 </p>
               </div>
               <div className="flex w-full gap-3 mt-1">
-                <button onClick={handleConfirmCancel} className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#A30000] text-white hover:bg-[#800000] transition-colors cursor-pointer border-none">
+                <button onClick={handleConfirmCancel} className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#D10000] text-white hover:bg-[#D61E00] transition-colors cursor-pointer border-none">
                   Yes, Cancel
                 </button>
                 <button onClick={handleDismissWarning} className="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#5A5A5A] hover:text-black hover:bg-gray-50 border border-[#E5DFC2] transition-colors cursor-pointer">
                   No, Keep Payment
                 </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Payment Cancelled Modal Overlay */}
+      <AnimatePresence>
+        {isCancelled && (
+          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+              className="w-full max-w-sm bg-[#f5f5dd] border border-[#E5DFC2] rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col items-center gap-5 text-center font-mulish"
+            >
+              <div className="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center text-[#D10000]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-7 h-7">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </div>
+              <div className="flex flex-col gap-2">
+                <h4 className="text-xl font-extrabold text-black leading-tight">Payment Cancelled</h4>
+                <p className="text-xs sm:text-sm text-[#5A5A5A] leading-relaxed font-medium">
+                  Your payment session has been cancelled or timed out. Reloading order form…
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-bold text-[#D10000] mt-2">
+                <Loader2 className="animate-spin" size={16} />
+                <span>Refreshing page…</span>
               </div>
             </motion.div>
           </div>

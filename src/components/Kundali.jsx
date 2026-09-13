@@ -388,9 +388,9 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="text-4xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight flex flex-col"
+                            className="text-4xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight flex flex-col"
                         >
-                            <span className={`force-nunito font-extrabold ${isDarkMode ? 'brand-text' : 'astrofied-title-gradient'}`}>
+                            <span className={`force-nunito font-bold ${isDarkMode ? 'brand-text' : 'astrofied-title-gradient'}`}>
                                 Astrofied
                             </span>
                             <span className={`font-mulish mt-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>

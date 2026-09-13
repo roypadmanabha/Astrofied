@@ -4,8 +4,8 @@ import GemstoneCard from './GemstoneCard';
 
 export default function GemstoneGrid() {
   return (
-    <section id="gemstone-collection" className="bg-transparent py-16 md:py-24">
-      <div className="container mx-auto px-4 md:px-12">
+    <section id="gemstone-collection" className="bg-[whitesmoke] py-16 md:py-24" style={{ backgroundColor: 'whitesmoke' }}>
+      <div className="container mx-auto px-2.5 sm:px-4 md:px-12">
         
         {/* Section Header */}
         <div className="section-header">
@@ -16,7 +16,7 @@ export default function GemstoneGrid() {
         </div>
 
         {/* Responsive Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 md:gap-8 max-w-5xl mx-auto">
           {gemstones.map((gem, index) => (
             <GemstoneCard key={gem.id} gemstone={gem} index={index} />
           ))}

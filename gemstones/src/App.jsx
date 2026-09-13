@@ -218,7 +218,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="pointer-events-auto flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#A30000] text-white shadow-2xl rounded-full max-w-[90vw] md:max-w-md border border-white/10"
+              className="pointer-events-auto flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#D10000] text-white shadow-2xl rounded-full max-w-[90vw] md:max-w-md border border-white/10"
             >
               <CircleAlert className="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" />
               <span className="text-xs sm:text-sm md:text-base font-bold font-['Mulish'] tracking-wide">

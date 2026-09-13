@@ -433,7 +433,7 @@ export default function Feedback() {
                         className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
                     >
                         <h2
-                            className={`text-4xl md:text-5xl lg:text-7xl font-black mb-8 font-mulish leading-[1.1] transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}
+                            className={`text-4xl md:text-5xl lg:text-7xl font-bold mb-8 font-mulish leading-[1.1] transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}
                         >
                             We Value <span className={isDarkMode ? 'text-[#ffd700]' : 'text-black'}>Your <br className="hidden lg:block" /> Feedback</span>
                         </h2>

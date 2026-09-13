@@ -20,7 +20,10 @@ const Pricing = () => {
     {
       id: 1,
       title: "Overall Horoscope Analysis",
-      price: "750",
+      prices: [
+        { label: "Online", amount: "750" },
+        { label: "Offline", amount: "950" }
+      ],
       image: pricingHoroscope,
       description: "Complete life roadmap and planetary guidance through ancient Vedic wisdom.",
       tag: "FEATURED",
@@ -31,7 +34,10 @@ const Pricing = () => {
     {
       id: 2,
       title: "Horoscope Matching",
-      price: "1500",
+      prices: [
+        { label: "Online", amount: "1500" },
+        { label: "Offline", amount: "1500" }
+      ],
       image: pricingKundali,
       description: "Deep compatibility analysis for a prosperous and harmonious lifelong union.",
       tag: "EXCLUSIVE",
@@ -52,7 +58,7 @@ const Pricing = () => {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 tracking-tight">
             <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>Best</span>{' '}
             <span style={{ color: isDarkMode ? '#FFFFFF' : '#000000' }}>Prices</span>
           </h2>
@@ -61,7 +67,7 @@ const Pricing = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
           {pricingData.map((item, idx) => (
             <motion.div
               key={item.id}
@@ -69,7 +75,7 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`relative rounded-[24px] p-4 sm:p-5 border ${
+              className={`relative rounded-[24px] p-4 sm:p-5 border flex flex-col justify-between ${
                 isDarkMode
                   ? `shadow-2xl transition-all duration-700 bg-transparent border-white`
                   : 'bg-white border-gray-200 shadow-md'
@@ -83,74 +89,95 @@ const Pricing = () => {
               {/* Card Decoration */}
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-current opacity-[0.02] rounded-full blur-3xl pointer-events-none" />
 
-              {/* Image Container */}
-              <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-md ${
-                isDarkMode ? 'shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] bg-black/40' : 'bg-[#f5f5dd]'
-              }`}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className={`w-full h-full object-cover select-none pointer-events-none ${
-                    isDarkMode ? '' : ''
-                  } ${
-                    item.isKundali ? (isDarkMode ? '' : 'mix-blend-multiply') : ''
-                  }`}
-                  style={item.isKundali ? {
-                    mixBlendMode: isDarkMode ? 'screen' : 'multiply',
-                    filter: isDarkMode ? 'invert(1) brightness(0.9) contrast(1.1)' : 'none'
-                  } : {}}
-                  loading="lazy"
-                />
-                
-                {/* Badge Overlay */}
-                <div className="absolute top-6 right-6">
-                  <div className="bg-black/30 backdrop-blur-xl border border-white/20 px-5 py-2 rounded-2xl shadow-2xl">
-                    <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white">
-                      {item.tag}
-                    </span>
+              <div>
+                {/* Image Container */}
+                <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-md ${
+                  isDarkMode ? 'shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] bg-black/40' : 'bg-[#f5f5dd]'
+                }`}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={`w-full h-full object-cover select-none pointer-events-none ${
+                      isDarkMode ? '' : ''
+                    } ${
+                      item.isKundali ? (isDarkMode ? '' : 'mix-blend-multiply') : ''
+                    }`}
+                    style={item.isKundali ? {
+                      mixBlendMode: isDarkMode ? 'screen' : 'multiply',
+                      filter: isDarkMode ? 'invert(1) brightness(0.9) contrast(1.1)' : 'none'
+                    } : {}}
+                    loading="lazy"
+                  />
+                  
+                  {/* Badge Overlay */}
+                  <div className="absolute top-6 right-6">
+                    <div className="bg-black/30 backdrop-blur-xl border border-white/20 px-5 py-2 rounded-2xl shadow-2xl">
+                      <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white">
+                        {item.tag}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content Area */}
+                <div className="px-4 pb-4">
+                  <div className="flex flex-col gap-3 mb-8">
+                    <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-mulish leading-tight ${
+                      isDarkMode ? 'font-bold text-white' : 'font-bold text-[#A30000]'
+                    }`}>
+                      {item.title}
+                    </h3>
+                    <p className={`text-sm sm:text-base font-mulish font-medium leading-relaxed opacity-60 ${
+                      isDarkMode ? 'text-gray-300' : 'text-black/80'
+                    }`}>
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               </div>
 
-              {/* Content Area */}
-              <div className="px-4 pb-4">
-                <div className="flex flex-col gap-3 mb-8">
-                  <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-mulish leading-tight ${
-                    isDarkMode ? 'font-bold text-white' : 'font-bold text-[#A30000]'
-                  }`}>
-                    {item.title}
-                  </h3>
-                  <p className={`text-sm sm:text-base font-mulish font-medium leading-relaxed opacity-60 ${
-                    isDarkMode ? 'text-gray-300' : 'text-black/80'
-                  }`}>
-                    {item.description}
-                  </p>
-                </div>
-
-                <div className={`flex flex-wrap items-center justify-between gap-4 mt-auto p-4 md:p-6 rounded-[24px] border ${
+              {/* Bottom Price & CTA Box */}
+              <div className="px-3 sm:px-4 pb-4">
+                <div className={`flex flex-wrap items-center justify-between gap-2 sm:gap-4 mt-auto p-3 sm:p-4 md:p-6 rounded-[10px] border ${
                   isDarkMode 
                     ? 'backdrop-blur-xl bg-white/5 border-[0.5px] border-white transition-colors duration-500' 
                     : 'bg-[#f5f5dd] border-black/[0.05]'
                 }`}>
-                  <div className="flex flex-col">
-                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 ${
-                      isDarkMode ? 'text-gold' : 'text-[#A30000]'
-                    }`}>Price</span>
-                    <div className="flex items-baseline gap-1">
-                      <span className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>₹</span>
+                  {item.prices ? (
+                    <div className="flex items-stretch gap-2 sm:gap-4">
+                      {item.prices.map((p, pIdx) => (
+                        <React.Fragment key={pIdx}>
+                          {pIdx > 0 && (
+                            <div className={`w-[1px] self-stretch my-0.5 ${isDarkMode ? 'bg-white' : 'bg-black'}`} />
+                          )}
+                          <div className="flex flex-col justify-between">
+                            <span className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-wider leading-none mb-1 ${
+                              isDarkMode ? 'text-gold' : 'text-[#A30000]'
+                            }`}>
+                              {p.label}
+                            </span>
+                            <span className={`text-base sm:text-2xl font-bold leading-none ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}>
+                              ₹{p.amount}
+                            </span>
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex flex-col">
                       <span className={`text-xl sm:text-3xl font-bold ${
-                        isDarkMode ? 'text-white' : 'text-gray-900'
+                        isDarkMode ? 'text-gold' : 'text-[#A30000]'
                       }`}>
-                        {item.price}
+                        ₹{item.price}
                       </span>
                     </div>
-                  </div>
+                  )}
 
-                    <motion.button
-                      whileHover={{ scale: 1.05, x: 5 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => window.open(getWhatsAppLink(`I want to book ${item.title}.`), '_blank')}
-                      className={`group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-3 xl:px-8 xl:py-4 rounded-xl sm:rounded-2xl font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${
+                  <motion.button
+                    whileHover={{ scale: 1.05, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => window.open(getWhatsAppLink(`I want to book ${item.title}.`), '_blank')}
+                    className={`ml-auto group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-3 xl:px-8 xl:py-4 rounded-[10px] font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${
                       isDarkMode
                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                         : 'bg-[#A30000] text-white hover:bg-black shadow-[#991600]/20'

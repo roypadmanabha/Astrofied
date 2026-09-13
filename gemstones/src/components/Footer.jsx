@@ -43,7 +43,7 @@ export default function Footer({ onOpenLegal }) {
   ];
 
   return (
-    <footer id="footer" className="py-8 md:py-12 bg-[#f5f5dd] border-t font-mulish border-[#A30000]/10">
+    <footer id="footer" className="py-8 md:py-12 bg-[#f5f5dd] border-t font-mulish border-[#D10000]/10">
       <div className="container mx-auto px-4 md:px-12">
         
         <div className="flex flex-col sm:grid sm:grid-cols-2 xl:flex xl:flex-row xl:justify-between gap-8 xl:gap-4 mb-8 md:mb-10">
@@ -60,7 +60,7 @@ export default function Footer({ onOpenLegal }) {
                 loading="lazy"
               />
               <h4 
-                className="text-xl md:text-xl lg:text-3xl bg-clip-text text-transparent bg-gradient-to-r from-black to-[#A30000]"
+                className="text-xl md:text-xl lg:text-3xl bg-clip-text text-transparent bg-gradient-to-r from-black to-[#D10000]"
                 style={{ color: 'transparent', backgroundClip: 'text', WebkitBackgroundClip: 'text', fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}
               >
                 Astrofied
@@ -76,7 +76,7 @@ export default function Footer({ onOpenLegal }) {
 
           {/* Legal Links Column */}
           <div className="flex flex-col gap-2 md:gap-6 w-full xl:w-auto">
-            <h4 className="text-lg md:text-xl lg:text-2xl font-bold font-mulish" style={{ color: '#A30000' }}>
+            <h4 className="text-lg md:text-xl lg:text-2xl font-bold font-mulish" style={{ color: '#D10000' }}>
               Legal
             </h4>
             <div className="flex flex-col gap-4">
@@ -86,7 +86,7 @@ export default function Footer({ onOpenLegal }) {
                   e.preventDefault();
                   onOpenLegal('terms');
                 }}
-                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors cursor-pointer whitespace-nowrap"
+                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#D10000] transition-colors cursor-pointer whitespace-nowrap"
                 style={{ color: '#0A0A0A' }}
               >
                 Terms and Conditions
@@ -97,7 +97,7 @@ export default function Footer({ onOpenLegal }) {
                   e.preventDefault();
                   onOpenLegal('privacy');
                 }}
-                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#A30000] transition-colors cursor-pointer whitespace-nowrap"
+                className="text-left text-xs md:text-sm lg:text-lg hover:text-[#D10000] transition-colors cursor-pointer whitespace-nowrap"
                 style={{ color: '#0A0A0A' }}
               >
                 Privacy Policy
@@ -113,24 +113,24 @@ export default function Footer({ onOpenLegal }) {
 
           {/* Contact Details Column */}
           <div className="flex flex-col gap-2 md:gap-6 w-full xl:w-auto">
-            <h4 className="text-lg md:text-xl lg:text-2xl font-bold font-mulish" style={{ color: '#A30000' }}>
+            <h4 className="text-lg md:text-xl lg:text-2xl font-bold font-mulish" style={{ color: '#D10000' }}>
               Contact Details
             </h4>
             <div className="flex flex-col gap-4">
               <button
                 onClick={() => window.location.href = 'tel:+919612736566'}
-                className="flex items-center gap-3 hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left whitespace-nowrap"
+                className="flex items-center gap-3 hover:text-[#D10000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left whitespace-nowrap"
                 style={{ color: '#0A0A0A' }}
               >
-                <Phone className="w-4 h-4 md:w-5 md:h-5 text-[#A30000] shrink-0" />
+                <Phone className="w-4 h-4 md:w-5 md:h-5 text-[#D10000] shrink-0" />
                 <span className="text-xs md:text-sm lg:text-lg">+91 96127 36566</span>
               </button>
               <button
                 onClick={() => window.location.href = 'mailto:contact.astrofied@gmail.com'}
-                className="flex items-center gap-3 hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left whitespace-nowrap"
+                className="flex items-center gap-3 hover:text-[#D10000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left whitespace-nowrap"
                 style={{ color: '#0A0A0A' }}
               >
-                <Mail className="w-4 h-4 md:w-5 md:h-5 text-[#A30000] shrink-0" />
+                <Mail className="w-4 h-4 md:w-5 md:h-5 text-[#D10000] shrink-0" />
                 <span className="text-xs md:text-sm lg:text-lg">contact.astrofied@gmail.com</span>
               </button>
             </div>
@@ -144,15 +144,15 @@ export default function Footer({ onOpenLegal }) {
 
           {/* Address Column */}
           <div className="flex flex-col gap-2 md:gap-6 w-full xl:w-auto">
-            <h4 className="text-lg md:text-xl lg:text-2xl font-bold font-mulish" style={{ color: '#A30000' }}>
+            <h4 className="text-lg md:text-xl lg:text-2xl font-bold font-mulish" style={{ color: '#D10000' }}>
               Address
             </h4>
             <button
               onClick={() => window.open('https://maps.google.com/?q=GFHW%2BX6W+Udaipur,+Tripura', '_blank')}
-              className="flex items-start gap-3 hover:text-[#A30000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left"
+              className="flex items-start gap-3 hover:text-[#D10000] transition-colors bg-transparent border-none p-0 cursor-pointer text-left"
               style={{ color: '#0A0A0A' }}
             >
-              <MapPin className="w-4 h-4 md:w-5 md:h-5 mt-1 text-[#A30000] shrink-0" />
+              <MapPin className="w-4 h-4 md:w-5 md:h-5 mt-1 text-[#D10000] shrink-0" />
               <address className="not-italic text-xs md:text-sm lg:text-lg leading-tight text-left">
                 Dakbanglow Road, near Rajarshi Hall,<br />
                 Udaipur, Gomati, Tripura - 799120
@@ -180,7 +180,7 @@ export default function Footer({ onOpenLegal }) {
         </div>
 
         {/* Copyright Row */}
-        <div className="border-t border-[#A30000]/20 pt-4 md:pt-8 text-center text-[10px] md:text-sm text-gray-500 font-mulish">
+        <div className="border-t border-[#D10000]/20 pt-4 md:pt-8 text-center text-[10px] md:text-sm text-gray-500 font-mulish">
           © {new Date().getFullYear()} Astrofied. All rights reserved | Made by Vignette
         </div>
 

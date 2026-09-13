@@ -1,91 +1,169 @@
-# Google Apps Script Setup Guide
+# Google Apps Script Setup Guide (Online Payment Mode)
 
-Follow these instructions to connect your **Astrofied Gemstones** web form to a Google Sheet using Google Apps Script:
+Follow these step-by-step instructions to connect **Astrofied Gemstones Online Mode** to your new Google Sheet:
 
-## 1. Prepare Google Sheet
-1. Open the target Google Sheet in your browser:
-   `https://docs.google.com/spreadsheets/d/1lunT9lyME8g3It8h-Z0tqWoVuq8lcX-GP9E9Sc8KJBg/edit`
-2. Make sure you are logged into the Google Account that owns or has edit access to this sheet.
+## Target Google Sheet
+**Sheet Name**: `Astrofied Gemstones Customer Data Online Payment`  
+**Sheet URL**: `https://docs.google.com/spreadsheets/d/1JHbZOdkT7EskWMCcn61JYGQ8wTL8yoZaqmaDsIBVJXY/edit`
 
-## 2. Open Apps Script Editor
-1. In the Google Sheets top menu, click **Extensions** → **Apps Script**.
-2. This opens the Apps Script code editor in a new tab.
+---
 
-## 3. Add Script Code
-1. Delete any default code in the editor (usually an empty `myFunction` block).
-2. Copy and paste the following script into the editor:
+## 1. Open Google Apps Script Editor
+1. Open the Google Sheet above in your browser.
+2. In the top menu bar, click **Extensions** → **Apps Script**.
+3. This opens the Google Apps Script code editor in a new tab.
+
+---
+
+## 2. Replace Code in Editor
+1. Delete all existing default code in `Code.gs`.
+2. Copy and paste the following Google Apps Script code:
 
 ```javascript
+// Google Apps Script for Astrofied Gemstones (EXCLUSIVELY ONLINE PAYMENT)
+
+function doGet(e) {
+  try {
+    var params = e ? e.parameter : {};
+    var ref = params.ref || params.transactionRef;
+    var callback = params.callback;
+
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheets()[0];
+    var data = sheet.getDataRange().getValues();
+
+    var isPaid = false;
+    var status = "PENDING";
+
+    if (ref && data.length > 1) {
+      // Search for transactionRef in column 2 (index 1: Transaction Ref)
+      for (var i = 1; i < data.length; i++) {
+        var rowRef = data[i][1] ? data[i][1].toString().trim() : "";
+        if (rowRef === ref.trim()) {
+          var currentStatus = data[i][2] ? data[i][2].toString().trim().toUpperCase() : "";
+          if (currentStatus === "PAID" || currentStatus === "SUCCESS" || currentStatus === "COMPLETED" || currentStatus === "CONFIRMED") {
+            isPaid = true;
+            status = "SUCCESS";
+          }
+          break;
+        }
+      }
+    }
+
+    var resultPayload = {
+      "status": status,
+      "paid": isPaid,
+      "ref": ref || ""
+    };
+
+    var jsonString = JSON.stringify(resultPayload);
+
+    if (callback) {
+      // JSONP Callback format for cross-origin browser polling
+      return ContentService.createTextOutput(callback + "(" + jsonString + ")")
+                           .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    } else {
+      return ContentService.createTextOutput(jsonString)
+                           .setMimeType(ContentService.MimeType.JSON);
+    }
+  } catch (err) {
+    var errPayload = JSON.stringify({ "status": "ERROR", "paid": false, "message": err.toString() });
+    if (e && e.parameter && e.parameter.callback) {
+      return ContentService.createTextOutput(e.parameter.callback + "(" + errPayload + ")")
+                           .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
+    return ContentService.createTextOutput(errPayload)
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
 function doPost(e) {
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheets()[0];
-    
-    // Get parameters from incoming request
-    var data = e.parameter;
-    
-    // Extract values with safe fallbacks
-    var timestamp = data.timestamp || new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
-    var paymentType = data.paymentType || "";
-    var totalAmount = data.totalAmount || "0";
-    var advancePayment = data.advanceAmount || "0";
-    var pendingPayment = data.pendingAmount || "0";
-    var firstName = data.firstName || "";
-    var lastName = data.lastName || "";
-    var mobile = data.mobile || "";
-    var fullAddress = data.address || "";
-    var city = data.city || "";
-    var district = data.district || "";
-    var state = data.state || "";
-    var pincode = data.pincode || "";
-    
-    // Newly added Gemstone and Size parameters
-    var gemstone = data.gemstone || "";
-    var size = data.size || ""; // formatted as "XX.XX mm"
 
-    // Write header row once if sheet is empty
+    // Auto-create & format header row on first submission if sheet is empty
     if (sheet.getLastRow() === 0) {
       sheet.appendRow([
         'Timestamp',
+        'Transaction Ref',
+        'Payment Status',
         'Payment Type',
-        'Total Amount',
-        'Advance Payment',
-        'Pending Payment',
+        'Customer Name',
         'First Name',
         'Last Name',
         'Mobile No.',
         'Full Address',
+        'Street Address',
         'City',
         'District',
         'State',
         'Pincode',
         'Gemstone',
-        'Size'
+        'Size (mm)',
+        'Total Amount (₹)',
+        'Advance Amount (₹)',
+        'Pending Amount (₹)',
+        'Consent'
       ]);
+
+      // Format header aesthetics
+      var headerRange = sheet.getRange(1, 1, 1, 20);
+      headerRange.setFontWeight("bold");
+      headerRange.setBackground("#D10000");
+      headerRange.setFontColor("#FFFFFF");
+      sheet.setFrozenRows(1);
     }
 
-    // Prepare row data aligning with headers
+    var data = e ? e.parameter : {};
+
+    var timestamp = data.timestamp || new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+    var transactionRef = data.transactionRef || "";
+    var paymentStatus = data.paymentStatus || "pending";
+    var paymentType = data.paymentType || "";
+    var customerName = data.name || ((data.firstName || "") + " " + (data.lastName || "")).trim();
+    var firstName = data.firstName || "";
+    var lastName = data.lastName || "";
+    var mobile = data.mobile || "";
+    var fullAddress = data.address || "";
+    var streetAddress = data.streetAddress || "";
+    var city = data.city || "";
+    var district = data.district || "";
+    var state = data.state || "";
+    var pincode = data.pincode || "";
+    var gemstone = data.gemstone || "";
+    var size = data.size || "";
+    var totalAmount = data.totalAmount || "0";
+    var advanceAmount = data.advanceAmount || "0";
+    var pendingAmount = data.pendingAmount || "0";
+    var consent = data.consent || "Yes";
+
     var rowData = [
       timestamp,
+      transactionRef,
+      paymentStatus,
       paymentType,
-      totalAmount,
-      advancePayment,
-      pendingPayment,
+      customerName,
       firstName,
       lastName,
       mobile,
       fullAddress,
+      streetAddress,
       city,
       district,
       state,
       pincode,
       gemstone,
-      size
+      size,
+      totalAmount,
+      advanceAmount,
+      pendingAmount,
+      consent
     ];
 
     sheet.appendRow(rowData);
 
-    return ContentService.createTextOutput(JSON.stringify({ "status": "success" }))
+    return ContentService.createTextOutput(JSON.stringify({ "status": "success", "transactionRef": transactionRef }))
                          .setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
@@ -95,25 +173,30 @@ function doPost(e) {
 }
 ```
 
-3. Save the project by clicking the **Save** (disk) icon in the top toolbar or using `Cmd + S` / `Ctrl + S`.
+3. Save the project (`Cmd + S` or click the floppy disk icon).
 
-## 4. Deploy as Web App
-1. Click the **Deploy** button in the top right, and select **New deployment**.
-2. In the deployment configuration popup, click the **Gear icon (Select type)** and choose **Web app**.
-3. Configure the settings exactly as follows:
-   * **Description**: `Astrofied Gemstones Lead Capture`
-   * **Execute as**: **Me (your-email@gmail.com)**
-   * **Who has access**: **Anyone**
+---
+
+## 3. Deploy as Web App
+1. Click **Deploy** → **New deployment**.
+2. Click the **Gear icon** (Select type) and choose **Web app**.
+3. Fill in:
+   - **Description**: `Astrofied Gemstones Online Lead Capture & Status Verification`
+   - **Execute as**: `Me (your Google account)`
+   - **Who has access**: `Anyone`
 4. Click **Deploy**.
-5. Google will prompt you to **Authorize Access**. Click **Authorize Access** and select your account.
-6. Under the warning screen, click **Advanced** → **Go to Astrofied Gemstones (unsafe)** (this is standard for unverified personal Apps Scripts) and click **Allow**.
-7. Once the deployment finishes, copy the **Web app URL** provided in the popup (the URL ends with `/exec`).
+5. Grant access permissions when prompted:
+   - Click **Authorize Access**.
+   - Choose your Google account.
+   - Click **Advanced** → **Go to Astrofied Gemstones (unsafe)** → Click **Allow**.
+6. Copy the generated **Web App URL** (ends with `/exec`).
 
-## 5. Configure Environmental Variables
-1. Create a `.env` file in the root of your `gemstones` project directory.
-2. Add the copied URL to it like this:
-   ```env
-   VITE_GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/XXXXXXXXXXXX/exec
-   ```
-3. Save the `.env` file.
-4. Restart the Vite local development server (`npm run dev`) so Vite loads the new environment variables.
+---
+
+## 4. How to Test Real-Time Online Payment Status
+- When a customer submits an online QR payment order, a new row is written with `Payment Status` set to `pending`.
+- When the payment is received, change `Payment Status` in the sheet for that row to **`PAID`**.
+- The customer's browser screen will instantly detect the status update and show the green success screen and receipt.
+
+*(Note: Offline customer data is strictly isolated and will NEVER post to this or any Google Sheet).*
+
