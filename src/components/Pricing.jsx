@@ -22,7 +22,7 @@ const Pricing = () => {
       title: "Overall Horoscope Analysis",
       prices: [
         { label: "Online", amount: "750" },
-        { label: "Offline", amount: "950" }
+        { label: "Offline", amount: "850" }
       ],
       image: pricingHoroscope,
       description: "Complete life roadmap and planetary guidance through ancient Vedic wisdom.",
@@ -75,40 +75,36 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`relative rounded-[24px] p-4 sm:p-5 border flex flex-col justify-between ${
-                isDarkMode
+              className={`relative rounded-[24px] p-4 sm:p-5 border flex flex-col justify-between ${isDarkMode
                   ? `shadow-2xl transition-all duration-700 bg-transparent border-white`
                   : 'bg-white border-gray-200 shadow-md'
-              }`}
+                }`}
             >
               {/* Animated Background Glow (Dark Mode Only) */}
               {isDarkMode && (
                 <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 transition-opacity duration-700 -z-10 rounded-[24px]`} />
               )}
-              
+
               {/* Card Decoration */}
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-current opacity-[0.02] rounded-full blur-3xl pointer-events-none" />
 
               <div>
                 {/* Image Container */}
-                <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-md ${
-                  isDarkMode ? 'shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] bg-black/40' : 'bg-[#f5f5dd]'
-                }`}>
+                <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-md ${isDarkMode ? 'shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] bg-black/40' : 'bg-[#f5f5dd]'
+                  }`}>
                   <img
                     src={item.image}
                     alt={item.title}
-                    className={`w-full h-full object-cover select-none pointer-events-none ${
-                      isDarkMode ? '' : ''
-                    } ${
-                      item.isKundali ? (isDarkMode ? '' : 'mix-blend-multiply') : ''
-                    }`}
+                    className={`w-full h-full object-cover select-none pointer-events-none ${isDarkMode ? '' : ''
+                      } ${item.isKundali ? (isDarkMode ? '' : 'mix-blend-multiply') : ''
+                      }`}
                     style={item.isKundali ? {
                       mixBlendMode: isDarkMode ? 'screen' : 'multiply',
                       filter: isDarkMode ? 'invert(1) brightness(0.9) contrast(1.1)' : 'none'
                     } : {}}
                     loading="lazy"
                   />
-                  
+
                   {/* Badge Overlay */}
                   <div className="absolute top-6 right-6">
                     <div className="bg-black/30 backdrop-blur-xl border border-white/20 px-5 py-2 rounded-2xl shadow-2xl">
@@ -122,14 +118,12 @@ const Pricing = () => {
                 {/* Content Area */}
                 <div className="px-4 pb-4">
                   <div className="flex flex-col gap-3 mb-8">
-                    <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-mulish leading-tight ${
-                      isDarkMode ? 'font-bold text-white' : 'font-bold text-[#A30000]'
-                    }`}>
+                    <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-mulish leading-tight ${isDarkMode ? 'font-bold text-white' : 'font-bold text-[#A30000]'
+                      }`}>
                       {item.title}
                     </h3>
-                    <p className={`text-sm sm:text-base font-mulish font-medium leading-relaxed opacity-60 ${
-                      isDarkMode ? 'text-gray-300' : 'text-black/80'
-                    }`}>
+                    <p className={`text-sm sm:text-base font-mulish font-medium leading-relaxed opacity-60 ${isDarkMode ? 'text-gray-300' : 'text-black/80'
+                      }`}>
                       {item.description}
                     </p>
                   </div>
@@ -138,11 +132,10 @@ const Pricing = () => {
 
               {/* Bottom Price & CTA Box */}
               <div className="px-3 sm:px-4 pb-4">
-                <div className={`flex flex-wrap items-center justify-between gap-2 sm:gap-4 mt-auto p-3 sm:p-4 md:p-6 rounded-[10px] border ${
-                  isDarkMode 
-                    ? 'backdrop-blur-xl bg-white/5 border-[0.5px] border-white transition-colors duration-500' 
+                <div className={`flex flex-wrap items-center justify-between gap-2 sm:gap-4 mt-auto p-3 sm:p-4 md:p-6 rounded-[10px] border ${isDarkMode
+                    ? 'backdrop-blur-xl bg-white/5 border-[0.5px] border-white transition-colors duration-500'
                     : 'bg-[#f5f5dd] border-black/[0.05]'
-                }`}>
+                  }`}>
                   {item.prices ? (
                     <div className="flex items-stretch gap-2 sm:gap-4">
                       {item.prices.map((p, pIdx) => (
@@ -151,9 +144,8 @@ const Pricing = () => {
                             <div className={`w-[1px] self-stretch my-0.5 ${isDarkMode ? 'bg-white' : 'bg-black'}`} />
                           )}
                           <div className="flex flex-col justify-between">
-                            <span className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-wider leading-none mb-1 ${
-                              isDarkMode ? 'text-gold' : 'text-[#A30000]'
-                            }`}>
+                            <span className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-wider leading-none mb-1 ${isDarkMode ? 'text-gold' : 'text-[#A30000]'
+                              }`}>
                               {p.label}
                             </span>
                             <span className={`text-base sm:text-2xl font-bold leading-none ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}>
@@ -165,9 +157,8 @@ const Pricing = () => {
                     </div>
                   ) : (
                     <div className="flex flex-col">
-                      <span className={`text-xl sm:text-3xl font-bold ${
-                        isDarkMode ? 'text-gold' : 'text-[#A30000]'
-                      }`}>
+                      <span className={`text-xl sm:text-3xl font-bold ${isDarkMode ? 'text-gold' : 'text-[#A30000]'
+                        }`}>
                         ₹{item.price}
                       </span>
                     </div>
@@ -177,11 +168,10 @@ const Pricing = () => {
                     whileHover={{ scale: 1.05, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open(getWhatsAppLink(`I want to book ${item.title}.`), '_blank')}
-                    className={`ml-auto group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-3 xl:px-8 xl:py-4 rounded-[10px] font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${
-                      isDarkMode
+                    className={`ml-auto group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-3 xl:px-8 xl:py-4 rounded-[10px] font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${isDarkMode
                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                         : 'bg-[#A30000] text-white hover:bg-black shadow-[#991600]/20'
-                    }`}
+                      }`}
                   >
                     Book Now
                     {isDarkMode ? (

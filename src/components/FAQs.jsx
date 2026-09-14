@@ -14,7 +14,7 @@ const faqs = [
     },
     {
         question: "What are the consultation options?",
-        answer: "We offer both online and offline consultations, so you can choose the option that suits you best.\n\nOnline Consultation: ₹750\nOffline Consultation: ₹950"
+        answer: "We offer both online and offline consultations, so you can choose the option that suits you best.\n\nOnline Consultation: ₹750\nOffline Consultation: ₹850"
     },
     {
         question: "How is the consultation conducted?",
@@ -41,11 +41,11 @@ const formatAstrofied = (text, isDarkMode = false) => {
     return lines.map((line, lineIndex) => (
         <span key={lineIndex}>
             {lineIndex > 0 && <br />}
-            {line.split(/(Astrofied|₹750|₹950)/g).map((part, i) => {
+            {line.split(/(Astrofied|₹750|₹850)/g).map((part, i) => {
                 if (part === 'Astrofied') {
                     return <span key={i} className="brand-text">Astrofied</span>;
                 }
-                if (part === '₹750' || part === '₹950') {
+                if (part === '₹750' || part === '₹850') {
                     return (
                         <span key={i} className={`font-bold ${isDarkMode ? 'text-[#ffd700]' : 'text-[#A30000]'}`}>
                             {part}
