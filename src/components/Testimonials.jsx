@@ -161,7 +161,7 @@ export default function Testimonials() {
                             className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg testimonial-nav-btn
                                 ${isDarkMode
                                     ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black hover:scale-105 active:scale-95'
-                                    : 'border-[#A30000] text-white bg-[#A30000] hover:bg-white hover:text-[#A30000] hover:scale-105 active:scale-95'}
+                                    : 'border-none text-white bg-gradient-to-r from-black to-[#FF0000] hover:opacity-90 hover:scale-105 active:scale-95'}
                             `}
                         >
                             <ChevronLeft size={24} strokeWidth={3} />
@@ -172,7 +172,7 @@ export default function Testimonials() {
                             className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg testimonial-nav-btn
                                 ${isDarkMode
                                     ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black hover:scale-105 active:scale-95'
-                                    : 'border-[#A30000] text-white bg-[#A30000] hover:bg-white hover:text-[#A30000] hover:scale-105 active:scale-95'}
+                                    : 'border-none text-white bg-gradient-to-r from-black to-[#FF0000] hover:opacity-90 hover:scale-105 active:scale-95'}
                             `}
                         >
                             <ChevronRight size={24} strokeWidth={3} />
@@ -199,24 +199,24 @@ export default function Testimonials() {
                 <button
                     onClick={() => scroll('left')}
                     disabled={!canScrollLeft}
-                    className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
+                    className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md testimonial-nav-btn
                         ${isDarkMode
                             ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black active:scale-90'
-                            : 'border-[#591000]/20 text-purple-100 bg-[#591000] hover:bg-purple-100 hover:text-[#591000] active:scale-90'}
+                            : 'border-none text-white bg-gradient-to-r from-black to-[#FF0000] hover:opacity-90 active:scale-90'}
                     `}
                 >
-                    <ChevronLeft size={20} strokeWidth={4} />
+                    <ChevronLeft size={20} strokeWidth={3} />
                 </button>
                 <button
                     onClick={() => scroll('right')}
                     disabled={!canScrollRight}
-                    className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md
+                    className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md testimonial-nav-btn
                         ${isDarkMode
                             ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black active:scale-90'
-                            : 'border-[#591000]/20 text-purple-100 bg-[#591000] hover:bg-purple-100 hover:text-[#591000] active:scale-90'}
+                            : 'border-none text-white bg-gradient-to-r from-black to-[#FF0000] hover:opacity-90 active:scale-90'}
                     `}
                 >
-                    <ChevronRight size={20} strokeWidth={4} />
+                    <ChevronRight size={20} strokeWidth={3} />
                 </button>
             </div>
 

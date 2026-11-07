@@ -1,34 +1,85 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronsRight, Calendar, Users, Tag, Hash, Gem } from 'lucide-react';
+import { Sun, Moon, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronsRight, ChevronRight, Calendar, Users, Tag, Hash, Gem, Newspaper, Phone, CheckCircle2 } from 'lucide-react';
+import { getNewsfiedPosts, subscribeToNewsfied, getInitialPostsSync } from '../lib/newsfiedStorage';
 
 import logo from '../assets/logo.png';
-
-const desktopNavLinks = [
-    { name: 'Services', href: '#services' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Numero', href: '#numerology', isGradient: true },
-    { name: 'Panchang', href: '#panchang' },
-    { name: 'Journals', href: '#journals', isGradient: true },
-    { name: 'Contact', href: '#footer' },
-];
-
-const mobileNavLinks = [
-    { name: 'Services', href: '#services', icon: Briefcase },
-    { name: 'Pricing', href: '#pricing', icon: Tag },
-    { name: 'Numero', href: '#numerology', icon: Hash, isGradient: true },
-    { name: 'Panchang', href: '#panchang', icon: Compass },
-    { name: 'Journals', href: '#journals', icon: BookOpen, isGradient: true },
-    { name: 'Gemstones', href: '/gemstones', icon: Gem },
-    { name: 'Feedback', href: '#feedback', icon: MessageSquare },
-    { name: 'Contact', href: '#footer', icon: Mail },
-];
 
 export default function Navbar({ onOpenLegal, onOpenConsultation }) {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const { isDarkMode, toggleTheme } = useTheme();
+    const [newsfiedPosts, setNewsfiedPosts] = useState(getInitialPostsSync);
+
+    useEffect(() => {
+        let mounted = true;
+        getNewsfiedPosts().then((posts) => {
+            if (mounted && Array.isArray(posts)) {
+                setNewsfiedPosts(posts);
+            }
+        });
+
+        const unsubscribe = subscribeToNewsfied((updatedList) => {
+            if (mounted && Array.isArray(updatedList)) {
+                setNewsfiedPosts(updatedList);
+            }
+        });
+
+        return () => {
+            mounted = false;
+            unsubscribe();
+        };
+    }, []);
+
+    const hasNewsfiedPosts = Array.isArray(newsfiedPosts) && newsfiedPosts.length > 0;
+
+    const desktopNavLinks = [
+        { name: 'Services', href: '#services' },
+        { name: 'Pricing', href: '#pricing' },
+        { name: 'Numero', href: '#numerology', isGradient: true },
+        { name: 'Panchang', href: '#panchang' },
+        { name: 'Journals', href: '#journals', isGradient: true },
+        { 
+            name: 'Newsfied', 
+            href: '#newsfied', 
+            isGradient: hasNewsfiedPosts,
+            disabled: !hasNewsfiedPosts 
+        },
+        { name: 'Team', href: '/about' },
+        { name: 'Contact', href: '#footer' },
+    ];
+
+    const mobileNavSections = [
+        {
+            title: "ASTRO SERVICES",
+            links: [
+                { name: 'Services', href: '#services', icon: Briefcase },
+                { name: 'Pricing', href: '#pricing', icon: Tag },
+                { name: 'Free Kundali', href: '#kundali', icon: Sparkles, badge: 'FREE', isHighlight: true },
+                { name: 'Numero', href: '#numerology', icon: Hash },
+                { name: 'Panchang', href: '#panchang', icon: Compass },
+                { name: 'Gemstones', href: '/gemstones', icon: Gem, badge: 'Remedies' },
+            ]
+        },
+        {
+            title: "DISCOVER & CONNECT",
+            links: [
+                { name: 'Journals', href: '#journals', icon: BookOpen },
+                { 
+                    name: 'Newsfied', 
+                    href: '#newsfied', 
+                    icon: Newspaper, 
+                    badge: hasNewsfiedPosts ? 'LIVE' : null, 
+                    isPulse: hasNewsfiedPosts,
+                    disabled: !hasNewsfiedPosts 
+                },
+                { name: 'Our Team', href: '/about', icon: Users },
+                { name: 'Client Feedback', href: '#feedback', icon: MessageSquare },
+                { name: 'Contact Us', href: '#footer', icon: Mail },
+            ]
+        }
+    ];
 
     useEffect(() => {
         const handleScroll = () => {
@@ -39,9 +90,11 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
             document.body.classList.add('mobile-nav-active');
+            if (window.lenis) window.lenis.stop();
         } else {
             document.body.style.overflow = '';
             document.body.classList.remove('mobile-nav-active');
+            if (window.lenis) window.lenis.start();
         }
 
         return () => {
@@ -49,6 +102,30 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
             document.body.style.overflow = '';
         };
     }, [isOpen]);
+
+    const handleNavClick = (link) => {
+        if (link.disabled) return;
+        const targetHref = link.href === '/about'
+            ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
+            : link.href === '/gemstones'
+                ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5004' : '/gemstones/')
+                : link.href;
+        if (targetHref.startsWith('#')) {
+            const cleanHash = targetHref.replace(/\/+$/, '');
+            const element = document.querySelector(cleanHash);
+            if (element) {
+                if (window.lenis) {
+                    window.lenis.scrollTo(element, { offset: -80 });
+                } else {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+                window.history.pushState(null, '', targetHref);
+            }
+        } else {
+            window.location.href = targetHref;
+        }
+        setIsOpen(false);
+    };
 
     return (
         <div className="relative">
@@ -62,109 +139,187 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsOpen(false)}
-                            className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm lg:hidden"
+                            className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm xl:hidden"
                         />
 
-                        {/* Drawer Menu (Half-width on tablets/iPads) */}
+                        {/* Drawer Menu */}
                         <motion.div
                             initial={{ x: '-100%' }}
                             animate={{ x: 0 }}
                             exit={{ x: '-100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className={`fixed top-0 left-0 bottom-0 w-[85%] sm:w-1/2 lg:hidden z-[100] flex flex-col items-start justify-start pt-24 gap-0 overflow-y-auto px-8 shadow-2xl ${
+                            className={`fixed top-0 left-0 bottom-0 w-[88%] sm:w-[380px] md:w-[400px] xl:hidden z-[100] flex flex-col justify-between overflow-hidden shadow-2xl ${
                                 isDarkMode 
-                                    ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-r border-gold/10' 
-                                    : 'bg-[#f5f5dd] border-r border-[#A30000]/10'
+                                    ? 'bg-[#0E0A1A] border-r border-gold/20 text-white' 
+                                    : 'bg-[#FCFBF7] border-r border-[#A30000]/15 text-stone-900'
                             }`}
                         >
                             {/* Decorative Glow */}
-                            <div className={`absolute top-0 right-0 w-64 h-64 blur-[120px] opacity-20 -z-10 rounded-full ${isDarkMode ? 'bg-gold' : 'bg-transparent'}`} />
-                            <div className={`absolute bottom-0 left-0 w-48 h-48 blur-[100px] opacity-10 -z-10 rounded-full ${isDarkMode ? 'bg-purple-500' : 'bg-blue-400'}`} />
+                            <div className={`absolute top-0 right-0 w-64 h-64 blur-[120px] opacity-15 pointer-events-none -z-10 rounded-full ${isDarkMode ? 'bg-gold' : 'bg-red-400'}`} />
+                            <div className={`absolute bottom-0 left-0 w-48 h-48 blur-[100px] opacity-10 pointer-events-none -z-10 rounded-full ${isDarkMode ? 'bg-purple-600' : 'bg-amber-400'}`} />
 
-                            {/* Mobile Menu Header */}
-                            <div 
-                                className="absolute top-8 left-8 flex items-center gap-2 cursor-pointer"
-                                onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                            >
-                                <img
-                                    src={logo}
-                                    alt="Astrofied Logo"
-                                    className="w-9 h-9 object-contain"
-                                    style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
-                                />
-                                <span
-                                    className={`text-2xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
-                                        isDarkMode 
-                                            ? 'from-red-600 to-yellow-500' 
-                                            : 'from-black to-red-600'
-                                        }`}
+                            {/* Mobile Menu Header (Fixed) */}
+                            <div className={`p-4 sm:p-5 flex items-center justify-between border-b shrink-0 ${
+                                isDarkMode ? 'border-white/10 bg-black/30' : 'border-black/5 bg-white/50'
+                            }`}>
+                                <div 
+                                    className="flex items-center gap-2.5 cursor-pointer"
+                                    onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                                 >
-                                    Astrofied
-                                </span>
+                                    <img
+                                        src={logo}
+                                        alt="Astrofied Logo"
+                                        className="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0"
+                                        style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
+                                    />
+                                    <div className="flex flex-col">
+                                        <span className={`text-xl font-nunito font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r leading-tight ${
+                                            isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-[#FF0000]'
+                                        }`}>
+                                            Astrofied
+                                        </span>
+                                        <div className="flex items-center gap-1 mt-0.5">
+                                            <span className={`text-[10px] sm:text-[11px] font-semibold font-mulish tracking-tight ${
+                                                isDarkMode ? 'text-stone-300' : 'text-stone-600'
+                                            }`}>
+                                                Astrologically Verified
+                                            </span>
+                                            <CheckCircle2 size={13} className="text-emerald-500 fill-emerald-500/20 shrink-0" strokeWidth={2.5} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    aria-label="Close menu"
+                                    className={`w-7 h-7 rounded-full flex items-center justify-center focus:outline-none transition-all active:scale-90 cursor-pointer ${
+                                        isDarkMode 
+                                            ? 'text-stone-400 hover:text-gold hover:bg-white/10' 
+                                            : 'text-stone-500 hover:text-black hover:bg-black/5'
+                                    }`}
+                                >
+                                    <X size={15} strokeWidth={1.8} />
+                                </button>
                             </div>
 
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className={`absolute top-8 right-8 p-1.5 focus:outline-none transition-all duration-300 border-none bg-transparent cursor-pointer rounded-full hover:scale-110 ${
-                                    isDarkMode ? 'text-gold hover:bg-white/5' : 'text-black hover:bg-black/5'
-                                }`}
+                            {/* Scrollable Navigation Sections */}
+                            <div 
+                                className="flex-1 overflow-y-auto px-4 sm:px-5 py-3 space-y-4 overscroll-contain no-scrollbar"
+                                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                             >
-                                <X size={20} />
-                            </button>
-
-                            <div className="flex flex-col w-full max-w-[300px] mt-2">
-                                {mobileNavLinks.map((link, index) => {
-                                    return (
-                                        <div key={link.name} className="flex flex-col w-full">
-                                            {index > 0 && (
-                                                <div className={`h-[0.5px] w-[92%] my-1.5 mx-auto ${isDarkMode ? 'bg-white/10' : 'bg-black/5'}`} />
-                                            )}
-                                            <motion.div
-                                                initial={{ opacity: 0, x: -20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: index * 0.03, type: 'spring', stiffness: 120 }}
-                                                onClick={(e) => {
-                                                    if (link.disabled) return;
-                                                    const targetHref = link.href === '/about'
-                                                        ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
-                                                        : link.href === '/gemstones'
-                                                            ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5004' : '/gemstones/')
-                                                            : link.href;
-                                                    if (targetHref.startsWith('#')) {
-                                                        const element = document.querySelector(targetHref);
-                                                        if (element) {
-                                                            element.scrollIntoView({ behavior: 'smooth' });
-                                                        }
-                                                    } else {
-                                                        window.location.href = targetHref;
-                                                    }
-                                                    setIsOpen(false);
-                                                }}
-                                                className={`group flex items-center gap-3.5 text-sm sm:text-base font-bold tracking-wider font-mulish py-2 px-3 sm:py-2.5 sm:px-4 rounded-xl transition-all duration-300 ${
-                                                    link.disabled
-                                                        ? 'opacity-40 cursor-not-allowed pointer-events-none text-gray-400'
-                                                        : (isDarkMode 
-                                                            ? 'text-gray-300 hover:text-gold hover:bg-white/5 cursor-pointer' 
-                                                            : 'text-[#491000] hover:text-[#FF0000] hover:bg-black/5 cursor-pointer')
-                                                }`}
-                                                whileTap={link.disabled ? {} : { scale: 0.97 }}
-                                            >
-                                                <div className={`p-2 rounded-xl transition-all duration-300 shrink-0 ${
-                                                    link.disabled
-                                                        ? 'bg-gray-200 dark:bg-gray-800 text-gray-400'
-                                                        : (isDarkMode 
-                                                            ? 'bg-gold/10 text-gold shadow-[0_0_12px_rgba(212,175,55,0.08)] group-hover:scale-110' 
-                                                            : 'bg-[#FF0000]/10 text-[#FF0000] shadow-[0_0_12px_rgba(255,0,0,0.05)] group-hover:scale-110')
-                                                }`}>
-                                                    <link.icon size={16} strokeWidth={2.5} />
-                                                </div>
-                                                <span className={link.isGradient ? `bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-red-600'}` : ''}>
-                                                    {link.name}
-                                                </span>
-                                            </motion.div>
+                                {mobileNavSections.map((section) => (
+                                    <div key={section.title} className="space-y-1">
+                                        <div className={`text-[10px] font-extrabold tracking-[0.16em] uppercase px-3 py-1 font-mulish ${
+                                            isDarkMode ? 'text-gold/70' : 'text-[#A30000]/70'
+                                        }`}>
+                                            {section.title}
                                         </div>
-                                    );
-                                })}
+                                        <div className="space-y-0.5">
+                                            {section.links.map((link) => {
+                                                const IconComponent = link.icon;
+                                                return (
+                                                    <motion.div
+                                                        key={link.name}
+                                                        onClick={() => handleNavClick(link)}
+                                                        whileTap={link.disabled ? {} : { scale: 0.98 }}
+                                                        className={`group flex items-center justify-between px-3 py-2 sm:py-2.5 rounded-xl transition-all ${
+                                                            link.disabled
+                                                                ? 'opacity-35 cursor-not-allowed select-none'
+                                                                : isDarkMode
+                                                                    ? 'hover:bg-white/5 text-stone-200 hover:text-white cursor-pointer'
+                                                                    : 'hover:bg-black/5 text-stone-800 hover:text-black cursor-pointer'
+                                                        }`}
+                                                    >
+                                                        <div className="flex items-center gap-3 min-w-0">
+                                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform ${
+                                                                link.disabled
+                                                                    ? isDarkMode ? 'bg-white/5 text-stone-500' : 'bg-black/5 text-stone-400'
+                                                                    : link.isHighlight
+                                                                        ? 'bg-amber-500/20 text-amber-500 group-hover:scale-110'
+                                                                        : isDarkMode
+                                                                            ? 'bg-gold/10 text-gold group-hover:scale-110'
+                                                                            : 'bg-[#A30000]/10 text-[#A30000] group-hover:scale-110'
+                                                            }`}>
+                                                                <IconComponent size={15} strokeWidth={2.2} />
+                                                            </div>
+                                                            <span className="font-nunito font-bold text-sm tracking-wide truncate">
+                                                                {link.name}
+                                                            </span>
+                                                        </div>
+
+                                                        <div className="flex items-center gap-2 shrink-0">
+                                                            {link.badge && (
+                                                                <span className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider ${
+                                                                    link.isPulse 
+                                                                        ? 'bg-red-600 text-white animate-pulse'
+                                                                        : link.isHighlight
+                                                                            ? 'bg-amber-500 text-black font-extrabold'
+                                                                            : isDarkMode 
+                                                                                ? 'bg-gold/20 text-gold border border-gold/30'
+                                                                                : 'bg-[#A30000]/10 text-[#A30000] border border-[#A30000]/20'
+                                                                }`}>
+                                                                    {link.badge}
+                                                                </span>
+                                                            )}
+                                                            {!link.disabled && (
+                                                                <ChevronRight className="w-3.5 h-3.5 opacity-30 group-hover:opacity-80 group-hover:translate-x-0.5 transition-all" />
+                                                            )}
+                                                        </div>
+                                                    </motion.div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Bottom Conversion & Contact Strip */}
+                            <div className={`p-4 sm:p-5 border-t shrink-0 space-y-2.5 ${
+                                isDarkMode ? 'border-white/10 bg-black/40' : 'border-black/5 bg-white/70'
+                            }`}>
+                                {/* Primary CTA Button */}
+                                <motion.button
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        if (onOpenConsultation) {
+                                            onOpenConsultation();
+                                        } else {
+                                            const el = document.getElementById('footer');
+                                            if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                        }
+                                    }}
+                                    className={`w-full py-2.5 sm:py-3 px-4 rounded-xl font-nunito font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all ${
+                                        isDarkMode
+                                            ? 'bg-gold text-black hover:bg-yellow-400 shadow-gold/20'
+                                            : 'bg-gradient-to-r from-black to-[#A30000] text-white hover:opacity-95 shadow-[#A30000]/25'
+                                    }`}
+                                >
+                                    <Sparkles size={15} />
+                                    <span>Book a Consultation</span>
+                                </motion.button>
+
+                                {/* Quick Phone & Email Reach-out */}
+                                <div className="flex items-center justify-between gap-2">
+                                    <a
+                                        href="tel:+919612736566"
+                                        className={`flex-1 py-1.5 px-3 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors ${
+                                            isDarkMode ? 'bg-white/5 hover:bg-white/10 text-stone-300' : 'bg-black/5 hover:bg-black/10 text-stone-700'
+                                        }`}
+                                    >
+                                        <Phone size={12} className={isDarkMode ? 'text-gold' : 'text-[#A30000]'} />
+                                        <span>Call Us</span>
+                                    </a>
+                                    <a
+                                        href="mailto:contact.astrofied@gmail.com"
+                                        className={`flex-1 py-1.5 px-3 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors ${
+                                            isDarkMode ? 'bg-white/5 hover:bg-white/10 text-stone-300' : 'bg-black/5 hover:bg-black/10 text-stone-700'
+                                        }`}
+                                    >
+                                        <Mail size={12} className={isDarkMode ? 'text-gold' : 'text-[#A30000]'} />
+                                        <span>Email</span>
+                                    </a>
+                                </div>
                             </div>
                         </motion.div>
                     </>
@@ -177,48 +332,47 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                     : 'py-3 md:py-4 bg-transparent'
                 }`}
             >
-            <div className="container mx-auto px-6 flex justify-between items-center">
-                {/* Left Section: Hamburger (Mobile) + Logo (All) */}
-                <div className="flex items-center gap-2 md:gap-0">
-                    {/* Mobile Menu Toggle (Left on mobile, Hidden on desktop) */}
-                    <div className="lg:hidden">
+            <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
+                {/* Left Section: Hamburger (Mobile & Tablet) + Logo (All) */}
+                <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                    {/* Mobile & Tablet Menu Toggle (Hidden on xl desktop) */}
+                    <div className="xl:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="flex flex-col justify-center items-center w-10 h-10 gap-1 focus:outline-none transition-all duration-300 bg-transparent border-none"
+                            className="group flex flex-col justify-center items-start w-7 h-7 gap-[5px] focus:outline-none transition-all duration-300 cursor-pointer bg-transparent border-none p-0"
+                            aria-label="Toggle Navigation Menu"
                         >
                             <motion.span
-                                animate={isOpen ? { rotate: 45, y: 5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}
-                                className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
+                                animate={isOpen ? { rotate: 45, y: 3.5, width: 22 } : { rotate: 0, y: 0, width: 22 }}
+                                transition={{ duration: 0.25 }}
+                                className={`h-[2px] rounded-full origin-center ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
                             />
                             <motion.span
-                                animate={isOpen ? { opacity: 0, scale: 0 } : { opacity: 1, scale: 1 }}
-                                className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
-                            />
-                            <motion.span
-                                animate={isOpen ? { rotate: -45, y: -5, scaleX: 1.2 } : { rotate: 0, y: 0, scaleX: 1 }}
-                                className={`w-5 h-0.5 ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
+                                animate={isOpen ? { rotate: -45, y: -3.5, width: 22 } : { rotate: 0, y: 0, width: 14 }}
+                                transition={{ duration: 0.25 }}
+                                className={`h-[2px] rounded-full origin-center transition-all duration-300 group-hover:!w-[22px] ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
                             />
                         </button>
                     </div>
 
-                    {/* Brand Logo (Desktop) & Name (All) */}
+                    {/* Brand Logo & Name (All screens) */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-0 cursor-pointer"
+                        className="flex items-center gap-1 sm:gap-1.5 cursor-pointer shrink-0"
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     >
                         <img
                             src={logo}
                             alt="Astrofied Logo"
-                            className="hidden md:block w-12 h-12 md:w-14 md:h-14 object-contain"
-                            style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-4px' }}
+                            className="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 xl:w-12 xl:h-12 object-contain"
+                            style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply', marginRight: '-2px' }}
                         />
                         <span
-                            className={`text-2xl md:text-4xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
+                            className={`text-2xl sm:text-3xl xl:text-3xl 2xl:text-4xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
                                 isDarkMode 
                                     ? 'from-red-600 to-yellow-500' 
-                                    : 'from-black to-red-600'
+                                    : 'from-black to-[#FF0000]'
                             }`}
                         >
                             Astrofied
@@ -226,10 +380,10 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                     </motion.div>
                 </div>
 
-                {/* Right Section: Desktop Links + Toggle (Desktop) / Toggle only (Mobile) */}
-                <div className="flex items-center gap-8">
-                    {/* Desktop Links */}
-                    <div className="hidden lg:flex items-center gap-8">
+                {/* Right Section: Desktop Links (xl+) + Toggle (All screens) */}
+                <div className="flex items-center gap-3 sm:gap-4 xl:gap-6 2xl:gap-8 shrink-0">
+                    {/* Desktop Links (Visible only on xl and above) */}
+                    <div className="hidden xl:flex items-center gap-4 2xl:gap-7">
                         {desktopNavLinks.map((link) => (
                             <motion.button
                                 key={link.name}
@@ -240,19 +394,25 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                         ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
                                         : link.href;
                                     if (targetHref.startsWith('#')) {
-                                        const element = document.querySelector(targetHref);
+                                        const cleanHash = targetHref.replace(/\/+$/, '');
+                                        const element = document.querySelector(cleanHash);
                                         if (element) {
-                                            element.scrollIntoView({ behavior: 'smooth' });
+                                            if (window.lenis) {
+                                                window.lenis.scrollTo(element, { offset: -80 });
+                                            } else {
+                                                element.scrollIntoView({ behavior: 'smooth' });
+                                            }
+                                            window.history.pushState(null, '', targetHref);
                                         }
                                     } else {
                                         window.location.href = targetHref;
                                     }
                                 }}
-                                className={`text-lg font-bold transition-all relative group bg-transparent border-none p-0 ${
+                                className={`text-base 2xl:text-lg font-bold transition-all relative group bg-transparent border-none p-0 whitespace-nowrap ${
                                     link.disabled
                                         ? 'opacity-40 cursor-not-allowed text-gray-400 select-none'
                                         : link.isGradient
-                                            ? `bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-red-600'} cursor-pointer`
+                                            ? `bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-[#FF0000]'} cursor-pointer`
                                             : (isDarkMode ? 'text-gray-100 hover:text-gold cursor-pointer' : 'text-black hover:text-[#FF0000] cursor-pointer')
                                 }`}
                                 whileHover={link.disabled ? {} : { scale: 1.05 }}
@@ -261,7 +421,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                 {!link.disabled && (
                                     <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
                                         link.isGradient
-                                            ? (isDarkMode ? 'bg-yellow-500' : 'bg-red-600')
+                                            ? (isDarkMode ? 'bg-yellow-500' : 'bg-[#FF0000]')
                                             : (isDarkMode ? 'bg-gold' : 'bg-[#FF0000]')
                                     }`} />
                                 )}
@@ -272,13 +432,20 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                     {/* Theme Toggle (Visible on all screens) */}
                     <motion.button
                         onClick={toggleTheme}
-                        whileHover={{ scale: 1.1, rotate: 15 }}
-                        whileTap={{ scale: 0.9 }}
-                        className={`p-1.5 transition-all duration-300 bg-transparent border-none ${
-                            isDarkMode ? 'text-gold' : 'text-[#491000]'
+                        whileHover={{ scale: 1.08, rotate: 12 }}
+                        whileTap={{ scale: 0.92 }}
+                        aria-label="Toggle Theme"
+                        className={`p-1 sm:p-1.5 transition-colors duration-300 bg-transparent border-none cursor-pointer flex items-center justify-center ${
+                            isDarkMode 
+                                ? 'text-gold/80 hover:text-gold' 
+                                : 'text-stone-600 hover:text-black'
                         }`}
                     >
-                        {isDarkMode ? <Sun size={18} strokeWidth={2.5} /> : <Moon size={18} strokeWidth={2.5} />}
+                        {isDarkMode ? (
+                            <Sun className="w-[15px] h-[15px] md:w-[18px] md:h-[18px]" strokeWidth={1.8} />
+                        ) : (
+                            <Moon className="w-[15px] h-[15px] md:w-[18px] md:h-[18px]" strokeWidth={1.8} />
+                        )}
                     </motion.button>
                 </div>
             </div>

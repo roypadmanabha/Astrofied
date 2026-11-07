@@ -25,7 +25,7 @@ const PromoVideo = () => {
   };
 
   return (
-    <section className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
+    <section className={`pt-3 pb-8 sm:pt-6 sm:pb-12 md:py-20 relative flex justify-center items-center overflow-hidden px-4 sm:px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
       {!isDarkMode && (
         <svg className="w-0 h-0 absolute" style={{ visibility: 'hidden' }}>
           <defs>
@@ -38,7 +38,7 @@ const PromoVideo = () => {
       )}
       <div className="container mx-auto max-w-[1200px] flex justify-center">
         <motion.div 
-          className={`relative w-full max-w-4xl cursor-pointer rounded-[15px] overflow-hidden border-[3px] transition-colors duration-500 ${isDarkMode ? 'border-gold shadow-[0_10px_40px_rgba(212,175,55,0.2)]' : 'border-[#A30000] shadow-[0_10px_30px_rgba(0,0,0,0.06)]'}`}
+          className={`relative w-full max-w-4xl cursor-pointer rounded-[15px] overflow-hidden border transition-colors duration-500 ${isDarkMode ? 'border-gold shadow-[0_10px_40px_rgba(212,175,55,0.2)]' : 'border-[#A30000] shadow-[0_10px_30px_rgba(0,0,0,0.06)]'}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 1.01 }}
@@ -69,10 +69,10 @@ const PromoVideo = () => {
                 className="absolute inset-0 flex items-center justify-center transition-colors hover:bg-black/10"
               >
                 <CirclePlay 
-                  className={`w-16 h-16 md:w-20 md:h-20 rounded-full transition-transform hover:scale-110 drop-shadow-lg`} 
+                  className={`w-11 h-11 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full transition-transform hover:scale-110 active:scale-95 drop-shadow-md sm:drop-shadow-lg`} 
                   stroke={isDarkMode ? "#ffd700" : "url(#play-grad)"}
                   fill={isDarkMode ? "rgba(0,0,0,0.6)" : "none"}
-                  strokeWidth={1.5} 
+                  strokeWidth={1} 
                 />
               </motion.div>
             )}

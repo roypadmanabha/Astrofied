@@ -60,7 +60,7 @@ export default function Footer({ onOpenLegal }) {
                 loading="lazy"
               />
               <h4 
-                className="text-xl md:text-xl lg:text-3xl bg-clip-text text-transparent bg-gradient-to-r from-black to-[#D10000]"
+                className="text-xl md:text-xl lg:text-3xl bg-clip-text text-transparent bg-gradient-to-r from-black to-[#FF0000]"
                 style={{ color: 'transparent', backgroundClip: 'text', WebkitBackgroundClip: 'text', fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}
               >
                 Astrofied

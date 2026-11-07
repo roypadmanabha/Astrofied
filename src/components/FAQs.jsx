@@ -75,20 +75,20 @@ export default function FAQs() {
     };
 
     return (
-        <section id="faqs" className={`py-24 relative overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
-            <div className="container mx-auto px-6 max-w-4xl">
+        <section id="faqs" className={`py-12 sm:py-16 md:py-24 relative overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
+            <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
                 <motion.h2
                     initial={{ opacity: 0.8, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="text-3xl md:text-5xl font-bold text-center mb-12 font-mulish"
+                    className="text-2xl sm:text-3xl md:text-5xl font-bold text-center mb-6 sm:mb-8 md:mb-12 font-mulish"
                     style={{ color: isDarkMode ? '#FFFFFF' : '#A30000' }}
                 >
                     Frequently Asked Questions
                 </motion.h2>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2.5 sm:gap-3 md:gap-4">
                     {faqs.map((faq, index) => {
                         const isActive = openIndex === index;
 
@@ -99,30 +99,34 @@ export default function FAQs() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.4, ease: "easeOut" }}
-                                className={`rounded-[1rem] transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
+                                className={`rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden shadow-sm ${isDarkMode
                                     ? isActive
-                                        ? 'border border-gray-600 bg-transparent shadow-white/5'
-                                        : 'border border-gray-600 bg-transparent hover:border-gray-400'
+                                        ? 'border border-gold/40 bg-white/[0.03] shadow-gold/5'
+                                        : 'border border-white/10 bg-transparent hover:border-white/20'
                                     : isActive
-                                        ? 'border-2 border-[#A30000] bg-[#F5F5DC] shadow-[#A30000]/10'
-                                        : 'border-2 border-[#A30000]/20 bg-[#FFFFFF] hover:border-[#A30000]'
+                                        ? 'border border-[#A30000] bg-[#F5F5DC]/80 shadow-[#A30000]/5'
+                                        : 'border border-[#A30000]/15 bg-white hover:border-[#A30000]/40'
                                     }`}
                             >
                                 <button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full text-left px-6 py-5 md:py-6 flex items-center justify-between gap-4 focus:outline-none"
+                                    className="w-full text-left px-3.5 sm:px-5 md:px-6 py-3 sm:py-4 md:py-5 flex items-center justify-between gap-3 sm:gap-4 focus:outline-none cursor-pointer"
                                 >
-                                    <span className={`text-base md:text-lg font-bold transition-colors font-mulish ${isDarkMode
+                                    <span className={`text-[13.5px] sm:text-base md:text-lg font-bold transition-colors font-mulish leading-snug ${isDarkMode
                                         ? isActive ? 'text-[#ffd700]' : 'text-gray-100 hover:text-white'
-                                        : isActive ? 'text-[#DC2626]' : 'text-[#17202A] hover:text-[#DC2626]'
+                                        : isActive ? 'text-[#A30000]' : 'text-[#17202A] hover:text-[#A30000]'
                                         }`}>
                                         {formatAstrofied(faq.question, isDarkMode)}
                                     </span>
-                                    <span className={`flex-shrink-0 transition-colors ${isDarkMode
-                                        ? isActive ? 'text-[#ffd700]' : 'text-gray-100'
-                                        : isActive ? 'text-[#DC2626]' : 'text-[#17202A]'
+                                    <span className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center shrink-0 transition-all ${isDarkMode
+                                        ? isActive ? 'bg-gold/20 text-gold rotate-180' : 'bg-white/5 text-gray-300'
+                                        : isActive ? 'bg-[#A30000]/10 text-[#A30000] rotate-180' : 'bg-black/5 text-[#17202A]'
                                         }`}>
-                                        {isActive ? <Minus size={24} strokeWidth={3} /> : <Plus size={24} strokeWidth={3} />}
+                                        {isActive ? (
+                                            <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2.5} />
+                                        ) : (
+                                            <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2.5} />
+                                        )}
                                     </span>
                                 </button>
 
@@ -132,9 +136,9 @@ export default function FAQs() {
                                             initial={{ height: 0, opacity: 0 }}
                                             animate={{ height: "auto", opacity: 1 }}
                                             exit={{ height: 0, opacity: 0 }}
-                                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                                            transition={{ duration: 0.25, ease: "easeInOut" }}
                                         >
-                                            <div className={`px-6 pb-6 pt-1 text-sm md:text-base leading-relaxed text-justify ${isDarkMode ? 'text-gray-300' : 'text-black'
+                                            <div className={`px-3.5 sm:px-5 md:px-6 pb-3.5 sm:pb-5 md:pb-6 pt-0 text-xs sm:text-sm md:text-base leading-relaxed text-justify ${isDarkMode ? 'text-gray-300' : 'text-[#17202A]/85'
                                                 }`}>
                                                 {formatAstrofied(faq.answer, isDarkMode)}
                                             </div>
@@ -145,8 +149,6 @@ export default function FAQs() {
                         );
                     })}
                 </div>
-
-
             </div>
         </section>
     );

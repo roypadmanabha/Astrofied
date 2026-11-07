@@ -130,9 +130,9 @@ const Numerology = () => {
                 </div>
 
                 {/* Input & Button */}
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4 w-full">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mb-4 w-full">
                     {/* Inner wrapper to keep Input and Reset on the same line on mobile */}
-                    <div className="flex flex-row items-center justify-center gap-2 md:gap-4 w-full md:w-auto order-1 md:order-none">
+                    <div className="flex flex-row items-center justify-center gap-2 md:gap-4 w-full max-w-[320px] md:max-w-none md:w-auto order-1 md:order-none">
                         
                         {/* Input (Rendered First on Mobile, Second on Desktop) */}
                         <div className="relative w-full md:w-auto flex-grow order-1 md:order-2">
@@ -144,7 +144,7 @@ const Numerology = () => {
                                 max="2099-12-31"
                                 value={dob}
                                 onChange={handleDateChange}
-                                className={`md:hidden px-4 py-3 rounded-xl border-2 text-[15px] font-bold shadow-lg w-full outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#ffd700]' : 'bg-white border-transparent focus:border-[#A30000] text-black'}`}
+                                className={`md:hidden px-3.5 py-2.5 rounded-xl border-2 text-sm font-bold shadow-sm w-full outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#ffd700]' : 'bg-white border-transparent focus:border-[#A30000] text-black'}`}
                             />
                             {/* Desktop Input: Native Date Picker */}
                             <input 
@@ -165,16 +165,16 @@ const Numerology = () => {
                                 setResults(null);
                                 setError('');
                             }}
-                            className={`p-3 md:p-4 rounded-xl border-2 shadow-lg transition-all flex items-center justify-center group flex-shrink-0 order-2 md:order-1 ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#ffd700] hover:text-[#ffd700]' : 'bg-white border-transparent text-black hover:text-[#A30000]'}`}
+                            className={`p-2.5 md:p-4 rounded-xl border-2 shadow-sm transition-all flex items-center justify-center group flex-shrink-0 order-2 md:order-1 ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#ffd700] hover:text-[#ffd700]' : 'bg-white border-transparent text-black hover:text-[#A30000]'}`}
                             title="Reset"
                         >
-                            <RotateCcw className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
+                            <RotateCcw className="w-5 h-5 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
                         </button>
                     </div>
 
                     <button 
                         onClick={handleCalculate}
-                        className={`px-8 py-3 md:py-4 rounded-xl text-lg md:text-2xl font-bold shadow-lg transition-colors w-full md:w-auto order-2 md:order-none ${isDarkMode ? 'bg-[#ffd700] text-black hover:bg-[#e6c200]' : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000]'}`}
+                        className={`px-6 sm:px-8 py-2.5 sm:py-3.5 md:py-4 rounded-xl text-sm sm:text-base md:text-2xl font-bold shadow-md transition-all active:scale-95 w-auto min-w-[170px] sm:min-w-[200px] order-2 md:order-none ${isDarkMode ? 'bg-[#ffd700] text-black hover:bg-[#e6c200]' : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000]'}`}
                     >
                         Calculate
                     </button>

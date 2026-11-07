@@ -33,10 +33,10 @@ export default function Navbar() {
         
         {/* Wordmark matching Journals wordmark layout */}
         <h1 className="text-base sm:text-xl md:text-2xl font-bold whitespace-nowrap flex items-center gap-1 md:gap-2" style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-black via-[#A00000] to-[#D10000]" style={{ letterSpacing: '-0.03em' }}>
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-[#FF0000]" style={{ letterSpacing: '-0.03em' }}>
             Astrofied
           </span>
-          <span className="bg-clip-text text-transparent bg-[#D10000]" style={{ letterSpacing: '-0.03em' }}>
+          <span className="bg-clip-text text-transparent bg-[#FF0000]" style={{ letterSpacing: '-0.03em' }}>
             Gemstones
           </span>
         </h1>

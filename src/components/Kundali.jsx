@@ -363,39 +363,26 @@ const Kundali = () => {
     };
 
     return (
-        <section id="kundali" className={`py-12 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+        <section id="kundali" className={`py-10 sm:py-16 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
+            <div className="container mx-auto px-4 sm:px-6">
+                <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-10 lg:gap-24">
 
                     {/* Left Side: Heading */}
-                    <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6 md:space-y-8">
-                        <motion.div
-                            initial={{ opacity: 0.8, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border shadow-sm ${isDarkMode 
-                                ? 'border-gold/30 text-gold bg-gold/5' 
-                                : 'border-transparent text-white bg-gradient-to-r from-black to-[#FF0000]'
-                                }`}
-                        >
-                            <Sparkles size={14} />
-                            <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Vedic Astrology</span>
-                        </motion.div>
+                    <div className="w-full lg:w-1/2 text-center lg:text-left space-y-4 sm:space-y-6 md:space-y-8">
 
                         <motion.h2
                             initial={{ opacity: 0.8, x: -10 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="text-4xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight flex flex-col"
+                            className="text-[1.4rem] min-[360px]:text-[1.65rem] min-[390px]:text-[1.85rem] sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tight flex flex-row flex-nowrap lg:flex-col items-center justify-center lg:items-start gap-1.5 sm:gap-2.5 lg:gap-0 whitespace-nowrap lg:whitespace-normal"
                         >
                             <span className={`force-nunito font-bold ${isDarkMode ? 'brand-text' : 'astrofied-title-gradient'}`}>
                                 Astrofied
                             </span>
-                            <span className={`font-mulish mt-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                                Free <br />
-                                <span className={`${isDarkMode ? 'text-gold' : 'text-[#FF0000]'} italic`}>Kundali</span>
+                            <span className={`font-mulish lg:mt-1.5 xl:mt-2 ${isDarkMode ? 'text-white' : 'text-black'} inline-flex items-center gap-1.5 sm:gap-2.5`}>
+                                Free{' '}
+                                <span className={isDarkMode ? 'text-gold' : 'text-[#FF0000]'}>Kundali</span>
                             </span>
                         </motion.h2>
 
@@ -404,7 +391,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-black'
+                            className={`text-sm sm:text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-black'
                                 }`}
                         >
                             Generate your precise East Indian style D1 Lagna chart based on your birth coordinates.
@@ -418,23 +405,23 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`p-6 md:p-10 lg:p-12 rounded-[12px] border shadow-2xl backdrop-blur-3xl transition-all duration-500 relative lg:aspect-square flex flex-col justify-center ${isDarkMode
-                                ? 'border-gold bg-transparent'
-                                : 'border-[#A30000] bg-[#F5F5DC]'
+                            className={`p-4 sm:p-7 md:p-10 lg:p-12 rounded-2xl sm:rounded-3xl border shadow-xl sm:shadow-2xl backdrop-blur-3xl transition-all duration-500 relative flex flex-col justify-center ${isDarkMode
+                                ? 'border-gold/40 bg-transparent'
+                                : 'border-[#A30000]/30 bg-[#F5F5DC]'
                                 }`}
                         >
                             <img
                                 src={logo}
                                 alt="Astrofied"
-                                className="absolute top-2 right-2 md:top-4 md:right-4 w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain select-none pointer-events-none"
+                                className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 w-9 h-9 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain select-none pointer-events-none opacity-80"
                                 style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                             />
-                            <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
-                                {/* Name Grid */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-1">
-                                        <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
-                                            <User size={10} /> First Name
+                            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 md:space-y-6">
+                                {/* Name Grid: 2 columns on mobile & desktop */}
+                                <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
+                                    <div className="space-y-0.5 sm:space-y-1">
+                                        <label className={`text-[8px] sm:text-[9px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] flex items-center gap-1 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                            <User size={10} className="shrink-0" /> First Name
                                         </label>
                                         <input
                                             type="text"
@@ -450,9 +437,9 @@ const Kundali = () => {
                                         />
                                         {fieldErrors.firstName && <p className="text-[8px] text-red-500 font-bold">{fieldErrors.firstName}</p>}
                                     </div>
-                                    <div className="space-y-1">
-                                        <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
-                                            <User size={10} /> Last Name
+                                    <div className="space-y-0.5 sm:space-y-1">
+                                        <label className={`text-[8px] sm:text-[9px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] flex items-center gap-1 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                            <User size={10} className="shrink-0" /> Last Name
                                         </label>
                                         <input
                                             type="text"
@@ -471,9 +458,9 @@ const Kundali = () => {
                                 </div>
 
                                 {/* Mobile & Email Grid */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-1">
-                                        <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-4">
+                                    <div className="space-y-0.5 sm:space-y-1">
+                                        <label className={`text-[8px] sm:text-[9px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] flex items-center gap-1 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
                                             <span className="font-black">+91</span> Mobile
                                         </label>
                                         <div className={`flex items-center gap-2 border-b transition-all ${isDarkMode ? 'border-white/10 focus-within:border-gold' : 'border-[#0A1931]/10 focus-within:border-[#0A1931]'}`}>
@@ -493,8 +480,8 @@ const Kundali = () => {
                                         </div>
                                         {fieldErrors.mobile && <p className="text-[8px] text-red-500 font-bold">{fieldErrors.mobile}</p>}
                                     </div>
-                                    <div className="space-y-1">
-                                        <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                    <div className="space-y-0.5 sm:space-y-1">
+                                        <label className={`text-[8px] sm:text-[9px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] flex items-center gap-1 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
                                             Email Address
                                         </label>
                                         <input
@@ -514,16 +501,16 @@ const Kundali = () => {
                                 </div>
 
                                 {/* Date, Time & Gender Grid */}
-                                <div className="grid grid-cols-3 gap-4">
-                                    <div className="space-y-1">
-                                        <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
-                                            <Calendar size={10} /> Date
+                                <div className="grid grid-cols-3 gap-2 sm:gap-3.5">
+                                    <div className="space-y-0.5 sm:space-y-1 min-w-0">
+                                        <label className={`text-[8px] sm:text-[9px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] flex items-center gap-1 truncate ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                            <Calendar size={10} className="shrink-0" /> Date
                                         </label>
                                         <input
                                             type="date"
                                             name="dob"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-1 text-[10px] sm:text-xs md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
+                                            className={`w-full border-b bg-transparent px-0 py-1 text-[11px] sm:text-xs md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold'
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                                 }`}
@@ -531,15 +518,15 @@ const Kundali = () => {
                                             onChange={handleInputChange}
                                         />
                                     </div>
-                                    <div className="space-y-1">
-                                        <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
-                                            <Clock size={10} /> Time
+                                    <div className="space-y-0.5 sm:space-y-1 min-w-0">
+                                        <label className={`text-[8px] sm:text-[9px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] flex items-center gap-1 truncate ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                            <Clock size={10} className="shrink-0" /> Time
                                         </label>
                                         <input
                                             type="time"
                                             name="tob"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-1 text-[10px] sm:text-xs md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
+                                            className={`w-full border-b bg-transparent px-0 py-1 text-[11px] sm:text-xs md:text-base font-bold focus:outline-none transition-all [color-scheme:${isDarkMode ? 'dark' : 'light'}] ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold'
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                                 }`}
@@ -547,14 +534,14 @@ const Kundali = () => {
                                             onChange={handleInputChange}
                                         />
                                     </div>
-                                    <div className="space-y-1">
-                                        <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                    <div className="space-y-0.5 sm:space-y-1 min-w-0">
+                                        <label className={`text-[8px] sm:text-[9px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] flex items-center gap-1 truncate ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
                                             Gender
                                         </label>
                                         <select
                                             name="gender"
                                             required
-                                            className={`w-full border-b bg-transparent px-0 py-1 text-[10px] sm:text-xs md:text-base font-bold focus:outline-none transition-all ${isDarkMode
+                                            className={`w-full border-b bg-transparent px-0 py-1 text-[11px] sm:text-xs md:text-base font-bold focus:outline-none transition-all cursor-pointer ${isDarkMode
                                                 ? 'border-white/10 text-white focus:border-gold'
                                                 : 'border-[#0A1931]/10 text-black focus:border-[#0A1931]'
                                                 }`}
@@ -568,9 +555,9 @@ const Kundali = () => {
                                     </div>
                                 </div>
 
-                                <div className="space-y-1 relative">
-                                    <label className={`text-[8px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
-                                        <MapPin size={10} /> Location
+                                <div className="space-y-0.5 sm:space-y-1 relative">
+                                    <label className={`text-[8px] sm:text-[9px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] flex items-center gap-1 ${isDarkMode ? 'text-gold' : 'text-[#0A1931]'}`}>
+                                        <MapPin size={10} className="shrink-0" /> Location
                                     </label>
                                     <input
                                         type="text"
@@ -598,7 +585,7 @@ const Kundali = () => {
                                                     <button
                                                         key={idx}
                                                         type="button"
-                                                        className={`w-full text-left px-4 py-3 text-xs font-semibold transition-all border-b last:border-0 ${isDarkMode
+                                                        className={`w-full text-left px-4 py-2.5 sm:py-3 text-xs font-semibold transition-all border-b last:border-0 ${isDarkMode
                                                             ? 'text-gray-300 hover:bg-gold/10 hover:text-gold border-white/5'
                                                             : 'text-[#0A1931] hover:bg-[#A30000]/10 hover:text-[#A30000] border-[#A30000]/5'
                                                             }`}
@@ -613,22 +600,22 @@ const Kundali = () => {
                                 </div>
 
                                 {error && (
-                                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-[10px] font-bold text-center bg-red-500/5 py-2 rounded-lg">
+                                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-[10px] font-bold text-center bg-red-500/5 py-1.5 sm:py-2 rounded-lg">
                                         {error}
                                     </motion.p>
                                 )}
 
                                 <motion.button
-                                    whileHover={{ scale: 1.02 }}
+                                    whileHover={{ scale: 1.01 }}
                                     whileTap={{ scale: 0.98 }}
                                     disabled={loading || otpLoading}
-                                    className={`w-full py-4 font-black rounded-2xl tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all disabled:opacity-50 text-xs border-2 border-transparent ${isDarkMode 
-                                        ? 'bg-gold text-black' 
+                                    className={`w-full py-2.5 sm:py-3.5 font-black rounded-xl sm:rounded-2xl tracking-[0.15em] sm:tracking-[0.2em] uppercase flex items-center justify-center gap-2 sm:gap-3 transition-all disabled:opacity-50 text-xs sm:text-sm border-2 border-transparent ${isDarkMode 
+                                        ? 'bg-gold text-black shadow-lg shadow-gold/20' 
                                         : 'bg-gradient-to-r from-black to-[#FF0000] text-white shadow-xl hover:opacity-90'
                                         }`}
                                 >
-                                    {(loading || otpLoading) ? <Loader2 className="animate-spin" size={18} /> : (
-                                        <><Sparkles size={16} /> Generate</>
+                                    {(loading || otpLoading) ? <Loader2 className="animate-spin" size={16} /> : (
+                                        <><Sparkles size={15} /> Generate</>
                                     )}
                                 </motion.button>
 
@@ -639,7 +626,7 @@ const Kundali = () => {
                                 <button
                                     type="button"
                                     onClick={handleReset}
-                                    className={`mt-4 text-[10px] font-bold uppercase tracking-widest opacity-30 hover:opacity-100 transition-all flex items-center justify-center gap-2 mx-auto ${isDarkMode ? 'text-white' : 'text-[#A30000]'}`}
+                                    className={`mt-2 sm:mt-3 text-[10px] font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-all flex items-center justify-center gap-1.5 mx-auto ${isDarkMode ? 'text-white' : 'text-[#A30000]'}`}
                                 >
                                     <RotateCcw size={10} /> Reset
                                 </button>
@@ -652,7 +639,7 @@ const Kundali = () => {
             {/* OTP Modal */}
             <AnimatePresence>
                 {showOtpModal && (
-                    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-3 sm:p-4">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -660,25 +647,25 @@ const Kundali = () => {
                             className="absolute inset-0 bg-black/80 backdrop-blur-xl"
                         />
                         <motion.div
-                            initial={{ scale: 0.9, opacity: 0, y: 30 }}
+                            initial={{ scale: 0.9, opacity: 0, y: 20 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.9, opacity: 0, y: 30 }}
-                            className={`relative w-full max-w-md p-8 md:p-10 rounded-[2.5rem] border shadow-2xl text-center
+                            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                            className={`relative w-full max-w-sm sm:max-w-md p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-[2.5rem] border shadow-2xl text-center
                                 ${isDarkMode ? 'bg-[#0f0a1f] border-gold/30 text-white' : 'bg-white border-[#A30000]/30 text-black'}
                             `}
                         >
-                            <div className="flex justify-center mb-6">
-                                <div className={`p-4 rounded-full ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
-                                    <ShieldCheck size={32} />
+                            <div className="flex justify-center mb-3 sm:mb-6">
+                                <div className={`p-3 sm:p-4 rounded-full ${isDarkMode ? 'bg-gold/10 text-gold' : 'bg-[#A30000]/10 text-[#A30000]'}`}>
+                                    <ShieldCheck size={26} />
                                 </div>
                             </div>
-                            <h3 className="text-2xl font-black mb-2">Verify OTP</h3>
-                            <p className="text-sm opacity-70 mb-8">
+                            <h3 className="text-xl sm:text-2xl font-black mb-1.5 sm:mb-2">Verify OTP</h3>
+                            <p className="text-xs sm:text-sm opacity-70 mb-5 sm:mb-8">
                                 Enter the 6-digit code sent to <br />
                                 <span className={`font-bold ${isDarkMode ? 'text-gold' : 'text-black'}`}>{formData.email}</span>
                             </p>
 
-                            <div className="flex justify-between gap-2 mb-8" onPaste={handleOtpPaste}>
+                            <div className="flex justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8" onPaste={handleOtpPaste}>
                                 {otpInputs.map((digit, idx) => (
                                     <input
                                         key={idx}
@@ -688,7 +675,7 @@ const Kundali = () => {
                                         value={digit}
                                         onChange={(e) => handleOtpChange(idx, e.target.value)}
                                         onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                                        className={`w-12 h-14 md:w-14 md:h-16 text-2xl font-black text-center rounded-xl border-2 transition-all outline-none
+                                        className={`w-9 h-11 sm:w-12 sm:h-14 text-xl sm:text-2xl font-black text-center rounded-xl border-2 transition-all outline-none
                                             ${isDarkMode
                                                 ? 'bg-white/5 border-white/10 focus:border-gold focus:bg-gold/5'
                                                 : 'bg-black/5 border-black/10 focus:border-[#A30000] focus:bg-[#A30000]/5'}
@@ -702,7 +689,7 @@ const Kundali = () => {
                                 <motion.p
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="text-red-500 text-xs font-bold mb-6 flex items-center justify-center gap-2"
+                                    className="text-red-500 text-xs font-bold mb-4 sm:mb-6 flex items-center justify-center gap-2"
                                 >
                                     <X size={14} className="border border-red-500 rounded-full" />
                                     {otpError}
@@ -712,16 +699,16 @@ const Kundali = () => {
                             <button
                                 onClick={handleOtpVerify}
                                 disabled={otpLoading || otpInputs.some(d => !d)}
-                                className={`w-full py-4 rounded-2xl font-black text-xs tracking-widest uppercase transition-all shadow-xl disabled:opacity-50 flex items-center justify-center gap-3
+                                className={`w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl font-black text-xs tracking-widest uppercase transition-all shadow-xl disabled:opacity-50 flex items-center justify-center gap-2 sm:gap-3
                                     ${isDarkMode ? 'bg-gold text-black' : 'bg-[#A30000] text-white'}
                                 `}
                             >
-                                {otpLoading ? <Loader2 size={18} className="animate-spin" /> : 'Verify & Generate'}
+                                {otpLoading ? <Loader2 size={16} className="animate-spin" /> : 'Verify & Generate'}
                             </button>
 
                             <button
                                 onClick={() => window.location.reload()}
-                                className="mt-6 text-[10px] font-bold uppercase tracking-widest opacity-50 hover:opacity-100 transition-all"
+                                className="mt-4 sm:mt-6 text-[10px] font-bold uppercase tracking-widest opacity-50 hover:opacity-100 transition-all"
                             >
                                 Cancel & Go Back
                             </button>

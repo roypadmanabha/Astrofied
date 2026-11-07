@@ -50,6 +50,21 @@ const Pricing = () => {
 
   return (
     <section id="pricing" className={`py-16 md:py-24 relative overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-[#f5f5dd]'}`}>
+      <style>{`
+        @media (min-width: 1024px) {
+          .pricing-grid {
+            grid-auto-rows: 1fr !important;
+          }
+          .pricing-card-title {
+            min-height: 5.75rem !important;
+            display: flex !important;
+            align-items: flex-start !important;
+          }
+          .pricing-card-desc {
+            min-height: 3.5rem !important;
+          }
+        }
+      `}</style>
       <div className="container mx-auto px-6 max-w-[1200px]">
         <motion.div
           initial={{ opacity: 0.8, y: 10 }}
@@ -67,7 +82,7 @@ const Pricing = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-8 xl:gap-12 items-stretch pricing-grid" style={{ gridAutoRows: '1fr' }}>
           {pricingData.map((item, idx) => (
             <motion.div
               key={item.id}
@@ -75,7 +90,8 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`relative rounded-[24px] p-4 sm:p-5 border flex flex-col justify-between ${isDarkMode
+              style={{ height: '100%' }}
+              className={`pricing-card relative rounded-[24px] p-4 sm:p-5 border flex flex-col justify-between h-full ${isDarkMode
                   ? `shadow-2xl transition-all duration-700 bg-transparent border-white`
                   : 'bg-white border-gray-200 shadow-md'
                 }`}
@@ -88,7 +104,7 @@ const Pricing = () => {
               {/* Card Decoration */}
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-current opacity-[0.02] rounded-full blur-3xl pointer-events-none" />
 
-              <div>
+              <div className="flex-1 flex flex-col">
                 {/* Image Container */}
                 <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-md ${isDarkMode ? 'shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] bg-black/40' : 'bg-[#f5f5dd]'
                   }`}>
@@ -116,13 +132,13 @@ const Pricing = () => {
                 </div>
 
                 {/* Content Area */}
-                <div className="px-4 pb-4">
-                  <div className="flex flex-col gap-3 mb-8">
-                    <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-mulish leading-tight ${isDarkMode ? 'font-bold text-white' : 'font-bold text-[#A30000]'
+                <div className="px-4 pb-4 flex-1 flex flex-col">
+                  <div className="flex flex-col gap-3 mb-8 flex-1">
+                    <h3 className={`pricing-card-title text-2xl sm:text-3xl lg:text-4xl font-mulish leading-tight ${isDarkMode ? 'font-bold text-white' : 'font-bold text-[#A30000]'
                       }`}>
                       {item.title}
                     </h3>
-                    <p className={`text-sm sm:text-base font-mulish font-medium leading-relaxed opacity-60 ${isDarkMode ? 'text-gray-300' : 'text-black/80'
+                    <p className={`pricing-card-desc text-sm sm:text-base font-mulish font-medium leading-relaxed opacity-60 ${isDarkMode ? 'text-gray-300' : 'text-black/80'
                       }`}>
                       {item.description}
                     </p>
@@ -131,24 +147,24 @@ const Pricing = () => {
               </div>
 
               {/* Bottom Price & CTA Box */}
-              <div className="px-3 sm:px-4 pb-4">
-                <div className={`flex flex-wrap items-center justify-between gap-2 sm:gap-4 mt-auto p-3 sm:p-4 md:p-6 rounded-[10px] border ${isDarkMode
+              <div className="px-3 sm:px-4 pb-4 mt-auto">
+                <div className={`flex flex-nowrap items-center justify-between gap-2 sm:gap-3 lg:gap-4 mt-auto p-3 sm:p-4 rounded-[10px] border ${isDarkMode
                     ? 'backdrop-blur-xl bg-white/5 border-[0.5px] border-white transition-colors duration-500'
                     : 'bg-[#f5f5dd] border-black/[0.05]'
                   }`}>
                   {item.prices ? (
-                    <div className="flex items-stretch gap-2 sm:gap-4">
+                    <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 shrink-0">
                       {item.prices.map((p, pIdx) => (
                         <React.Fragment key={pIdx}>
                           {pIdx > 0 && (
-                            <div className={`w-[1px] self-stretch my-0.5 ${isDarkMode ? 'bg-white' : 'bg-black'}`} />
+                            <div className={`w-[1px] h-7 sm:h-9 self-center ${isDarkMode ? 'bg-white' : 'bg-black'}`} />
                           )}
-                          <div className="flex flex-col justify-between">
-                            <span className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-wider leading-none mb-1 ${isDarkMode ? 'text-gold' : 'text-[#A30000]'
+                          <div className="flex flex-col justify-center">
+                            <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-wider leading-none mb-1 ${isDarkMode ? 'text-gold' : 'text-[#A30000]'
                               }`}>
                               {p.label}
                             </span>
-                            <span className={`text-base sm:text-2xl font-bold leading-none ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}>
+                            <span className={`text-base sm:text-xl xl:text-2xl font-bold leading-none ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}>
                               ₹{p.amount}
                             </span>
                           </div>
@@ -156,7 +172,7 @@ const Pricing = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="flex flex-col">
+                    <div className="flex flex-col shrink-0">
                       <span className={`text-xl sm:text-3xl font-bold ${isDarkMode ? 'text-gold' : 'text-[#A30000]'
                         }`}>
                         ₹{item.price}
@@ -168,7 +184,7 @@ const Pricing = () => {
                     whileHover={{ scale: 1.05, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open(getWhatsAppLink(`I want to book ${item.title}.`), '_blank')}
-                    className={`ml-auto group/btn flex items-center gap-1.5 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-3 xl:px-8 xl:py-4 rounded-[10px] font-black text-[8px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.2em] uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${isDarkMode
+                    className={`shrink-0 ml-auto group/btn flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 xl:px-6 xl:py-3 rounded-[10px] font-black text-[8px] sm:text-[10px] tracking-wider uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${isDarkMode
                         ? 'bg-gold text-black hover:bg-white shadow-gold/20'
                         : 'bg-[#A30000] text-white hover:bg-black shadow-[#991600]/20'
                       }`}

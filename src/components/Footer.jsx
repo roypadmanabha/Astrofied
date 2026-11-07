@@ -63,7 +63,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                             <h4
                                 className={`${isJournalsPage ? 'text-[7px] sm:text-[9px] md:text-xl lg:text-3xl mt-1 md:mt-0' : 'text-xl md:text-xl lg:text-3xl'} force-nunito font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode
                                     ? 'from-red-600 to-yellow-500'
-                                    : 'from-black to-red-600'
+                                    : 'from-black to-[#FF0000]'
                                     }`}
                             >
                                 Astrofied

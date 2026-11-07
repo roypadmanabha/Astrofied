@@ -20,22 +20,42 @@ export default function ContentProtection() {
   };
 
   useEffect(() => {
+    const isInputOrAdmin = (target) => {
+      if (typeof window !== 'undefined') {
+        const hash = window.location.hash.toLowerCase();
+        const path = window.location.pathname.toLowerCase();
+        if (hash.includes('admin') || path.includes('admin')) return true;
+      }
+      if (!target) return false;
+      const tag = target.tagName ? target.tagName.toLowerCase() : '';
+      return (
+        tag === 'input' ||
+        tag === 'textarea' ||
+        target.isContentEditable ||
+        Boolean(target.closest && target.closest('input, textarea, [contenteditable="true"]'))
+      );
+    };
+
     const handleContextMenu = (e) => {
+      if (isInputOrAdmin(e.target)) return;
       e.preventDefault();
       triggerToast();
     };
 
     const handleCopyCut = (e) => {
+      if (isInputOrAdmin(e.target)) return;
       e.preventDefault();
       triggerToast();
     };
 
     const handleDragDrop = (e) => {
+      if (isInputOrAdmin(e.target)) return;
       e.preventDefault();
       triggerToast();
     };
 
     const handleKeyDown = (e) => {
+      if (isInputOrAdmin(e.target)) return;
       const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
       const cmdOrCtrl = isMac ? e.metaKey : e.ctrlKey;
 

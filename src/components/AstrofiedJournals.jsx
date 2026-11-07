@@ -363,10 +363,10 @@ const AstrofiedJournals = () => {
 
   const titleContent = (
     <span className="whitespace-nowrap inline-flex items-center justify-center gap-3">
-      <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black via-[#7B0000] to-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 650, letterSpacing: '-0.03em' }}>
+      <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-[#FF0000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 650, letterSpacing: '-0.03em' }}>
         Astrofied
       </span>
-      <span className={`bg-clip-text text-transparent ${isDarkMode ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' : 'bg-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 650, letterSpacing: '-0.03em' }}>
+      <span className={`bg-clip-text text-transparent ${isDarkMode ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' : 'bg-[#FF0000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 650, letterSpacing: '-0.03em' }}>
         Journals
       </span>
     </span>
@@ -382,7 +382,7 @@ const AstrofiedJournals = () => {
         <header className={`fixed top-0 left-0 w-full z-50 px-3 min-[360px]:px-4 sm:px-6 md:px-12 py-3 sm:py-4 flex justify-between items-center ${isDarkMode ? 'bg-[#1a1a1a]/70' : 'bg-[#F4F1E1]/70'} backdrop-blur-lg border-b shadow-sm ${isDarkMode ? 'border-white/10 shadow-black/20' : 'border-black/10 shadow-black/5'} transition-all duration-300`}>
           <div className="flex items-center">
             <img src={logo} alt="Astrofied Logo" className="h-5 sm:h-6 md:h-8 mr-1 sm:mr-1.5 md:mr-4 object-contain" />
-            <h1 className={`text-sm min-[360px]:text-base sm:text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-white to-[#E50000]' : 'from-black to-[#E50000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
+            <h1 className={`text-sm min-[360px]:text-base sm:text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-white to-[#E50000]' : 'from-black to-[#FF0000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}>
               Astrofied Journals
             </h1>
           </div>
@@ -584,14 +584,14 @@ const AstrofiedJournals = () => {
         )}
       </AnimatePresence>
 
-      <section id="journals" className={`py-12 md:py-20 relative flex justify-center items-center overflow-hidden px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
+      <section id="journals" className={`py-8 sm:py-14 md:py-20 relative flex justify-center items-center overflow-hidden px-3.5 sm:px-6 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
         {/* Decorative Background Orbs for Glassmorphism (Hidden in Light Mode) */}
         <div className="hidden absolute top-0 left-1/4 w-72 h-72 rounded-full mix-blend-screen filter blur-[120px] opacity-20 bg-[#9d00ff]"></div>
         <div className="hidden absolute bottom-0 right-1/4 w-96 h-96 rounded-full mix-blend-screen filter blur-[140px] opacity-15 bg-[#FFD700]"></div>
 
         <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10">
           <motion.div
-            className={`relative overflow-hidden flex flex-col lg:flex-row w-full gap-8 lg:gap-12 items-center lg:items-stretch p-6 md:p-10 lg:p-12 rounded-[30px] bg-transparent ${isDarkMode ? 'border border-white' : 'border-none'} shadow-none`}
+            className={`relative overflow-hidden flex flex-col lg:flex-row w-full gap-5 sm:gap-8 lg:gap-12 items-center lg:items-stretch p-4 sm:p-8 lg:p-12 rounded-2xl sm:rounded-[30px] bg-transparent ${isDarkMode ? 'border border-white/20' : 'border-none'} shadow-none`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -611,26 +611,23 @@ const AstrofiedJournals = () => {
             />
 
             {/* Wrapper to keep content above the absolute background */}
-            <div className="relative z-10 w-full flex flex-col lg:flex-row items-center lg:items-stretch gap-8 lg:gap-12">
+            <div className="relative z-10 w-full flex flex-col lg:flex-row items-center lg:items-stretch gap-4 sm:gap-8 lg:gap-8 xl:gap-12">
 
-              {/* Mobile Only: Title & Text (Shown before Image) */}
-              <div className="w-full flex flex-col items-center lg:hidden gap-6 mb-2 px-4">
-                <h2 className="text-[28px] sm:text-4xl md:text-5xl nunito-custom text-center w-full overflow-hidden text-ellipsis" style={{ fontFamily: '"Nunito", sans-serif' }}>
+              {/* Mobile Only: Title */}
+              <div className="w-full flex flex-col items-center lg:hidden mb-1 px-1 sm:px-4">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl nunito-custom text-center w-full overflow-hidden text-ellipsis leading-tight" style={{ fontFamily: '"Nunito", sans-serif' }}>
                   {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p, i) => p === "Astrofied" ? <span key={i} className="brand-text">Astrofied</span> : p) : titleContent}
                 </h2>
-                <p className={`text-base md:text-lg text-justify leading-relaxed font-mulish font-normal ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
-                  {typeof textContent === "string" ? textContent.split(/(Astrofied)/g).map((p, i) => p === "Astrofied" ? <span key={i} className="brand-text">Astrofied</span> : p) : textContent}
-                </p>
               </div>
 
               {/* Left Side - Image (and Desktop Title) */}
-              <div className="w-full lg:w-1/2 flex flex-col items-center">
+              <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full my-auto">
                 {/* Desktop Only Title */}
-                <h2 className="hidden lg:block lg:text-[37px] xl:text-[45px] nunito-custom mb-6 text-center w-[85%] leading-none tracking-tight" style={{ fontFamily: '"Nunito", sans-serif' }}>
+                <h2 className="hidden lg:block lg:text-[32px] xl:text-[45px] nunito-custom mb-4 sm:mb-6 text-center w-[90%] leading-tight tracking-tight" style={{ fontFamily: '"Nunito", sans-serif' }}>
                   {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p, i) => p === "Astrofied" ? <span key={i} className="brand-text">Astrofied</span> : p) : titleContent}
                 </h2>
 
-                <div className="w-[95%] sm:w-[80%] lg:w-[85%] rounded-[28px] overflow-hidden shadow-2xl bg-transparent border-[1.5px] border-[#ffd700]">
+                <div className="w-[60%] sm:w-[50%] lg:w-[85%] max-w-[210px] sm:max-w-[260px] lg:max-w-[380px] xl:max-w-[440px] rounded-2xl lg:rounded-[28px] overflow-hidden shadow-xl sm:shadow-2xl bg-transparent border-[1.5px] border-[#ffd700]">
                   <img
                     src={journalsCollage}
                     alt="Astrofied Journals Collage"
@@ -641,20 +638,20 @@ const AstrofiedJournals = () => {
               </div>
 
               {/* Vertical Separator Line (Hidden on mobile) */}
-              <div className={`hidden lg:block w-px h-auto self-stretch mx-6 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
+              <div className={`hidden lg:block w-px h-auto self-stretch mx-2 xl:mx-4 ${isDarkMode ? 'bg-white' : 'bg-black'}`}></div>
 
-              {/* Right Side - Buttons (and Desktop Text) */}
-              <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-2 lg:pt-0">
-                {/* Desktop Only Text */}
-                <p className={`hidden lg:block text-lg xl:text-xl mb-12 text-justify leading-relaxed font-mulish font-normal px-4 ${isDarkMode ? 'text-[whitesmoke]' : 'text-[#17202A]'}`}>
+              {/* Right Side - Text and Button */}
+              <div className="w-full lg:w-1/2 flex flex-col items-center justify-center h-full pt-1 lg:pt-0 gap-4 sm:gap-6 lg:gap-0">
+                {/* Text (Mobile and Desktop) */}
+                <p className={`text-xs sm:text-sm md:text-base lg:text-base xl:text-lg lg:mb-8 text-justify leading-relaxed font-mulish font-normal px-2 sm:px-4 max-w-md lg:max-w-none mx-auto ${isDarkMode ? 'text-gray-300 lg:text-[whitesmoke]' : 'text-[#17202A]/90 lg:text-[#17202A]'}`}>
                   {typeof textContent === "string" ? textContent.split(/(Astrofied)/g).map((p, i) => p === "Astrofied" ? <span key={i} className="brand-text">Astrofied</span> : p) : textContent}
                 </p>
 
                 {/* Buttons (Single button now) */}
-                <div className="flex w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] mx-auto justify-center">
+                <div className="flex w-full justify-center">
                   <button
                     onClick={handleLogin}
-                    className={`w-full py-3 lg:py-4 text-base md:text-lg lg:text-xl font-bold rounded-lg lg:rounded-2xl transition-transform hover:scale-105 active:scale-95 shadow-xl font-['Nunito'] journals-explore-btn
+                    className={`w-auto min-w-[200px] sm:min-w-[240px] py-2.5 sm:py-3.5 px-6 sm:px-8 text-sm sm:text-base lg:text-xl font-bold rounded-xl lg:rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-md font-['Nunito'] journals-explore-btn cursor-pointer
                   ${isDarkMode
                         ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
                         : 'bg-gradient-to-r from-black to-red-600 text-white shadow-none hover:opacity-90'

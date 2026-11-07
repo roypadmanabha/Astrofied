@@ -73,7 +73,9 @@ html.lenis, html.lenis body {
   scroll-behavior: auto !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
+.lenis.lenis-smooth [data-lenis-prevent],
+textarea,
+[data-lenis-prevent] {
   overscroll-behavior: contain;
 }
 
@@ -208,18 +210,60 @@ body.light {
   border-radius: 4px;
 }
 
-/* Hide/make transparent scrollbar on mobile when mobile menu is active in light mode */
+/* Elegant Modal-Specific Scrollbar */
+.modal-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(163, 0, 0, 0.25);
+  border-radius: 9999px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(163, 0, 0, 0.5);
+}
+
+.dark .modal-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.3);
+  border-radius: 9999px;
+}
+
+.dark .modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.6);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Hide/make transparent scrollbar on mobile when mobile menu is active */
 @media (max-width: 1023px) {
-  body.mobile-nav-active.light::-webkit-scrollbar-thumb,
-  body.mobile-nav-active.light ::-webkit-scrollbar-thumb {
+  body.mobile-nav-active::-webkit-scrollbar,
+  body.mobile-nav-active ::-webkit-scrollbar,
+  body.mobile-nav-active::-webkit-scrollbar-thumb,
+  body.mobile-nav-active ::-webkit-scrollbar-thumb,
+  body.mobile-nav-active::-webkit-scrollbar-track,
+  body.mobile-nav-active ::-webkit-scrollbar-track {
+    display: none !important;
     background: transparent !important;
+    width: 0 !important;
+    height: 0 !important;
   }
-  body.mobile-nav-active.light::-webkit-scrollbar-track,
-  body.mobile-nav-active.light ::-webkit-scrollbar-track {
-    background: transparent !important;
-  }
-  body.mobile-nav-active.light {
+  body.mobile-nav-active {
     scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
 }
 
@@ -392,22 +436,25 @@ img {
   -webkit-text-fill-color: transparent;
 }
 
-.astrofied-title-gradient {
+.astrofied-title-gradient,
+.astrofied-brand-text,
+.brand-text {
+  font-family: 'Nunito', sans-serif !important;
   background: linear-gradient(to right, #000000, #FF0000) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
+  background-clip: text;
+  display: inline-block;
 }
 
 .dark .astrofied-title-gradient,
+.dark .astrofied-brand-text,
 .dark .brand-text {
   font-family: 'Nunito', sans-serif !important;
   background: linear-gradient(to right, #FF0000, #FFFF00) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  display: inline-block;
-}
-
-.brand-text {
+  background-clip: text;
   display: inline-block;
 }
 
@@ -425,6 +472,18 @@ img {
 }
 
 .light button.pricing-card-btn:hover {
+  opacity: 0.9 !important;
+}
+
+/* Custom Testimonials Navigation Button Gradient in Light Mode */
+.light button.testimonial-nav-btn {
+  background: linear-gradient(to right, #000000, #FF0000) !important;
+  color: #ffffff !important;
+  border: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.light button.testimonial-nav-btn:hover:not(:disabled) {
   opacity: 0.9 !important;
 }
 
@@ -455,4 +514,139 @@ img {
   -webkit-user-drag: none !important;
   user-drag: none !important;
   -webkit-user-select: none !important;
+}
+
+/* Newsfied Rich Text Content Styling */
+.newsfied-rich-content {
+  line-height: 1.7;
+}
+
+.newsfied-rich-content h1 {
+  font-family: 'Nunito', sans-serif !important;
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-top: 1.1rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+
+.newsfied-rich-content h2 {
+  font-family: 'Nunito', sans-serif !important;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.newsfied-rich-content h3 {
+  font-family: 'Nunito', sans-serif !important;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 0.85rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+
+.newsfied-rich-content p {
+  margin-bottom: 0.75rem;
+}
+
+.newsfied-rich-content ul {
+  list-style-type: disc !important;
+  padding-left: 1.35rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.newsfied-rich-content ol {
+  list-style-type: decimal !important;
+  padding-left: 1.35rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.newsfied-rich-content li {
+  margin-bottom: 0.25rem !important;
+}
+
+.newsfied-rich-content blockquote {
+  border-left: 4px solid #FF0000;
+  padding-left: 0.85rem;
+  margin: 0.75rem 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.newsfied-rich-content hr {
+  margin: 1.2rem 0;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.dark .newsfied-rich-content hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.newsfied-rich-content a {
+  color: #FF0000;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+
+.newsfied-rich-content mark {
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+.newsfied-rich-content u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* WYSIWYG Rich Editor Container */
+.wysiwyg-editor {
+  outline: none !important;
+  user-select: text;
+  -webkit-user-select: text;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overscroll-behavior: contain;
+}
+
+.wysiwyg-editor:focus {
+  outline: none !important;
+}
+
+.wysiwyg-editor p {
+  margin-bottom: 0.75rem;
+}
+
+.wysiwyg-editor p:last-child {
+  margin-bottom: 0;
+}
+
+/* Text Alignment in Rich Content & WYSIWYG */
+.newsfied-rich-content [style*="text-align: justify"],
+.newsfied-rich-content div[align="justify"],
+.newsfied-rich-content p[align="justify"] {
+  text-align: justify !important;
+  text-justify: inter-word;
+}
+
+.newsfied-rich-content [style*="text-align: center"],
+.newsfied-rich-content div[align="center"],
+.newsfied-rich-content p[align="center"] {
+  text-align: center !important;
+}
+
+.newsfied-rich-content [style*="text-align: right"],
+.newsfied-rich-content div[align="right"],
+.newsfied-rich-content p[align="right"] {
+  text-align: right !important;
+}
+
+.newsfied-rich-content [style*="text-align: left"],
+.newsfied-rich-content div[align="left"],
+.newsfied-rich-content p[align="left"] {
+  text-align: left !important;
 }

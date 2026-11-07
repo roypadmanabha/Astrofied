@@ -22,7 +22,30 @@ import StarfieldBg from './components/StarfieldBg';
 import Panchang from './components/Panchang';
 import WhatsAppButton from './components/WhatsAppButton';
 import ContentProtection from './components/ContentProtection';
+import Newsfied from './components/Newsfied';
+import NewsfiedAdmin from './components/NewsfiedAdmin';
 import { getWhatsAppLink } from './lib/constants';
+
+const checkIsAdminPath = () => {
+  if (typeof window === 'undefined') return false;
+  const isLocalhost =
+    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (!isLocalhost) return false;
+  const hash = window.location.hash.toLowerCase();
+  const path = window.location.pathname.toLowerCase();
+  return (
+    hash === '#admin' ||
+    hash === '#admin/' ||
+    hash === '#newsfied-admin' ||
+    hash === '#newsfied-admin/' ||
+    path === '/admin' ||
+    path === '/admin/' ||
+    path === '/newsfied-admin' ||
+    path === '/newsfied-admin/' ||
+    path.endsWith('/admin') ||
+    path.endsWith('/admin/')
+  );
+};
 
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
@@ -38,6 +61,19 @@ function MainContent() {
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isAdminView, setIsAdminView] = useState(checkIsAdminPath);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsAdminView(checkIsAdminPath());
+    };
+    window.addEventListener('hashchange', handleRouteChange);
+    window.addEventListener('popstate', handleRouteChange);
+    return () => {
+      window.removeEventListener('hashchange', handleRouteChange);
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -184,27 +220,36 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       window.lenis = lenis;
     }
 
-    // Handle initial routing to hash or scroll to top
-    if (window.location.hash) {
-      setTimeout(() => {
+    const scrollToHash = () => {
+      if (window.location.hash) {
+        const cleanHash = window.location.hash.replace(/\/+$/, '');
         try {
-          const target = document.querySelector(window.location.hash);
+          const target = document.querySelector(cleanHash);
           if (target) {
-            if (lenis) {
-              lenis.scrollTo(target);
+            if (lenis || window.lenis) {
+              (lenis || window.lenis).scrollTo(target, { offset: -80 });
             } else {
               target.scrollIntoView({ behavior: 'smooth' });
             }
           }
         } catch (e) {
-          console.error("Invalid hash selector");
+          console.error("Invalid hash selector", e);
         }
-      }, 500); // Small delay to ensure DOM and images are rendered
+      }
+    };
+
+    // Handle initial routing to hash or scroll to top
+    if (window.location.hash) {
+      setTimeout(scrollToHash, 300);
+      setTimeout(scrollToHash, 700);
     } else {
       window.scrollTo(0, 0);
     }
 
+    window.addEventListener('hashchange', scrollToHash);
+
     return () => {
+      window.removeEventListener('hashchange', scrollToHash);
       if (lenis) {
         lenis.destroy();
         window.lenis = null;
@@ -223,6 +268,17 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     }
   }, [isDetailsModalOpen, legalModal.isOpen]);
 
+
+  if (isAdminView) {
+    return (
+      <NewsfiedAdmin
+        onBackToSite={() => {
+          window.location.hash = 'newsfied';
+          setIsAdminView(false);
+        }}
+      />
+    );
+  }
 
   return (
     <div
@@ -281,7 +337,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   loading="lazy"
                 />
                 <h1 className="text-4xl md:text-4xl lg:text-[2.75rem] xl:text-7xl font-bold leading-tight">
-                  Why <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-red-600'}`} style={{ fontFamily: '"Nunito", sans-serif' }}>Astrofied?</span>
+                  Why <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-[#FF0000]'}`} style={{ fontFamily: '"Nunito", sans-serif' }}>Astrofied?</span>
                 </h1>
               </div>
               <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">
@@ -455,6 +511,12 @@ If you have any questions regarding this Privacy Policy or how your data is hand
 
       <Testimonials />
       <GooglePresence />
+
+      {/* Newsfied Section */}
+      <Newsfied onOpenAdmin={() => {
+        window.location.hash = 'admin';
+        setIsAdminView(true);
+      }} />
 
       {/* FAQs Section */}
       <FAQs />

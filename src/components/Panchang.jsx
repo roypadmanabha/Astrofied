@@ -258,7 +258,7 @@ export default function Panchang() {
   if (!data) return null;
 
   return (
-    <section id="panchang" className={`py-24 relative overflow-hidden ${isDarkMode ? 'text-white bg-transparent' : 'bg-white text-black'}`}>
+    <section id="panchang" className={`pt-12 pb-6 sm:pt-16 sm:pb-10 md:py-24 relative overflow-hidden ${isDarkMode ? 'text-white bg-transparent' : 'bg-white text-black'}`}>
 
 
 
@@ -383,7 +383,7 @@ export default function Panchang() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className={`block lg:hidden mt-8 text-center text-[10px] sm:text-xs font-mulish italic px-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}
+          className={`block lg:hidden mt-4 sm:mt-6 text-center text-[10px] sm:text-xs font-mulish italic px-4 max-w-lg mx-auto ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}
         >
           For more real-time cosmic transitions and a comprehensive Panchang analysis, please experience our platform on a laptop or desktop.
         </motion.p>

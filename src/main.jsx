@@ -3,12 +3,33 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-// Security & Content Protection for All Screen Sizes
-// 1. Block Right Click (Context Menu)
-document.addEventListener('contextmenu', (e) => e.preventDefault());
+// Security & Content Protection for All Screen Sizes (exempts input fields, textareas & admin panel)
+const isInputOrAdmin = (target) => {
+  if (typeof window !== 'undefined') {
+    const hash = window.location.hash.toLowerCase();
+    const path = window.location.pathname.toLowerCase();
+    if (hash.includes('admin') || path.includes('admin')) return true;
+  }
+  if (!target) return false;
+  const tag = target.tagName ? target.tagName.toLowerCase() : '';
+  return (
+    tag === 'input' ||
+    tag === 'textarea' ||
+    target.isContentEditable ||
+    Boolean(target.closest && target.closest('input, textarea, [contenteditable="true"]'))
+  );
+};
 
-// 2. Block Keyboard Shortcuts (Copy, Paste, Cut, Print, Save, View Source, Developer Tools)
+// 1. Context Menu
+document.addEventListener('contextmenu', (e) => {
+  if (isInputOrAdmin(e.target)) return;
+  e.preventDefault();
+});
+
+// 2. Keyboard Shortcuts (Ctrl/Cmd+V, C, X allowed in input fields & admin)
 document.addEventListener('keydown', (e) => {
+  if (isInputOrAdmin(e.target)) return;
+
   const key = e.key.toLowerCase();
   const isCtrlOrMeta = e.ctrlKey || e.metaKey;
 
@@ -25,14 +46,29 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// 3. Block Dragging & Dropping
-document.addEventListener('dragstart', (e) => e.preventDefault());
-document.addEventListener('drop', (e) => e.preventDefault());
+// 3. Dragging & Dropping
+document.addEventListener('dragstart', (e) => {
+  if (isInputOrAdmin(e.target)) return;
+  e.preventDefault();
+});
+document.addEventListener('drop', (e) => {
+  if (isInputOrAdmin(e.target)) return;
+  e.preventDefault();
+});
 
-// 4. Block Copy, Cut, Paste Events
-document.addEventListener('copy', (e) => e.preventDefault());
-document.addEventListener('cut', (e) => e.preventDefault());
-document.addEventListener('paste', (e) => e.preventDefault());
+// 4. Copy, Cut, Paste Events (allowed in input fields & admin)
+document.addEventListener('copy', (e) => {
+  if (isInputOrAdmin(e.target)) return;
+  e.preventDefault();
+});
+document.addEventListener('cut', (e) => {
+  if (isInputOrAdmin(e.target)) return;
+  e.preventDefault();
+});
+document.addEventListener('paste', (e) => {
+  if (isInputOrAdmin(e.target)) return;
+  e.preventDefault();
+});
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

@@ -422,9 +422,9 @@ export default function Feedback() {
     };
 
     return (
-        <section id="feedback" className={`py-24 relative overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
-            <div className="container mx-auto px-6 max-w-6xl">
-                <div className="flex flex-col lg:flex-row gap-x-16 gap-y-12 items-start lg:items-center justify-between">
+        <section id="feedback" className={`py-12 sm:py-20 lg:py-24 relative overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+                <div className="flex flex-col lg:flex-row gap-x-16 gap-y-8 sm:gap-y-12 items-start lg:items-center justify-between">
                     <motion.div
                         initial={{ opacity: 0.8, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -433,11 +433,11 @@ export default function Feedback() {
                         className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
                     >
                         <h2
-                            className={`text-4xl md:text-5xl lg:text-7xl font-bold mb-8 font-mulish leading-[1.1] transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}
+                            className={`text-3xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-8 font-mulish leading-[1.15] sm:leading-[1.1] transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}
                         >
                             We Value <span className={isDarkMode ? 'text-[#ffd700]' : 'text-black'}>Your <br className="hidden lg:block" /> Feedback</span>
                         </h2>
-                        <p className={`text-lg md:text-xl lg:text-2xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>
+                        <p className={`text-base sm:text-xl lg:text-2xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>
                             Your insights help us improve and serve you better. Share your experience with <span className="brand-text">Astrofied</span>!
                         </p>
                     </motion.div>
@@ -447,223 +447,223 @@ export default function Feedback() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className={`w-full lg:w-6/12 rounded-3xl p-4 sm:p-10 shadow-2xl border relative ${isDarkMode ? 'border-white !bg-transparent' : 'glass border-[#A30000]/20 !bg-[#f5f5dd]'
+                        className={`w-full lg:w-6/12 rounded-2xl sm:rounded-3xl p-4 sm:p-7 lg:p-8 shadow-xl sm:shadow-2xl border relative ${isDarkMode ? 'border-white/20 !bg-transparent' : 'glass border-[#A30000]/20 !bg-[#f5f5dd]'
                             }`}
                     >
                         <AnimatePresence mode="wait">
                             {status === 'duplicate' && (
-                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
                                     <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                    <span className="text-sm font-medium">Feedback already sent with this email. Try another one.</span>
+                                    <span className="text-xs sm:text-sm font-medium">Feedback already sent with this email. Try another one.</span>
                                 </motion.div>
                             )}
                             {status === 'otp_error' && (
-                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-xl bg-red-100 border border-red-200 text-red-700 flex items-center gap-3">
                                     <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                                    <span className="text-sm font-medium">Wrong OTP! Refreshing the page...</span>
+                                    <span className="text-xs sm:text-sm font-medium">Wrong OTP! Refreshing the page...</span>
                                 </motion.div>
                             )}
                             {status === 'success' && (
-                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-green-100 border border-green-200 text-green-700 flex items-center gap-3">
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-xl bg-green-100 border border-green-200 text-green-700 flex items-center gap-3">
                                     <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                                    <span className="text-sm font-medium">Thank you! Your verified feedback has been shared successfully.</span>
+                                    <span className="text-xs sm:text-sm font-medium">Thank you! Your verified feedback has been shared successfully.</span>
                                 </motion.div>
                             )}
                             {status === 'otp_sent' && step === 'verify' && (
-                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-6 p-4 rounded-xl bg-blue-100 border border-blue-200 text-blue-700 flex items-center gap-3">
+                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-xl bg-blue-100 border border-blue-200 text-blue-700 flex items-center gap-3">
                                     <ShieldCheck className="w-5 h-5 flex-shrink-0" />
-                                    <span className="text-sm font-medium">An OTP has been sent to {formData.email}. Please verify to proceed.</span>
+                                    <span className="text-xs sm:text-sm font-medium">An OTP has been sent to {formData.email}. Please verify to proceed.</span>
                                 </motion.div>
                             )}
                         </AnimatePresence>
 
                         {step === 'form' ? (
-                            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                                <div className="flex flex-col gap-2">
-                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#A30000]/60'}`}>Full Name</label>
-                                    <div className="flex flex-col sm:flex-row gap-5">
-                                    <div className="flex-1 sm:flex-[1.4] flex flex-col gap-1">
-                                        <input
-                                            type="text"
-                                            name="firstName"
-                                            value={formData.firstName}
-                                            onChange={handleChange}
-                                            required
-                                            placeholder="First Name"
-                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#A30000] focus:border-[#A30000]'
-                                                } ${errors.firstName ? 'border-red-500' : ''}`}
-                                        />
-                                        {errors.firstName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.firstName}</span>}
+                            <form onSubmit={handleSubmit} className="flex flex-col gap-3.5 sm:gap-4">
+                                <div className="flex flex-col gap-1.5">
+                                    <label className={`text-[11px] sm:text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/70' : 'text-[#A30000]/70'}`}>Full Name</label>
+                                    <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
+                                        <div className="flex flex-col gap-1">
+                                            <input
+                                                type="text"
+                                                name="firstName"
+                                                value={formData.firstName}
+                                                onChange={handleChange}
+                                                required
+                                                placeholder="First Name"
+                                                className={`w-full px-3.5 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                    ? 'border-white/20 hover:border-white/35 text-white placeholder-white/40 focus:ring-gold/20 focus:border-gold'
+                                                    : 'border-black/20 hover:border-black/35 text-gray-900 placeholder-stone-400 focus:ring-[#A30000]/20 focus:border-[#A30000]'
+                                                    } ${errors.firstName ? '!border-red-500' : ''}`}
+                                            />
+                                            {errors.firstName && <span className="text-[10px] text-red-500 font-bold ml-1">{errors.firstName}</span>}
+                                        </div>
+                                        <div className="flex flex-col gap-1">
+                                            <input
+                                                type="text"
+                                                name="lastName"
+                                                value={formData.lastName}
+                                                onChange={handleChange}
+                                                required
+                                                placeholder="Last Name"
+                                                className={`w-full px-3.5 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                    ? 'border-white/20 hover:border-white/35 text-white placeholder-white/40 focus:ring-gold/20 focus:border-gold'
+                                                    : 'border-black/20 hover:border-black/35 text-gray-900 placeholder-stone-400 focus:ring-[#A30000]/20 focus:border-[#A30000]'
+                                                    } ${errors.lastName ? '!border-red-500' : ''}`}
+                                            />
+                                            {errors.lastName && <span className="text-[10px] text-red-500 font-bold ml-1">{errors.lastName}</span>}
+                                        </div>
                                     </div>
-                                    <div className="flex-1 flex flex-col gap-1">
-                                        <input
-                                            type="text"
-                                            name="lastName"
-                                            value={formData.lastName}
-                                            onChange={handleChange}
-                                            required
-                                            placeholder="Last Name"
-                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#A30000] focus:border-[#A30000]'
-                                                } ${errors.lastName ? 'border-red-500' : ''}`}
-                                        />
-                                        {errors.lastName && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.lastName}</span>}
-                                    </div>
-                                </div>
                                 </div>
 
-                                <div className="flex flex-col gap-2">
-                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#A30000]/60'}`}>Email</label>
+                                <div className="flex flex-col gap-1.5">
+                                    <label className={`text-[11px] sm:text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/70' : 'text-[#A30000]/70'}`}>Email</label>
                                     <div className="flex flex-col gap-1">
                                         <input
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="Your Mail Id"
-                                        className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                            ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                            : 'border-black text-gray-900 placeholder-black focus:ring-[#A30000] focus:border-[#A30000]'
-                                            } ${errors.email ? 'border-red-500' : ''}`}
-                                    />
-                                    {errors.email && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.email}</span>}
-                                </div>
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            required
+                                            placeholder="Your Mail Id"
+                                            className={`w-full px-3.5 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                ? 'border-white/20 hover:border-white/35 text-white placeholder-white/40 focus:ring-gold/20 focus:border-gold'
+                                                : 'border-black/20 hover:border-black/35 text-gray-900 placeholder-stone-400 focus:ring-[#A30000]/20 focus:border-[#A30000]'
+                                                } ${errors.email ? '!border-red-500' : ''}`}
+                                        />
+                                        {errors.email && <span className="text-[10px] text-red-500 font-bold ml-1">{errors.email}</span>}
+                                    </div>
                                 </div>
 
-                                <div className="flex flex-col gap-2">
-                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#A30000]/60'}`}>Phone Number</label>
+                                <div className="flex flex-col gap-1.5">
+                                    <label className={`text-[11px] sm:text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/70' : 'text-[#A30000]/70'}`}>Phone Number</label>
                                     <div className="flex flex-col gap-1">
                                         <div className="flex gap-2">
-                                        <div className="relative" ref={dropdownRef}>
-                                            <button
-                                                type="button"
-                                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                                className={`w-16 sm:w-32 px-2 sm:px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all flex items-center justify-between gap-1 sm:gap-2 ${isDarkMode
-                                                    ? 'border-white text-white focus:ring-white focus:border-white'
-                                                    : 'border-black text-gray-900 focus:ring-[#A30000] focus:border-[#A30000]'
-                                                    }`}
-                                            >
-                                                <span className="truncate">{formData.countryCode}</span>
-                                                <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                                            </button>
+                                            <div className="relative" ref={dropdownRef}>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                                    className={`w-20 sm:w-28 px-2.5 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all flex items-center justify-between gap-1 sm:gap-2 ${isDarkMode
+                                                        ? 'border-white/20 hover:border-white/35 text-white focus:ring-gold/20 focus:border-gold'
+                                                        : 'border-black/20 hover:border-black/35 text-gray-900 focus:ring-[#A30000]/20 focus:border-[#A30000]'
+                                                        }`}
+                                                >
+                                                    <span className="truncate text-xs sm:text-sm font-semibold">{formData.countryCode}</span>
+                                                    <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                                                </button>
 
-                                            <AnimatePresence>
-                                                {isDropdownOpen && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                                        animate={{ opacity: 1, y: 5, scale: 1 }}
-                                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                                        className={`absolute left-0 top-full z-50 w-64 sm:w-72 rounded-2xl border shadow-2xl overflow-hidden backdrop-blur-xl ${isDarkMode
-                                                            ? 'bg-[#1a1a1a] border-white/20 text-white'
-                                                            : 'bg-white border-black/10 text-gray-900'
-                                                            }`}
-                                                    >
-                                                        <div className={`p-3 border-b ${isDarkMode ? 'border-white/10' : 'border-black/5'}`}>
-                                                            <div className="relative">
-                                                                <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`} />
-                                                                <input
-                                                                    type="text"
-                                                                    placeholder="Search country..."
-                                                                    value={searchQuery}
-                                                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                                                    className={`w-full pl-9 pr-4 py-2 text-sm rounded-lg border-none focus:ring-1 focus:ring-gold outline-none ${isDarkMode
-                                                                        ? 'bg-white/5 text-white placeholder-white/40'
-                                                                        : 'bg-gray-100 text-gray-900 placeholder-gray-500'
-                                                                        }`}
-                                                                    onClick={(e) => e.stopPropagation()}
-                                                                />
+                                                <AnimatePresence>
+                                                    {isDropdownOpen && (
+                                                        <motion.div
+                                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                            animate={{ opacity: 1, y: 5, scale: 1 }}
+                                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                            className={`absolute left-0 top-full z-50 w-64 sm:w-72 rounded-2xl border shadow-2xl overflow-hidden backdrop-blur-xl ${isDarkMode
+                                                                ? 'bg-[#1a1a1a] border-white/20 text-white'
+                                                                : 'bg-white border-black/10 text-gray-900'
+                                                                }`}
+                                                        >
+                                                            <div className={`p-3 border-b ${isDarkMode ? 'border-white/10' : 'border-black/5'}`}>
+                                                                <div className="relative">
+                                                                    <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`} />
+                                                                    <input
+                                                                        type="text"
+                                                                        placeholder="Search country..."
+                                                                        value={searchQuery}
+                                                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                                                        className={`w-full pl-9 pr-4 py-2 text-sm rounded-lg border-none focus:ring-1 focus:ring-gold outline-none ${isDarkMode
+                                                                            ? 'bg-white/5 text-white placeholder-white/40'
+                                                                            : 'bg-gray-100 text-gray-900 placeholder-gray-500'
+                                                                            }`}
+                                                                        onClick={(e) => e.stopPropagation()}
+                                                                    />
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="max-h-60 overflow-y-auto custom-scrollbar">
-                                                            {filteredCountryCodes.map((c) => (
-                                                                <button
-                                                                    key={c.code + c.name}
-                                                                    type="button"
-                                                                    onClick={() => {
-                                                                        setFormData({ ...formData, countryCode: c.code });
-                                                                        setIsDropdownOpen(false);
-                                                                        setSearchQuery('');
-                                                                    }}
-                                                                    className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 transition-colors ${isDarkMode
-                                                                        ? 'hover:bg-white/10'
-                                                                        : 'hover:bg-black/5'
-                                                                        } ${formData.countryCode === c.code ? (isDarkMode ? 'bg-white/10 text-gold' : 'bg-black/5 text-[#A30000]') : ''}`}
-                                                                >
-                                                                    <span className="text-lg">{c.flag}</span>
-                                                                    <span className="flex-1 truncate">{c.name}</span>
-                                                                    <span className={`text-xs font-bold ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>{c.code}</span>
-                                                                </button>
-                                                            ))}
-                                                            {filteredCountryCodes.length === 0 && (
-                                                                <div className="p-4 text-center text-sm text-gray-500">No results found</div>
-                                                            )}
-                                                        </div>
-                                                    </motion.div>
-                                                )}
-                                            </AnimatePresence>
+                                                            <div className="max-h-60 overflow-y-auto custom-scrollbar">
+                                                                {filteredCountryCodes.map((c) => (
+                                                                    <button
+                                                                        key={c.code + c.name}
+                                                                        type="button"
+                                                                        onClick={() => {
+                                                                            setFormData({ ...formData, countryCode: c.code });
+                                                                            setIsDropdownOpen(false);
+                                                                            setSearchQuery('');
+                                                                        }}
+                                                                        className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 transition-colors ${isDarkMode
+                                                                            ? 'hover:bg-white/10'
+                                                                            : 'hover:bg-black/5'
+                                                                            } ${formData.countryCode === c.code ? (isDarkMode ? 'bg-white/10 text-gold' : 'bg-black/5 text-[#A30000]') : ''}`}
+                                                                    >
+                                                                        <span className="text-lg">{c.flag}</span>
+                                                                        <span className="flex-1 truncate">{c.name}</span>
+                                                                        <span className={`text-xs font-bold ${isDarkMode ? 'text-white/40' : 'text-gray-400'}`}>{c.code}</span>
+                                                                    </button>
+                                                                ))}
+                                                                {filteredCountryCodes.length === 0 && (
+                                                                    <div className="p-4 text-center text-sm text-gray-500">No results found</div>
+                                                                )}
+                                                            </div>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+                                            <input
+                                                type="tel"
+                                                name="mobile"
+                                                value={formData.mobile}
+                                                onChange={handleChange}
+                                                required
+                                                maxLength={10}
+                                                placeholder="Mobile Number"
+                                                className={`flex-1 min-w-0 px-3.5 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
+                                                    ? 'border-white/20 hover:border-white/35 text-white placeholder-white/40 focus:ring-gold/20 focus:border-gold'
+                                                    : 'border-black/20 hover:border-black/35 text-gray-900 placeholder-stone-400 focus:ring-[#A30000]/20 focus:border-[#A30000]'
+                                                    } ${errors.mobile ? '!border-red-500' : ''}`}
+                                            />
                                         </div>
-                                        <input
-                                            type="tel"
-                                            name="mobile"
-                                            value={formData.mobile}
-                                            onChange={handleChange}
-                                            required
-                                            maxLength={10}
-                                            placeholder="Mobile Number"
-                                            className={`flex-1 min-w-0 px-3 sm:px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#A30000] focus:border-[#A30000]'
-                                                } ${errors.mobile ? 'border-red-500' : ''}`}
-                                        />
+                                        {errors.mobile && <span className="text-[10px] text-red-500 font-bold ml-1">{errors.mobile}</span>}
                                     </div>
-                                    {errors.mobile && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.mobile}</span>}
-                                </div>
                                 </div>
 
-                                <div className="flex flex-col gap-2">
-                                    <label className={`text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/60' : 'text-[#A30000]/60'}`}>Comments</label>
+                                <div className="flex flex-col gap-1.5">
+                                    <label className={`text-[11px] sm:text-xs font-bold ml-1 uppercase tracking-wider ${isDarkMode ? 'text-white/70' : 'text-[#A30000]/70'}`}>Comments</label>
                                     <div className="flex flex-col gap-1">
                                         <div className="relative">
-                                        <textarea
-                                            name="message"
-                                            value={formData.message}
-                                            onChange={handleChange}
-                                            required
-                                            rows={4}
-                                            maxLength={87}
-                                            placeholder="Write your feedback..."
-                                            className={`w-full px-5 py-3 rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode
-                                                ? 'border-white text-white placeholder-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 placeholder-black focus:ring-[#A30000] focus:border-[#A30000]'
-                                                } ${errors.message ? 'border-red-500' : ''}`}
-                                        ></textarea>
-                                        <div className={`absolute bottom-2 right-4 text-[10px] font-bold ${isDarkMode ? 'text-white/40' : 'text-[#A30000]/40'}`}>
-                                            {formData.message.length}/87
+                                            <textarea
+                                                name="message"
+                                                value={formData.message}
+                                                onChange={handleChange}
+                                                required
+                                                rows={3}
+                                                maxLength={87}
+                                                placeholder="Write your feedback..."
+                                                className={`w-full px-3.5 sm:px-5 py-2.5 sm:py-3 pb-6 text-sm sm:text-base rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all overflow-hidden resize-none ${isDarkMode
+                                                    ? 'border-white/20 hover:border-white/35 text-white placeholder-white/40 focus:ring-gold/20 focus:border-gold'
+                                                    : 'border-black/20 hover:border-black/35 text-gray-900 placeholder-stone-400 focus:ring-[#A30000]/20 focus:border-[#A30000]'
+                                                    } ${errors.message ? '!border-red-500' : ''}`}
+                                            ></textarea>
+                                            <div className={`absolute bottom-2 right-3 text-[10px] font-bold ${isDarkMode ? 'text-white/50' : 'text-[#A30000]/60'}`}>
+                                                {formData.message.length}/87
+                                            </div>
                                         </div>
+                                        {errors.message && <span className="text-[10px] text-red-500 font-bold ml-1">{errors.message}</span>}
                                     </div>
-                                    {errors.message && <span className="text-[10px] text-red-500 font-bold ml-2">{errors.message}</span>}
-                                </div>
                                 </div>
 
                                 <motion.button
-                                    whileHover={!Object.values(errors).some(e => e) ? { scale: 1.02 } : {}}
+                                    whileHover={!Object.values(errors).some(e => e) ? { scale: 1.01 } : {}}
                                     whileTap={!Object.values(errors).some(e => e) ? { scale: 0.98 } : {}}
                                     disabled={status === 'loading' || Object.values(errors).some(e => e)}
                                     type="submit"
-                                    className={`w-full py-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg ${(status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
+                                    className={`w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm sm:text-base flex justify-center items-center gap-2 transition-all shadow-lg ${(status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
                                         } ${isDarkMode
                                             ? 'bg-gold text-black hover:bg-white hover:text-black shadow-gold/20'
                                             : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000] shadow-[#A30000]/30'
                                         }`}
                                 >
                                     {status === 'loading' ? 'Processing...' : 'Send Feedback'}
-                                    {status !== 'loading' && <Send className="w-5 h-5" />}
+                                    {status !== 'loading' && <Send className="w-4 h-4 sm:w-5 sm:h-5" />}
                                 </motion.button>
-                                <p className={`text-[10px] text-center mt-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                                <p className={`text-[10px] sm:text-xs text-center mt-1 leading-normal ${isDarkMode ? 'text-white/80' : 'text-black/80'}`}>
                                     Note: This form is exclusively for clients who have already consulted with Astrofied. It is not a general feedback form.
                                 </p>
                             </form>
@@ -716,9 +716,9 @@ export default function Feedback() {
                                                 }
                                             }}
                                             className={`w-9 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border focus:outline-none focus:ring-2 bg-transparent transition-all ${isDarkMode
-                                                ? 'border-white text-white focus:ring-white focus:border-white'
-                                                : 'border-black text-gray-900 focus:ring-[#A30000] focus:border-[#A30000]'
-                                                } ${status === 'otp_error' ? 'border-red-500' : ''}`}
+                                                ? 'border-white/20 hover:border-white/35 text-white focus:ring-gold/20 focus:border-gold'
+                                                : 'border-black/20 hover:border-black/35 text-gray-900 focus:ring-[#A30000]/20 focus:border-[#A30000]'
+                                                } ${status === 'otp_error' ? '!border-red-500' : ''}`}
                                         />
                                     ))}
                                 </div>

@@ -90,7 +90,7 @@ export default function GemstoneRemediesTeaser() {
             </div>
             
             {/* Heading */}
-            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-[45px] leading-tight font-bold tracking-tight mb-6 font-['Nunito'] w-full ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}>
+            <h2 className={`text-[1.25rem] min-[360px]:text-[1.38rem] min-[390px]:text-[1.5rem] sm:text-3xl md:text-4xl lg:text-[45px] leading-tight font-bold tracking-tight mb-6 font-['Nunito'] w-full whitespace-nowrap lg:whitespace-normal ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}>
               Unlock Your Planetary{' '}
               <span 
                 className="bg-clip-text text-transparent bg-gradient-to-r from-[#D6321E] to-[#C9A227] font-bold"
@@ -109,11 +109,11 @@ export default function GemstoneRemediesTeaser() {
             </p>
             
             {/* CTA Button */}
-            <div className="flex w-full max-w-[95%] sm:max-w-md lg:max-w-[320px] justify-center lg:justify-start">
+            <div className="flex w-full justify-center lg:justify-start">
               <button
                 disabled={isRedirecting}
                 onClick={handleGemstoneRedirect}
-                className={`w-full py-3.5 sm:py-4 px-6 sm:px-8 text-base sm:text-lg md:text-xl font-bold rounded-[10px] transition-all duration-500 ease-in-out hover:scale-105 active:scale-95 shadow-xl font-['Nunito'] flex items-center justify-center gap-2 cursor-pointer
+                className={`w-auto min-w-[200px] sm:min-w-[240px] py-2.5 sm:py-3.5 px-6 sm:px-8 text-sm sm:text-base md:text-lg font-bold rounded-xl transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 shadow-md font-['Nunito'] flex items-center justify-center gap-2 cursor-pointer
                   ${isDarkMode
                     ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
                     : 'bg-gradient-to-r from-black to-[#A91B0D] text-white hover:opacity-90'
@@ -122,7 +122,7 @@ export default function GemstoneRemediesTeaser() {
               >
                 {isRedirecting ? (
                   <>
-                    <Loader2 className="w-4 h-4 sm:w-5 h-5 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin" />
                     <span>Redirecting...</span>
                   </>
                 ) : (

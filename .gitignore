@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 server/.env
 .env
+
+# Loose root asset copies
+/Astrologer Prasanta Chakraborty.png
+/Newsfied default.png
+/virat.png
