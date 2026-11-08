@@ -188,7 +188,7 @@ export default function Newsfied({ onOpenAdmin }) {
           className={`relative overflow-hidden w-full p-5 sm:p-8 md:p-10 lg:p-12 rounded-[24px] sm:rounded-[30px] transition-all duration-500 border scroll-mt-20 md:scroll-mt-24 ${
             isDarkMode
               ? 'border-white/20 sm:border-white/30 bg-transparent'
-              : 'bg-gradient-to-br from-white to-[#FAF9F5] border-[#A30000]'
+              : 'bg-gradient-to-br from-white to-[#f5f5dd] border-[#A30000]'
           }`}
           style={isDarkMode ? { backgroundColor: 'transparent' } : undefined}
           initial={{ opacity: 0, y: 30 }}
@@ -322,19 +322,20 @@ export default function Newsfied({ onOpenAdmin }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.05 }}
-                  onClick={() => setActiveModalPost(post)}
-                  className={`group shrink-0 snap-start cursor-pointer flex flex-col justify-between p-4 sm:p-5 rounded-[20px] sm:rounded-[24px] border transition-all duration-300 hover:-translate-y-1.5 ${
+                  className={`group shrink-0 snap-start flex flex-col justify-between p-4 sm:p-5 rounded-[20px] sm:rounded-[24px] border transition-all duration-300 hover:-translate-y-1.5 ${
                     /* Responsive card widths */
                     'w-[84vw] max-w-[310px] xs:w-[290px] sm:w-[320px] md:w-[330px] lg:w-[340px]'
                   } ${
                     isDarkMode
                       ? 'bg-white/[0.04] hover:bg-white/[0.08] border-white/10 hover:border-gold/40 shadow-lg hover:shadow-gold/10 backdrop-blur-md'
-                      : 'bg-gradient-to-b from-[#ffde59] to-[#ff914d] border border-[#A30000] shadow-md hover:shadow-2xl'
+                      : 'bg-[#FFFFB0] border border-[#A30000] shadow-md hover:shadow-2xl'
                   }`}
                 >
                   <div className="flex flex-col gap-3">
                     {/* Card Top: Image / Banner (Square 1:1 ratio) */}
-                    <div className="w-full aspect-square rounded-[16px] sm:rounded-[18px] overflow-hidden relative shadow-inner bg-black/10 select-none">
+                    <div className={`w-full aspect-square rounded-[16px] sm:rounded-[18px] overflow-hidden relative shadow-inner bg-black/10 select-none border ${
+                      isDarkMode ? 'border-[#ffd700]' : 'border-[#A30000]'
+                    }`}>
                       <img
                         src={getNewsfiedImageUrl(post.image) || defaultNewsImg}
                         alt={post.title}
@@ -368,8 +369,8 @@ export default function Newsfied({ onOpenAdmin }) {
                     <h3
                       className={`text-base sm:text-lg md:text-xl font-nunito font-bold tracking-tight leading-snug transition-colors line-clamp-2 ${
                         isDarkMode
-                          ? 'text-white group-hover:text-gold'
-                          : 'text-[#111111] group-hover:text-[#A30000]'
+                          ? 'text-gold'
+                          : 'text-[#A30000]'
                       }`}
                       style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}
                     >
@@ -387,14 +388,16 @@ export default function Newsfied({ onOpenAdmin }) {
 
                   {/* Read More link */}
                   <div className="mt-3 pt-3 border-t border-black/10 dark:border-white/5 flex items-center justify-between">
-                    <span
-                      className={`text-xs font-bold transition-all ${
-                        isDarkMode ? 'text-gold' : 'text-black'
+                    <button
+                      type="button"
+                      onClick={() => setActiveModalPost(post)}
+                      className={`text-xs font-bold transition-all cursor-pointer hover:underline inline-flex items-center gap-1 select-none focus:outline-none ${
+                        isDarkMode ? 'text-gold hover:text-white' : 'text-black hover:text-[#A30000]'
                       }`}
                       style={{ fontFamily: '"Mulish", sans-serif' }}
                     >
                       Read full update →
-                    </span>
+                    </button>
                   </div>
                 </motion.article>
               ))

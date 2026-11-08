@@ -687,11 +687,13 @@ export default function NewsfiedAdmin({ onBackToSite }) {
                 className={`p-4 rounded-[20px] border transition-all duration-300 ${
                   isPreviewDark
                     ? 'bg-[#181818] border-white/10 text-white shadow-lg'
-                    : 'bg-gradient-to-b from-[#ffde59] to-[#ff914d] border border-[#A30000] text-black shadow-md'
+                    : 'bg-[#FFFFB0] border border-[#A30000] text-black shadow-md'
                 }`}
               >
                 {/* Image Banner (Square 1:1 shape) */}
-                <div className="w-full aspect-square rounded-[16px] overflow-hidden relative shadow-inner mb-3 bg-black/10">
+                <div className={`w-full aspect-square rounded-[16px] overflow-hidden relative shadow-inner mb-3 bg-black/10 border ${
+                  isPreviewDark ? 'border-[#ffd700]' : 'border-[#A30000]'
+                }`}>
                   <img
                     src={getNewsfiedImageUrl(imagePreview) || defaultNewsImg}
                     alt="Preview"
@@ -719,7 +721,7 @@ export default function NewsfiedAdmin({ onBackToSite }) {
                 {/* Title */}
                 <h4
                   className={`text-base font-nunito font-bold tracking-tight leading-snug mb-2 ${
-                    isPreviewDark ? 'text-white' : 'text-[#111111]'
+                    isPreviewDark ? 'text-gold' : 'text-[#A30000]'
                   }`}
                   style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}
                 >
