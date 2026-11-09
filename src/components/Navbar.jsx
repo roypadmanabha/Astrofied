@@ -174,7 +174,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                     />
                                     <div className="flex flex-col">
                                         <span className={`text-xl font-nunito font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r leading-tight ${
-                                            isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-[#FF0000]'
+                                            isDarkMode ? 'from-red-600 to-[#f0fe4f]' : 'from-black to-[#FF0000]'
                                         }`}>
                                             Astrofied
                                         </span>
@@ -291,7 +291,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                     }}
                                     className={`w-full py-2.5 sm:py-3 px-4 rounded-xl font-nunito font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all ${
                                         isDarkMode
-                                            ? 'bg-gold text-black hover:bg-yellow-400 shadow-gold/20'
+                                            ? 'bg-white text-black hover:bg-[#f0fe4f] shadow-white/10 hover:shadow-gold/20'
                                             : 'bg-gradient-to-r from-black to-[#A30000] text-white hover:opacity-95 shadow-[#A30000]/25'
                                     }`}
                                 >
@@ -371,7 +371,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         <span
                             className={`text-2xl sm:text-3xl xl:text-3xl 2xl:text-4xl font-nunito font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r ${
                                 isDarkMode 
-                                    ? 'from-red-600 to-yellow-500' 
+                                    ? 'from-red-600 to-[#f0fe4f]' 
                                     : 'from-black to-[#FF0000]'
                             }`}
                         >
@@ -384,49 +384,48 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                 <div className="flex items-center gap-3 sm:gap-4 xl:gap-6 2xl:gap-8 shrink-0">
                     {/* Desktop Links (Visible only on xl and above) */}
                     <div className="hidden xl:flex items-center gap-4 2xl:gap-7">
-                        {desktopNavLinks.map((link) => (
-                            <motion.button
-                                key={link.name}
-                                disabled={link.disabled}
-                                onClick={() => {
-                                    if (link.disabled) return;
-                                    const targetHref = link.href === '/about'
-                                        ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5003' : '/about')
-                                        : link.href;
-                                    if (targetHref.startsWith('#')) {
-                                        const cleanHash = targetHref.replace(/\/+$/, '');
-                                        const element = document.querySelector(cleanHash);
-                                        if (element) {
-                                            if (window.lenis) {
-                                                window.lenis.scrollTo(element, { offset: -80 });
-                                            } else {
-                                                element.scrollIntoView({ behavior: 'smooth' });
-                                            }
-                                            window.history.pushState(null, '', targetHref);
-                                        }
-                                    } else {
-                                        window.location.href = targetHref;
+                        {desktopNavLinks.map((link) => {
+                            const isJournals = link.name === 'Journals';
+
+                            return (
+                                <motion.button
+                                    key={link.name}
+                                    disabled={link.disabled}
+                                    onClick={() => handleNavClick(link)}
+                                    className={`text-base 2xl:text-lg font-bold transition-all relative group bg-transparent border-none p-0 whitespace-nowrap ${
+                                        link.disabled
+                                            ? 'opacity-40 cursor-not-allowed text-gray-400 select-none'
+                                            : isJournals
+                                                ? `bg-clip-text text-transparent bg-gradient-to-r ${
+                                                    isDarkMode 
+                                                        ? 'from-red-600 to-[#f0fe4f]' 
+                                                        : 'from-black to-[#FF0000]'
+                                                  } opacity-100 hover:opacity-60 transition-opacity duration-200 cursor-pointer`
+                                                : (isDarkMode 
+                                                    ? 'text-white hover:text-[#f0fe4f] transition-colors duration-200 cursor-pointer' 
+                                                    : 'text-black hover:text-[#FF0000] transition-colors duration-200 cursor-pointer'
+                                                  )
+                                    }`}
+                                    whileHover={
+                                        link.disabled
+                                            ? {}
+                                            : {
+                                                scale: 1.05,
+                                                ...(isJournals ? { opacity: 0.6 } : {})
+                                              }
                                     }
-                                }}
-                                className={`text-base 2xl:text-lg font-bold transition-all relative group bg-transparent border-none p-0 whitespace-nowrap ${
-                                    link.disabled
-                                        ? 'opacity-40 cursor-not-allowed text-gray-400 select-none'
-                                        : link.isGradient
-                                            ? `bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-[#FF0000]'} cursor-pointer`
-                                            : (isDarkMode ? 'text-gray-100 hover:text-gold cursor-pointer' : 'text-black hover:text-[#FF0000] cursor-pointer')
-                                }`}
-                                whileHover={link.disabled ? {} : { scale: 1.05 }}
-                            >
-                                {link.name}
-                                {!link.disabled && (
-                                    <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
-                                        link.isGradient
-                                            ? (isDarkMode ? 'bg-yellow-500' : 'bg-[#FF0000]')
-                                            : (isDarkMode ? 'bg-gold' : 'bg-[#FF0000]')
-                                    }`} />
-                                )}
-                            </motion.button>
-                        ))}
+                                >
+                                    {link.name}
+                                    {!link.disabled && (
+                                        <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
+                                            isDarkMode
+                                                ? 'bg-[#f0fe4f]'
+                                                : 'bg-[#FF0000]'
+                                        }`} />
+                                    )}
+                                </motion.button>
+                            );
+                        })}
                     </div>
 
                     {/* Theme Toggle (Visible on all screens) */}
@@ -437,8 +436,8 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                         aria-label="Toggle Theme"
                         className={`p-1 sm:p-1.5 transition-colors duration-300 bg-transparent border-none cursor-pointer flex items-center justify-center ${
                             isDarkMode 
-                                ? 'text-gold/80 hover:text-gold' 
-                                : 'text-stone-600 hover:text-black'
+                                ? 'text-[#f0fe4f] hover:text-white' 
+                                : 'text-[#FF0000] hover:text-black'
                         }`}
                     >
                         {isDarkMode ? (

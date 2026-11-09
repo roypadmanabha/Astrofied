@@ -125,12 +125,12 @@ const ServiceCard = ({ service, index, isDarkMode, isMobile }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className={`rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-transparent border-[#ffd700] border-[0.5px]' : 'bg-[#FFFFFF] border-gold/10'} group relative overflow-hidden`}
+            className={`rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-all duration-300 border ${isDarkMode ? 'bg-transparent border-[#f0fe4f] border-[0.5px]' : 'bg-[#FFFFFF] border-gold/10'} group relative overflow-hidden`}
         >
             {/* Glossy Gift Ribbon */}
             <div className="absolute top-0 left-0 w-16 h-16 md:w-25 md:h-20 pointer-events-none z-20">
                 <div className={`absolute top-0 left-0 w-[160%] h-5 md:h-7 shadow-xl transform -rotate-45 -translate-x-[35%] translate-y-[32%] flex items-center justify-center border-y border-white/30 overflow-hidden ${isDarkMode
-                    ? 'bg-gradient-to-r from-[#B8860B] via-[#ffd700] to-[#B8860B]'
+                    ? 'bg-gradient-to-r from-[#B8860B] via-[#f0fe4f] to-[#B8860B]'
                     : 'bg-gradient-to-r from-[#990000] via-[#FF2400] to-[#990000]'
                     }`}>
                     {/* Glossy Shine Effect */}
@@ -202,7 +202,7 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className={`text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}
+                    className={`text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 transition-colors ${isDarkMode ? 'text-white' : 'text-[#A30000]'}`}
                 >
                     What We Cover
                 </motion.h2>

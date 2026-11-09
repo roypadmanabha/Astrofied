@@ -107,7 +107,7 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
             <HighlightText text={journal.title} highlight={searchQuery} />
           </h2>
           <div
-            className="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#ffd700] bg-white"
+            className="w-full rounded-md sm:rounded-lg md:rounded-xl overflow-hidden shadow-lg md:shadow-xl border md:border-[1.5px] border-[#f0fe4f] bg-white"
             style={{ maxWidth: '923px', aspectRatio: '923/1024' }}
           >
             <img
@@ -147,9 +147,9 @@ const JournalCard = ({ journal, idx, isLast, isDarkMode, handleDownload, searchQ
       {/* Diamond Separator between items */}
       {!isLast && (
         <div className="flex justify-center items-center gap-2 md:gap-3 opacity-80 mt-4 md:mt-8">
-          <div className="w-16 md:w-40 h-px bg-[#ffd700]"></div>
-          <div className="w-1.5 h-1.5 md:w-2.5 md:h-2.5 rotate-45 bg-[#ffd700]"></div>
-          <div className="w-16 md:w-40 h-px bg-[#ffd700]"></div>
+          <div className={`w-16 md:w-40 h-px ${isDarkMode ? 'bg-[#f0fe4f]' : 'bg-[#ffd700]'}`}></div>
+          <div className={`w-1.5 h-1.5 md:w-2.5 md:h-2.5 rotate-45 ${isDarkMode ? 'bg-[#f0fe4f]' : 'bg-[#ffd700]'}`}></div>
+          <div className={`w-16 md:w-40 h-px ${isDarkMode ? 'bg-[#f0fe4f]' : 'bg-[#ffd700]'}`}></div>
         </div>
       )}
     </div>
@@ -366,7 +366,7 @@ const AstrofiedJournals = () => {
       <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-[#FF0000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 650, letterSpacing: '-0.03em' }}>
         Astrofied
       </span>
-      <span className={`bg-clip-text text-transparent ${isDarkMode ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' : 'bg-[#FF0000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 650, letterSpacing: '-0.03em' }}>
+      <span className={`bg-clip-text text-transparent ${isDarkMode ? 'bg-gradient-to-r from-yellow-500 to-[#f0fe4f]' : 'bg-[#FF0000]'}`} style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 650, letterSpacing: '-0.03em' }}>
         Journals
       </span>
     </span>
@@ -406,7 +406,7 @@ const AstrofiedJournals = () => {
               animate={{ opacity: 1, y: 0, x: '-50%' }}
               exit={{ opacity: 0, y: -20, x: '-50%' }}
               transition={{ duration: 0.3 }}
-              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#A30000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#ffd700]/30"
+              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#A30000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#f0fe4f]/30"
             >
               <AlertCircle size={24} />
               <span className="text-sm md:text-base">Not allowed. Content protection enabled.</span>
@@ -487,11 +487,11 @@ const AstrofiedJournals = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className={`w-full py-2 md:py-3 px-5 md:px-6 pr-16 md:pr-20 rounded-[28px] border-[1.5px] md:border-2 outline-none transition-all text-sm md:text-base font-mulish shadow-none
                   ${isDarkMode
-                    ? 'bg-[#1a1a1a] border-[#ffd700]/50 text-white placeholder-white/50 focus:border-[#ffd700]'
+                    ? 'bg-[#1a1a1a] border-[#f0fe4f]/50 text-white placeholder-white/50 focus:border-[#f0fe4f]'
                     : 'bg-white border-[#A30000]/50 text-black placeholder-black/50 focus:border-[#A30000]'
                   }`}
               />
-              <div className={`absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 md:gap-3 ${isDarkMode ? 'text-[#ffd700]' : 'text-[#A30000]'}`}>
+              <div className={`absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 md:gap-3 ${isDarkMode ? 'text-[#f0fe4f]' : 'text-[#A30000]'}`}>
                 {searchQuery && (
                   <>
                     <button
@@ -501,7 +501,7 @@ const AstrofiedJournals = () => {
                     >
                       <X size={18} className="md:w-5 md:h-5" />
                     </button>
-                    <div className={`w-px h-4 md:h-5 ${isDarkMode ? 'bg-[#ffd700]/50' : 'bg-[#A30000]/50'}`}></div>
+                    <div className={`w-px h-4 md:h-5 ${isDarkMode ? 'bg-[#f0fe4f]/50' : 'bg-[#A30000]/50'}`}></div>
                   </>
                 )}
                 <Search size={18} className="md:w-5 md:h-5" />
@@ -515,7 +515,7 @@ const AstrofiedJournals = () => {
                   initial={{ opacity: 0, height: 0, marginTop: 0 }}
                   animate={{ opacity: 1, height: 'auto', marginTop: 12 }}
                   exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                  className={`text-sm font-mulish font-bold overflow-hidden ${isDarkMode ? 'text-[#ffd700]' : 'text-[#A30000]'}`}
+                  className={`text-sm font-mulish font-bold overflow-hidden ${isDarkMode ? 'text-[#f0fe4f]' : 'text-[#A30000]'}`}
                 >
                   {filteredJournals.length} {filteredJournals.length === 1 ? 'match' : 'matches'} found
                 </motion.div>
@@ -575,7 +575,7 @@ const AstrofiedJournals = () => {
               </p>
               <button
                 onClick={() => setSessionExpired(false)}
-                className={`w-full py-3 rounded-xl font-bold transition-colors font-['Nunito'] ${isDarkMode ? 'bg-[#FFF000] text-black hover:bg-[#FFE000]' : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000]'}`}
+                className={`w-full py-3 rounded-xl font-bold transition-colors font-['Nunito'] ${isDarkMode ? 'bg-[#f0fe4f] text-black hover:bg-[#d8e640]' : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000]'}`}
               >
                 Close
               </button>
@@ -627,7 +627,7 @@ const AstrofiedJournals = () => {
                   {typeof titleContent === "string" ? titleContent.split(/(Astrofied)/g).map((p, i) => p === "Astrofied" ? <span key={i} className="brand-text">Astrofied</span> : p) : titleContent}
                 </h2>
 
-                <div className="w-[60%] sm:w-[50%] lg:w-[85%] max-w-[210px] sm:max-w-[260px] lg:max-w-[380px] xl:max-w-[440px] rounded-2xl lg:rounded-[28px] overflow-hidden shadow-xl sm:shadow-2xl bg-transparent border-[1.5px] border-[#ffd700]">
+                <div className="w-[60%] sm:w-[50%] lg:w-[85%] max-w-[210px] sm:max-w-[260px] lg:max-w-[380px] xl:max-w-[440px] rounded-2xl lg:rounded-[28px] overflow-hidden shadow-xl sm:shadow-2xl bg-transparent border-[1.5px] border-[#f0fe4f]">
                   <img
                     src={journalsCollage}
                     alt="Astrofied Journals Collage"
@@ -653,7 +653,7 @@ const AstrofiedJournals = () => {
                     onClick={handleLogin}
                     className={`w-auto min-w-[200px] sm:min-w-[240px] py-2.5 sm:py-3.5 px-6 sm:px-8 text-sm sm:text-base lg:text-xl font-bold rounded-xl lg:rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-md font-['Nunito'] journals-explore-btn cursor-pointer
                   ${isDarkMode
-                        ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
+                        ? 'bg-white text-black hover:bg-[#f0fe4f] hover:text-black shadow-white/10 hover:shadow-gold/20'
                         : 'bg-gradient-to-r from-black to-red-600 text-white shadow-none hover:opacity-90'
                       }
                 `}

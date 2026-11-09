@@ -686,13 +686,13 @@ export default function NewsfiedAdmin({ onBackToSite }) {
               <div
                 className={`p-4 rounded-[20px] border transition-all duration-300 ${
                   isPreviewDark
-                    ? 'bg-[#181818] border-white/10 text-white shadow-lg'
+                    ? 'bg-[#181818] border-[0.5px] border-white text-white shadow-lg'
                     : 'bg-[#FFFFB0] border border-[#A30000] text-black shadow-md'
                 }`}
               >
                 {/* Image Banner (Square 1:1 shape) */}
                 <div className={`w-full aspect-square rounded-[16px] overflow-hidden relative shadow-inner mb-3 bg-black/10 border ${
-                  isPreviewDark ? 'border-[#ffd700]' : 'border-[#A30000]'
+                  isPreviewDark ? 'border-white' : 'border-[#A30000]'
                 }`}>
                   <img
                     src={getNewsfiedImageUrl(imagePreview) || defaultNewsImg}

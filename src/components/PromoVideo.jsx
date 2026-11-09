@@ -70,7 +70,7 @@ const PromoVideo = () => {
               >
                 <CirclePlay 
                   className={`w-11 h-11 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full transition-transform hover:scale-110 active:scale-95 drop-shadow-md sm:drop-shadow-lg`} 
-                  stroke={isDarkMode ? "#ffd700" : "url(#play-grad)"}
+                  stroke={isDarkMode ? "#f0fe4f" : "url(#play-grad)"}
                   fill={isDarkMode ? "rgba(0,0,0,0.6)" : "none"}
                   strokeWidth={1} 
                 />

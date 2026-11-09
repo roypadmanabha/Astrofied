@@ -25,7 +25,7 @@ const Pricing = () => {
         { label: "Offline", amount: "850" }
       ],
       image: pricingHoroscope,
-      description: "Complete life roadmap and planetary guidance through ancient Vedic wisdom.",
+      description: "Your complete life roadmap and planetary guidance through proven astrological methods.",
       tag: "FEATURED",
       color: "from-[#3B82F6]/20 via-transparent to-[#8B5CF6]/20",
       glow: "group-hover:shadow-[0_0_50px_rgba(59,130,246,0.2)]",
@@ -41,9 +41,9 @@ const Pricing = () => {
       image: pricingKundali,
       description: "Deep compatibility analysis for a prosperous and harmonious lifelong union.",
       tag: "EXCLUSIVE",
-      color: "from-[#ffd700]/20 via-transparent to-[#F59E0B]/20",
-      glow: "group-hover:shadow-[0_0_50px_rgba(212,175,55,0.2)]",
-      accent: "#ffd700",
+      color: "from-[#f0fe4f]/20 via-transparent to-[#F59E0B]/20",
+      glow: "group-hover:shadow-[0_0_50px_rgba(240,254,79,0.2)]",
+      accent: "#f0fe4f",
       isKundali: true
     }
   ];
@@ -74,7 +74,7 @@ const Pricing = () => {
           className="text-center mb-8 md:mb-16"
         >
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 tracking-tight">
-            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>Best</span>{' '}
+            <span className={`transition-colors ${isDarkMode ? 'text-white' : 'text-[#A30000]'}`}>Best</span>{' '}
             <span style={{ color: isDarkMode ? '#FFFFFF' : '#000000' }}>Prices</span>
           </h2>
           <p className={`text-base md:text-xl font-mulish opacity-70 ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>
@@ -92,7 +92,7 @@ const Pricing = () => {
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               style={{ height: '100%' }}
               className={`pricing-card relative rounded-[24px] p-4 sm:p-5 border flex flex-col justify-between h-full ${isDarkMode
-                  ? `shadow-2xl transition-all duration-700 bg-transparent border-white`
+                  ? `shadow-2xl transition-all duration-700 bg-transparent border-[whitesmoke]`
                   : 'bg-white border-gray-200 shadow-md'
                 }`}
             >
@@ -106,7 +106,7 @@ const Pricing = () => {
 
               <div className="flex-1 flex flex-col">
                 {/* Image Container */}
-                <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-md ${isDarkMode ? 'shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] bg-black/40' : 'bg-[#f5f5dd]'
+                <div className={`relative aspect-[16/10] rounded-[16px] overflow-hidden mb-8 shadow-md border ${isDarkMode ? 'shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] bg-black/40 border-[0.5px] border-[whitesmoke]' : 'bg-[#f5f5dd] border-transparent'
                   }`}>
                   <img
                     src={item.image}
@@ -122,9 +122,9 @@ const Pricing = () => {
                   />
 
                   {/* Badge Overlay */}
-                  <div className="absolute top-6 right-6">
-                    <div className="bg-black/30 backdrop-blur-xl border border-white/20 px-5 py-2 rounded-2xl shadow-2xl">
-                      <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white">
+                  <div className="absolute top-2.5 right-2.5 sm:top-3.5 sm:right-3.5 md:top-4 md:right-4 z-10">
+                    <div className="bg-black/60 backdrop-blur-md border border-white/20 px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full shadow-md flex items-center justify-center">
+                      <span className="text-[8px] sm:text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest text-white leading-tight select-none">
                         {item.tag}
                       </span>
                     </div>
@@ -134,11 +134,11 @@ const Pricing = () => {
                 {/* Content Area */}
                 <div className="px-4 pb-4 flex-1 flex flex-col">
                   <div className="flex flex-col gap-3 mb-8 flex-1">
-                    <h3 className={`pricing-card-title text-2xl sm:text-3xl lg:text-4xl font-mulish leading-tight ${isDarkMode ? 'font-bold text-white' : 'font-bold text-[#A30000]'
+                    <h3 className={`pricing-card-title text-2xl sm:text-3xl lg:text-4xl font-mulish leading-tight ${isDarkMode ? 'font-bold text-[#f0fe4f]' : 'font-bold text-[#A30000]'
                       }`}>
                       {item.title}
                     </h3>
-                    <p className={`pricing-card-desc text-sm sm:text-base font-mulish font-medium leading-relaxed opacity-60 ${isDarkMode ? 'text-gray-300' : 'text-black/80'
+                    <p className={`pricing-card-desc text-sm sm:text-base font-mulish font-medium leading-relaxed ${isDarkMode ? 'text-white' : 'text-black/80 opacity-60'
                       }`}>
                       {item.description}
                     </p>
@@ -149,7 +149,7 @@ const Pricing = () => {
               {/* Bottom Price & CTA Box */}
               <div className="px-3 sm:px-4 pb-4 mt-auto">
                 <div className={`flex flex-nowrap items-center justify-between gap-2 sm:gap-3 lg:gap-4 mt-auto p-3 sm:p-4 rounded-[10px] border ${isDarkMode
-                    ? 'backdrop-blur-xl bg-white/5 border-[0.5px] border-white transition-colors duration-500'
+                    ? 'backdrop-blur-xl bg-white/5 border-[0.5px] border-[whitesmoke] transition-colors duration-500'
                     : 'bg-[#f5f5dd] border-black/[0.05]'
                   }`}>
                   {item.prices ? (
@@ -157,10 +157,10 @@ const Pricing = () => {
                       {item.prices.map((p, pIdx) => (
                         <React.Fragment key={pIdx}>
                           {pIdx > 0 && (
-                            <div className={`w-[1px] h-7 sm:h-9 self-center ${isDarkMode ? 'bg-white' : 'bg-black'}`} />
+                            <div className={`w-[1px] h-7 sm:h-9 self-center ${isDarkMode ? 'bg-[whitesmoke]/60' : 'bg-black'}`} />
                           )}
                           <div className="flex flex-col justify-center">
-                            <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-wider leading-none mb-1 ${isDarkMode ? 'text-gold' : 'text-[#A30000]'
+                            <span className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-wider leading-none mb-1 ${isDarkMode ? 'text-white' : 'text-[#A30000]'
                               }`}>
                               {p.label}
                             </span>
@@ -184,8 +184,8 @@ const Pricing = () => {
                     whileHover={{ scale: 1.05, x: 5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open(getWhatsAppLink(`I want to book ${item.title}.`), '_blank')}
-                    className={`shrink-0 ml-auto group/btn flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 xl:px-6 xl:py-3 rounded-[10px] font-black text-[8px] sm:text-[10px] tracking-wider uppercase shadow-2xl transition-all duration-500 ease-in-out whitespace-nowrap pricing-card-btn ${isDarkMode
-                        ? 'bg-gold text-black hover:bg-white shadow-gold/20'
+                    className={`shrink-0 ml-auto group/btn flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 xl:px-6 xl:py-3 rounded-[10px] font-black text-[8px] sm:text-[10px] tracking-wider uppercase shadow-2xl transition-all duration-300 ease-in-out whitespace-nowrap pricing-card-btn ${isDarkMode
+                        ? 'bg-white text-black hover:bg-[#f0fe4f] shadow-white/10 hover:shadow-gold/20'
                         : 'bg-[#A30000] text-white hover:bg-black shadow-[#991600]/20'
                       }`}
                   >

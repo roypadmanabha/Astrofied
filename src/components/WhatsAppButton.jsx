@@ -20,7 +20,7 @@ export default function WhatsAppButton() {
             exit={{ opacity: 0, x: 10, scale: 0.95 }}
             className={`absolute right-14 md:right-16 top-1/2 -translate-y-1/2 text-white font-mulish font-bold text-xs md:text-sm px-3 py-1.5 rounded-lg shadow-lg pointer-events-none whitespace-nowrap tracking-wide select-none z-[100] hidden md:block
               ${isDarkMode 
-                ? 'bg-[#1baf52] border border-[#ffd700]/30 shadow-[#1a1a1a]/40' 
+                ? 'bg-[#1baf52] border border-[#f0fe4f]/30 shadow-[#1a1a1a]/40' 
                 : 'bg-[#25D366] border border-white/20 shadow-[#25D366]/20'
               }`}
           >
@@ -28,7 +28,7 @@ export default function WhatsAppButton() {
             {/* Tooltip Arrow */}
             <div className={`absolute right-[-4px] top-1/2 -translate-y-1/2 w-2 h-2 rotate-45 border-r border-t
               ${isDarkMode 
-                ? 'bg-[#1baf52] border-[#ffd700]/30' 
+                ? 'bg-[#1baf52] border-[#f0fe4f]/30' 
                 : 'bg-[#25D366] border-white/20'
               }`} 
             />
@@ -54,7 +54,7 @@ export default function WhatsAppButton() {
         whileTap={{ scale: 0.95 }}
         className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2
           ${isDarkMode
-            ? 'bg-[#1baf52] text-white shadow-lg shadow-[#1baf52]/20 border border-[#ffd700]/40 focus:ring-[#ffd700]'
+            ? 'bg-[#1baf52] text-white shadow-lg shadow-[#1baf52]/20 border border-[#f0fe4f]/40 focus:ring-[#f0fe4f]'
             : 'bg-[#25D366] text-white shadow-xl shadow-[#25D366]/30 border border-white/10 focus:ring-[#25D366]'
           }`}
       >

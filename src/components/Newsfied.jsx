@@ -179,7 +179,7 @@ export default function Newsfied({ onOpenAdmin }) {
       }`}
     >
       {/* Decorative Orbs */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 h-64 rounded-full mix-blend-screen filter blur-[100px] opacity-10 bg-[#ffd700] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-64 h-64 rounded-full mix-blend-screen filter blur-[100px] opacity-10 bg-[#f0fe4f] pointer-events-none" />
       <div className="absolute bottom-10 right-1/4 w-80 h-80 rounded-full mix-blend-screen filter blur-[120px] opacity-10 bg-[#A30000] pointer-events-none" />
 
       <div className="container mx-auto max-w-[1200px] flex justify-center relative z-10 w-full">
@@ -327,14 +327,14 @@ export default function Newsfied({ onOpenAdmin }) {
                     'w-[84vw] max-w-[310px] xs:w-[290px] sm:w-[320px] md:w-[330px] lg:w-[340px]'
                   } ${
                     isDarkMode
-                      ? 'bg-white/[0.04] hover:bg-white/[0.08] border-white/10 hover:border-gold/40 shadow-lg hover:shadow-gold/10 backdrop-blur-md'
+                      ? 'bg-white/[0.04] hover:bg-white/[0.08] border-[0.5px] border-white shadow-lg backdrop-blur-md'
                       : 'bg-[#FFFFB0] border border-[#A30000] shadow-md hover:shadow-2xl'
                   }`}
                 >
                   <div className="flex flex-col gap-3">
                     {/* Card Top: Image / Banner (Square 1:1 ratio) */}
                     <div className={`w-full aspect-square rounded-[16px] sm:rounded-[18px] overflow-hidden relative shadow-inner bg-black/10 select-none border ${
-                      isDarkMode ? 'border-[#ffd700]' : 'border-[#A30000]'
+                      isDarkMode ? 'border-white' : 'border-[#A30000]'
                     }`}>
                       <img
                         src={getNewsfiedImageUrl(post.image) || defaultNewsImg}

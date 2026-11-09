@@ -18,13 +18,13 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
     }, []);
 
     return (
-        <section id="hero" className="relative min-h-screen flex items-center pt-28 pb-12 md:pb-20 overflow-hidden">
+        <section id="hero" className="relative xl:min-h-screen flex items-center pt-24 sm:pt-28 pb-8 md:pb-12 xl:pb-20 overflow-hidden">
             {/* Background elements */}
             <div className={`absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full blur-[150px] opacity-20 ${isDarkMode ? 'bg-gold' : 'bg-transparent'}`} />
             <div className={`absolute bottom-1/4 -right-20 w-80 h-80 rounded-full blur-[120px] opacity-20 ${isDarkMode ? 'bg-[#4b0082]' : 'bg-gold'}`} />
 
             <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-8">
+                <div className="flex flex-col xl:flex-row items-center justify-between gap-6 md:gap-8 xl:gap-8">
                     {/* Left Content */}
                     <div className="w-full xl:w-1/2 text-center xl:text-left order-1 z-20">
                         <motion.h1
@@ -35,17 +35,17 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             style={{ color: isDarkMode ? '#F5F5F5' : '#0A0A0A' }}
                         >
                             A Deeper Understanding <br className="hidden lg:block xl:hidden" />
-                            <span className={`transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>of Your Life</span> Begins Here
+                            <span className={`transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>of Your Life</span> Begins Here
                         </motion.h1>
 
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className={`text-lg md:text-xl max-w-xl mb-12 opacity-80 font-mulish leading-relaxed text-justify xl:text-left ${isDarkMode ? 'text-gray-300' : 'text-black'
+                            className={`text-lg md:text-xl max-w-xl mx-auto xl:mx-0 mb-6 md:mb-8 xl:mb-12 opacity-80 font-mulish leading-relaxed text-center xl:text-left ${isDarkMode ? 'text-gray-300' : 'text-black'
                                 }`}
                         >
-                            Refined Vedic insights designed to guide your decisions with clarity, confidence, and purpose through the ancient wisdom of the cosmos.
+                            Connect with Tripura's best astrologer for clear insights, helping you perfectly align your life goals with your true destiny.
                         </motion.p>
 
                         <motion.div
@@ -57,7 +57,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             <button
                                 onClick={onOpenConsultation}
                                 className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg hover:scale-105 active:scale-95 cursor-pointer shadow-xl ${isDarkMode
-                                    ? 'bg-gold text-black hover:bg-white hover:text-black shadow-gold/20 border border-transparent transition-all'
+                                    ? 'bg-white text-black hover:bg-[#f0fe4f] hover:text-black shadow-white/10 hover:shadow-gold/20 border border-transparent transition-all duration-300'
                                     : 'consultation-btn-light shadow-[#A30000]/30'
                                     }`}
                             >
@@ -69,7 +69,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                      setIsDetailsModalOpen(true);
                                  }}
                                  className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg hover:scale-105 active:scale-95 cursor-pointer ${isDarkMode
-                                     ? 'border border-gold/30 text-gold hover:border-gold shadow-gold/5 glass'
+                                     ? 'explore-btn-dark border border-gold/40 text-gold shadow-gold/5 glass hover:bg-white hover:text-black hover:border-white transition-all duration-300'
                                      : 'explore-btn-light shadow-[#A30000]/5'
                                      }`}
                              >
@@ -79,7 +79,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                     </div>
 
                     {/* Right Image Segment */}
-                    <div className="w-full xl:w-1/2 relative flex justify-center items-center order-2 mt-12 xl:mt-0">
+                    <div className="w-full xl:w-1/2 relative flex justify-center items-center order-2 mt-4 md:mt-6 xl:mt-0">
                         <motion.img
                             src={zodiacBg}
                             alt=""
@@ -119,7 +119,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                         }`}
                                 >
                                     <div className="flex flex-col">
-                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>5 Thousand+</span>
+                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>5 Thousand+</span>
                                         <span className="text-xs opacity-70">Consultations</span>
                                     </div>
                                 </motion.div>
@@ -132,7 +132,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                         }`}
                                  >
                                     <div className="flex flex-col">
-                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>7+ Years</span>
+                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>7+ Years</span>
                                         <span className="text-xs opacity-70">of Experience</span>
                                     </div>
                                 </motion.div>
@@ -145,7 +145,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                         }`}
                                  >
                                     <div className="flex flex-col">
-                                        <span className={`text-lg md:text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}>100%</span>
+                                        <span className={`text-lg md:text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>100%</span>
                                         <span className="text-[10px] md:text-xs opacity-70">Accuracy</span>
                                     </div>
                                 </motion.div>

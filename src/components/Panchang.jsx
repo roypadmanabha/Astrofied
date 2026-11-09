@@ -270,13 +270,13 @@ export default function Panchang() {
           className="text-center mb-8 md:mb-16"
         >
           <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold font-mulish mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-            Live Vedic <span className={isDarkMode ? 'text-gold' : 'text-[#FF0000]'}>Panchang</span>
+            Live Vedic <span className={isDarkMode ? 'text-white' : 'text-[#FF0000]'}>Panchang</span>
           </h2>
           <p className={`text-lg md:text-xl font-mulish opacity-70 max-w-3xl mx-auto mb-8 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            Real-time astronomical ephemeris calculated with Sidereal Astrology (Lahiri Ayanamsa). The backend dynamically computes exact planetary boundaries in real-time.
+            Accurate planetary positions calculated using trusted traditional astrology. Our platform automatically determines these exact cosmic movements in real-time.
           </p>
           <div className={`inline-block px-3 sm:px-6 md:px-8 py-2 md:py-4 rounded-xl md:rounded-[1.5rem] border text-[11px] sm:text-sm md:text-xl font-bold font-mulish tracking-wider shadow-sm transition-colors ${isDarkMode ? 'bg-transparent border-white' : 'bg-[#f5f5dd] border-black'}`}>
-            <div className={`whitespace-nowrap ${isDarkMode ? 'text-yellow-400 drop-shadow-md' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent'}`}>
+            <div className={`whitespace-nowrap ${isDarkMode ? 'text-[#f0fe4f] drop-shadow-md' : 'bg-gradient-to-r from-black to-[#FF2400] bg-clip-text text-transparent'}`}>
               {new Date(now).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
               <span className="mx-1.5 sm:mx-3 md:mx-4 font-thin">|</span>
               <span>{new Date(now).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>

@@ -54,7 +54,7 @@ export default function GooglePresence() {
                 <div 
                   className={`w-full h-full p-[2px] bg-gradient-to-br ${
                     isDarkMode 
-                      ? 'from-[#ffd700] via-[#A30000] to-[#ffd700]' 
+                      ? 'from-[#f0fe4f] via-[#A30000] to-[#f0fe4f]' 
                       : 'from-[#A30000] via-[#ffd700] to-[#A30000]'
                   }`}
                   style={{
@@ -137,7 +137,7 @@ export default function GooglePresence() {
                   onClick={() => window.open('https://g.page/r/CdXCyK5Vcs0yEBM/review', '_blank')}
                   className={`w-full sm:max-w-xs py-3.5 px-6 text-sm sm:text-base font-bold rounded-[10px] transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl font-['Nunito'] flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider
                     ${isDarkMode
-                      ? 'bg-[#FFF000] text-black shadow-[#FFF000]/10 hover:bg-[#FFE000]'
+                      ? 'bg-white text-black hover:bg-[#f0fe4f] hover:text-black shadow-white/10 hover:shadow-gold/20'
                       : 'bg-gradient-to-r from-black to-[#A91B0D] text-white hover:opacity-90'
                     }
                   `}

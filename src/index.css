@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* iPad Mini & Mid-Tablets (768px - 1023px) Specific Optimization */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -19,7 +20,8 @@
 }
 
 @theme {
-  --color-gold: #ffd700;
+  --color-gold: #f0fe4f;
+  --color-darkmode-yellow: #f0fe4f;
   --color-obsidian: #0A0A0A;
   --color-royal-indigo: #A30000;
   --color-parchment: #F5F5DC;
@@ -57,6 +59,7 @@ html {
 }
 
 :root {
+  --darkmode-yellow: #f0fe4f;
   font-family: 'Mulish', sans-serif;
   line-height: 1.6;
   font-weight: 400;
@@ -121,7 +124,7 @@ body {
 }
 
 body.dark {
-  background: #020008;
+  background: #000000;
 }
 
 body.light {
@@ -140,14 +143,14 @@ body.light {
     display: inline-block;
     border-radius: 9999px;
     background: linear-gradient(45deg,
-        #ffd700,
+        #f0fe4f,
         #FFF8DC,
-        #ffd700,
+        #f0fe4f,
         #B8860B,
-        #ffd700);
+        #f0fe4f);
     background-size: 400% 400%;
     animation: shine-animation 5s linear infinite;
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 15px rgba(240, 254, 79, 0.4);
   }
 
   @keyframes shine-animation {
@@ -176,7 +179,7 @@ body.light {
 
 .dark .glass {
   background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(240, 254, 79, 0.2);
 }
 
 .light .glass {
@@ -194,7 +197,7 @@ body.light {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffd700;
+  background: #f0fe4f;
   border-radius: 4px;
 }
 
@@ -404,8 +407,13 @@ img {
   border-color: #000000 !important;
 }
 
-.explore-btn-light:hover span {
-  -webkit-text-fill-color: #ffffff;
+.explore-btn-light:hover span,
+.explore-btn-light:hover .brand-text {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* Custom Light Mode Book a Consultation Button */
@@ -436,6 +444,37 @@ img {
   -webkit-text-fill-color: transparent;
 }
 
+/* Custom Dark Mode Explore Button */
+.dark .explore-btn-dark,
+body.dark .explore-btn-dark {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.dark .explore-btn-dark span,
+body.dark .explore-btn-dark span,
+.dark .explore-btn-dark .brand-text,
+body.dark .explore-btn-dark .brand-text {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.dark .explore-btn-dark:hover,
+body.dark .explore-btn-dark:hover,
+.dark button.explore-btn-dark:hover,
+body.dark button.explore-btn-dark:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+.dark .explore-btn-dark:hover span,
+body.dark .explore-btn-dark:hover span,
+.dark .explore-btn-dark:hover .brand-text,
+body.dark .explore-btn-dark:hover .brand-text {
+  color: #000000 !important;
+  background: none !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
 .astrofied-title-gradient,
 .astrofied-brand-text,
 .brand-text {
@@ -451,7 +490,7 @@ img {
 .dark .astrofied-brand-text,
 .dark .brand-text {
   font-family: 'Nunito', sans-serif !important;
-  background: linear-gradient(to right, #FF0000, #FFFF00) !important;
+  background: linear-gradient(to right, #FF0000, #f0fe4f) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text;

@@ -47,7 +47,7 @@ const formatAstrofied = (text, isDarkMode = false) => {
                 }
                 if (part === '₹750' || part === '₹850') {
                     return (
-                        <span key={i} className={`font-bold ${isDarkMode ? 'text-[#ffd700]' : 'text-[#A30000]'}`}>
+                        <span key={i} className={`font-bold ${isDarkMode ? 'text-[#f0fe4f]' : 'text-[#A30000]'}`}>
                             {part}
                         </span>
                     );
@@ -113,7 +113,7 @@ export default function FAQs() {
                                     className="w-full text-left px-3.5 sm:px-5 md:px-6 py-3 sm:py-4 md:py-5 flex items-center justify-between gap-3 sm:gap-4 focus:outline-none cursor-pointer"
                                 >
                                     <span className={`text-[13.5px] sm:text-base md:text-lg font-bold transition-colors font-mulish leading-snug ${isDarkMode
-                                        ? isActive ? 'text-[#ffd700]' : 'text-gray-100 hover:text-white'
+                                        ? isActive ? 'text-[#f0fe4f]' : 'text-gray-100 hover:text-white'
                                         : isActive ? 'text-[#A30000]' : 'text-[#17202A] hover:text-[#A30000]'
                                         }`}>
                                         {formatAstrofied(faq.question, isDarkMode)}

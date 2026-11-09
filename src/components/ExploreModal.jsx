@@ -75,7 +75,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                         }}
                         className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col
                             ${isDarkMode
-                                ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-gold/30 text-white'
+                                ? 'bg-black border-gold/30 text-white'
                                 : 'bg-white/80 border-[#A30000]/30 text-black'}
                         `}
                     >
@@ -99,7 +99,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                 }}
                                 transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
                                 className={`absolute bottom-0 right-0 w-full h-full opacity-20 blur-[100px]
-                                    ${isDarkMode ? 'bg-[#4b0082]' : 'bg-gold'}`}
+                                    ${isDarkMode ? 'bg-transparent' : 'bg-gold'}`}
                             />
                             {/* Refraction Shine */}
                             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
@@ -124,7 +124,7 @@ const ExploreModal = ({ isOpen, onClose }) => {
                                     <h2
                                         className={`text-[4.5vw] sm:text-2xl md:text-4xl font-bold tracking-tight font-nunito whitespace-nowrap overflow-hidden bg-clip-text text-transparent
                                         ${isDarkMode
-                                                ? 'bg-gradient-to-r from-red-600 to-yellow-500'
+                                                ? 'bg-gradient-to-r from-red-600 to-[#f0fe4f]'
                                                 : 'bg-gradient-to-r from-black to-[#FF0000]'}
                                     `}
                                         style={{ fontFamily: "'Nunito', sans-serif" }}

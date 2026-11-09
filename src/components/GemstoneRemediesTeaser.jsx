@@ -104,7 +104,7 @@ export default function GemstoneRemediesTeaser() {
             </h2>
             
             {/* Copy Paragraph */}
-            <p className={`text-base md:text-lg xl:text-xl leading-relaxed text-justify lg:text-left font-mulish font-normal mb-8 lg:mb-10 w-full ${isDarkMode ? 'text-[#D8D0C0]' : 'text-[#5A5A5A]'}`}>
+            <p className={`text-base md:text-lg xl:text-xl leading-relaxed text-justify font-mulish font-normal mb-8 lg:mb-10 w-full ${isDarkMode ? 'text-[#D8D0C0]' : 'text-[#5A5A5A]'}`}>
               Every gemstone is carefully prescribed by our astrologer based on your unique birth chart, serving as a personalized remedy rather than a generic accessory. The right stone works to align planetary energies, strengthen weak houses, and actively support your life goals—whether in career, health, relationships, or overall prosperity.
             </p>
             
@@ -115,7 +115,7 @@ export default function GemstoneRemediesTeaser() {
                 onClick={handleGemstoneRedirect}
                 className={`w-auto min-w-[200px] sm:min-w-[240px] py-2.5 sm:py-3.5 px-6 sm:px-8 text-sm sm:text-base md:text-lg font-bold rounded-xl transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 shadow-md font-['Nunito'] flex items-center justify-center gap-2 cursor-pointer
                   ${isDarkMode
-                    ? 'bg-[#FFF000] text-black shadow-[#FFF000]/20 hover:bg-[#FFE000]'
+                    ? 'bg-white text-black hover:bg-[#f0fe4f] hover:text-black shadow-white/10 hover:shadow-gold/20'
                     : 'bg-gradient-to-r from-black to-[#A91B0D] text-white hover:opacity-90'
                   }
                 `}

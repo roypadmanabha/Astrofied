@@ -123,8 +123,8 @@ export default function Testimonials() {
                             <Star
                                 key={i}
                                 className="w-3 h-3 md:w-4 md:h-4"
-                                fill={isDarkMode ? '#ffd700' : '#FFEA00'}
-                                stroke={isDarkMode ? '#ffd700' : '#5C4033'}
+                                fill={isDarkMode ? '#f0fe4f' : '#FFEA00'}
+                                stroke={isDarkMode ? '#f0fe4f' : '#5C4033'}
                                 strokeWidth={isDarkMode ? 1.5 : 1}
                             />
                         ))}
@@ -144,7 +144,7 @@ export default function Testimonials() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="text-center md:text-left">
                         <h2
-                            className={`text-3xl md:text-5xl lg:text-7xl font-bold font-mulish tracking-tight mb-4 transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}
+                            className={`text-3xl md:text-5xl lg:text-7xl font-bold font-mulish tracking-tight mb-4 transition-colors ${isDarkMode ? 'text-white' : 'text-[#A30000]'}`}
                         >
                             Voices of <span className={isDarkMode ? 'text-white' : 'text-black'}>Trust</span>
                         </h2>
@@ -160,7 +160,7 @@ export default function Testimonials() {
                             disabled={!canScrollLeft}
                             className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg testimonial-nav-btn
                                 ${isDarkMode
-                                    ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black hover:scale-105 active:scale-95'
+                                    ? 'border-transparent text-black bg-white hover:bg-[#f0fe4f] hover:text-black hover:scale-105 active:scale-95 shadow-white/10 hover:shadow-gold/20'
                                     : 'border-none text-white bg-gradient-to-r from-black to-[#FF0000] hover:opacity-90 hover:scale-105 active:scale-95'}
                             `}
                         >
@@ -171,7 +171,7 @@ export default function Testimonials() {
                             disabled={!canScrollRight}
                             className={`p-3 md:p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-lg testimonial-nav-btn
                                 ${isDarkMode
-                                    ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black hover:scale-105 active:scale-95'
+                                    ? 'border-transparent text-black bg-white hover:bg-[#f0fe4f] hover:text-black hover:scale-105 active:scale-95 shadow-white/10 hover:shadow-gold/20'
                                     : 'border-none text-white bg-gradient-to-r from-black to-[#FF0000] hover:opacity-90 hover:scale-105 active:scale-95'}
                             `}
                         >
@@ -201,7 +201,7 @@ export default function Testimonials() {
                     disabled={!canScrollLeft}
                     className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md testimonial-nav-btn
                         ${isDarkMode
-                            ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black active:scale-90'
+                            ? 'border-transparent text-black bg-white hover:bg-[#f0fe4f] hover:text-black active:scale-90 shadow-white/10 hover:shadow-gold/20'
                             : 'border-none text-white bg-gradient-to-r from-black to-[#FF0000] hover:opacity-90 active:scale-90'}
                     `}
                 >
@@ -212,7 +212,7 @@ export default function Testimonials() {
                     disabled={!canScrollRight}
                     className={`p-4 rounded-[20%] border transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed shadow-md testimonial-nav-btn
                         ${isDarkMode
-                            ? 'border-gold/30 text-[#FFF8E1] bg-[#ffd700] hover:bg-[#e6c200] text-black hover:text-black active:scale-90'
+                            ? 'border-transparent text-black bg-white hover:bg-[#f0fe4f] hover:text-black active:scale-90 shadow-white/10 hover:shadow-gold/20'
                             : 'border-none text-white bg-gradient-to-r from-black to-[#FF0000] hover:opacity-90 active:scale-90'}
                     `}
                 >

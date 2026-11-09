@@ -81,7 +81,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto' : 'w-full xl:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
+                            style={{ color: isDarkMode ? '#f0fe4f' : (isJournalsPage ? '#A30000' : '#A30000') }}
                         >
                             Legal
                         </h4>
@@ -118,7 +118,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full xl:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
+                            style={{ color: isDarkMode ? '#f0fe4f' : (isJournalsPage ? '#A30000' : '#A30000') }}
                         >
                             Contact Details
                         </h4>
@@ -143,7 +143,7 @@ export default function Footer({ onOpenLegal, forceLightMode = false, isJournals
                     <div className={`flex flex-col gap-2 md:gap-6 ${isJournalsPage ? 'w-auto max-w-[28%]' : 'w-full xl:w-auto'}`}>
                         <h4
                             className={`${isJournalsPage ? 'text-[8px] sm:text-[10px] md:text-xl lg:text-2xl mb-1 md:mb-0' : 'text-lg md:text-xl lg:text-2xl'} font-bold`}
-                            style={{ color: isDarkMode ? '#ffd700' : (isJournalsPage ? '#A30000' : '#A30000') }}
+                            style={{ color: isDarkMode ? '#f0fe4f' : (isJournalsPage ? '#A30000' : '#A30000') }}
                         >
                             Address
                         </h4>

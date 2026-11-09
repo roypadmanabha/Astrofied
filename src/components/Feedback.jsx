@@ -433,9 +433,9 @@ export default function Feedback() {
                         className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
                     >
                         <h2
-                            className={`text-3xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-8 font-mulish leading-[1.15] sm:leading-[1.1] transition-colors ${isDarkMode ? 'text-[#ffd700] hover:text-[#ffd700]' : 'text-[#A30000]'}`}
+                            className={`text-3xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-8 font-mulish leading-[1.15] sm:leading-[1.1] transition-colors ${isDarkMode ? 'text-white' : 'text-[#A30000]'}`}
                         >
-                            We Value <span className={isDarkMode ? 'text-[#ffd700]' : 'text-black'}>Your <br className="hidden lg:block" /> Feedback</span>
+                            We Value <span className={isDarkMode ? 'text-white' : 'text-black'}>Your <br className="hidden lg:block" /> Feedback</span>
                         </h2>
                         <p className={`text-base sm:text-xl lg:text-2xl opacity-80 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-black'}`}>
                             Your insights help us improve and serve you better. Share your experience with <span className="brand-text">Astrofied</span>!
@@ -656,7 +656,7 @@ export default function Feedback() {
                                     type="submit"
                                     className={`w-full py-3 sm:py-3.5 rounded-xl font-bold text-sm sm:text-base flex justify-center items-center gap-2 transition-all shadow-lg ${(status === 'loading' || Object.values(errors).some(e => e)) ? 'opacity-50 cursor-not-allowed grayscale' : ''
                                         } ${isDarkMode
-                                            ? 'bg-gold text-black hover:bg-white hover:text-black shadow-gold/20'
+                                            ? 'bg-white text-black hover:bg-[#f0fe4f] hover:text-black shadow-white/10 hover:shadow-gold/20'
                                             : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000] shadow-[#A30000]/30'
                                         }`}
                                 >
@@ -729,7 +729,7 @@ export default function Feedback() {
                                     type="submit"
                                     disabled={userOtp.some(d => !d) || status === 'loading' || status === 'success' || status === 'otp_error'}
                                     className={`w-full py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed ${isDarkMode
-                                        ? 'bg-gold text-black hover:bg-yellow-500 shadow-gold/20'
+                                        ? 'bg-white text-black hover:bg-[#f0fe4f] hover:text-black shadow-white/10 hover:shadow-gold/20'
                                         : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000] shadow-[#A30000]/30'
                                         }`}
                                 >

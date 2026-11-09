@@ -241,7 +241,7 @@ export default function StarfieldBg() {
             className="fixed inset-0 w-full h-full pointer-events-none"
             style={{ 
                 zIndex: -1,
-                background: 'radial-gradient(circle at 50% 40%, #0d0221 0%, #080118 40%, #05010d 70%, #020008 100%)'
+                background: '#000000'
             }}
             aria-hidden="true"
         />

@@ -70,7 +70,7 @@ const Kundali = () => {
     const otpRefs = useRef([]);
 
     // Brand Colors
-    const brandGold = "#ffd700";
+    const brandGold = "#f0fe4f";
     const brandPurple = "#A30000";
     const darkBlue = "#0A1931";
 
@@ -382,7 +382,7 @@ const Kundali = () => {
                             </span>
                             <span className={`font-mulish lg:mt-1.5 xl:mt-2 ${isDarkMode ? 'text-white' : 'text-black'} inline-flex items-center gap-1.5 sm:gap-2.5`}>
                                 Free{' '}
-                                <span className={isDarkMode ? 'text-gold' : 'text-[#FF0000]'}>Kundali</span>
+                                <span className={isDarkMode ? 'text-white' : 'text-[#FF0000]'}>Kundali</span>
                             </span>
                         </motion.h2>
 
@@ -610,12 +610,12 @@ const Kundali = () => {
                                     whileTap={{ scale: 0.98 }}
                                     disabled={loading || otpLoading}
                                     className={`w-full py-2.5 sm:py-3.5 font-black rounded-xl sm:rounded-2xl tracking-[0.15em] sm:tracking-[0.2em] uppercase flex items-center justify-center gap-2 sm:gap-3 transition-all disabled:opacity-50 text-xs sm:text-sm border-2 border-transparent ${isDarkMode 
-                                        ? 'bg-gold text-black shadow-lg shadow-gold/20' 
+                                        ? 'bg-white text-black hover:bg-[#f0fe4f] shadow-lg shadow-white/10 hover:shadow-gold/20' 
                                         : 'bg-gradient-to-r from-black to-[#FF0000] text-white shadow-xl hover:opacity-90'
                                         }`}
                                 >
                                     {(loading || otpLoading) ? <Loader2 className="animate-spin" size={16} /> : (
-                                        <><Sparkles size={15} /> Generate</>
+                                        'Generate'
                                     )}
                                 </motion.button>
 
@@ -700,7 +700,7 @@ const Kundali = () => {
                                 onClick={handleOtpVerify}
                                 disabled={otpLoading || otpInputs.some(d => !d)}
                                 className={`w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl font-black text-xs tracking-widest uppercase transition-all shadow-xl disabled:opacity-50 flex items-center justify-center gap-2 sm:gap-3
-                                    ${isDarkMode ? 'bg-gold text-black' : 'bg-[#A30000] text-white'}
+                                    ${isDarkMode ? 'bg-white text-black hover:bg-[#f0fe4f]' : 'bg-[#A30000] text-white'}
                                 `}
                             >
                                 {otpLoading ? <Loader2 size={16} className="animate-spin" /> : 'Verify & Generate'}
@@ -733,7 +733,7 @@ const Kundali = () => {
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 20 }}
                             className={`relative w-full max-w-lg p-8 md:p-12 rounded-[2.5rem] border shadow-[0_50px_100px_rgba(0,0,0,0.5)] text-center overflow-hidden
-                                ${isDarkMode ? 'bg-gradient-to-br from-black via-[#08002e] to-black border-gold/30 text-white' : 'bg-white/90 border-[#A30000]/30 text-black'}
+                                ${isDarkMode ? 'bg-black border-gold/30 text-white' : 'bg-white/90 border-[#A30000]/30 text-black'}
                             `}
                         >
                             <div className="flex justify-center mb-6">
@@ -812,11 +812,11 @@ const Kundali = () => {
                                                 .kundali-svg-container svg rect,
                                                 .kundali-svg-container svg circle {
                                                     stroke-width: 1.5px !important;
-                                                    stroke: ${!isDarkMode ? '#000000' : '#ffd700'} !important;
+                                                    stroke: ${!isDarkMode ? '#000000' : '#f0fe4f'} !important;
                                                     fill: none !important;
                                                 }
                                                 .kundali-svg-container svg text {
-                                                    fill: ${!isDarkMode ? '#000000' : '#ffd700'} !important;
+                                                    fill: ${!isDarkMode ? '#000000' : '#f0fe4f'} !important;
                                                     font-family: 'Mulish', sans-serif !important;
                                                     font-weight: 800 !important;
                                                 }
