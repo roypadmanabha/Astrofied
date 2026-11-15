@@ -188,9 +188,9 @@ export default function Newsfied({ onOpenAdmin }) {
           className={`relative overflow-hidden w-full p-5 sm:p-8 md:p-10 lg:p-12 rounded-[24px] sm:rounded-[30px] transition-all duration-500 border scroll-mt-20 md:scroll-mt-24 ${
             isDarkMode
               ? 'border-white/20 sm:border-white/30 bg-transparent'
-              : 'bg-gradient-to-br from-white to-[#f5f5dd] border-[#A30000]'
+              : 'bg-white border-[#FF0000]'
           }`}
-          style={isDarkMode ? { backgroundColor: 'transparent' } : undefined}
+          style={isDarkMode ? { backgroundColor: 'transparent' } : { backgroundColor: '#ffffff' }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -328,13 +328,13 @@ export default function Newsfied({ onOpenAdmin }) {
                   } ${
                     isDarkMode
                       ? 'bg-white/[0.04] hover:bg-white/[0.08] border-[0.5px] border-white shadow-lg backdrop-blur-md'
-                      : 'bg-[#FFFFB0] border border-[#A30000] shadow-md hover:shadow-2xl'
+                      : 'bg-[#f5f5dd] border border-[#FF0000] shadow-md hover:shadow-2xl'
                   }`}
                 >
                   <div className="flex flex-col gap-3">
                     {/* Card Top: Image / Banner (Square 1:1 ratio) */}
                     <div className={`w-full aspect-square rounded-[16px] sm:rounded-[18px] overflow-hidden relative shadow-inner bg-black/10 select-none border ${
-                      isDarkMode ? 'border-white' : 'border-[#A30000]'
+                      isDarkMode ? 'border-white' : 'border-[#FF0000]'
                     }`}>
                       <img
                         src={getNewsfiedImageUrl(post.image) || defaultNewsImg}
@@ -370,7 +370,7 @@ export default function Newsfied({ onOpenAdmin }) {
                       className={`text-base sm:text-lg md:text-xl font-nunito font-bold tracking-tight leading-snug transition-colors line-clamp-2 ${
                         isDarkMode
                           ? 'text-gold'
-                          : 'text-[#A30000]'
+                          : 'text-[#FF2400]'
                       }`}
                       style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}
                     >
@@ -463,7 +463,7 @@ export default function Newsfied({ onOpenAdmin }) {
                 {/* Fixed Headline Anchor (Always visible as user scrolls) */}
                 <h3
                   className={`text-base sm:text-lg font-nunito font-extrabold tracking-tight leading-snug break-words ${
-                    isDarkMode ? 'text-white' : 'text-[#A30000]'
+                    isDarkMode ? 'text-white' : 'text-[#FF2400]'
                   }`}
                   style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 800 }}
                 >
