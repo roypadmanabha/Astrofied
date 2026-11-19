@@ -689,3 +689,94 @@ img {
 .newsfied-rich-content p[align="left"] {
   text-align: left !important;
 }
+
+/* Live Announcement Bar Swipe & Shimmer Animations */
+@keyframes announcementGradientSwipe {
+  0% {
+    background-position: 200% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.announcement-live-light {
+  background: linear-gradient(
+    90deg,
+    #000000 0%,
+    #220000 15%,
+    #8A0000 35%,
+    #FF0000 50%,
+    #8A0000 65%,
+    #220000 85%,
+    #000000 100%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: announcementGradientSwipe 4.5s linear infinite !important;
+}
+
+@keyframes announcementShimmerSweep {
+  0% {
+    transform: translateX(-160%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(260%) skewX(-20deg);
+  }
+}
+
+.announcement-shimmer-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 100%
+  );
+  animation: announcementShimmerSweep 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+.dark .announcement-shimmer-beam {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+}
+
+/* 1-Line Seamless Ticker on Mobile */
+@keyframes announcementTicker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.announcement-ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: announcementTicker 24s linear infinite;
+}
+
+.announcement-ticker-track:hover,
+.announcement-ticker-track:active {
+  animation-play-state: paused;
+}
+
+@media (min-width: 768px) {
+  .announcement-ticker-track {
+    animation: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    transform: none !important;
+  }
+}

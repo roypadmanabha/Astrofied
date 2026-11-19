@@ -12,6 +12,11 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
     const { isDarkMode, toggleTheme } = useTheme();
     const [newsfiedPosts, setNewsfiedPosts] = useState(getInitialPostsSync);
 
+    // Temporary announcement bar active till Dec 31, 2026, 11:59:59 PM (IST)
+    const [isAnnouncementActive] = useState(() => {
+        return new Date() <= new Date('2026-12-31T23:59:59+05:30');
+    });
+
     useEffect(() => {
         let mounted = true;
         getNewsfiedPosts().then((posts) => {
@@ -326,13 +331,14 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                 )}
             </AnimatePresence>
 
-            <nav
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md ${scrolled 
-                    ? isDarkMode ? 'py-2 bg-black/60 border-b border-gold/20 shadow-2xl' : 'py-2 bg-white/60 border-b border-[#A30000]/10 shadow-xl'
-                    : 'py-3 md:py-4 bg-transparent'
-                }`}
-            >
-            <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
+            <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+                <nav
+                    className={`w-full transition-all duration-500 backdrop-blur-md ${scrolled 
+                        ? isDarkMode ? 'py-2 bg-black/60 border-b border-gold/20 shadow-2xl' : 'py-2 bg-white/60 border-b border-[#A30000]/10 shadow-xl'
+                        : 'py-3 md:py-4 bg-transparent'
+                    }`}
+                >
+                <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
                 {/* Left Section: Hamburger (Mobile & Tablet) + Logo (All) */}
                 <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                     {/* Mobile & Tablet Menu Toggle (Hidden on xl desktop) */}
@@ -449,6 +455,58 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                 </div>
             </div>
         </nav>
+
+        {/* Fixed Temporary Announcement Bar (Active till Dec 31, 2026 11:59 PM) */}
+        {isAnnouncementActive && (
+            <aside
+                role="region"
+                aria-label="Offline Consultations Announcement"
+                className={`w-full py-0.5 sm:py-1 select-none shadow-sm flex items-center transition-colors duration-300 relative overflow-hidden ${
+                    isDarkMode
+                        ? 'bg-[#f0fe4f] text-black'
+                        : 'announcement-live-light text-white'
+                }`}
+                style={
+                    isDarkMode
+                        ? { backgroundColor: '#f0fe4f', color: '#000000' }
+                        : { color: '#ffffff' }
+                }
+            >
+                {/* Continuous luminous sheen sweep */}
+                <div className="announcement-shimmer-beam" />
+
+                {/* 1-Line Container: Infinite smooth marquee on mobile, centered on desktop */}
+                <div className="w-full overflow-hidden whitespace-nowrap leading-none flex items-center">
+                    <div className="announcement-ticker-track flex items-center md:justify-center">
+                        {/* Item 1 */}
+                        <div className="inline-flex items-center shrink-0 px-2.5 md:px-0">
+                            <span className="relative flex h-1.5 w-1.5 mr-1.5 shrink-0">
+                                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDarkMode ? 'bg-black' : 'bg-red-300'}`} />
+                                <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${isDarkMode ? 'bg-black' : 'bg-red-500'}`} />
+                            </span>
+                            <span className="text-[10px] sm:text-xs md:text-sm font-medium tracking-tight sm:tracking-normal font-mulish leading-none">
+                                <strong className="font-extrabold uppercase tracking-wider mr-1 sm:mr-1.5 text-[9.5px] sm:text-[11px] md:text-xs">Exclusive:</strong>
+                                From 1st January 2027, Astrofied will begin offering offline consultations for the people of Tripura.
+                            </span>
+                        </div>
+
+                        {/* Item 2 (Rendered on mobile for seamless continuous 1-line looping) */}
+                        <div className="inline-flex items-center shrink-0 px-2.5 md:hidden" aria-hidden="true">
+                            <span className="mx-2.5 opacity-50 font-bold">•</span>
+                            <span className="relative flex h-1.5 w-1.5 mr-1.5 shrink-0">
+                                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDarkMode ? 'bg-black' : 'bg-red-300'}`} />
+                                <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${isDarkMode ? 'bg-black' : 'bg-red-500'}`} />
+                            </span>
+                            <span className="text-[10px] sm:text-xs md:text-sm font-medium tracking-tight sm:tracking-normal font-mulish leading-none">
+                                <strong className="font-extrabold uppercase tracking-wider mr-1 sm:mr-1.5 text-[9.5px] sm:text-[11px] md:text-xs">Exclusive:</strong>
+                                From 1st January 2027, Astrofied will begin offering offline consultations for the people of Tripura.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        )}
+        </header>
         </div>
     );
 }
