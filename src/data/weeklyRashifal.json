@@ -1,0 +1,177 @@
+{
+  "weekTitle": "Weekly Rashifal & Horoscope",
+  "dateRange": "30 November 2026 – 04 December 2026",
+  "lastUpdated": "27/11/2026, 10:02:56 pm IST",
+  "overview": "Weekly generalized planetary forecast across all 12 Rashis from Aries to Pisces detailing key weekly influences and auspicious momentum.",
+  "rashis": [
+    {
+      "id": "aries",
+      "rashi": "Mesh (Aries)",
+      "hindiName": "मेष",
+      "symbol": "♈",
+      "element": "Fire",
+      "ruler": "Mars (Mangal)",
+      "points": [
+        "An active and energetically transformative week for Aries. The transit of ruling planet Mars in Leo stimulates ambitious projects, while the 8th house Sun urges disciplined focus regarding joint investments.",
+        "Leadership opportunities open up in your professional sphere. Keep ego clashes in check when presenting innovative proposals to seniors.",
+        "Avoid speculative shortcuts or uncalculated lending. A pending monetary matter moves forward constructively after mid-week.",
+        "Meaningful and honest dialogue brings warmth back into personal relationships. Singles may feel drawn to an intellectual connection.",
+        "Maintain stamina with regular evening walks and balanced hydration to soothe mild acidity or restlessness."
+      ]
+    },
+    {
+      "id": "taurus",
+      "rashi": "Vrishabh (Taurus)",
+      "hindiName": "বৃষ",
+      "symbol": "♉",
+      "element": "Earth",
+      "ruler": "Venus (Shukra)",
+      "points": [
+        "A stabilizing and progressive week for Taurus natives. The transit of Venus enhances social harmony and brings clarity in long-term partnerships.",
+        "Workplace efficiency increases with methodical planning. Collaborative ventures with dependable peers yield steady gains.",
+        "Financial prospects remain solid. Good time to review household savings, fixed assets, and recurring expenditures.",
+        "Family gatherings and constructive communication resolve past domestic grievances, fostering affectionate bonds."
+      ]
+    },
+    {
+      "id": "gemini",
+      "rashi": "Mithun (Gemini)",
+      "hindiName": "मिथुन",
+      "symbol": "♊",
+      "element": "Air",
+      "ruler": "Mercury (Budh)",
+      "points": [
+        "A highly productive and competitive week for Gemini. The 6th house planetary activation indicates solid wins over professional obstacles and measurable skill development.",
+        "Client discussions and analytical presentations go exceptionally well. Your sharp communication seals important commitments.",
+        "Favorable phase for recovering stuck funds and clearing liabilities. Exercise prudence regarding personal spending.",
+        "Keep your loved ones updated to avoid accidental scheduling misunderstandings during busy working days."
+      ]
+    },
+    {
+      "id": "cancer",
+      "rashi": "Kark (Cancer)",
+      "hindiName": "কর্কট",
+      "symbol": "♋",
+      "element": "Water",
+      "ruler": "Moon (Chandra)",
+      "points": [
+        "Creativity, intellectual expansion, and emotional depth will guide Cancerians this week with benevolent planetary support.",
+        "Students, educators, and creative professionals experience sudden breakthroughs and valued encouragement from mentors.",
+        "Income remains stable. Avoid impulsive speculative stock trades and stick to well-researched long-term plans.",
+        "Warm romantic and familial vibes prevail. Parents will experience joy through children's academic or creative accomplishments."
+      ]
+    },
+    {
+      "id": "leo",
+      "rashi": "Simha (Leo)",
+      "hindiName": "সিংহ",
+      "symbol": "♌",
+      "element": "Fire",
+      "ruler": "Sun (Surya)",
+      "points": [
+        "Domestic harmony and property matters take priority as your sign lord Sun illuminates key angles, supported by Mars.",
+        "Professional responsibilities demand calm composure. Avoid sharp, dominating words with colleagues to maintain team unity.",
+        "Investments in home decor, renovation, or vehicle maintenance are indicated. Plan finances prudently.",
+        "Spend quality time with family elders. A reassuring and supportive attitude naturally heals past tensions."
+      ]
+    },
+    {
+      "id": "virgo",
+      "rashi": "Kanya (Virgo)",
+      "hindiName": "কন্যা",
+      "symbol": "♍",
+      "element": "Earth",
+      "ruler": "Mercury (Budh)",
+      "points": [
+        "An exhilarating week full of energetic communication, short-distance journeys, and productive networking for Virgo natives.",
+        "Superb phase for sales, marketing, writing, media, and tech professionals. Clear negotiations seal deals smoothly.",
+        "Multiple small income gains help bolster your monthly reserve funds and encourage financial optimism.",
+        "Pleasant exchanges with siblings and relatives bring heartwarming cheer to the week."
+      ]
+    },
+    {
+      "id": "libra",
+      "rashi": "Tula (Libra)",
+      "hindiName": "তুলা",
+      "symbol": "♎",
+      "element": "Air",
+      "ruler": "Venus (Shukra)",
+      "points": [
+        "Financial consolidation and family discussions highlight the week. Choosing sweet, diplomatic words effortlessly turns conflicts into agreements.",
+        "Stability returns to your work schedule. Your diplomatic demeanor earns sincere admiration from senior management.",
+        "Favorable timing for budget rebalancing, fixed deposits, and evaluating precious asset acquisitions.",
+        "Family get-togethers bring laughter and joyful companionship. Be gentle and receptive when listening to your partner."
+      ]
+    },
+    {
+      "id": "scorpio",
+      "rashi": "Vrishchik (Scorpio)",
+      "hindiName": "বৃশ্চিক",
+      "symbol": "♏",
+      "element": "Water",
+      "ruler": "Mars (Mangal)",
+      "points": [
+        "The Sun enters your Moon sign, infusing you with magnetic charisma, renewed self-assurance, and visionary focus.",
+        "Long-awaited strategic breakthroughs and major career initiatives are within reach. Step boldly into leadership.",
+        "Profits from past investments start materializing. Maintain full transparency in all joint monetary matters.",
+        "Intense loyalty and emotional depth characterize your romantic bonds. Channel your vital energy into regular workouts."
+      ]
+    },
+    {
+      "id": "sagittarius",
+      "rashi": "Dhanu (Sagittarius)",
+      "hindiName": "ধনু",
+      "symbol": "♐",
+      "element": "Fire",
+      "ruler": "Jupiter (Brihaspati)",
+      "points": [
+        "A contemplative and spiritually enriching week for Sagittarius. Foreign connections, research, and quiet introspection yield profound clarity.",
+        "Professionals associated with multinational firms, academic research, or digital commerce see accelerated momentum.",
+        "Keep an emergency fund accessible for unexpected travel or home needs. Prioritize 7-8 hours of restful sleep.",
+        "Gentle, respectful communication ensures your partner and loved ones feel valued and understood."
+      ]
+    },
+    {
+      "id": "capricorn",
+      "rashi": "Makar (Capricorn)",
+      "hindiName": "মকর",
+      "symbol": "♑",
+      "element": "Earth",
+      "ruler": "Saturn (Shani)",
+      "points": [
+        "One of the most rewarding and celebratory weeks for Capricorn natives with strong 11th house gains and social recognition.",
+        "Your long-term enterprise targets receive strong organizational backing and well-deserved praise from mentors.",
+        "Cash inflows and business earnings show healthy growth. Favorable timing for initiating strategic long-term investments.",
+        "Friendships blossom into deep companionship. Joyful news within the family circle is very likely."
+      ]
+    },
+    {
+      "id": "aquarius",
+      "rashi": "Kumbh (Aquarius)",
+      "hindiName": "কুম্ভ",
+      "symbol": "♒",
+      "element": "Air",
+      "ruler": "Saturn (Shani)",
+      "points": [
+        "Professional authority, executive prestige, and leadership define this week as the 10th house of Karma is energized.",
+        "Outstanding phase for promotions, negotiations, and high-impact workplace milestones. Stand tall in strategic meetings.",
+        "Steady financial position enables reinvestment into modern tools, certifications, or career assets.",
+        "Balance demanding work hours with family time. A small gesture of gratitude brings warm smiles to your partner."
+      ]
+    },
+    {
+      "id": "pisces",
+      "rashi": "Meen (Pisces)",
+      "hindiName": "মীন",
+      "symbol": "♓",
+      "element": "Water",
+      "ruler": "Jupiter (Brihaspati)",
+      "points": [
+        "Fortune smiles upon Pisceans as benevolent planetary alignments illuminate the auspicious 9th house of Dharma and Bhagya.",
+        "Opportunities to mentor juniors or collaborate on broader research arise. Positive luck favors your bold initiatives.",
+        "Stalled payments or pending dues witness encouraging movement forward, easing financial concerns.",
+        "Harmonious and uplifting connections with your spouse and loved ones bring deep mental serenity and renewed optimism."
+      ]
+    }
+  ]
+}

@@ -117,20 +117,20 @@ const Numerology = () => {
     };
 
     return (
-        <section id="numerology" className={`py-16 md:py-24 font-mulish overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
-            <div className="container mx-auto px-6 max-w-6xl">
+        <section id="numerology" className={`py-10 sm:py-14 md:py-16 lg:py-18 xl:py-20 font-mulish overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
                 {/* Header */}
-                <div className="text-center mb-8">
-                    <h2 className={`text-4xl md:text-6xl lg:text-[5rem] font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                <div className="text-center mb-6 sm:mb-8">
+                    <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-3 md:mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
                             Know your <span className={isDarkMode ? 'text-white' : 'text-[#FF0000]'}>Numbers</span>
                     </h2>
-                    <p className={`text-sm md:text-xl font-medium max-w-2xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
+                    <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                         Calculate your core numerology numbers for free with<br className="hidden md:block" /> 100% accurate calculations.
                     </p>
                 </div>
 
                 {/* Input & Button */}
-                <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mb-4 w-full">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mb-3 sm:mb-4 w-full">
                     {/* Inner wrapper to keep Input and Reset on the same line on mobile */}
                     <div className="flex flex-row items-center justify-center gap-2 md:gap-4 w-full max-w-[320px] md:max-w-none md:w-auto order-1 md:order-none">
                         
@@ -154,7 +154,7 @@ const Numerology = () => {
                                 value={dob}
                                 onChange={handleDateChange}
                                 onKeyDown={(e) => e.key === 'Enter' && handleCalculate()}
-                                className={`hidden md:block px-6 py-4 rounded-xl border-2 text-2xl font-bold shadow-lg min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#f0fe4f]' : 'bg-white border-transparent focus:border-[#A30000] text-black'}`}
+                                className={`hidden md:block px-5 py-3 md:px-6 md:py-3.5 rounded-xl border-2 text-xl md:text-xl lg:text-2xl font-bold shadow-lg min-w-[230px] md:min-w-[250px] outline-none transition-all ${error ? 'border-red-500 focus:border-red-500 text-red-500' : isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white focus:border-[#f0fe4f]' : 'bg-white border-transparent focus:border-[#A30000] text-black'}`}
                             />
                         </div>
 
@@ -165,16 +165,16 @@ const Numerology = () => {
                                 setResults(null);
                                 setError('');
                             }}
-                            className={`p-2.5 md:p-4 rounded-xl border-2 shadow-sm transition-all flex items-center justify-center group flex-shrink-0 order-2 md:order-1 ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#f0fe4f] hover:text-[#f0fe4f]' : 'bg-white border-transparent text-black hover:text-[#A30000]'}`}
+                            className={`p-2.5 md:p-3.5 lg:p-4 rounded-xl border-2 shadow-sm transition-all flex items-center justify-center group flex-shrink-0 order-2 md:order-1 ${isDarkMode ? 'bg-[#1a1a1a] border-white/10 text-white hover:border-[#f0fe4f] hover:text-[#f0fe4f]' : 'bg-white border-transparent text-black hover:text-[#A30000]'}`}
                             title="Reset"
                         >
-                            <RotateCcw className="w-5 h-5 md:w-7 md:h-7 transition-transform group-hover:-rotate-180 duration-500" />
+                            <RotateCcw className="w-5 h-5 md:w-6 lg:w-7 md:h-6 lg:h-7 transition-transform group-hover:-rotate-180 duration-500" />
                         </button>
                     </div>
 
                     <button 
                         onClick={handleCalculate}
-                        className={`px-6 sm:px-8 py-2.5 sm:py-3.5 md:py-4 rounded-xl text-sm sm:text-base md:text-2xl font-bold shadow-md transition-all active:scale-95 w-auto min-w-[170px] sm:min-w-[200px] order-2 md:order-none ${isDarkMode ? 'bg-white text-black hover:bg-[#f0fe4f] hover:text-black shadow-white/10 hover:shadow-gold/20' : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000]'}`}
+                        className={`px-6 sm:px-8 py-2.5 sm:py-3 md:py-3.5 lg:py-4 rounded-xl text-sm sm:text-base md:text-xl lg:text-2xl font-bold shadow-md transition-all active:scale-95 w-auto min-w-[160px] sm:min-w-[190px] md:min-w-[200px] order-2 md:order-none ${isDarkMode ? 'bg-white text-black hover:bg-[#f0fe4f] hover:text-black shadow-white/10 hover:shadow-gold/20' : 'bg-[#A30000] text-white hover:bg-white hover:text-[#A30000]'}`}
                     >
                         Calculate
                     </button>
@@ -187,21 +187,21 @@ const Numerology = () => {
                     </div>
                 )}
 
-                <div className="text-center mb-12">
-                    <p className={`text-[10px] md:text-xs max-w-3xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-black/80'}`}>
+                <div className="text-center mb-6 sm:mb-8 md:mb-10">
+                    <p className={`text-[10px] sm:text-[11px] md:text-xs max-w-3xl mx-auto ${isDarkMode ? 'text-gray-400' : 'text-black/80'}`}>
                         Note: Please ensure your birth details are entered correctly. Any errors in the day, month, or year will result in inaccurate calculations.
                     </p>
                 </div>
 
                 {/* Cards Container */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-4 lg:gap-5 xl:gap-7">
                     {cards.map((card, idx) => (
                         <div 
                             key={idx} 
-                            className={`rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col shadow-xl relative overflow-hidden transition-all duration-500 ${isDarkMode ? 'bg-transparent border-[0.5px] border-white' : 'bg-gradient-to-b from-[#ffde59] to-[#ff914d] border border-[#A30000]'}`}
+                            className={`rounded-2xl p-3 sm:p-4 md:p-5 lg:p-5 xl:p-6 flex flex-col shadow-xl relative overflow-hidden transition-all duration-500 ${isDarkMode ? 'bg-transparent border-[0.5px] border-white' : 'bg-gradient-to-b from-[#ffde59] to-[#ff914d] border border-[#A30000]'}`}
                         >
                             {/* Card Header */}
-                            <h3 className={`text-[14px] sm:text-2xl md:text-3xl font-bold text-center mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                            <h3 className={`text-sm sm:text-lg md:text-xl lg:text-xl xl:text-2xl font-bold text-center mt-1 sm:mt-2 z-10 ${isDarkMode ? 'text-white' : 'text-black'}`}>
                                 {card.key === 'attitude' ? (
                                     <>
                                         <span className="lg:hidden xl:inline whitespace-pre">
@@ -223,16 +223,16 @@ const Numerology = () => {
                                 {results && (
                                     <motion.div
                                         initial={{ height: 0, opacity: 0, marginTop: 0, marginBottom: 0 }}
-                                        animate={{ height: "auto", opacity: 1, marginTop: 16, marginBottom: 16 }}
+                                        animate={{ height: "auto", opacity: 1, marginTop: 12, marginBottom: 12 }}
                                         exit={{ height: 0, opacity: 0, marginTop: 0, marginBottom: 0 }}
                                         transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                                        className="flex items-center justify-center z-10 overflow-hidden py-2"
+                                        className="flex items-center justify-center z-10 overflow-hidden py-1.5 sm:py-2"
                                     >
                                         <motion.div
                                             initial={{ opacity: 0, scale: 0.5, y: -40 }} // calendar drop-down effect
                                             animate={{ opacity: 1, scale: 1, y: 0 }}
                                             transition={{ type: "spring", stiffness: 200, damping: 15, delay: idx * 0.1 }}
-                                            className={`text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-none drop-shadow-md nunito-black numerology-result-number ${isDarkMode ? 'text-[#f0fe4f]' : 'astrofied-title-gradient'}`}
+                                            className={`text-4xl sm:text-6xl md:text-6xl lg:text-6xl xl:text-7xl leading-none drop-shadow-md nunito-black numerology-result-number ${isDarkMode ? 'text-[#f0fe4f]' : 'astrofied-title-gradient'}`}
                                         >
                                             {results[card.key]}
                                         </motion.div>
@@ -241,7 +241,7 @@ const Numerology = () => {
                             </AnimatePresence>
 
                             {/* Bottom Description Box */}
-                            <div className={`rounded-[10px] p-2 sm:p-4 md:p-5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-3 sm:mt-4 md:mt-6 flex-1 flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border-[0.5px] border-white' : 'text-white bg-black border border-black'}`}>
+                            <div className={`rounded-[10px] p-2 sm:p-3 md:p-3.5 text-[8px] sm:text-[10px] md:text-xs leading-relaxed z-10 mt-2.5 sm:mt-3 md:mt-4 flex-1 flex items-center shadow-lg ${isDarkMode ? 'text-white bg-transparent border-[0.5px] border-white' : 'text-white bg-black border border-black'}`}>
                                 <p className="text-justify w-full m-0">{card.desc}</p>
                             </div>
                             

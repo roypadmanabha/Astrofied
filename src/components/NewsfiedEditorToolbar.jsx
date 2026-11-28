@@ -338,7 +338,7 @@ export default function NewsfiedEditorToolbar({
       {editorTab === 'write' && (
         <div
           data-lenis-prevent="true"
-          className={`p-2 rounded-xl border flex flex-wrap items-center gap-1 shadow-sm select-none transition-colors ${
+          className={`p-1.5 sm:p-2 rounded-xl border flex overflow-x-auto scrollbar-none flex-nowrap sm:flex-wrap items-center gap-1 shadow-sm select-none transition-colors ${
             isDarkMode
               ? 'bg-[#18181b] border-white/15 text-white'
               : 'bg-[#FDFCF7] border-black/15 text-stone-900 shadow-stone-200/50'

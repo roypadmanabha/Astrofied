@@ -18,7 +18,8 @@ import {
   Camera,
   Edit3,
   Save,
-  X
+  X,
+  Zap
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { 
@@ -34,6 +35,9 @@ import defaultNewsImg from '../assets/newsfied-default.png';
 import logo from '../assets/logo.png';
 import NewsfiedEditorToolbar from './NewsfiedEditorToolbar';
 import RichContent, { stripRichFormatting } from '../lib/renderRichContent';
+import RashifalAdminSection from './RashifalAdminSection';
+import PoliticalAdminSection from './PoliticalAdminSection';
+import ForecastsAdminSection from './ForecastsAdminSection';
 
 const BADGE_PRESETS = [
   'LIVE UPDATE',
@@ -46,6 +50,9 @@ const BADGE_PRESETS = [
 
 export default function NewsfiedAdmin({ onBackToSite }) {
   const { isDarkMode, toggleTheme } = useTheme();
+
+  // Top Section Tabs: 'newsfied' | 'rashifal'
+  const [activeAdminTab, setActiveAdminTab] = useState('newsfied');
 
   // State for posts
   const [posts, setPosts] = useState([]);
@@ -320,47 +327,49 @@ export default function NewsfiedAdmin({ onBackToSite }) {
 
       {/* Top Header Bar */}
       <header
-        className={`sticky top-0 z-40 px-4 sm:px-8 py-3.5 border-b backdrop-blur-md transition-colors ${
+        className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 border-b backdrop-blur-md transition-colors ${
           isDarkMode
             ? 'bg-[#0A0A0A]/90 border-white/10'
             : 'bg-[#FAF9F5]/90 border-black/10'
         }`}
       >
-        <div className="container mx-auto max-w-7xl flex items-center justify-between">
-          <div className="flex items-center gap-3 sm:gap-4">
+        <div className="container mx-auto max-w-7xl flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
             <button
               onClick={handleBack}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs sm:text-sm font-bold transition-all ${
+              className={`inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs sm:text-sm font-bold transition-all shrink-0 ${
                 isDarkMode
                   ? 'border-white/20 hover:border-gold hover:text-gold bg-white/5'
                   : 'border-black/20 hover:border-[#A30000] hover:text-[#A30000] bg-black/5'
               }`}
+              title="Return to live site"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Live Website</span>
+              <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Back to Live Website</span>
+              <span className="sm:hidden text-[11px]">Back</span>
             </button>
 
-            <div className="flex items-center gap-2">
-              <img src={logo} alt="Astrofied" className="w-7 h-7 sm:w-8 sm:h-8 object-contain" />
-              <div>
+            <div className="flex items-center gap-2 min-w-0">
+              <img src={logo} alt="Astrofied" className="w-6 h-6 sm:w-8 sm:h-8 object-contain shrink-0" />
+              <div className="min-w-0">
                 <h1
-                  className="text-base sm:text-lg font-nunito font-bold tracking-tight"
+                  className="text-xs sm:text-lg font-nunito font-bold tracking-tight truncate"
                   style={{ fontFamily: '"Nunito", sans-serif', fontWeight: 700 }}
                 >
                   Newsfied <span className={isDarkMode ? 'text-gold' : 'text-[#A30000]'}>Admin</span>
                 </h1>
-                <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-500">
-                  <ShieldCheck className="w-3 h-3" />
-                  <span>Internal Localhost Mode</span>
+                <div className="flex items-center gap-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-emerald-500 truncate">
+                  <ShieldCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 shrink-0" />
+                  <span>Localhost</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-xl border transition-all ${
+              className={`p-1.5 sm:p-2 rounded-xl border transition-all ${
                 isDarkMode
                   ? 'border-white/20 text-gold hover:bg-white/5'
                   : 'border-black/20 text-[#A30000] hover:bg-black/5'
@@ -374,13 +383,100 @@ export default function NewsfiedAdmin({ onBackToSite }) {
       </header>
 
       {/* Main Content Dashboard */}
-      <main className="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <main className="container mx-auto max-w-7xl p-3 sm:p-6 lg:p-8">
+        {/* Top Control Tabs - Responsive horizontal swipe bar */}
+        <div className="flex items-center gap-1.5 sm:gap-2 mb-4 sm:mb-8 border-b border-black/10 dark:border-white/10 pb-2.5 sm:pb-3 overflow-x-auto scrollbar-none -mx-3 px-3 sm:mx-0 sm:px-0">
+          <button
+            type="button"
+            onClick={() => setActiveAdminTab('newsfied')}
+            className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-tight transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 ${
+              activeAdminTab === 'newsfied'
+                ? isDarkMode
+                  ? 'bg-[#f0fe4f] text-black shadow-md'
+                  : 'bg-[#A30000] text-white shadow-md'
+                : isDarkMode
+                ? 'bg-white/5 hover:bg-white/10 text-gray-300'
+                : 'bg-black/5 hover:bg-black/10 text-gray-700'
+            }`}
+            style={{ fontFamily: '"Nunito", sans-serif' }}
+          >
+            <span>Newsfied Articles</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-black/20 dark:bg-white/20">
+              {posts.length}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveAdminTab('rashifal')}
+            className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-tight transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 ${
+              activeAdminTab === 'rashifal'
+                ? isDarkMode
+                  ? 'bg-[#f0fe4f] text-black shadow-md'
+                  : 'bg-[#A30000] text-white shadow-md'
+                : isDarkMode
+                ? 'bg-white/5 hover:bg-white/10 text-gray-300'
+                : 'bg-black/5 hover:bg-black/10 text-gray-700'
+            }`}
+            style={{ fontFamily: '"Nunito", sans-serif' }}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Weekly Rashifal</span>
+            <span className="text-[10px] opacity-75 hidden sm:inline">(12 Rashis)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveAdminTab('political')}
+            className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-tight transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 ${
+              activeAdminTab === 'political'
+                ? isDarkMode
+                  ? 'bg-[#f0fe4f] text-black shadow-md'
+                  : 'bg-[#A30000] text-white shadow-md'
+                : isDarkMode
+                ? 'bg-white/5 hover:bg-white/10 text-gray-300'
+                : 'bg-black/5 hover:bg-black/10 text-gray-700'
+            }`}
+            style={{ fontFamily: '"Nunito", sans-serif' }}
+          >
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Political Analysis</span>
+            <span className="text-[10px] opacity-75 hidden sm:inline">(Predictions & Results)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveAdminTab('forecasts')}
+            className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-tight transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 ${
+              activeAdminTab === 'forecasts'
+                ? isDarkMode
+                  ? 'bg-[#f0fe4f] text-black shadow-md'
+                  : 'bg-[#A30000] text-white shadow-md'
+                : isDarkMode
+                ? 'bg-white/5 hover:bg-white/10 text-gray-300'
+                : 'bg-black/5 hover:bg-black/10 text-gray-700'
+            }`}
+            style={{ fontFamily: '"Nunito", sans-serif' }}
+          >
+            <Zap className="w-3.5 h-3.5" />
+            <span>What’s Going to Happen</span>
+            <span className="text-[10px] opacity-75 hidden sm:inline">(Next 3–4 Months)</span>
+          </button>
+        </div>
+
+        {activeAdminTab === 'rashifal' ? (
+          <RashifalAdminSection showToast={showToast} />
+        ) : activeAdminTab === 'political' ? (
+          <PoliticalAdminSection showToast={showToast} />
+        ) : activeAdminTab === 'forecasts' ? (
+          <ForecastsAdminSection showToast={showToast} />
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start">
           
           {/* Left Column: Create New Post Form (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col gap-6">
+          <div className="lg:col-span-7 flex flex-col gap-5 sm:gap-6">
             <div
-              className={`p-5 sm:p-7 rounded-[24px] border shadow-xl transition-all ${
+              className={`p-3.5 sm:p-7 rounded-2xl sm:rounded-[24px] border shadow-xl transition-all ${
                 isDarkMode ? 'bg-[#121212] border-white/10' : 'bg-white border-[#969000]/30'
               }`}
             >
@@ -635,7 +731,7 @@ export default function NewsfiedAdmin({ onBackToSite }) {
             
             {/* Real-time Card Preview Box */}
             <div
-              className={`p-5 rounded-[24px] border shadow-xl transition-all ${
+              className={`p-3.5 sm:p-5 rounded-2xl sm:rounded-[24px] border shadow-xl transition-all ${
                 isDarkMode ? 'bg-[#121212] border-white/10' : 'bg-white border-[#969000]/30'
               }`}
             >
@@ -753,7 +849,7 @@ export default function NewsfiedAdmin({ onBackToSite }) {
 
             {/* Manage / Delete Existing Updates */}
             <div
-              className={`p-5 rounded-[24px] border shadow-xl transition-all ${
+              className={`p-3.5 sm:p-5 rounded-2xl sm:rounded-[24px] border shadow-xl transition-all ${
                 isDarkMode ? 'bg-[#121212] border-white/10' : 'bg-white border-[#969000]/30'
               }`}
             >
@@ -939,6 +1035,7 @@ export default function NewsfiedAdmin({ onBackToSite }) {
           </div>
 
         </div>
+        )}
       </main>
     </div>
   );

@@ -195,8 +195,8 @@ export default function Services() {
     }, []);
 
     return (
-        <section id="services" className={`py-24 relative ${isDarkMode ? 'bg-transparent' : 'bg-[#F5F5DC]/70'}`}>
-            <div className="container mx-auto px-10 sm:px-6">
+        <section id="services" className={`py-12 sm:py-16 md:py-18 lg:py-20 relative ${isDarkMode ? 'bg-transparent' : 'bg-[#F5F5DC]/70'}`}>
+            <div className="container mx-auto px-4 sm:px-6">
                 <motion.h2
                     initial={{ opacity: 0.8, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -211,12 +211,12 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className={`text-center mb-16 max-w-4xl mx-auto text-base md:text-lg opacity-80 font-mulish ${isDarkMode ? 'text-gray-300' : 'text-black/80'}`}
+                    className={`text-center mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto text-base md:text-lg opacity-80 font-mulish ${isDarkMode ? 'text-gray-300' : 'text-black/80'}`}
                 >
                     Here's what we cover in a single consultation based on the questions you ask.
                 </motion.p>
 
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
                     {services.map((service, index) => (
                         <ServiceCard
                             key={service.id}

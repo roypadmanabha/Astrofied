@@ -227,7 +227,7 @@ const AstrofiedJournals = () => {
   const [showHomeModal, setShowHomeModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showRightClickPopup, setShowRightClickPopup] = useState(false);
-
+  const toastTimeoutRef = useRef(null);
 
   const filteredJournals = journals.filter(journal =>
     journal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -236,16 +236,28 @@ const AstrofiedJournals = () => {
 
   useEffect(() => {
     const handleContextMenu = (e) => {
+      const tag = e.target?.tagName?.toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || e.target?.isContentEditable) return;
+
       if (window.innerWidth > 1024) {
         e.preventDefault();
+        e.stopPropagation();
+        if (toastTimeoutRef.current) {
+          clearTimeout(toastTimeoutRef.current);
+        }
         setShowRightClickPopup(true);
-        setTimeout(() => setShowRightClickPopup(false), 3000);
+        toastTimeoutRef.current = setTimeout(() => {
+          setShowRightClickPopup(false);
+        }, 2200);
       }
     };
 
     document.addEventListener('contextmenu', handleContextMenu);
     return () => {
       document.removeEventListener('contextmenu', handleContextMenu);
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -401,16 +413,20 @@ const AstrofiedJournals = () => {
         {/* Right Click Protection Popup */}
         <AnimatePresence>
           {showRightClickPopup && (
-            <motion.div
-              initial={{ opacity: 0, y: -20, x: '-50%' }}
-              animate={{ opacity: 1, y: 0, x: '-50%' }}
-              exit={{ opacity: 0, y: -20, x: '-50%' }}
-              transition={{ duration: 0.3 }}
-              className="fixed top-24 left-1/2 z-[100] px-5 py-3 md:px-6 md:py-4 bg-[#A30000] text-white rounded-[15px] font-mulish font-bold flex items-center gap-3 shadow-2xl min-w-max border border-[#f0fe4f]/30"
-            >
-              <AlertCircle size={24} />
-              <span className="text-sm md:text-base">Not allowed. Content protection enabled.</span>
-            </motion.div>
+            <div className="fixed top-20 sm:top-24 left-1/2 -translate-x-1/2 z-[100] pointer-events-none select-none">
+              <motion.div
+                initial={{ opacity: 0, y: -14, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                className="pointer-events-auto flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 bg-[#8B0000]/95 dark:bg-[#7A0000]/95 backdrop-blur-md text-white rounded-full font-mulish shadow-xl shadow-black/30 border border-white/20 whitespace-nowrap"
+              >
+                <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#ffd700] shrink-0" />
+                <span className="text-xs sm:text-[13px] font-semibold tracking-wide font-mulish">
+                  Not allowed. Content protection enabled.
+                </span>
+              </motion.div>
+            </div>
           )}
         </AnimatePresence>
 

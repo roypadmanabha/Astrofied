@@ -422,15 +422,15 @@ export default function Feedback() {
     };
 
     return (
-        <section id="feedback" className={`py-12 sm:py-20 lg:py-24 relative overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
+        <section id="feedback" className={`py-10 sm:py-14 md:py-16 lg:py-18 xl:py-20 relative overflow-hidden ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
             <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-                <div className="flex flex-col lg:flex-row gap-x-16 gap-y-8 sm:gap-y-12 items-start lg:items-center justify-between">
+                <div className="flex flex-col lg:flex-row gap-x-8 lg:gap-x-12 xl:gap-x-16 gap-y-8 sm:gap-y-10 items-start lg:items-center justify-between">
                     <motion.div
                         initial={{ opacity: 0.8, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className="w-full lg:w-5/12 lg:pt-12 text-center lg:text-left"
+                        className="w-full lg:w-5/12 lg:pt-8 text-center lg:text-left"
                     >
                         <h2
                             className={`text-3xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-8 font-mulish leading-[1.15] sm:leading-[1.1] transition-colors ${isDarkMode ? 'text-white' : 'text-[#A30000]'}`}

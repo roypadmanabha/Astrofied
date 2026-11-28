@@ -3,9 +3,9 @@ import { useTheme } from '../context/ThemeContext';
 import astrologer from '../assets/hero-astrologer.png';
 import zodiacBg from '../assets/zodiac-wheel.png';
 import { useState, useEffect } from 'react';
-import ExploreModal from './ExploreModal';
+import ProtectedCanvasImage from './ProtectedCanvasImage';
 
-export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDetailsModalOpen }) {
+export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDetailsModalOpen, onOpenExplore }) {
     const { isDarkMode } = useTheme();
 
     // Disable wheel rotation on mobile (< 768px) to prevent lag/hanging
@@ -42,7 +42,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className={`text-lg md:text-xl max-w-xl mx-auto xl:mx-0 mb-6 md:mb-8 xl:mb-12 opacity-80 font-mulish leading-relaxed text-center xl:text-left ${isDarkMode ? 'text-gray-300' : 'text-black'
+                            className={`text-[14px] sm:text-base md:text-lg xl:text-xl max-w-md sm:max-w-xl mx-auto xl:mx-0 mb-6 md:mb-8 xl:mb-12 opacity-80 font-mulish leading-relaxed text-center xl:text-left px-2 sm:px-0 ${isDarkMode ? 'text-gray-300' : 'text-black'
                                 }`}
                         >
                             Connect with Tripura's best astrologer for clear insights, helping you perfectly align your life goals with your true destiny.
@@ -66,7 +66,12 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                              <button
                                  onClick={() => {
                                      new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3').play().catch(e => console.log('Audio play blocked'));
-                                     setIsDetailsModalOpen(true);
+                                     if (onOpenExplore) {
+                                         onOpenExplore();
+                                     } else {
+                                         window.location.hash = '#explore';
+                                         window.scrollTo({ top: 0, behavior: 'smooth' });
+                                     }
                                  }}
                                  className={`flex-1 sm:flex-none px-3 py-3 sm:px-10 sm:py-4 rounded-[15px] font-bold text-[11px] sm:text-lg hover:scale-105 active:scale-95 cursor-pointer ${isDarkMode
                                      ? 'explore-btn-dark border border-gold/40 text-gold shadow-gold/5 glass hover:bg-white hover:text-black hover:border-white transition-all duration-300'
@@ -80,15 +85,19 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
 
                     {/* Right Image Segment */}
                     <div className="w-full xl:w-1/2 relative flex justify-center items-center order-2 mt-4 md:mt-6 xl:mt-0">
-                        <motion.img
-                            src={zodiacBg}
-                            alt=""
-                            className="absolute w-[120%] h-[120%] max-w-none opacity-20 pointer-events-none select-none blur-[2px]"
-                            animate={isMobile ? { rotate: 0 } : { rotate: 360 }}
-                            transition={isMobile ? { duration: 0 } : { duration: 50, repeat: Infinity, ease: "linear" }}
-                        />
-
                         <div className="relative w-full max-w-[500px] flex flex-col items-center">
+                            {/* Perfectly Circular Rotating Horoscope Wheel Behind Astrologer */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] sm:w-[120%] md:w-[130%] max-w-[620px] aspect-square flex items-center justify-center pointer-events-none select-none z-0">
+                                <motion.img
+                                    src={zodiacBg}
+                                    alt=""
+                                    className="w-full h-full aspect-square object-contain opacity-50 pointer-events-none select-none blur-[1.5px] rounded-full"
+                                    animate={isMobile ? { rotate: 0 } : { rotate: 360 }}
+                                    transition={isMobile ? { duration: 0 } : { duration: 60, repeat: Infinity, ease: "linear" }}
+                                    style={{ transformOrigin: "center center" }}
+                                />
+                            </div>
+
                             {/* Main Astrologer Image (Transparent) */}
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
@@ -96,7 +105,7 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                 transition={{ duration: 1 }}
                                 className="relative z-10 w-full"
                             >
-                                <img
+                                <ProtectedCanvasImage
                                     src={astrologer}
                                     alt="Astrologer"
                                     className="w-full h-auto object-contain select-none pointer-events-none transition-transform duration-700 hover:scale-[1.02]"
@@ -107,20 +116,19 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                         maskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)',
                                         WebkitMaskImage: 'linear-gradient(to bottom, black 95%, transparent 100%), linear-gradient(to right, black 95%, transparent 100%)'
                                     }}
-                                    draggable={false}
                                 />
 
-                                {/* Floating Stats Badges - POSITIONED PRECISELY */}
+                                {/* Floating Stats Badges - RESPONSIVE & REFINED FOR MOBILE */}
                                 <motion.div
                                     initial={{ opacity: 0, x: 30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.5 }}
-                                    className={`absolute right-4 lg:right-4 xl:right-6 top-[42%] md:top-[45%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20 !bg-black/80' : 'border-[#A30000]/20'
+                                    className={`absolute right-2 sm:right-4 lg:right-4 xl:right-6 top-[40%] sm:top-[42%] md:top-[45%] z-20 px-2.5 py-1.5 sm:px-3.5 sm:py-2 md:px-5 md:py-3 rounded-xl sm:rounded-2xl border glass shadow-lg sm:shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20 !bg-black/80' : 'border-[#A30000]/20'
                                         }`}
                                 >
                                     <div className="flex flex-col">
-                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>5 Thousand+</span>
-                                        <span className="text-xs opacity-70">Consultations</span>
+                                        <span className={`text-sm sm:text-base md:text-xl font-bold font-mulish leading-tight transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>5 Thousand+</span>
+                                        <span className="text-[9.5px] sm:text-[11px] md:text-xs opacity-70 leading-tight">Consultations</span>
                                     </div>
                                 </motion.div>
 
@@ -128,12 +136,12 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                     initial={{ opacity: 0, x: -30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.7 }}
-                                    className={`absolute left-0 md:left-4 top-[55%] z-20 px-5 py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20 !bg-black/80' : 'border-[#A30000]/20'
+                                    className={`absolute left-1 sm:left-2 md:left-4 top-[54%] sm:top-[55%] z-20 px-2.5 py-1.5 sm:px-3.5 sm:py-2 md:px-5 md:py-3 rounded-xl sm:rounded-2xl border glass shadow-lg sm:shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20 !bg-black/80' : 'border-[#A30000]/20'
                                         }`}
                                  >
                                     <div className="flex flex-col">
-                                        <span className={`text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>7+ Years</span>
-                                        <span className="text-xs opacity-70">of Experience</span>
+                                        <span className={`text-sm sm:text-base md:text-xl font-bold font-mulish leading-tight transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>7+ Years</span>
+                                        <span className="text-[9.5px] sm:text-[11px] md:text-xs opacity-70 leading-tight">of Experience</span>
                                     </div>
                                 </motion.div>
 
@@ -141,12 +149,12 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.9 }}
-                                    className={`absolute -right-2 md:-right-8 lg:-right-10 xl:-right-16 bottom-[18%] z-20 px-4 py-2 md:px-5 md:py-3 rounded-2xl border glass shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20 !bg-black/80' : 'border-[#A30000]/20'
+                                    className={`absolute right-1 sm:-right-2 md:-right-8 lg:-right-10 xl:-right-16 bottom-[16%] sm:bottom-[18%] z-20 px-2.5 py-1.5 sm:px-3 sm:py-2 md:px-5 md:py-3 rounded-xl sm:rounded-2xl border glass shadow-lg sm:shadow-2xl backdrop-blur-xl ${isDarkMode ? 'border-gold/20 !bg-black/80' : 'border-[#A30000]/20'
                                         }`}
                                  >
                                     <div className="flex flex-col">
-                                        <span className={`text-lg md:text-xl font-bold font-mulish transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>100%</span>
-                                        <span className="text-[10px] md:text-xs opacity-70">Accuracy</span>
+                                        <span className={`text-sm sm:text-base md:text-xl font-bold font-mulish leading-tight transition-colors ${isDarkMode ? 'text-[#f0fe4f] hover:text-[#f0fe4f]' : 'text-[#A30000]'}`}>100%</span>
+                                        <span className="text-[9.5px] sm:text-[10px] md:text-xs opacity-70 leading-tight">Accuracy</span>
                                     </div>
                                 </motion.div>
                             </motion.div>
@@ -156,12 +164,12 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.2 }}
-                                className={`relative -mt-10 md:-mt-12 z-30 w-full px-4 md:px-10 py-3.5 md:py-4 rounded-2xl md:rounded-full border glass backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex justify-center items-center ${isDarkMode 
+                                className={`relative -mt-7 sm:-mt-10 md:-mt-12 z-30 w-full max-w-[94%] sm:max-w-none px-3.5 sm:px-6 md:px-10 py-2 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl md:rounded-full border glass backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex justify-center items-center ${isDarkMode 
                                     ? 'border-gold/30 text-gold shadow-gold/20 !bg-black/80' 
                                     : 'border-[#A30000]/30 text-[#A30000] shadow-[#A30000]/20'
                                     }`}
                             >
-                                <span className="text-[9px] sm:text-[10px] md:text-sm font-black tracking-[0.1em] sm:tracking-[0.2em] uppercase font-mulish text-center leading-tight">
+                                <span className="text-[8.5px] sm:text-[10px] md:text-sm font-black tracking-[0.1em] sm:tracking-[0.2em] uppercase font-mulish text-center leading-tight">
                                     your roadmap to the right decisions
                                 </span>
                             </motion.div>
@@ -170,11 +178,6 @@ export default function Hero({ onOpenConsultation, isDetailsModalOpen, setIsDeta
                 </div>
             </div>
 
-            {/* Explore Modal */}
-            <ExploreModal 
-                isOpen={isDetailsModalOpen} 
-                onClose={() => setIsDetailsModalOpen(false)} 
-            />
         </section>
     );
 }

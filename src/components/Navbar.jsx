@@ -1,16 +1,38 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronsRight, ChevronRight, Calendar, Users, Tag, Hash, Gem, Newspaper, Phone, CheckCircle2 } from 'lucide-react';
+import { Sun, Moon, Home, Heart, UserCheck, Star, Sparkles, BookOpen, Compass, Info, Briefcase, Landmark, Stethoscope, Scale, Baby, Mail, MessageSquare, ShieldCheck, FileText, X, ChevronsRight, ChevronRight, Calendar, Users, Tag, Hash, Gem, Newspaper, Phone, CheckCircle2 } from 'lucide-react';
 import { getNewsfiedPosts, subscribeToNewsfied, getInitialPostsSync } from '../lib/newsfiedStorage';
 
 import logo from '../assets/logo.png';
 
-export default function Navbar({ onOpenLegal, onOpenConsultation }) {
+export default function Navbar({ onOpenLegal, onOpenConsultation, isExplore }) {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const { isDarkMode, toggleTheme } = useTheme();
     const [newsfiedPosts, setNewsfiedPosts] = useState(getInitialPostsSync);
+    const [currentHash, setCurrentHash] = useState(() => (typeof window !== 'undefined' ? window.location.hash : ''));
+
+    useEffect(() => {
+        const handleHash = () => setCurrentHash(window.location.hash);
+        window.addEventListener('hashchange', handleHash);
+        window.addEventListener('popstate', handleHash);
+        return () => {
+            window.removeEventListener('hashchange', handleHash);
+            window.removeEventListener('popstate', handleHash);
+        };
+    }, []);
+
+    const isExploreRoute = !!isExplore || (!!currentHash && (
+        currentHash.startsWith('#explore') || 
+        currentHash.startsWith('#political') || 
+        currentHash.startsWith('#rashifal') || 
+        currentHash.startsWith('#weekly-rashifal') || 
+        currentHash.startsWith('#forecasts') || 
+        currentHash.startsWith('#whats-going-to-happen') || 
+        currentHash.startsWith('#transits') || 
+        currentHash.startsWith('#transit')
+    ));
 
     // Temporary announcement bar active till Dec 31, 2026, 11:59:59 PM (IST)
     const [isAnnouncementActive] = useState(() => {
@@ -39,28 +61,52 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
 
     const hasNewsfiedPosts = Array.isArray(newsfiedPosts) && newsfiedPosts.length > 0;
 
-    const desktopNavLinks = [
-        { name: 'Services', href: '#services' },
-        { name: 'Pricing', href: '#pricing' },
-        { name: 'Numero', href: '#numerology', isGradient: true },
-        { name: 'Panchang', href: '#panchang' },
-        { name: 'Journals', href: '#journals', isGradient: true },
-        { 
-            name: 'Newsfied', 
-            href: '#newsfied', 
-            isGradient: hasNewsfiedPosts,
-            disabled: !hasNewsfiedPosts 
-        },
-        { name: 'Team', href: '/about' },
-        { name: 'Contact', href: '#footer' },
-    ];
+    const desktopNavLinks = isExploreRoute
+        ? [
+            { name: 'Home', href: '#' },
+            { name: 'Services', href: '#pricing' },
+            { name: 'Numero', href: '#numerology' },
+            { name: 'Panchang', href: '#panchang' },
+            { name: 'Journals', href: '#journals' },
+            { 
+                name: 'Newsfied', 
+                href: '#newsfied', 
+                disabled: !hasNewsfiedPosts 
+            },
+            { name: 'Team', href: '/about' },
+            { name: 'Contact', href: '#footer' },
+        ]
+        : [
+            { name: 'Services', href: '#pricing' },
+            { 
+                name: 'Explore', 
+                href: '#explore' 
+            },
+            { name: 'Numero', href: '#numerology' },
+            { name: 'Panchang', href: '#panchang' },
+            { name: 'Journals', href: '#journals' },
+            { 
+                name: 'Newsfied', 
+                href: '#newsfied', 
+                disabled: !hasNewsfiedPosts 
+            },
+            { name: 'Team', href: '/about' },
+            { name: 'Contact', href: '#footer' },
+        ];
 
     const mobileNavSections = [
         {
             title: "ASTRO SERVICES",
             links: [
-                { name: 'Services', href: '#services', icon: Briefcase },
-                { name: 'Pricing', href: '#pricing', icon: Tag },
+                { name: 'Home', href: '#', icon: Home },
+                { name: 'Services', href: '#pricing', icon: Briefcase },
+                ...(!isExploreRoute ? [{ 
+                    name: 'Explore', 
+                    href: '#explore', 
+                    icon: Sparkles,
+                    isGradient: true,
+                    disabled: false 
+                }] : []),
                 { name: 'Free Kundali', href: '#kundali', icon: Sparkles, badge: 'FREE', isHighlight: true },
                 { name: 'Numero', href: '#numerology', icon: Hash },
                 { name: 'Panchang', href: '#panchang', icon: Compass },
@@ -115,21 +161,82 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
             : link.href === '/gemstones'
                 ? ((typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'http://localhost:5004' : '/gemstones/')
                 : link.href;
+
+        // Immediately unlock body scroll and resume Lenis before scrolling
+        document.body.style.overflow = '';
+        document.body.classList.remove('mobile-nav-active');
+        if (window.lenis) {
+            window.lenis.start();
+            window.lenis.resize();
+        }
+        setIsOpen(false);
+
         if (targetHref.startsWith('#')) {
             const cleanHash = targetHref.replace(/\/+$/, '');
-            const element = document.querySelector(cleanHash);
-            if (element) {
-                if (window.lenis) {
-                    window.lenis.scrollTo(element, { offset: -80 });
-                } else {
-                    element.scrollIntoView({ behavior: 'smooth' });
+
+            if (cleanHash === '#' || cleanHash === '') {
+                if (isExploreRoute) {
+                    window.location.hash = '#';
+                    window.dispatchEvent(new HashChangeEvent('hashchange'));
                 }
-                window.history.pushState(null, '', targetHref);
+                const scrollToTop = () => {
+                    document.body.style.overflow = '';
+                    document.body.classList.remove('mobile-nav-active');
+                    if (window.lenis) {
+                        window.lenis.start();
+                        window.lenis.scrollTo(0, { duration: 1.0 });
+                    } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                };
+                scrollToTop();
+                setTimeout(scrollToTop, 60);
+                return;
+            }
+
+            if (cleanHash === '#explore') {
+                if (isExploreRoute) return;
+                window.location.hash = '#explore';
+                window.dispatchEvent(new HashChangeEvent('hashchange'));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            if (isExploreRoute) {
+                // When navigating from Explore hub/subpages to homepage sections
+                window.location.hash = cleanHash;
+                window.dispatchEvent(new HashChangeEvent('hashchange'));
+            } else {
+                // Already on homepage, update URL without instant snapping
+                window.history.pushState(null, '', cleanHash);
+
+                const scrollToElement = () => {
+                    document.body.style.overflow = '';
+                    document.body.classList.remove('mobile-nav-active');
+                    if (window.lenis) {
+                        window.lenis.start();
+                        window.lenis.resize();
+                    }
+                    const element = document.querySelector(cleanHash);
+                    if (element) {
+                        const header = document.querySelector('header');
+                        const headerOffset = header ? header.offsetHeight : 95;
+                        const targetY = Math.max(0, element.getBoundingClientRect().top + window.scrollY - headerOffset - 12);
+
+                        if (window.lenis) {
+                            window.lenis.scrollTo(element, { offset: -headerOffset - 12, duration: 1.1, immediate: false });
+                        } else {
+                            window.scrollTo({ top: targetY, behavior: 'smooth' });
+                        }
+                    }
+                };
+
+                scrollToElement();
+                setTimeout(scrollToElement, 60);
             }
         } else {
             window.location.href = targetHref;
         }
-        setIsOpen(false);
     };
 
     return (
@@ -169,7 +276,16 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                             }`}>
                                 <div 
                                     className="flex items-center gap-2.5 cursor-pointer"
-                                    onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        if (isExploreRoute) {
+                                            window.location.hash = '#';
+                                            window.dispatchEvent(new HashChangeEvent('hashchange'));
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        } else {
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        }
+                                    }}
                                 >
                                     <img
                                         src={logo}
@@ -178,9 +294,22 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                         style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                                     />
                                     <div className="flex flex-col">
-                                        <span className={`text-xl font-nunito font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r leading-tight ${
-                                            isDarkMode ? 'from-red-600 to-[#f0fe4f]' : 'from-black to-[#FF0000]'
-                                        }`}>
+                                        <span 
+                                            className={`text-xl font-nunito tracking-tight bg-clip-text text-transparent bg-gradient-to-r leading-tight ${
+                                                isDarkMode 
+                                                    ? 'from-red-600 to-[#f0fe4f]' 
+                                                    : 'from-black to-[#A30000]'
+                                            }`}
+                                            style={{
+                                                fontWeight: 650,
+                                                fontVariationSettings: "'wght' 650",
+                                                backgroundImage: isDarkMode
+                                                    ? 'linear-gradient(to right, #dc2626, #f0fe4f)'
+                                                    : 'linear-gradient(to right, #000000, #A30000)',
+                                                WebkitBackgroundClip: 'text',
+                                                WebkitTextFillColor: 'transparent',
+                                            }}
+                                        >
                                             Astrofied
                                         </span>
                                         <div className="flex items-center gap-1 mt-0.5">
@@ -247,7 +376,16 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                                             }`}>
                                                                 <IconComponent size={15} strokeWidth={2.2} />
                                                             </div>
-                                                            <span className="font-nunito font-bold text-sm tracking-wide truncate">
+                                                            <span 
+                                                                className={`font-mulish font-medium text-sm tracking-wide truncate ${
+                                                                    link.disabled
+                                                                        ? 'text-gray-400 opacity-60'
+                                                                        : (link.name === 'Journals' || link.name === 'Explore')
+                                                                            ? `bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-[#f0fe4f]' : 'from-black to-[#FF0000]'}`
+                                                                            : (isDarkMode ? 'text-stone-200 group-hover:text-white' : 'text-stone-800 group-hover:text-black')
+                                                                }`}
+                                                                style={{ fontFamily: '"Mulish", sans-serif', fontWeight: 500 }}
+                                                            >
                                                                 {link.name}
                                                             </span>
                                                         </div>
@@ -333,40 +471,41 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
 
             <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
                 <nav
-                    className={`w-full transition-all duration-500 backdrop-blur-md ${scrolled 
-                        ? isDarkMode ? 'py-2 bg-black/60 border-b border-gold/20 shadow-2xl' : 'py-2 bg-white/60 border-b border-[#A30000]/10 shadow-xl'
-                        : 'py-3 md:py-4 bg-transparent'
+                    className={`w-full transition-all duration-500 ${
+                        isExploreRoute && !isDarkMode
+                            ? `${scrolled ? 'py-2 shadow-md' : 'py-3 md:py-4 shadow-sm'} bg-[#f5f5dd] border-b border-black/10`
+                            : `backdrop-blur-md ${scrolled 
+                                ? isDarkMode ? 'py-2 bg-black/60 border-b border-gold/20 shadow-2xl' : 'py-2 bg-white/60 border-b border-[#A30000]/10 shadow-xl'
+                                : 'py-3 md:py-4 bg-transparent'}`
                     }`}
+                    style={
+                        isExploreRoute && !isDarkMode
+                            ? { backgroundColor: '#f5f5dd' }
+                            : undefined
+                    }
                 >
                 <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
-                {/* Left Section: Hamburger (Mobile & Tablet) + Logo (All) */}
-                <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                    {/* Mobile & Tablet Menu Toggle (Hidden on xl desktop) */}
-                    <div className="xl:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="group flex flex-col justify-center items-start w-7 h-7 gap-[5px] focus:outline-none transition-all duration-300 cursor-pointer bg-transparent border-none p-0"
-                            aria-label="Toggle Navigation Menu"
-                        >
-                            <motion.span
-                                animate={isOpen ? { rotate: 45, y: 3.5, width: 22 } : { rotate: 0, y: 0, width: 22 }}
-                                transition={{ duration: 0.25 }}
-                                className={`h-[2px] rounded-full origin-center ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
-                            />
-                            <motion.span
-                                animate={isOpen ? { rotate: -45, y: -3.5, width: 22 } : { rotate: 0, y: 0, width: 14 }}
-                                transition={{ duration: 0.25 }}
-                                className={`h-[2px] rounded-full origin-center transition-all duration-300 group-hover:!w-[22px] ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
-                            />
-                        </button>
-                    </div>
-
+                {/* Left Section: Logo Only (All screens) */}
+                <div className="flex items-center shrink-0">
                     {/* Brand Logo & Name (All screens) */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         className="flex items-center gap-1 sm:gap-1.5 cursor-pointer shrink-0"
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        onClick={() => {
+                            setIsOpen(false);
+                            if (isExploreRoute) {
+                                window.location.hash = '#';
+                                window.dispatchEvent(new HashChangeEvent('hashchange'));
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            } else {
+                                if (window.lenis) {
+                                    window.lenis.scrollTo(0);
+                                } else {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }
+                            }
+                        }}
                     >
                         <img
                             src={logo}
@@ -392,16 +531,18 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                     <div className="hidden xl:flex items-center gap-4 2xl:gap-7">
                         {desktopNavLinks.map((link) => {
                             const isJournals = link.name === 'Journals';
+                            const isExplore = link.name === 'Explore';
+                            const isGradientLink = isJournals || isExplore;
 
                             return (
                                 <motion.button
                                     key={link.name}
                                     disabled={link.disabled}
                                     onClick={() => handleNavClick(link)}
-                                    className={`text-base 2xl:text-lg font-bold transition-all relative group bg-transparent border-none p-0 whitespace-nowrap ${
+                                    className={`text-lg font-mulish font-medium transition-all relative group bg-transparent border-none p-0 whitespace-nowrap ${
                                         link.disabled
-                                            ? 'opacity-40 cursor-not-allowed text-gray-400 select-none'
-                                            : isJournals
+                                            ? 'opacity-40 cursor-not-allowed text-gray-400 select-none pointer-events-none'
+                                            : isGradientLink
                                                 ? `bg-clip-text text-transparent bg-gradient-to-r ${
                                                     isDarkMode 
                                                         ? 'from-red-600 to-[#f0fe4f]' 
@@ -412,12 +553,13 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                                     : 'text-black hover:text-[#FF0000] transition-colors duration-200 cursor-pointer'
                                                   )
                                     }`}
+                                    style={{ fontFamily: '"Mulish", sans-serif', fontWeight: 500 }}
                                     whileHover={
                                         link.disabled
                                             ? {}
                                             : {
                                                 scale: 1.05,
-                                                ...(isJournals ? { opacity: 0.6 } : {})
+                                                ...(isGradientLink ? { opacity: 0.6 } : {})
                                               }
                                     }
                                 >
@@ -452,6 +594,26 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                             <Moon className="w-[15px] h-[15px] md:w-[18px] md:h-[18px]" strokeWidth={1.8} />
                         )}
                     </motion.button>
+
+                    {/* Mobile & Tablet Menu Toggle (Hidden on xl desktop, rightmost element) */}
+                    <div className="xl:hidden flex items-center">
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="group flex flex-col justify-center items-end w-7 h-7 gap-[5px] focus:outline-none transition-all duration-300 cursor-pointer bg-transparent border-none p-0"
+                            aria-label="Toggle Navigation Menu"
+                        >
+                            <motion.span
+                                animate={isOpen ? { rotate: 45, y: 3.5, width: 22 } : { rotate: 0, y: 0, width: 22 }}
+                                transition={{ duration: 0.25 }}
+                                className={`h-[2px] rounded-full origin-center ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
+                            />
+                            <motion.span
+                                animate={isOpen ? { rotate: -45, y: -3.5, width: 22 } : { rotate: 0, y: 0, width: 14 }}
+                                transition={{ duration: 0.25 }}
+                                className={`h-[2px] rounded-full origin-center transition-all duration-300 group-hover:!w-[22px] ${isDarkMode ? 'bg-gold' : 'bg-black'}`}
+                            />
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -460,7 +622,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
         {isAnnouncementActive && (
             <aside
                 role="region"
-                aria-label="Offline Consultations Announcement"
+                aria-label="In-Person Consultations Announcement"
                 className={`w-full py-0.5 sm:py-1 select-none shadow-sm flex items-center transition-colors duration-300 relative overflow-hidden ${
                     isDarkMode
                         ? 'bg-[#f0fe4f] text-black'
@@ -485,8 +647,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                 <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${isDarkMode ? 'bg-black' : 'bg-red-500'}`} />
                             </span>
                             <span className="text-[10px] sm:text-xs md:text-sm font-medium tracking-tight sm:tracking-normal font-mulish leading-none">
-                                <strong className="font-extrabold uppercase tracking-wider mr-1 sm:mr-1.5 text-[9.5px] sm:text-[11px] md:text-xs">Exclusive:</strong>
-                                From 1st January 2027, Astrofied will begin offering offline consultations for the people of Tripura.
+                                From 1st January 2027, Astrofied will launch <strong className="font-extrabold uppercase tracking-wide">OFFLINE CONSULTATIONS</strong> exclusively for the people of Tripura.
                             </span>
                         </div>
 
@@ -498,8 +659,7 @@ export default function Navbar({ onOpenLegal, onOpenConsultation }) {
                                 <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${isDarkMode ? 'bg-black' : 'bg-red-500'}`} />
                             </span>
                             <span className="text-[10px] sm:text-xs md:text-sm font-medium tracking-tight sm:tracking-normal font-mulish leading-none">
-                                <strong className="font-extrabold uppercase tracking-wider mr-1 sm:mr-1.5 text-[9.5px] sm:text-[11px] md:text-xs">Exclusive:</strong>
-                                From 1st January 2027, Astrofied will begin offering offline consultations for the people of Tripura.
+                                From 1st January 2027, Astrofied will launch <strong className="font-extrabold uppercase tracking-wide">OFFLINE CONSULTATIONS</strong> exclusively for the people of Tripura.
                             </span>
                         </div>
                     </div>

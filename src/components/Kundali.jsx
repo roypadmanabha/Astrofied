@@ -363,9 +363,9 @@ const Kundali = () => {
     };
 
     return (
-        <section id="kundali" className={`py-10 sm:py-16 md:py-24 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
+        <section id="kundali" className={`py-10 sm:py-14 md:py-16 lg:py-18 xl:py-20 relative overflow-hidden transition-colors duration-500 ${isDarkMode ? 'bg-transparent' : 'bg-white'}`}>
             <div className="container mx-auto px-4 sm:px-6">
-                <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-10 lg:gap-24">
+                <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-20 2xl:gap-24">
 
                     {/* Left Side: Heading */}
                     <div className="w-full lg:w-1/2 text-center lg:text-left space-y-4 sm:space-y-6 md:space-y-8">
@@ -375,7 +375,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="text-[1.4rem] min-[360px]:text-[1.65rem] min-[390px]:text-[1.85rem] sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tight flex flex-row flex-nowrap lg:flex-col items-center justify-center lg:items-start gap-1.5 sm:gap-2.5 lg:gap-0 whitespace-nowrap lg:whitespace-normal"
+                            className="text-[1.4rem] min-[360px]:text-[1.65rem] min-[390px]:text-[1.85rem] sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl 2xl:text-8xl font-bold leading-tight tracking-tight flex flex-row flex-nowrap lg:flex-col items-center justify-center lg:items-start gap-1.5 sm:gap-2.5 lg:gap-0 whitespace-nowrap lg:whitespace-normal"
                         >
                             <span className={`force-nunito font-bold ${isDarkMode ? 'brand-text' : 'astrofied-title-gradient'}`}>
                                 Astrofied
@@ -391,7 +391,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`text-sm sm:text-base md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-black'
+                            className={`text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${isDarkMode ? 'text-gray-400' : 'text-black'
                                 }`}
                         >
                             Generate your precise East Indian style D1 Lagna chart based on your birth coordinates.
@@ -405,7 +405,7 @@ const Kundali = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className={`p-4 sm:p-7 md:p-10 lg:p-12 rounded-2xl sm:rounded-3xl border shadow-xl sm:shadow-2xl backdrop-blur-3xl transition-all duration-500 relative flex flex-col justify-center ${isDarkMode
+                            className={`p-4 sm:p-6 md:p-8 lg:p-8 xl:p-11 rounded-2xl sm:rounded-3xl border shadow-xl sm:shadow-2xl backdrop-blur-3xl transition-all duration-500 relative flex flex-col justify-center ${isDarkMode
                                 ? 'border-gold/40 bg-transparent'
                                 : 'border-[#A30000]/30 bg-[#F5F5DC]'
                                 }`}

@@ -18,6 +18,7 @@ import Kundali from './components/Kundali';
 import Numerology from './components/Numerology';
 import Pricing from './components/Pricing';
 import LegalModal from './components/LegalModal';
+import ExploreModal from './components/ExploreModal';
 import StarfieldBg from './components/StarfieldBg';
 import Panchang from './components/Panchang';
 import WhatsAppButton from './components/WhatsAppButton';
@@ -25,6 +26,13 @@ import ContentProtection from './components/ContentProtection';
 import Newsfied from './components/Newsfied';
 import NewsfiedAdmin from './components/NewsfiedAdmin';
 import { getWhatsAppLink } from './lib/constants';
+
+import ExploreAstrofied from './components/explore/ExploreAstrofied';
+import PoliticalAnalysisPage from './components/explore/PoliticalAnalysisPage';
+import WeeklyRashifalPage from './components/explore/WeeklyRashifalPage';
+import WhatsGoingToHappenPage from './components/explore/WhatsGoingToHappenPage';
+import TransitPage from './components/explore/TransitPage';
+import ScrollToTopButton from './components/explore/ScrollToTopButton';
 
 const checkIsAdminPath = () => {
   if (typeof window === 'undefined') return false;
@@ -47,6 +55,17 @@ const checkIsAdminPath = () => {
   );
 };
 
+const getExploreRoute = () => {
+  if (typeof window === 'undefined') return null;
+  const hash = window.location.hash.toLowerCase().replace(/\/+$/, '');
+  if (hash === '#explore') return 'hub';
+  if (hash === '#explore/political' || hash === '#political-analysis' || hash === '#political') return 'political';
+  if (hash === '#explore/rashifal' || hash === '#explore/weekly-rashifal' || hash === '#rashifal' || hash === '#weekly-rashifal') return 'rashifal';
+  if (hash === '#explore/forecasts' || hash === '#explore/whats-going-to-happen' || hash === '#forecasts' || hash === '#whats-going-to-happen') return 'forecasts';
+  if (hash === '#explore/transits' || hash === '#explore/transit' || hash === '#transits' || hash === '#transit') return 'transits';
+  return null;
+};
+
 import logo from './assets/logo.png';
 import zodiacWheel from './assets/zodiac-wheel.png';
 import aboutSj from './assets/about-prasanta-new.png';
@@ -56,17 +75,34 @@ const WHY_SJ_TEXT = `We offer trusted and result-oriented astrological services 
 const ABOUT_US_TEXT = `Astrofied, established in late 2019, is a trusted astrological center founded and led by Prasanta Chakraborty, a highly skilled and experienced astrologer with over 7 years of professional practice. He specialises in Vedic Astrology, KP (Krishnamurti Paddhati), Nadi Astrology, Bhrigu Nandi Nadi, Jaimini, Parashari systems, and Palmistry, offering complete and detailed guidance based on deep analysis and practical understanding. Our mission is to carefully understand each client's problems, identify the root cause, and guide them toward the best possible path according to their destiny. We combine traditional astrological wisdom with logical and systematic techniques to provide clear, honest, and result-oriented guidance. We never force clients to purchase remedies from us, if remedies are required, we simply suggest them, and the choice always remains with the client. Starting from Tripura, we are now expanding our services to other states across India. Consultations are available in Bengali, Hindi, and English through telephonic sessions. With numerous satisfied clients who have found clarity and direction through our guidance, we continue to work towards creating a positive impact in the society. Book your consultation today, because one small decision at the right time can create a powerful change in your life.`;
 
 function MainContent() {
-  const [showFullWhySj, setShowFullWhySj] = useState(false);
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [legalModal, setLegalModal] = useState({ isOpen: false, title: '', content: '' });
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isAdminView, setIsAdminView] = useState(checkIsAdminPath);
+  const [exploreRoute, setExploreRoute] = useState(getExploreRoute);
 
   useEffect(() => {
     const handleRouteChange = () => {
       setIsAdminView(checkIsAdminPath());
+      const route = getExploreRoute();
+      if (route === 'rashifal' || route === 'forecasts') {
+        alert("This section is currently in progress. We will announce once it's live on the website. Thank you for your patience and understanding.");
+        window.location.hash = '#explore';
+        setExploreRoute('hub');
+        return;
+      }
+      setExploreRoute(route);
     };
+
+    // Check on initial load if directly navigated to rashifal or forecasts
+    const initialRoute = getExploreRoute();
+    if (initialRoute === 'rashifal' || initialRoute === 'forecasts') {
+      alert("This section is currently in progress. We will announce once it's live on the website. Thank you for your patience and understanding.");
+      window.location.hash = '#explore';
+      setExploreRoute('hub');
+    }
+
     window.addEventListener('hashchange', handleRouteChange);
     window.addEventListener('popstate', handleRouteChange);
     return () => {
@@ -221,15 +257,24 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     }
 
     const scrollToHash = () => {
-      if (window.location.hash) {
+      if (window.location.hash && window.location.hash !== '#' && !getExploreRoute()) {
         const cleanHash = window.location.hash.replace(/\/+$/, '');
         try {
           const target = document.querySelector(cleanHash);
           if (target) {
+            document.body.style.overflow = '';
+            document.body.classList.remove('mobile-nav-active');
             if (lenis || window.lenis) {
-              (lenis || window.lenis).scrollTo(target, { offset: -80 });
+              (lenis || window.lenis).start();
+              (lenis || window.lenis).resize();
+            }
+            const header = document.querySelector('header');
+            const headerOffset = header ? header.offsetHeight : 95;
+            const targetY = Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerOffset - 12);
+            if (lenis || window.lenis) {
+              (lenis || window.lenis).scrollTo(targetY, { duration: 1.1 });
             } else {
-              target.scrollIntoView({ behavior: 'smooth' });
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
             }
           }
         } catch (e) {
@@ -268,6 +313,55 @@ If you have any questions regarding this Privacy Policy or how your data is hand
     }
   }, [isDetailsModalOpen, legalModal.isOpen]);
 
+  // When switching from Explore route to official homepage with a section hash, scroll to target div
+  useEffect(() => {
+    if (!exploreRoute && typeof window !== 'undefined' && window.location.hash && window.location.hash !== '#') {
+      const cleanHash = window.location.hash.replace(/\/+$/, '');
+      if (cleanHash === '#explore') return;
+
+      const getTargetY = (el) => {
+        const header = document.querySelector('header');
+        const headerOffset = header ? header.offsetHeight : 95;
+        return Math.max(0, el.getBoundingClientRect().top + window.scrollY - headerOffset - 12);
+      };
+
+      const performScroll = (smooth = true) => {
+        const target = document.querySelector(cleanHash);
+        if (!target) return false;
+
+        document.body.style.overflow = '';
+        document.body.classList.remove('mobile-nav-active');
+        if (window.lenis) {
+          window.lenis.start();
+          window.lenis.resize();
+        }
+
+        const targetY = getTargetY(target);
+
+        if (window.lenis) {
+          window.lenis.scrollTo(targetY, { duration: smooth ? 1.0 : 0 });
+        } else {
+          window.scrollTo({
+            top: targetY,
+            behavior: smooth ? 'smooth' : 'auto'
+          });
+        }
+        return true;
+      };
+
+      let attempts = 0;
+      const pollInterval = setInterval(() => {
+        attempts++;
+        if (performScroll(true)) {
+          clearInterval(pollInterval);
+        } else if (attempts >= 40) {
+          clearInterval(pollInterval);
+        }
+      }, 50);
+
+      return () => clearInterval(pollInterval);
+    }
+  }, [exploreRoute]);
 
   if (isAdminView) {
     return (
@@ -277,6 +371,122 @@ If you have any questions regarding this Privacy Policy or how your data is hand
           setIsAdminView(false);
         }}
       />
+    );
+  }
+
+  // Render Explore Astrofied and its 4 Subpages in the same page (NOT in a new tab)
+  if (exploreRoute) {
+    return (
+      <div
+        className={`min-h-screen transition-colors duration-500 overflow-x-hidden ${isDarkMode ? 'dark' : 'light'}`}
+        onContextMenu={(e) => e.preventDefault()}
+        onDragStart={(e) => e.preventDefault()}
+      >
+        <StarfieldBg />
+
+        <Navbar
+          onOpenLegal={openLegalModal}
+          onOpenConsultation={handleBookConsultation}
+          isExplore={!!exploreRoute}
+        />
+
+        {exploreRoute && !isDarkMode && (
+          <style>{`
+            body.light {
+              background: #ffffff !important;
+              background-color: #ffffff !important;
+            }
+          `}</style>
+        )}
+
+        <main className={`relative z-10 ${exploreRoute && !isDarkMode ? 'bg-white' : ''}`}>
+          {exploreRoute === 'hub' && (
+            <ExploreAstrofied
+              onSelectSection={(id) => {
+                window.location.hash = `#explore/${id}`;
+                setExploreRoute(id);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onBackToHome={() => {
+                window.location.hash = '#';
+                setExploreRoute(null);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          )}
+
+          {exploreRoute === 'political' && (
+            <PoliticalAnalysisPage
+              onBackToHome={() => {
+                window.location.hash = '#';
+                setExploreRoute(null);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onBackToExplore={() => {
+                window.location.hash = '#explore';
+                setExploreRoute('hub');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          )}
+
+          {exploreRoute === 'rashifal' && (
+            <WeeklyRashifalPage
+              onBackToHome={() => {
+                window.location.hash = '#';
+                setExploreRoute(null);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onBackToExplore={() => {
+                window.location.hash = '#explore';
+                setExploreRoute('hub');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          )}
+
+          {exploreRoute === 'forecasts' && (
+            <WhatsGoingToHappenPage
+              onBackToHome={() => {
+                window.location.hash = '#';
+                setExploreRoute(null);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onBackToExplore={() => {
+                window.location.hash = '#explore';
+                setExploreRoute('hub');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          )}
+
+          {exploreRoute === 'transits' && (
+            <TransitPage
+              onBackToHome={() => {
+                window.location.hash = '#';
+                setExploreRoute(null);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onBackToExplore={() => {
+                window.location.hash = '#explore';
+                setExploreRoute('hub');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          )}
+        </main>
+
+        <Footer onOpenLegal={openLegalModal} />
+        <LegalModal
+          isOpen={legalModal.isOpen}
+          onClose={() => setLegalModal({ ...legalModal, isOpen: false })}
+          title={legalModal.title}
+          content={legalModal.content}
+        />
+        <WhatsAppButton />
+        <ScrollToTopButton />
+        <ContentProtection />
+      </div>
     );
   }
 
@@ -298,12 +508,17 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         onOpenConsultation={handleBookConsultation}
         isDetailsModalOpen={isDetailsModalOpen}
         setIsDetailsModalOpen={setIsDetailsModalOpen}
+        onOpenExplore={() => {
+          window.location.hash = '#explore';
+          setExploreRoute('hub');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
 
       {/* Why Astrofied Section */}
-      <section id="why-astrofied" className={`py-24 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
+      <section id="why-astrofied" className={`py-12 sm:py-16 md:py-18 lg:py-20 overflow-hidden ${isDarkMode ? '' : 'bg-white'}`}>
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-10 lg:gap-12 xl:gap-16">
             <motion.div
               initial={{ opacity: 0.8, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -328,39 +543,29 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="w-full md:w-7/12"
             >
-              <div className="flex flex-col sm:flex-row items-center gap-3 mb-8">
+              <div className="flex flex-col sm:flex-row items-center gap-3 mb-6 md:mb-8">
                 <img
                   src={logo}
                   alt="Astrofied Logo"
-                  className="w-28 h-28 md:w-32 md:h-32 lg:w-36 xl:w-44 lg:h-36 xl:h-44 object-contain"
+                  className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 xl:w-44 lg:h-36 xl:h-44 object-contain"
                   style={{ mixBlendMode: isDarkMode ? 'normal' : 'multiply' }}
                   loading="lazy"
                 />
-                <h1 className="text-4xl md:text-4xl lg:text-[2.75rem] xl:text-7xl font-bold leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-7xl font-bold leading-tight">
                   Why <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? 'from-red-600 to-yellow-500' : 'from-black to-[#FF0000]'}`} style={{ fontFamily: '"Nunito", sans-serif' }}>Astrofied?</span>
                 </h1>
               </div>
               <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">
-                <p>{WHY_SJ_TEXT.slice(0, 301)} {!showFullWhySj && '...'}</p>
-                <AnimatePresence>
-                  {showFullWhySj && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
-                      className="overflow-hidden"
-                    >
-                      <p>{WHY_SJ_TEXT.slice(301)}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <p>{WHY_SJ_TEXT.slice(0, 301)} ...</p>
               </div>
               <button
-                onClick={() => setShowFullWhySj(!showFullWhySj)}
-                className={`mt-4 font-bold transition-all flex items-center gap-2 hover:translate-x-1 ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}
+                onClick={() => {
+                  new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3').play().catch(() => {});
+                  setIsDetailsModalOpen(true);
+                }}
+                className={`mt-4 font-bold transition-all flex items-center gap-2 hover:translate-x-1 cursor-pointer ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}
               >
-                {showFullWhySj ? 'Read Less' : 'Read More'}
+                Read More
               </button>
             </motion.div>
           </div>
@@ -374,15 +579,15 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       <Numerology />
 
       {/* About Us Section */}
-      <section id="about" className="py-24 overflow-hidden">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-12 lg:gap-16">
+      <section id="about" className="pt-10 pb-4 sm:pt-14 sm:pb-6 md:pt-16 md:pb-8 lg:pt-18 lg:pb-8 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10 lg:gap-12 xl:gap-16">
             <motion.div
               initial={{ opacity: 0.8, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="w-full md:w-5/12 relative group mx-auto max-w-sm md:max-w-none"
+              className="w-full md:w-5/12 relative group mx-auto max-w-sm md:max-w-md lg:max-w-none"
             >
               <motion.div
                 animate={{ y: [0, -15, 0] }}
@@ -394,7 +599,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                   alt="Prasanta Chakraborty"
                   className="w-full h-auto max-w-full drop-shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-transform duration-700"
                   style={{
-                    filter: isDarkMode
+                     filter: isDarkMode
                       ? 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.2))'
                       : 'drop-shadow(0 0 20px rgba(75, 0, 130, 0.1))'
                   }}
@@ -408,7 +613,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className={`py-2 md:py-2.5 rounded-xl shadow-2xl border border-gold/30 w-full max-w-[420px] overflow-hidden flex items-center justify-center ${isDarkMode ? 'bg-[#17202A]' : 'bg-[#A30000]'}`}
+                    className={`py-2 md:py-2.5 rounded-xl shadow-2xl border border-gold/30 w-full max-w-[360px] sm:max-w-[420px] overflow-hidden flex items-center justify-center ${isDarkMode ? 'bg-[#17202A]' : 'bg-[#A30000]'}`}
                   >
                     <svg
                       viewBox="0 0 350 25"
@@ -443,7 +648,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="w-full md:w-7/12"
             >
-              <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-8 transition-colors ${isDarkMode ? 'text-white' : 'text-[#A30000]'}`}>
+              <h2 className={`text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 transition-colors ${isDarkMode ? 'text-white' : 'text-[#A30000]'}`}>
                 About Us
               </h2>
               <div className="text-base md:text-lg leading-relaxed text-justify opacity-80 whitespace-pre-line font-mulish relative">
@@ -485,7 +690,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       </section>
 
       {/* CTA Section */}
-      <section className="py-8 md:py-16 relative flex justify-center items-center overflow-hidden px-6">
+      <section className="pt-2 pb-10 sm:pt-2 sm:pb-14 md:pt-3 md:pb-16 lg:pt-4 lg:pb-18 relative flex justify-center items-center overflow-hidden px-4 sm:px-6">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -526,6 +731,10 @@ If you have any questions regarding this Privacy Policy or how your data is hand
         onClose={() => setLegalModal({ ...legalModal, isOpen: false })}
         title={legalModal.title}
         content={legalModal.content}
+      />
+      <ExploreModal
+        isOpen={isDetailsModalOpen}
+        onClose={() => setIsDetailsModalOpen(false)}
       />
       <WhatsAppButton />
       <ContentProtection />

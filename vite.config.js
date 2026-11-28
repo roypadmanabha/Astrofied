@@ -10,7 +10,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function newsfiedDevPlugin() {
   const dataFilePath = path.resolve(__dirname, 'src/data/newsfied.json');
+  const rashifalFilePath = path.resolve(__dirname, 'src/data/weeklyRashifal.json');
+  const politicalFilePath = path.resolve(__dirname, 'src/data/politicalPredictions.json');
   const imagesDirPath = path.resolve(__dirname, 'public/newsfied-images');
+  const politicalImagesDirPath = path.resolve(__dirname, 'public/political');
 
   return {
     name: 'vite-plugin-newsfied-api',
@@ -33,6 +36,159 @@ function newsfiedDevPlugin() {
             res.setHeader('Content-Type', mimeMap[ext] || 'application/octet-stream');
             res.setHeader('Cache-Control', 'public, max-age=3600');
             return fs.createReadStream(targetPath).pipe(res);
+          }
+        }
+
+        // Direct image serving helper for /political/
+        if (req.url && req.url.includes('/political/')) {
+          const filename = decodeURIComponent(req.url.split('/political/')[1].split('?')[0]);
+          const targetPath = path.join(politicalImagesDirPath, filename);
+          if (fs.existsSync(targetPath)) {
+            const ext = path.extname(targetPath).toLowerCase();
+            const mimeMap = {
+              '.png': 'image/png',
+              '.jpg': 'image/jpeg',
+              '.jpeg': 'image/jpeg',
+              '.webp': 'image/webp',
+              '.gif': 'image/gif',
+              '.svg': 'image/svg+xml'
+            };
+            res.setHeader('Content-Type', mimeMap[ext] || 'application/octet-stream');
+            res.setHeader('Cache-Control', 'public, max-age=3600');
+            return fs.createReadStream(targetPath).pipe(res);
+          }
+        }
+
+        // Dedicated lossless document upload endpoint for Political Analysis
+        if (req.url?.startsWith('/api/political/upload') && req.method === 'POST') {
+          let body = '';
+          req.on('data', chunk => { body += chunk; });
+          req.on('end', () => {
+            try {
+              fs.mkdirSync(politicalImagesDirPath, { recursive: true });
+              const { filename: originalName, data: base64Data } = JSON.parse(body || '{}');
+              const cleanExt = (originalName && path.extname(originalName).toLowerCase()) || '.png';
+              const cleanBase = (originalName ? path.basename(originalName, cleanExt) : 'document').replace(/[^a-zA-Z0-9_-]/g, '_');
+              const filename = `${cleanBase}_${Date.now()}${cleanExt}`;
+              const targetPath = path.join(politicalImagesDirPath, filename);
+              const rawData = (base64Data || '').replace(/^data:image\/[a-zA-Z+]+;base64,/, '');
+              const buffer = Buffer.from(rawData, 'base64');
+              fs.writeFileSync(targetPath, buffer);
+
+              res.setHeader('Content-Type', 'application/json');
+              return res.end(JSON.stringify({
+                success: true,
+                url: `/political/${filename}`,
+                bytes: buffer.length,
+                filename
+              }));
+            } catch (err) {
+              res.statusCode = 500;
+              return res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+          return;
+        }
+
+        // Weekly Rashifal API endpoints
+        if (req.url?.startsWith('/api/rashifal')) {
+          if (req.method === 'GET') {
+            try {
+              if (fs.existsSync(rashifalFilePath)) {
+                const data = fs.readFileSync(rashifalFilePath, 'utf-8');
+                res.setHeader('Content-Type', 'application/json');
+                return res.end(data || '{}');
+              }
+              res.setHeader('Content-Type', 'application/json');
+              return res.end('{}');
+            } catch (err) {
+              res.statusCode = 500;
+              return res.end(JSON.stringify({ error: err.message }));
+            }
+          }
+
+          if (req.method === 'POST') {
+            let body = '';
+            req.on('data', chunk => { body += chunk; });
+            req.on('end', () => {
+              try {
+                const payload = JSON.parse(body);
+                fs.writeFileSync(rashifalFilePath, JSON.stringify(payload, null, 2), 'utf-8');
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ success: true }));
+              } catch (err) {
+                res.statusCode = 500;
+                res.end(JSON.stringify({ error: err.message }));
+              }
+            });
+            return;
+          }
+        }
+
+        // Political Analysis API endpoints
+        if (req.url?.startsWith('/api/political')) {
+          if (req.method === 'GET') {
+            try {
+              if (fs.existsSync(politicalFilePath)) {
+                const data = fs.readFileSync(politicalFilePath, 'utf-8');
+                res.setHeader('Content-Type', 'application/json');
+                return res.end(data || '[]');
+              }
+              res.setHeader('Content-Type', 'application/json');
+              return res.end('[]');
+            } catch (err) {
+              res.statusCode = 500;
+              return res.end(JSON.stringify({ error: err.message }));
+            }
+          }
+
+          if (req.method === 'POST') {
+            let body = '';
+            req.on('data', chunk => { body += chunk; });
+            req.on('end', () => {
+              try {
+                let payload = JSON.parse(body);
+                fs.mkdirSync(politicalImagesDirPath, { recursive: true });
+
+                const saveBase64Image = (imgData) => {
+                  if (imgData && typeof imgData === 'string' && imgData.startsWith('data:image')) {
+                    const matches = imgData.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+                    if (matches && matches.length === 3) {
+                      const ext = matches[1].split('/')[1]?.replace('jpeg', 'jpg') || 'png';
+                      const filename = `pol_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${ext}`;
+                      const imgPath = path.join(politicalImagesDirPath, filename);
+                      fs.writeFileSync(imgPath, Buffer.from(matches[2], 'base64'));
+                      return `/political/${filename}`;
+                    }
+                  }
+                  return imgData;
+                };
+
+                if (Array.isArray(payload)) {
+                  payload = payload.map(item => ({
+                    ...item,
+                    prediction: {
+                      ...item.prediction,
+                      image: saveBase64Image(item.prediction?.image)
+                    },
+                    result: {
+                      ...item.result,
+                      image: saveBase64Image(item.result?.image)
+                    }
+                  }));
+                  fs.writeFileSync(politicalFilePath, JSON.stringify(payload, null, 2), 'utf-8');
+                  res.setHeader('Content-Type', 'application/json');
+                  return res.end(JSON.stringify({ success: true, count: payload.length }));
+                }
+
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ success: true }));
+              } catch (err) {
+                res.statusCode = 500;
+                res.end(JSON.stringify({ error: err.message }));
+              }
+            });
+            return;
           }
         }
 

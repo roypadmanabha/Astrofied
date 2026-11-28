@@ -104,16 +104,16 @@ export default function ContentProtection() {
   return (
     <AnimatePresence>
       {showToast && (
-        <div className="fixed top-28 left-0 right-0 z-[9999] flex justify-center px-4 pointer-events-none select-none">
+        <div className="fixed top-20 sm:top-24 left-0 right-0 z-[9999] flex justify-center px-4 pointer-events-none select-none">
           <motion.div
-            initial={{ opacity: 0, y: -40, scale: 0.95 }}
+            initial={{ opacity: 0, y: -14, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="pointer-events-auto flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-[#A30000] text-white shadow-2xl rounded-full max-w-[90vw] md:max-w-md border border-white/10"
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="pointer-events-auto flex items-center justify-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 bg-[#8B0000]/95 backdrop-blur-md text-white shadow-xl shadow-black/30 rounded-full max-w-[90vw] sm:max-w-max border border-white/20 whitespace-nowrap"
           >
-            <CircleAlert className="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" />
-            <span className="text-xs sm:text-sm md:text-base font-bold font-['Mulish'] tracking-wide">
+            <CircleAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#ffd700] shrink-0" />
+            <span className="text-xs sm:text-[13px] font-semibold font-['Mulish'] tracking-wide">
               Not allowed. Content protection enabled.
             </span>
           </motion.div>

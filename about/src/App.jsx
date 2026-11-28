@@ -316,16 +316,22 @@ If you have any questions regarding this Privacy Policy or how your data is hand
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 overflow-hidden ${isDarkMode ? 'dark text-white' : 'light text-[#0A0A0A]'}`}>
+    <div 
+      className={`min-h-screen transition-colors duration-500 overflow-hidden ${isDarkMode ? 'dark text-white' : 'light bg-white text-[#0A0A0A]'}`}
+      style={!isDarkMode ? { backgroundColor: '#ffffff' } : undefined}
+    >
 
       {/* Navbar */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md ${scrolled
           ? isDarkMode
             ? 'py-2 bg-black/60 border-b border-gold/20 shadow-2xl'
-            : 'py-2 bg-white/60 border-b border-[#A30000]/10 shadow-xl'
-          : 'py-4 bg-transparent'
+            : 'py-2 bg-[#f5f5dd]/95 border-b border-[#A30000]/10 shadow-md'
+          : isDarkMode
+            ? 'py-4 bg-transparent'
+            : 'py-3 sm:py-4 bg-[#f5f5dd] border-b border-[#A30000]/10 shadow-sm'
           }`}
+        style={!isDarkMode ? { backgroundColor: '#f5f5dd' } : undefined}
       >
         <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:pl-16 lg:pr-6 xl:pl-20 xl:pr-8 flex justify-between items-center">
           <motion.div
@@ -359,8 +365,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             <div className="hidden lg:flex items-center gap-8 xl:gap-10">
               <a
                 href={getHomeLink()}
-                className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
+                className={`text-base xl:text-lg font-mulish font-medium transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
                   }`}
+                style={{ fontFamily: '"Mulish", sans-serif', fontWeight: 500 }}
               >
                 Home
                 <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all group-hover:w-full ${isDarkMode ? 'bg-gold' : 'bg-[#A30000]'
@@ -368,8 +375,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </a>
               <a
                 href={getHomeLink('#services')}
-                className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
+                className={`text-base xl:text-lg font-mulish font-medium transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
                   }`}
+                style={{ fontFamily: '"Mulish", sans-serif', fontWeight: 500 }}
               >
                 Services
                 <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all group-hover:w-full ${isDarkMode ? 'bg-gold' : 'bg-[#A30000]'
@@ -377,8 +385,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </a>
               <a
                 href={getHomeLink('#journals')}
-                className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
+                className={`text-base xl:text-lg font-mulish font-medium transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
                   }`}
+                style={{ fontFamily: '"Mulish", sans-serif', fontWeight: 500 }}
               >
                 Journals
                 <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all group-hover:w-full ${isDarkMode ? 'bg-gold' : 'bg-[#A30000]'
@@ -391,11 +400,12 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                     e.preventDefault();
                   }
                 }}
-                className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${
+                className={`text-base xl:text-lg font-mulish font-medium transition-all relative group py-1 ${
                   !hasNewsfiedPosts
                     ? 'opacity-40 cursor-not-allowed text-gray-400 select-none'
                     : (isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]')
                 }`}
+                style={{ fontFamily: '"Mulish", sans-serif', fontWeight: 500 }}
               >
                 Newsfied
                 {hasNewsfiedPosts && (
@@ -404,8 +414,9 @@ If you have any questions regarding this Privacy Policy or how your data is hand
               </a>
               <a
                 href={getHomeLink('#footer')}
-                className={`text-base xl:text-lg font-bold transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
+                className={`text-base xl:text-lg font-mulish font-medium transition-all relative group py-1 ${isDarkMode ? 'text-gray-100 hover:text-gold' : 'text-black hover:text-[#A30000]'
                   }`}
+                style={{ fontFamily: '"Mulish", sans-serif', fontWeight: 500 }}
               >
                 Contact
                 <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all group-hover:w-full ${isDarkMode ? 'bg-gold' : 'bg-[#A30000]'
@@ -610,7 +621,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
       </AnimatePresence>
 
       {/* Hero Header */}
-      <header className="pt-24 pb-8 sm:pt-32 sm:pb-12 md:pt-40 md:pb-20 text-center px-4 sm:px-8 md:px-12 lg:px-16 relative">
+      <header className="pt-24 sm:pt-28 md:pt-32 pb-4 sm:pb-6 md:pb-8 text-center px-4 sm:px-8 md:px-12 lg:px-16 relative">
         {/* Subtle decorative lights */}
         <div className={`absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 sm:w-72 sm:h-72 rounded-full blur-[100px] sm:blur-[140px] opacity-25 -z-10 ${isDarkMode ? 'bg-gold' : 'bg-red-300'}`} />
 
@@ -620,7 +631,7 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className={`inline-flex items-center px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-[10px] border text-[11px] sm:text-xs font-bold tracking-widest uppercase mb-4 sm:mb-6 select-none font-mulish
+            <div className={`inline-flex items-center px-3 sm:px-4 py-0.5 sm:py-1.5 rounded-[8px] sm:rounded-[10px] border text-[10px] sm:text-xs font-bold tracking-wider sm:tracking-widest uppercase mb-2.5 sm:mb-4 select-none font-mulish
               ${isDarkMode
                 ? 'border-[#C9A227]/40 bg-[#C9A227]/5 text-[#C9A227]'
                 : 'border-[#A30000]/40 bg-[#A30000]/5 text-[#A30000]'
@@ -628,15 +639,18 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             >
               MEET THE FOUNDERS
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 sm:mb-6 font-['Nunito']">
+            <h1 
+              className="text-[20px] min-[380px]:text-[22px] min-[410px]:text-[24px] sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-0 font-['Nunito'] whitespace-nowrap leading-tight"
+              style={{ fontWeight: 650 }}
+            >
               The Minds Behind{' '}
-              <span className="astrofied-brand-text font-extrabold">
+              <span 
+                className="astrofied-brand-text"
+                style={{ fontWeight: 650 }}
+              >
                 Astrofied
               </span>
             </h1>
-            <p className={`text-xs sm:text-base md:text-lg lg:text-xl font-mulish max-w-2xl mx-auto leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              Combining traditional Vedic wisdom with modern technology to provide honest, accurate, and life-changing astrological guidance.
-            </p>
           </motion.div>
         </div>
       </header>
@@ -683,7 +697,12 @@ If you have any questions regarding this Privacy Policy or how your data is hand
                 <span className={`text-xs sm:text-sm font-bold uppercase tracking-widest font-mulish ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}>
                   FOUNDER & CHIEF ASTROLOGER
                 </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-1.5 sm:mt-2 mb-2 sm:mb-3 font-['Nunito'] font-extrabold tracking-tight">Shri Prasanta Chakraborty</h2>
+                <h2 
+                  className="text-2xl sm:text-3xl md:text-4xl mt-1.5 sm:mt-2 mb-2 sm:mb-3 font-mulish tracking-tight"
+                  style={{ fontFamily: '"Mulish", sans-serif', fontWeight: 550, fontVariationSettings: "'wght' 550" }}
+                >
+                  Shri Prasanta Chakraborty
+                </h2>
                 <div className={`h-1 w-16 sm:w-20 rounded-full bg-gradient-to-r ${isDarkMode ? 'from-gold to-transparent' : 'from-[#A30000] to-transparent'} mx-auto md:mx-0`} />
               </div>
 
@@ -787,9 +806,14 @@ If you have any questions regarding this Privacy Policy or how your data is hand
             <div className="md:col-span-7 flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1 space-y-4 sm:space-y-5 md:space-y-6">
               <div>
                 <span className={`text-xs sm:text-sm font-bold uppercase tracking-widest font-mulish ${isDarkMode ? 'text-gold' : 'text-[#A30000]'}`}>
-                  Management Lead
+                  MANAGEMENT
                 </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-1.5 sm:mt-2 mb-2 sm:mb-3 font-['Nunito'] font-extrabold tracking-tight">Padmanabha Roy</h2>
+                <h2 
+                  className="text-2xl sm:text-3xl md:text-4xl mt-1.5 sm:mt-2 mb-2 sm:mb-3 font-mulish tracking-tight"
+                  style={{ fontFamily: '"Mulish", sans-serif', fontWeight: 550, fontVariationSettings: "'wght' 550" }}
+                >
+                  Padmanabha Roy
+                </h2>
                 <div className={`h-1 w-16 sm:w-20 rounded-full bg-gradient-to-r ${isDarkMode ? 'from-gold to-transparent' : 'from-[#A30000] to-transparent'} mx-auto md:mx-0`} />
               </div>
 

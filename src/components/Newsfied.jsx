@@ -86,7 +86,8 @@ export default function Newsfied({ onOpenAdmin }) {
 
   const handleScroll = (direction) => {
     if (!scrollContainerRef.current) return;
-    const scrollAmount = Math.min(scrollContainerRef.current.clientWidth * 0.85, 380);
+    const cardEl = scrollContainerRef.current.querySelector('article');
+    const scrollAmount = cardEl ? cardEl.offsetWidth + 16 : Math.min(scrollContainerRef.current.clientWidth * 0.85, 380);
     scrollContainerRef.current.scrollBy({
       left: direction === 'left' ? -scrollAmount : scrollAmount,
       behavior: 'smooth',
@@ -224,82 +225,89 @@ export default function Newsfied({ onOpenAdmin }) {
               </p>
             </div>
 
-            {/* Right Controls: Live Badge, Admin Button, Carousel Navigation */}
-            <div className="flex items-center gap-3 self-end md:self-auto">
-              {/* Live Status Pill */}
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 sm:px-3 sm:py-1 rounded-full text-xs font-bold tracking-wider uppercase border border-red-500/40 bg-red-500/10 text-red-600 dark:text-red-400 select-none">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600" />
-                </span>
-                LIVE
-              </div>
+            {/* Right Controls: Live Badge, Share, Admin, and Scroll Navigation (<) (>) */}
+            <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 w-full md:w-auto mt-1 sm:mt-0">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                {/* Live Status Pill */}
+                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase border border-red-500/40 bg-red-500/10 text-red-600 dark:text-red-400 select-none">
+                  <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-red-600" />
+                  </span>
+                  LIVE
+                </div>
 
-              {/* Share Direct Section Link */}
-              <button
-                onClick={handleCopyLink}
-                title="Copy shareable link to Newsfied section"
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 sm:py-1.5 text-xs font-bold rounded-lg transition-all duration-200 border ${
-                  copiedLink
-                    ? 'bg-emerald-600 text-white border-emerald-500 scale-105'
-                    : isDarkMode
-                    ? 'border-white/20 text-white/80 hover:border-gold hover:text-gold hover:bg-white/5'
-                    : 'border-black/20 text-black/80 hover:border-[#A30000] hover:text-[#A30000] hover:bg-black/5'
-                }`}
-                style={{ fontFamily: '"Mulish", sans-serif' }}
-              >
-                {copiedLink ? <Check className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
-                <span className="hidden sm:inline">{copiedLink ? 'Link Copied!' : 'Share'}</span>
-              </button>
-
-              {/* Internal Admin Link (Only visible on localhost, opens in new tab) */}
-              {isLocalhost && (
-                <a
-                  href="/admin"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Open Internal Admin Panel in a new tab"
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 sm:py-1.5 text-xs font-bold rounded-lg transition-all duration-200 border ${
-                    isDarkMode
-                      ? 'border-gold/40 text-gold hover:bg-gold/10'
-                      : 'border-[#A30000]/40 text-[#A30000] hover:bg-[#A30000]/10'
+                {/* Share Direct Section Link */}
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  title="Copy shareable link to Newsfied section"
+                  className={`inline-flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1.5 text-[11px] sm:text-xs font-bold rounded-lg transition-all duration-200 border ${
+                    copiedLink
+                      ? 'bg-emerald-600 text-white border-emerald-500 scale-105'
+                      : isDarkMode
+                      ? 'border-white/20 text-white/80 hover:border-gold hover:text-gold hover:bg-white/5'
+                      : 'border-black/20 text-black/80 hover:border-[#A30000] hover:text-[#A30000] hover:bg-black/5'
                   }`}
                   style={{ fontFamily: '"Mulish", sans-serif' }}
                 >
-                  <Settings className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Admin Portal ↗</span>
-                </a>
-              )}
+                  {copiedLink ? <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> : <Share2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />}
+                  <span className="hidden xs:inline">{copiedLink ? 'Copied!' : 'Share'}</span>
+                </button>
 
-              {/* Desktop Scroll Arrows */}
-              <div className="hidden sm:flex items-center gap-1.5">
+                {/* Internal Admin Link (Only visible on localhost, opens in new tab) */}
+                {isLocalhost && (
+                  <a
+                    href="/admin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Open Internal Admin Panel in a new tab"
+                    className={`inline-flex items-center gap-1 px-2 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs font-bold rounded-lg transition-all duration-200 border ${
+                      isDarkMode
+                        ? 'border-gold/40 text-gold hover:bg-gold/10'
+                        : 'border-[#A30000]/40 text-[#A30000] hover:bg-[#A30000]/10'
+                    }`}
+                    style={{ fontFamily: '"Mulish", sans-serif' }}
+                  >
+                    <Settings className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    <span className="hidden md:inline">Admin Portal ↗</span>
+                  </a>
+                )}
+              </div>
+
+              {/* Scroll Arrows (<) (>) - Sized responsively per screensize (Mobile & Desktop) */}
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                 <button
+                  type="button"
                   onClick={() => handleScroll('left')}
                   disabled={!canScrollLeft}
                   aria-label="Previous updates"
-                  className={`p-2 rounded-full border transition-all duration-200 ${
+                  title={canScrollLeft ? "Previous update" : "Already at first update"}
+                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border transition-all duration-200 flex items-center justify-center cursor-pointer ${
                     canScrollLeft
                       ? isDarkMode
-                        ? 'border-white/30 text-white hover:border-gold hover:text-gold hover:bg-white/5 active:scale-95'
-                        : 'border-[#969000] text-black hover:bg-black/5 active:scale-95'
-                      : 'opacity-30 cursor-not-allowed border-transparent text-gray-400'
+                        ? 'border-white/30 text-white hover:border-gold hover:text-gold hover:bg-white/10 active:scale-90 shadow-sm'
+                        : 'border-[#969000] text-black hover:bg-black/5 active:scale-90 shadow-sm'
+                      : 'opacity-25 cursor-not-allowed border-black/10 dark:border-white/10 text-gray-400'
                   }`}
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
                 </button>
                 <button
+                  type="button"
                   onClick={() => handleScroll('right')}
                   disabled={!canScrollRight}
                   aria-label="Next updates"
-                  className={`p-2 rounded-full border transition-all duration-200 ${
+                  title={canScrollRight ? "Next update" : "Already at latest update"}
+                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border transition-all duration-200 flex items-center justify-center cursor-pointer ${
                     canScrollRight
                       ? isDarkMode
-                        ? 'border-white/30 text-white hover:border-gold hover:text-gold hover:bg-white/5 active:scale-95'
-                        : 'border-[#969000] text-black hover:bg-black/5 active:scale-95'
-                      : 'opacity-30 cursor-not-allowed border-transparent text-gray-400'
+                        ? 'border-white/30 text-white hover:border-gold hover:text-gold hover:bg-white/10 active:scale-90 shadow-sm'
+                        : 'border-[#969000] text-black hover:bg-black/5 active:scale-90 shadow-sm'
+                      : 'opacity-25 cursor-not-allowed border-black/10 dark:border-white/10 text-gray-400'
                   }`}
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
                 </button>
               </div>
             </div>
@@ -323,8 +331,8 @@ export default function Newsfied({ onOpenAdmin }) {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.05 }}
                   className={`group shrink-0 snap-start flex flex-col justify-between p-4 sm:p-5 rounded-[20px] sm:rounded-[24px] border transition-all duration-300 hover:-translate-y-1.5 ${
-                    /* Responsive card widths */
-                    'w-[84vw] max-w-[310px] xs:w-[290px] sm:w-[320px] md:w-[330px] lg:w-[340px]'
+                    /* Responsive card widths with natural peek on mobile */
+                    'w-[78vw] max-w-[285px] xs:w-[290px] sm:w-[320px] md:w-[330px] lg:w-[340px]'
                   } ${
                     isDarkMode
                       ? 'bg-white/[0.04] hover:bg-white/[0.08] border-[0.5px] border-white shadow-lg backdrop-blur-md'
